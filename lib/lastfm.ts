@@ -76,9 +76,12 @@ async function paginate<TResponse, TItem>(
   let page = 1
   while (true) {
     const data = await call<TResponse>({ ...params, page: String(page), limit: '200' })
-    all.push(...getItems(data))
+    const items = getItems(data)
+    if (items.length === 0) break
+    all.push(...items)
     if (all.length >= getTotal(data)) break
     page++
+    if (page > 200) break
     await new Promise((r) => setTimeout(r, 250))
   }
   return all

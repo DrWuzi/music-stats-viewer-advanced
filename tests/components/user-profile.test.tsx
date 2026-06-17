@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { UserProfile } from '@/components/user-profile'
 import type { Period } from '@/lib/lastfm'
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: vi.fn() }),
+}))
 
 const periods = ['7day', '1month', '3month', '6month', '12month', 'overall'] as Period[]
 const empty = Object.fromEntries(periods.map((p) => [p, []])) as Record<Period, never[]>

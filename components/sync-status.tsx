@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
 const COOLDOWN = 5 * 60
 
-function rel(date: Date): string {
-  const s = Math.floor((Date.now() - date.getTime()) / 1000)
+function rel(date: Date | string): string {
+  const s = Math.floor((Date.now() - new Date(date).getTime()) / 1000)
   if (s < 60) return 'just now'
   if (s < 3600) return `${Math.floor(s / 60)}m ago`
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`
@@ -21,6 +22,7 @@ export function SyncStatus({
   lastSyncedAt: Date | null
   isOwner: boolean
 }) {
+  const router = useRouter()
   const [cooldown, setCooldown] = useState(0)
   const [syncing, setSyncing] = useState(false)
   const [syncedAt, setSyncedAt] = useState(lastSyncedAt)
@@ -44,6 +46,7 @@ export function SyncStatus({
         const data = await res.json()
         setSyncedAt(new Date(data.lastSyncedAt))
         setCooldown(COOLDOWN)
+        router.refresh()
       }
     } finally {
       setSyncing(false)

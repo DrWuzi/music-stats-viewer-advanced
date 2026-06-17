@@ -51,7 +51,7 @@ export function UserProfile({
           <h1 className="text-2xl font-bold">{username}</h1>
           <p className="text-muted-foreground text-sm">
             {totalScrobbles.toLocaleString('en-US')} scrobbles · Member since{' '}
-            {registeredAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+            {new Date(registeredAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </p>
         </div>
         <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />

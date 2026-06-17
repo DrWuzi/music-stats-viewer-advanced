@@ -1,6 +1,10 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { SyncStatus } from '@/components/sync-status'
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: vi.fn() }),
+}))
 
 describe('SyncStatus', () => {
   it('shows "Never synced" when lastSyncedAt is null', () => {

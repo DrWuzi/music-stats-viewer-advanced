@@ -29,12 +29,16 @@ export async function syncUser(lastfmUsername: string): Promise<void> {
       lastfmClient.getTopAlbums(lastfmUsername, period),
       lastfmClient.getTopTracks(lastfmUsername, period),
     ])
-    await prisma.topArtist.deleteMany({ where: { userId: user.id, period } })
-    await prisma.topAlbum.deleteMany({ where: { userId: user.id, period } })
-    await prisma.topTrack.deleteMany({ where: { userId: user.id, period } })
-    await Promise.all([
+    await prisma.$transaction([
+      prisma.topArtist.deleteMany({ where: { userId: user.id, period } }),
       prisma.topArtist.createMany({ data: artists.map((a) => ({ ...a, userId: user.id, period })) }),
+    ])
+    await prisma.$transaction([
+      prisma.topAlbum.deleteMany({ where: { userId: user.id, period } }),
       prisma.topAlbum.createMany({ data: albums.map((a) => ({ ...a, userId: user.id, period })) }),
+    ])
+    await prisma.$transaction([
+      prisma.topTrack.deleteMany({ where: { userId: user.id, period } }),
       prisma.topTrack.createMany({ data: topTracks.map((t) => ({ ...t, userId: user.id, period })) }),
     ])
   }

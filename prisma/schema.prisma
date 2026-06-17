@@ -31,6 +31,7 @@ model Scrobble {
   scrobbledAt DateTime
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@unique([userId, artist, track, scrobbledAt])
   @@index([userId, scrobbledAt])
 }
 

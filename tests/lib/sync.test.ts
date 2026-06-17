@@ -8,6 +8,7 @@ vi.mock('@/lib/prisma', () => ({
     topAlbum: { deleteMany: vi.fn(), createMany: vi.fn() },
     topTrack: { deleteMany: vi.fn(), createMany: vi.fn() },
     lovedTrack: { findMany: vi.fn(), createMany: vi.fn() },
+    $transaction: vi.fn((ops: Promise<unknown>[]) => Promise.all(ops)),
   },
 }))
 

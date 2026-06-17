@@ -12,7 +12,7 @@ function buildData(scrobbles: { scrobbledAt: Date }[]) {
     counts[d.toISOString().slice(0, 10)] = 0
   }
   for (const s of scrobbles) {
-    const k = s.scrobbledAt.toISOString().slice(0, 10)
+    const k = new Date(s.scrobbledAt).toISOString().slice(0, 10)
     if (k in counts) counts[k]++
   }
   return Object.entries(counts).map(([date, count]) => ({ date: date.slice(5), count }))
