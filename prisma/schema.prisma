@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
@@ -10,4 +5,80 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id                String    @id @default(cuid())
+  lastfmUsername    String    @unique
+  sessionKey        String
+  lastSyncedAt      DateTime?
+  lastManualSyncAt  DateTime?
+  createdAt         DateTime  @default(now())
+
+  scrobbles   Scrobble[]
+  topArtists  TopArtist[]
+  topAlbums   TopAlbum[]
+  topTracks   TopTrack[]
+  lovedTracks LovedTrack[]
+}
+
+model Scrobble {
+  id          String   @id @default(cuid())
+  userId      String
+  artist      String
+  album       String?
+  track       String
+  scrobbledAt DateTime
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, scrobbledAt])
+}
+
+model TopArtist {
+  id        String @id @default(cuid())
+  userId    String
+  name      String
+  playcount Int
+  period    String
+  rank      Int
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name, period])
+}
+
+model TopAlbum {
+  id        String @id @default(cuid())
+  userId    String
+  name      String
+  artist    String
+  playcount Int
+  period    String
+  rank      Int
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name, artist, period])
+}
+
+model TopTrack {
+  id        String @id @default(cuid())
+  userId    String
+  name      String
+  artist    String
+  playcount Int
+  period    String
+  rank      Int
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name, artist, period])
+}
+
+model LovedTrack {
+  id      String   @id @default(cuid())
+  userId  String
+  artist  String
+  track   String
+  lovedAt DateTime
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, artist, track])
 }
