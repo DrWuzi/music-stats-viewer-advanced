@@ -11,7 +11,6 @@ export interface LastFmTrack {
   artist: string
   album: string | null
   scrobbledAt: Date | null
-  nowPlaying: boolean
 }
 
 export interface LastFmArtist {
@@ -113,7 +112,6 @@ export const lastfmClient = {
         artist: t.artist['#text'],
         album: t.album['#text'] || null,
         scrobbledAt: t.date ? new Date(Number(t.date.uts) * 1000) : null,
-        nowPlaying: false,
       }))
   },
 
