@@ -9,7 +9,7 @@ export async function syncUser(lastfmUsername: string): Promise<void> {
 
   const from = user.lastSyncedAt ? Math.floor(user.lastSyncedAt.getTime() / 1000) : undefined
 
-  const tracks = await lastfmClient.getRecentTracks(lastfmUsername, from)
+  const tracks = await lastfmClient.getRecentTracks(lastfmUsername, from, user.sessionKey || undefined)
   if (tracks.length > 0) {
     await prisma.scrobble.createMany({
       data: tracks.map((t) => ({

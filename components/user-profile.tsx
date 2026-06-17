@@ -58,7 +58,7 @@ export function UserProfile({
       </div>
 
       <div className="grid gap-6">
-        <StatsChart scrobbles={allScrobbles} />
+        <StatsChart username={username} scrobbles={allScrobbles} />
         <TopLists
           artists={topArtists[period]}
           albums={topAlbums[period]}

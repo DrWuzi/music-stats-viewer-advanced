@@ -1,0 +1,93 @@
+'use client'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+interface LovedTrack {
+  artist: string
+  track: string
+  lovedAt: Date | string
+}
+
+interface MonthGroup {
+  key: string
+  label: string
+  tracks: LovedTrack[]
+}
+
+function formatMonthLabel(key: string): string {
+  const [year, month] = key.split('-')
+  const date = new Date(Number(year), Number(month) - 1, 1)
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+}
+
+function toYearMonth(date: Date | string): string {
+  const d = new Date(date)
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  return `${year}-${month}`
+}
+
+export function LovedTracksTimeline({
+  lovedTracks,
+}: {
+  lovedTracks: LovedTrack[]
+}) {
+  const groupMap: Record<string, LovedTrack[]> = {}
+
+  for (const track of lovedTracks) {
+    const key = toYearMonth(track.lovedAt)
+    if (!groupMap[key]) groupMap[key] = []
+    groupMap[key].push(track)
+  }
+
+  const allMonths: MonthGroup[] = Object.entries(groupMap)
+    .map(([key, tracks]) => ({ key, label: formatMonthLabel(key), tracks }))
+    .sort((a, b) => b.key.localeCompare(a.key))
+
+  const months = allMonths.slice(0, 6)
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Loved Timeline</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {months.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No loved tracks yet.</p>
+        ) : (
+          <div className="flex flex-col gap-5">
+            {months.map((month) => {
+              const visible = month.tracks.slice(0, 5)
+              const overflow = month.tracks.length - visible.length
+
+              return (
+                <div key={month.key}>
+                  <h3 className="mb-2 text-sm font-semibold text-foreground">
+                    {month.label}
+                  </h3>
+                  <ul className="flex flex-col gap-1">
+                    {visible.map((t, i) => (
+                      <li
+                        key={`${month.key}-${i}`}
+                        className="text-sm text-muted-foreground"
+                      >
+                        <span className="font-medium text-foreground">{t.track}</span>
+                        {' — '}
+                        {t.artist}
+                      </li>
+                    ))}
+                    {overflow > 0 && (
+                      <li className="text-xs text-muted-foreground italic">
+                        and {overflow} more…
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}

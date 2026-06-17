@@ -47,7 +47,14 @@ export default async function UserProfilePage({ params }: Props) {
     if (!user) notFound()
   }
 
-  const userInfo = await lastfmClient.getUserInfo(username).catch(() => null)
+  const thirtyDaysAgo = new Date(Date.now() - 360 * 24 * 60 * 60 * 1000)
+  const [userInfo, chartScrobbles] = await Promise.all([
+    lastfmClient.getUserInfo(username).catch(() => null),
+    prisma.scrobble.findMany({
+      where: { userId: user.id, scrobbledAt: { gte: thirtyDaysAgo } },
+      select: { scrobbledAt: true },
+    }),
+  ])
   const isOwner = session?.lastfmUsername === username
 
   return (
@@ -68,7 +75,7 @@ export default async function UserProfilePage({ params }: Props) {
       topAlbums={groupByPeriod(user.topAlbums)}
       topTracks={groupByPeriod(user.topTracks)}
       lovedTracks={user.lovedTracks.map((l) => ({ artist: l.artist, track: l.track, lovedAt: l.lovedAt }))}
-      allScrobbles={user.scrobbles.map((s) => ({ scrobbledAt: s.scrobbledAt }))}
+      allScrobbles={chartScrobbles}
     />
   )
 }

@@ -57,8 +57,10 @@ function sign(params: Record<string, string>): string {
 }
 
 async function call<T>(params: Record<string, string>): Promise<T> {
+  const withKey: Record<string, string> = { ...params, api_key: key() }
+  if (withKey.sk) withKey.api_sig = sign(withKey)
   const url = new URL(BASE)
-  Object.entries({ ...params, api_key: key(), format: 'json' }).forEach(([k, v]) =>
+  Object.entries({ ...withKey, format: 'json' }).forEach(([k, v]) =>
     url.searchParams.set(k, v),
   )
   const res = await fetch(url.toString())
@@ -88,7 +90,7 @@ async function paginate<TResponse, TItem>(
 }
 
 export const lastfmClient = {
-  async getRecentTracks(username: string, from?: number): Promise<LastFmTrack[]> {
+  async getRecentTracks(username: string, from?: number, sk?: string): Promise<LastFmTrack[]> {
     type R = {
       recenttracks: {
         track: Array<{
@@ -103,6 +105,7 @@ export const lastfmClient = {
     }
     const p: Record<string, string> = { method: 'user.getrecenttracks', user: username }
     if (from) p.from = String(from)
+    if (sk) p.sk = sk
     const items = await paginate<R, R['recenttracks']['track'][0]>(
       p,
       (d) => d.recenttracks.track,

@@ -7,12 +7,12 @@ describe('StatsChart', () => {
     const scrobbles = Array.from({ length: 5 }, (_, i) => ({
       scrobbledAt: new Date(Date.now() - i * 86400000),
     }))
-    render(<StatsChart scrobbles={scrobbles} />)
+    render(<StatsChart username="testuser" scrobbles={scrobbles} />)
     expect(screen.getByText(/scrobbles/i)).toBeInTheDocument()
   })
 
   it('renders empty state with no scrobbles', () => {
-    render(<StatsChart scrobbles={[]} />)
+    render(<StatsChart username="testuser" scrobbles={[]} />)
     expect(screen.getByText(/no scrobble data/i)).toBeInTheDocument()
   })
 })
