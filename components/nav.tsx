@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Search } from 'lucide-react'
 import { getSession } from '@/lib/session'
 import { Button } from '@/components/ui/button'
 
@@ -12,6 +13,13 @@ export async function Nav() {
           Last.fm Advanced
         </Link>
         <div className="flex items-center gap-3">
+          <Link href="/search" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+            <Search className="h-4 w-4" />
+            Search
+          </Link>
+          <Link href="/compare" className="text-sm text-muted-foreground hover:text-foreground">
+            Compare
+          </Link>
           {session ? (
             <>
               <Link href={`/user/${session.lastfmUsername}`} className="text-sm text-muted-foreground hover:text-foreground">

@@ -7,6 +7,18 @@ import { RecentTracks } from '@/components/recent-tracks'
 import { TopLists } from '@/components/top-lists'
 import { LovedTracks } from '@/components/loved-tracks'
 import { StatsChart } from '@/components/stats-chart'
+import { NowPlaying } from '@/components/now-playing'
+import { HourlyHeatmap } from '@/components/hourly-heatmap'
+import { DayOfWeekChart } from '@/components/day-of-week-chart'
+import { ListeningClock } from '@/components/listening-clock'
+import { ListeningStreaks } from '@/components/listening-streaks'
+import { ListeningSessions } from '@/components/listening-sessions'
+import { Milestones } from '@/components/milestones'
+import { NewDiscoveries } from '@/components/new-discoveries'
+import { GenreBreakdown } from '@/components/genre-breakdown'
+import { LovedTracksTimeline } from '@/components/loved-tracks-timeline'
+import { ExportButton } from '@/components/export-button'
+import { LastActivityNudge } from '@/components/last-activity-nudge'
 import type { Period } from '@/lib/lastfm'
 
 interface UserProfileProps {
@@ -42,7 +54,8 @@ export function UserProfile({
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <div className="flex items-center gap-4 mb-6">
+      <NowPlaying username={username} />
+      <div className="flex items-center gap-4 mb-6 mt-4">
         <Avatar className="h-16 w-16">
           <AvatarImage src={imageUrl} alt={username} />
           <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
@@ -53,12 +66,26 @@ export function UserProfile({
             {totalScrobbles.toLocaleString('en-US')} scrobbles · Member since{' '}
             {new Date(registeredAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </p>
+          <LastActivityNudge lastSyncedAt={lastSyncedAt} />
         </div>
-        <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          {isOwner && <ExportButton username={username} />}
+          <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
+        </div>
       </div>
 
       <div className="grid gap-6">
         <StatsChart username={username} scrobbles={allScrobbles} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <HourlyHeatmap scrobbles={allScrobbles} />
+          <DayOfWeekChart scrobbles={allScrobbles} />
+          <ListeningClock scrobbles={allScrobbles} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <ListeningStreaks scrobbles={allScrobbles} />
+          <ListeningSessions scrobbles={allScrobbles} />
+          <Milestones totalScrobbles={totalScrobbles} />
+        </div>
         <TopLists
           artists={topArtists[period]}
           albums={topAlbums[period]}
@@ -66,10 +93,13 @@ export function UserProfile({
           period={period}
           onPeriodChange={setPeriod}
         />
+        <NewDiscoveries username={username} />
+        <GenreBreakdown username={username} />
         <div className="grid md:grid-cols-2 gap-6">
           <RecentTracks tracks={recentTracks} />
           <LovedTracks tracks={lovedTracks} />
         </div>
+        <LovedTracksTimeline lovedTracks={lovedTracks} />
       </div>
     </div>
   )
