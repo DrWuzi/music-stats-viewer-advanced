@@ -48,7 +48,7 @@ export function DayOfWeekChart({
             <XAxis dataKey="name" tick={{ fontSize: 11 }} />
             <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
             <Tooltip
-              formatter={(value: number) => [value, 'Scrobbles']}
+              formatter={(value) => [value, 'Scrobbles']}
               cursor={{ fill: 'hsl(var(--muted))' }}
             />
             <Bar

@@ -60,10 +60,7 @@ export function ListeningClock({
               label={false}
             />
             <Tooltip
-              formatter={(value: number, _name: string, props: { payload?: { name?: string } }) => [
-                value,
-                props?.payload?.name ?? 'Hour',
-              ]}
+              formatter={(value, _name, props) => [value, (props as { payload?: { name?: string } })?.payload?.name ?? 'Hour']}
             />
           </RadialBarChart>
         </ResponsiveContainer>
