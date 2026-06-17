@@ -1,0 +1,199 @@
+import { createHash } from 'crypto'
+
+const BASE = 'https://ws.audioscrobbler.com/2.0/'
+const key = () => process.env.LASTFM_API_KEY!
+const secret = () => process.env.LASTFM_API_SECRET!
+
+export type Period = '7day' | '1month' | '3month' | '6month' | '12month' | 'overall'
+
+export interface LastFmTrack {
+  name: string
+  artist: string
+  album: string | null
+  scrobbledAt: Date | null
+  nowPlaying: boolean
+}
+
+export interface LastFmArtist {
+  name: string
+  playcount: number
+  rank: number
+}
+
+export interface LastFmAlbum {
+  name: string
+  artist: string
+  playcount: number
+  rank: number
+}
+
+export interface LastFmTrackTop {
+  name: string
+  artist: string
+  playcount: number
+  rank: number
+}
+
+export interface LastFmLovedTrack {
+  name: string
+  artist: string
+  lovedAt: Date
+}
+
+export interface LastFmUserInfo {
+  name: string
+  playcount: number
+  registered: Date
+  imageUrl: string
+}
+
+function sign(params: Record<string, string>): string {
+  const str =
+    Object.keys(params)
+      .sort()
+      .filter((k) => k !== 'format')
+      .map((k) => `${k}${params[k]}`)
+      .join('') + secret()
+  return createHash('md5').update(str).digest('hex')
+}
+
+async function call<T>(params: Record<string, string>): Promise<T> {
+  const url = new URL(BASE)
+  Object.entries({ ...params, api_key: key(), format: 'json' }).forEach(([k, v]) =>
+    url.searchParams.set(k, v),
+  )
+  const res = await fetch(url.toString())
+  const data = await res.json()
+  if (data.error) throw new Error(data.message ?? `Last.fm error ${data.error}`)
+  return data as T
+}
+
+async function paginate<TResponse, TItem>(
+  params: Record<string, string>,
+  getItems: (d: TResponse) => TItem[],
+  getTotal: (d: TResponse) => number,
+): Promise<TItem[]> {
+  const all: TItem[] = []
+  let page = 1
+  while (true) {
+    const data = await call<TResponse>({ ...params, page: String(page), limit: '200' })
+    all.push(...getItems(data))
+    if (all.length >= getTotal(data)) break
+    page++
+    await new Promise((r) => setTimeout(r, 250))
+  }
+  return all
+}
+
+export const lastfmClient = {
+  async getRecentTracks(username: string, from?: number): Promise<LastFmTrack[]> {
+    type R = {
+      recenttracks: {
+        track: Array<{
+          name: string
+          artist: { '#text': string }
+          album: { '#text': string }
+          date?: { uts: string }
+          '@attr'?: { nowplaying: string }
+        }>
+        '@attr': { total: string }
+      }
+    }
+    const p: Record<string, string> = { method: 'user.getrecenttracks', user: username }
+    if (from) p.from = String(from)
+    const items = await paginate<R, R['recenttracks']['track'][0]>(
+      p,
+      (d) => d.recenttracks.track,
+      (d) => Number(d.recenttracks['@attr'].total),
+    )
+    return items
+      .filter((t) => !t['@attr']?.nowplaying)
+      .map((t) => ({
+        name: t.name,
+        artist: t.artist['#text'],
+        album: t.album['#text'] || null,
+        scrobbledAt: t.date ? new Date(Number(t.date.uts) * 1000) : null,
+        nowPlaying: false,
+      }))
+  },
+
+  async getTopArtists(username: string, period: Period): Promise<LastFmArtist[]> {
+    type R = { topartists: { artist: Array<{ name: string; playcount: string; '@attr': { rank: string } }> } }
+    const data = await call<R>({ method: 'user.gettopartists', user: username, period, limit: '50' })
+    return data.topartists.artist.map((a) => ({
+      name: a.name,
+      playcount: Number(a.playcount),
+      rank: Number(a['@attr'].rank),
+    }))
+  },
+
+  async getTopAlbums(username: string, period: Period): Promise<LastFmAlbum[]> {
+    type R = { topalbums: { album: Array<{ name: string; artist: { name: string }; playcount: string; '@attr': { rank: string } }> } }
+    const data = await call<R>({ method: 'user.gettopalbums', user: username, period, limit: '50' })
+    return data.topalbums.album.map((a) => ({
+      name: a.name,
+      artist: a.artist.name,
+      playcount: Number(a.playcount),
+      rank: Number(a['@attr'].rank),
+    }))
+  },
+
+  async getTopTracks(username: string, period: Period): Promise<LastFmTrackTop[]> {
+    type R = { toptracks: { track: Array<{ name: string; artist: { name: string }; playcount: string; '@attr': { rank: string } }> } }
+    const data = await call<R>({ method: 'user.gettoptracks', user: username, period, limit: '50' })
+    return data.toptracks.track.map((t) => ({
+      name: t.name,
+      artist: t.artist.name,
+      playcount: Number(t.playcount),
+      rank: Number(t['@attr'].rank),
+    }))
+  },
+
+  async getLovedTracks(username: string): Promise<LastFmLovedTrack[]> {
+    type R = {
+      lovedtracks: {
+        track: Array<{ name: string; artist: { name: string }; date: { uts: string } }>
+        '@attr': { total: string }
+      }
+    }
+    const items = await paginate<R, R['lovedtracks']['track'][0]>(
+      { method: 'user.getlovedtracks', user: username },
+      (d) => d.lovedtracks.track,
+      (d) => Number(d.lovedtracks['@attr'].total),
+    )
+    return items.map((t) => ({
+      name: t.name,
+      artist: t.artist.name,
+      lovedAt: new Date(Number(t.date.uts) * 1000),
+    }))
+  },
+
+  async getUserInfo(username: string): Promise<LastFmUserInfo> {
+    type R = {
+      user: {
+        name: string
+        playcount: string
+        registered: { unixtime: string }
+        image: Array<{ '#text': string; size: string }>
+      }
+    }
+    const data = await call<R>({ method: 'user.getinfo', user: username })
+    const img = data.user.image.find((i) => i.size === 'large')
+    return {
+      name: data.user.name,
+      playcount: Number(data.user.playcount),
+      registered: new Date(Number(data.user.registered.unixtime) * 1000),
+      imageUrl: img?.['#text'] ?? '',
+    }
+  },
+
+  async getSession(token: string): Promise<{ name: string; key: string }> {
+    const params = { method: 'auth.getSession', api_key: key(), token }
+    const sig = sign(params)
+    const url = `${BASE}?method=auth.getSession&api_key=${key()}&token=${token}&api_sig=${sig}&format=json`
+    const res = await fetch(url)
+    const data = await res.json()
+    if (data.error) throw new Error(data.message ?? 'Failed to get Last.fm session')
+    return { name: data.session.name, key: data.session.key }
+  },
+}
