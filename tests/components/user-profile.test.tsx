@@ -28,7 +28,7 @@ describe('UserProfile', () => {
         allScrobbles={[]}
       />,
     )
-    expect(screen.getByText('testuser')).toBeInTheDocument()
+    expect(screen.getAllByText('testuser').length).toBeGreaterThan(0)
     expect(screen.getByText(/1,234 scrobbles/)).toBeInTheDocument()
   })
 })

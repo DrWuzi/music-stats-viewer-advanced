@@ -19,6 +19,24 @@ import { GenreBreakdown } from '@/components/genre-breakdown'
 import { LovedTracksTimeline } from '@/components/loved-tracks-timeline'
 import { ExportButton } from '@/components/export-button'
 import { LastActivityNudge } from '@/components/last-activity-nudge'
+import { ListeningTimeEstimate } from '@/components/listening-time-estimate'
+import { NightOwlStats } from '@/components/night-owl-stats'
+import { WeeklyPattern } from '@/components/weekly-pattern'
+import { ArtistLoyalty } from '@/components/artist-loyalty'
+import { ScrobbleVelocity } from '@/components/scrobble-velocity'
+import { RepeatPlays } from '@/components/repeat-plays'
+import { ListeningGap } from '@/components/listening-gap'
+import { Rediscovery } from '@/components/rediscovery'
+import { SimilarUnheard } from '@/components/similar-unheard'
+import { HiddenGems } from '@/components/hidden-gems'
+import { NewReleases } from '@/components/new-releases'
+import { ListeningTreemap } from '@/components/listening-treemap'
+import { YoYChart } from '@/components/yoy-chart'
+import { ScatterPlot } from '@/components/scatter-plot'
+import { AlbumCompletion } from '@/components/album-completion'
+import { MusicTimeline } from '@/components/music-timeline'
+import { TasteBadge } from '@/components/taste-badge'
+import { ResyncButton } from '@/components/resync-button'
 import type { Period } from '@/lib/lastfm'
 
 interface UserProfileProps {
@@ -52,6 +70,9 @@ export function UserProfile({
 }: UserProfileProps) {
   const [period, setPeriod] = useState<Period>('7day')
 
+  const topArtistsOverall = topArtists['overall'] ?? []
+  const topTracksOverall = topTracks['overall'] ?? []
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <NowPlaying username={username} />
@@ -69,6 +90,7 @@ export function UserProfile({
           <LastActivityNudge lastSyncedAt={lastSyncedAt} />
         </div>
         <div className="flex items-center gap-2 flex-wrap justify-end">
+          {isOwner && <ResyncButton username={username} />}
           {isOwner && <ExportButton username={username} />}
           <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
         </div>
@@ -76,16 +98,37 @@ export function UserProfile({
 
       <div className="grid gap-6">
         <StatsChart username={username} scrobbles={allScrobbles} />
+
+        {/* Stats row: 2×2 grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <ListeningTimeEstimate totalScrobbles={totalScrobbles} />
+          <NightOwlStats scrobbles={allScrobbles} />
+          <WeeklyPattern scrobbles={allScrobbles} />
+          <ArtistLoyalty topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} />
+        </div>
+
+        {/* Velocity chart full-width */}
+        <ScrobbleVelocity scrobbles={allScrobbles} />
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <HourlyHeatmap scrobbles={allScrobbles} />
           <DayOfWeekChart scrobbles={allScrobbles} />
           <ListeningClock scrobbles={allScrobbles} />
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <ListeningStreaks scrobbles={allScrobbles} />
           <ListeningSessions scrobbles={allScrobbles} />
           <Milestones totalScrobbles={totalScrobbles} />
         </div>
+
+        {/* Visualizations: treemap and YoY chart full-width */}
+        <ListeningTreemap topArtists={topArtistsOverall} />
+        <YoYChart scrobbles={allScrobbles} />
+
+        {/* Scatter plot full-width */}
+        <ScatterPlot topArtists={topArtistsOverall} topTracks={topTracksOverall} />
+
         <TopLists
           artists={topArtists[period]}
           albums={topAlbums[period]}
@@ -93,8 +136,33 @@ export function UserProfile({
           period={period}
           onPeriodChange={setPeriod}
         />
+
+        {/* Discovery section: 2×2 grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <SimilarUnheard username={username} />
+          <HiddenGems username={username} />
+          <NewReleases username={username} />
+          <Rediscovery username={username} />
+        </div>
+
         <NewDiscoveries username={username} />
         <GenreBreakdown username={username} />
+
+        {/* Repeat plays full-width */}
+        <RepeatPlays username={username} />
+
+        {/* Listening gap full-width */}
+        <ListeningGap scrobbles={allScrobbles} />
+
+        {/* Music timeline + taste badge side by side */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <MusicTimeline username={username} />
+          <TasteBadge username={username} topArtists={topArtistsOverall} />
+        </div>
+
+        {/* Album completion full-width */}
+        <AlbumCompletion username={username} />
+
         <div className="grid md:grid-cols-2 gap-6">
           <RecentTracks tracks={recentTracks} />
           <LovedTracks tracks={lovedTracks} />

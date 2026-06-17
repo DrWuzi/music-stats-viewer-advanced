@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { Search } from 'lucide-react'
+import { Search, Trophy } from 'lucide-react'
 import { getSession } from '@/lib/session'
 import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export async function Nav() {
   const session = await getSession()
@@ -20,6 +21,10 @@ export async function Nav() {
           <Link href="/compare" className="text-sm text-muted-foreground hover:text-foreground">
             Compare
           </Link>
+          <Link href="/leaderboard" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+            <Trophy className="h-4 w-4" />
+            Leaderboard
+          </Link>
           {session ? (
             <>
               <Link href={`/user/${session.lastfmUsername}`} className="text-sm text-muted-foreground hover:text-foreground">
@@ -37,6 +42,7 @@ export async function Nav() {
               <Button size="sm">Sign in</Button>
             </Link>
           )}
+          <ThemeToggle />
         </div>
       </div>
     </header>
