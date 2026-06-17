@@ -6,8 +6,16 @@ const USER_DELAY_MS = 300
 
 async function runCycle() {
   console.log(`[worker] Sync cycle started at ${new Date().toISOString()}`)
+  // Sync authenticated users every cycle; sync public stubs only if not synced in last 6 hours
+  const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000)
   const users = await prisma.user.findMany({
-    where: { sessionKey: { not: '' } },
+    where: {
+      OR: [
+        { sessionKey: { not: '' } },
+        { lastSyncedAt: { lt: sixHoursAgo } },
+        { lastSyncedAt: null },
+      ],
+    },
     select: { lastfmUsername: true },
   })
   console.log(`[worker] Syncing ${users.length} users`)

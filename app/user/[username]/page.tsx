@@ -35,13 +35,17 @@ export default async function UserProfilePage({ params }: Props) {
 
   let user = await prisma.user.findUnique({ where: { lastfmUsername: username }, include: INCLUDE })
 
-  if (!user) {
+  // Sync if: user doesn't exist yet, OR exists but never completed a sync
+  if (!user || !user.lastSyncedAt) {
     try {
-      await lastfmClient.getUserInfo(username)
-      await prisma.user.create({ data: { lastfmUsername: username, sessionKey: '' } })
+      await lastfmClient.getUserInfo(username) // 404s if username invalid on Last.fm
+      if (!user) {
+        await prisma.user.create({ data: { lastfmUsername: username, sessionKey: '' } })
+      }
       await syncUser(username)
-    } catch {
-      notFound()
+    } catch (err) {
+      // If user was never in DB and sync failed, 404. If stub exists, fall through and show what we have.
+      if (!user) notFound()
     }
     user = await prisma.user.findUnique({ where: { lastfmUsername: username }, include: INCLUDE })
     if (!user) notFound()
