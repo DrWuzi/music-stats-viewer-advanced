@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import { useState, useEffect } from 'react'
+import React from 'react'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
@@ -51,6 +52,12 @@ export function StatsChart({
 
   const data = buildData(scrobbles, days)
 
+  useEffect(() => {
+    const handler = (e: Event) => { setDays((e as CustomEvent).detail as DayRange) }
+    window.addEventListener("setChartPeriod", handler)
+    return () => window.removeEventListener("setChartPeriod", handler)
+  }, [])
+
   async function handleBarClick(entry: { date: string }) {
     setActiveDate(entry.date)
     setSheetOpen(true)
@@ -93,21 +100,34 @@ export function StatsChart({
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={data} onClick={(e: unknown) => {
-              const payload = (e as { activePayload?: { payload: { date: string } }[] })?.activePayload
-              if (payload?.[0]) handleBarClick(payload[0].payload)
-            }}>
+            <BarChart data={data}>
               <XAxis dataKey="label" tick={{ fontSize: 10 }} interval={xAxisInterval(days)} />
               <YAxis tick={{ fontSize: 10 }} />
-              <Tooltip labelFormatter={(_, payload) => payload?.[0]?.payload?.date ?? ''} />
-              <Bar dataKey="count" radius={[2, 2, 0, 0]} cursor="pointer">
+              <Tooltip labelFormatter={(_, payload) => {
+                const date = payload?.[0]?.payload?.date
+                if (!date) return ""
+                const d = new Date(date)
+                const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+                return date + " (" + days[d.getDay()] + ")"
+              }} />
+              <Bar
+                dataKey="count"
+                radius={[2, 2, 0, 0]}
+                cursor="pointer"
+                onClick={(data) => handleBarClick(data as unknown as { date: string })}
+              >
                 {data.map((entry) => (
                   <Cell
                     key={entry.date}
-                    fill={entry.date === activeDate ? 'hsl(var(--primary) / 0.7)' : 'hsl(var(--primary))'}
+                    fill="var(--primary)"
+                    fillOpacity={entry.date === activeDate ? 0.7 : 1}
                   />
                 ))}
               </Bar>
+              {days > 30 && (() => {
+                const weekBoundaries = data.filter((_,i) => i > 0 && i % 7 === 0).map(d => d.label)
+                return weekBoundaries.map(label => React.createElement(ReferenceLine, {key:label, x:label, stroke:"var(--border)", strokeDasharray:"3 3"}))
+              })()}
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

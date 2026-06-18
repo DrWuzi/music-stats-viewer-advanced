@@ -40,7 +40,7 @@ export function ArtistChart({ data, title }: { data: MonthDatum[]; title: string
             <Tooltip
               labelFormatter={(_, payload) => payload?.[0]?.payload?.month ?? ''}
             />
-            <Bar dataKey="count" fill="hsl(var(--primary))" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="count" fill="var(--primary)" radius={[2, 2, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

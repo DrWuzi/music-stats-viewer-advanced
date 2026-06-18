@@ -56,7 +56,7 @@ export default async function UserProfilePage({ params }: Props) {
     lastfmClient.getUserInfo(username).catch(() => null),
     prisma.scrobble.findMany({
       where: { userId: user.id, scrobbledAt: { gte: thirtyDaysAgo } },
-      select: { scrobbledAt: true },
+      select: { scrobbledAt: true, artist: true, track: true },
     }),
   ])
   const isOwner = session?.lastfmUsername === username

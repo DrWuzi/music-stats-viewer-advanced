@@ -54,8 +54,8 @@ export function HourlyHeatmap({
         <CardTitle>Listening Heatmap</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto">
-          <div className="min-w-[520px]">
+        <div className="w-full">
+          <div>
             {/* Hour labels row */}
             <div className="flex mb-1 ml-8">
               {HOURS.map((h) => (

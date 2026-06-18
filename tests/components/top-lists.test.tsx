@@ -10,7 +10,7 @@ const tracks = [{ name: 'Karma Police', artist: 'Radiohead', playcount: 50, rank
 describe('TopLists', () => {
   it('renders top artist name and playcount', () => {
     render(
-      <TopLists artists={artists} albums={albums} tracks={tracks} period="7day" onPeriodChange={vi.fn()} />,
+      <TopLists username="testuser" artists={artists} albums={albums} tracks={tracks} period="7day" onPeriodChange={vi.fn()} />,
     )
     expect(screen.getByText('Radiohead')).toBeInTheDocument()
     expect(screen.getByText('500 plays')).toBeInTheDocument()
@@ -18,7 +18,7 @@ describe('TopLists', () => {
 
   it('shows empty state when no artists', () => {
     render(
-      <TopLists artists={[]} albums={[]} tracks={[]} period="7day" onPeriodChange={vi.fn()} />,
+      <TopLists username="testuser" artists={[]} albums={[]} tracks={[]} period="7day" onPeriodChange={vi.fn()} />,
     )
     expect(screen.getByText(/no data/i)).toBeInTheDocument()
   })

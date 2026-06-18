@@ -11,17 +11,17 @@ interface Props {
 function CustomContent(props: any) {
   const { x = 0, y = 0, width = 0, height = 0, name, index = 0, root, depth } = props
 
-  // Skip the root node which Recharts injects at depth 0
-  if (root || depth === 0) return <g />
+  // Skip the root node (depth 0) and nodes with no visible area
+  if (depth === 0 || !width || !height) return <g />
 
   const total: number = props.total ?? 1
   const opacity = total > 1 ? 1 - (index / (total - 1)) * 0.7 : 1
-  const fill = `hsl(var(--primary) / ${opacity.toFixed(2)})`
+  const fill = `color-mix(in oklch, var(--primary) ${Math.round(opacity * 100)}%, transparent)`
   const showText = width > 40 && height > 24
 
   return (
     <g>
-      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="hsl(var(--background))" strokeWidth={2} />
+      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="var(--background)" strokeWidth={2} />
       {showText && (
         <text
           x={x + width / 2}

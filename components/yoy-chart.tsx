@@ -19,7 +19,7 @@ interface Props {
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const YEAR_COLORS = [
-  'hsl(var(--primary))',
+  'var(--primary)',
   '#f59e0b',
   '#10b981',
   '#ef4444',
@@ -75,7 +75,7 @@ export function YoYChart({ scrobbles }: Props) {
       <CardContent>
         <ResponsiveContainer width="100%" height={280}>
           <LineChart data={rows} margin={{ top: 4, right: 16, bottom: 0, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis dataKey="month" tick={{ fontSize: 11 }} />
             <YAxis tick={{ fontSize: 11 }} />
             <Tooltip />

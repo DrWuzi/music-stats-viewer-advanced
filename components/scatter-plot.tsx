@@ -67,27 +67,27 @@ export function ScatterPlot({ topArtists, topTracks }: Props) {
       <CardHeader><CardTitle>Track vs Artist Plays</CardTitle></CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
-          <ScatterChart margin={{ top: 8, right: 16, bottom: 24, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+          <ScatterChart margin={{ top: 8, right: 16, bottom: 40, left: 40 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis
               type="number"
               dataKey="x"
               name="Artist Total Plays"
               tick={{ fontSize: 11 }}
-              label={{ value: 'Artist Total Plays', position: 'insideBottom', offset: -12, fontSize: 11 }}
+              label={{ value: 'Artist Total Plays', position: 'insideBottom', offset: -20, fontSize: 11, fill: 'currentColor' }}
             />
             <YAxis
               type="number"
               dataKey="y"
               name="Track Plays"
               tick={{ fontSize: 11 }}
-              label={{ value: 'Track Plays', angle: -90, position: 'insideLeft', offset: 10, fontSize: 11 }}
+              label={{ value: 'Track Plays', angle: -90, position: 'insideLeft', offset: 15, fontSize: 11, fill: 'currentColor' }}
             />
             <ZAxis range={[40, 40]} />
             <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
             <Scatter
               data={data}
-              fill="hsl(var(--primary))"
+              fill="var(--primary)"
               fillOpacity={0.7}
             />
           </ScatterChart>

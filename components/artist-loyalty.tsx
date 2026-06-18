@@ -43,7 +43,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
       <CardHeader>
         <CardTitle>Artist Loyalty</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+      <CardContent className="flex flex-col gap-3">
         {/* Stacked horizontal bar */}
         <div className="flex h-8 w-full rounded-md overflow-hidden gap-px">
           {segments.map((s) => (
@@ -52,7 +52,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
               title={`${s.name}: ${s.pct.toFixed(1)}%`}
               style={{
                 width: `${s.pct}%`,
-                backgroundColor: `hsl(var(--primary) / ${s.opacity})`,
+                backgroundColor: `color-mix(in oklch, var(--primary) ${Math.round(s.opacity * 100)}%, transparent)`,
                 minWidth: s.pct > 0 ? '2px' : undefined,
               }}
             />
@@ -61,8 +61,8 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
             <div
               title={`Other: ${restPct.toFixed(1)}%`}
               style={{
-                flex: 1,
-                backgroundColor: 'hsl(var(--muted))',
+                width: `${restPct}%`,
+                backgroundColor: 'var(--muted)',
               }}
             />
           )}
@@ -74,7 +74,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
             <div key={s.name} className="flex items-center gap-2">
               <div
                 className="h-3 w-3 rounded-sm shrink-0"
-                style={{ backgroundColor: `hsl(var(--primary) / ${s.opacity})` }}
+                style={{ backgroundColor: `color-mix(in oklch, var(--primary) ${Math.round(s.opacity * 100)}%, transparent)` }}
               />
               <span className="text-sm truncate flex-1 min-w-0">{s.name}</span>
               <span className="text-sm text-muted-foreground tabular-nums shrink-0">
@@ -86,7 +86,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
             <div className="flex items-center gap-2">
               <div
                 className="h-3 w-3 rounded-sm shrink-0"
-                style={{ backgroundColor: 'hsl(var(--muted))' }}
+                style={{ backgroundColor: 'var(--muted)' }}
               />
               <span className="text-sm truncate flex-1 min-w-0 text-muted-foreground">Other</span>
               <span className="text-sm text-muted-foreground tabular-nums shrink-0">

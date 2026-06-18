@@ -41,7 +41,7 @@ export default async function DashboardPage() {
     lastfmClient.getUserInfo(user.lastfmUsername).catch(() => null),
     prisma.scrobble.findMany({
       where: { userId: user.id, scrobbledAt: { gte: thirtyDaysAgo } },
-      select: { scrobbledAt: true },
+      select: { scrobbledAt: true, artist: true, track: true },
     }),
   ])
 

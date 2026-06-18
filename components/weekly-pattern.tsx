@@ -101,14 +101,14 @@ export function WeeklyPattern({ scrobbles }: WeeklyPatternProps) {
         <p className="text-sm text-muted-foreground">{summary}</p>
         <ResponsiveContainer width="100%" height={180}>
           <BarChart data={data} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
             <XAxis dataKey="name" tick={{ fontSize: 12 }} />
             <YAxis tick={{ fontSize: 11 }} allowDecimals={true} />
             <Tooltip
               formatter={(value) => [`${value} scrobbles/day`, 'Avg']}
-              cursor={{ fill: 'hsl(var(--muted))' }}
+              cursor={{ fill: 'var(--muted)' }}
             />
-            <Bar dataKey="avg" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="avg" fill="var(--primary)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

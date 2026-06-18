@@ -49,11 +49,11 @@ export function DayOfWeekChart({
             <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
             <Tooltip
               formatter={(value) => [value, 'Scrobbles']}
-              cursor={{ fill: 'hsl(var(--muted))' }}
+              cursor={{ fill: 'var(--muted)' }}
             />
             <Bar
               dataKey="count"
-              fill="hsl(var(--primary))"
+              fill="var(--primary)"
               radius={[3, 3, 0, 0]}
             />
           </BarChart>

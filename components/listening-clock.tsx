@@ -55,8 +55,8 @@ export function ListeningClock({
           >
             <RadialBar
               dataKey="count"
-              fill="hsl(var(--primary))"
-              background={{ fill: 'hsl(var(--muted))' }}
+              fill="var(--primary)"
+              background={{ fill: 'var(--muted)' }}
               label={false}
             />
             <Tooltip

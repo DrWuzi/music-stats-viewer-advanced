@@ -108,11 +108,11 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
           <AreaChart data={labeledData} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
             <defs>
               <linearGradient id="velocityGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
             <XAxis
               dataKey="xLabel"
               tick={{ fontSize: 10 }}
@@ -125,12 +125,12 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
             <Tooltip
               labelFormatter={(_, payload) => payload?.[0]?.payload?.date ?? ''}
               formatter={(value) => [`${value} scrobbles/day`, '30-day avg']}
-              cursor={{ stroke: 'hsl(var(--border))' }}
+              cursor={{ stroke: 'var(--border)' }}
             />
             <Area
               type="monotone"
               dataKey="avg"
-              stroke="hsl(var(--primary))"
+              stroke="var(--primary)"
               strokeWidth={2}
               fill="url(#velocityGradient)"
               dot={false}

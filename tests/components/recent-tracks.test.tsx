@@ -9,18 +9,18 @@ const tracks = [
 
 describe('RecentTracks', () => {
   it('renders all tracks', () => {
-    render(<RecentTracks tracks={tracks} />)
+    render(<RecentTracks tracks={tracks} username="testuser" />)
     expect(screen.getByText('Karma Police')).toBeInTheDocument()
     expect(screen.getByText('Roygbiv')).toBeInTheDocument()
   })
 
   it('shows artist names', () => {
-    render(<RecentTracks tracks={tracks} />)
+    render(<RecentTracks tracks={tracks} username="testuser" />)
     expect(screen.getByText(/Radiohead/)).toBeInTheDocument()
   })
 
   it('shows empty state when no tracks', () => {
-    render(<RecentTracks tracks={[]} />)
+    render(<RecentTracks tracks={[]} username="testuser" />)
     expect(screen.getByText(/no tracks/i)).toBeInTheDocument()
   })
 })
