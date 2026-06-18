@@ -1,42 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useNowPlaying } from '@/components/now-playing-context'
 
-type NowPlayingData = {
-  nowPlaying: boolean
-  track?: string
-  artist?: string
-  album?: string
-}
-
-type Props = {
-  username: string
-}
-
-export function NowPlayingBanner({ username }: Props) {
-  const [data, setData] = useState<NowPlayingData | null>(null)
-
-  useEffect(() => {
-    const fetchNowPlaying = async () => {
-      try {
-        const res = await fetch(
-          `/api/now-playing?username=${encodeURIComponent(username)}`,
-          { cache: 'no-store' },
-        )
-        if (res.ok) {
-          const json: NowPlayingData = await res.json()
-          setData(json)
-        }
-      } catch {
-        // silently ignore fetch errors
-      }
-    }
-
-    fetchNowPlaying()
-
-    const interval = setInterval(fetchNowPlaying, 30_000)
-    return () => clearInterval(interval)
-  }, [username])
+export function NowPlayingBanner() {
+  const { data } = useNowPlaying()
 
   if (!data?.nowPlaying) return null
 

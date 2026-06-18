@@ -2,45 +2,18 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { X } from 'lucide-react'
+import { useNowPlaying } from '@/components/now-playing-context'
 
-type NowPlayingData = {
-  nowPlaying: boolean
-  track?: string
-  artist?: string
-}
-
-type Props = {
-  username: string
-}
-
-export function NowPlayingMini({ username }: Props) {
-  const [data, setData] = useState<NowPlayingData | null>(null)
+export function NowPlayingMini() {
+  const { data } = useNowPlaying()
   const [dismissed, setDismissed] = useState(false)
   const progressRef = useRef<HTMLDivElement>(null)
   const progressAnim = useRef<number | null>(null)
 
+  // Un-dismiss when a new track starts
   useEffect(() => {
-    const fetchNowPlaying = async () => {
-      try {
-        const res = await fetch(
-          `/api/now-playing?username=${encodeURIComponent(username)}`,
-          { cache: 'no-store' },
-        )
-        if (res.ok) {
-          const json: NowPlayingData = await res.json()
-          setData(json)
-          // If a new track started, un-dismiss
-          if (json.nowPlaying) setDismissed(false)
-        }
-      } catch {
-        // silently ignore
-      }
-    }
-
-    fetchNowPlaying()
-    const interval = setInterval(fetchNowPlaying, 30_000)
-    return () => clearInterval(interval)
-  }, [username])
+    if (data?.nowPlaying) setDismissed(false)
+  }, [data?.nowPlaying, data?.track])
 
   // Animate the fake progress bar back and forth (simulate ~3 min track)
   useEffect(() => {

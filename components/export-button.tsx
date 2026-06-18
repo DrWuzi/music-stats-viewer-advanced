@@ -8,7 +8,11 @@ type Props = {
 
 export function ExportButton({ username }: Props) {
   const handleExport = (format: 'csv' | 'json') => {
-    window.location.href = `/api/export?username=${encodeURIComponent(username)}&format=${format}`
+    if (format === 'json') {
+      window.location.href = `/api/export/json?username=${encodeURIComponent(username)}`
+    } else {
+      window.location.href = `/api/export?username=${encodeURIComponent(username)}&format=csv`
+    }
   }
 
   return (

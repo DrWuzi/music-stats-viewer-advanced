@@ -52,34 +52,91 @@ export default async function UserProfilePage({ params }: Props) {
   }
 
   const thirtyDaysAgo = new Date(Date.now() - 360 * 24 * 60 * 60 * 1000)
-  const [userInfo, chartScrobbles] = await Promise.all([
+  const [userInfo, chartScrobbles, uniqueArtistsResult, uniqueTracksResult, uniqueAlbumsResult, firstScrobble] = await Promise.all([
     lastfmClient.getUserInfo(username).catch(() => null),
     prisma.scrobble.findMany({
       where: { userId: user.id, scrobbledAt: { gte: thirtyDaysAgo } },
       select: { scrobbledAt: true, artist: true, track: true },
     }),
+    prisma.scrobble.groupBy({ by: ['artist'], where: { userId: user.id }, _count: true }),
+    prisma.scrobble.groupBy({ by: ['track', 'artist'], where: { userId: user.id }, _count: true }),
+    prisma.scrobble.groupBy({ by: ['album'], where: { userId: user.id, album: { not: null } }, _count: true }),
+    prisma.scrobble.findFirst({
+      where: { userId: user.id },
+      orderBy: { scrobbledAt: 'asc' },
+      select: { scrobbledAt: true },
+    }),
   ])
   const isOwner = session?.lastfmUsername === username
 
+  const uniqueArtistCount = uniqueArtistsResult.length
+  const uniqueTrackCount = uniqueTracksResult.length
+  const uniqueAlbumCount = uniqueAlbumsResult.length
+
+  // Scrobbles per day average
+  const registeredDate = userInfo?.registered ?? user.createdAt
+  const daysSinceRegistration = Math.max(
+    1,
+    Math.floor((Date.now() - new Date(registeredDate).getTime()) / (1000 * 60 * 60 * 24)),
+  )
+  const totalScrobblesCount = userInfo?.playcount ?? user.scrobbles.length
+  const scrobblesPerDay = totalScrobblesCount / daysSinceRegistration
+
+  // Longest streak from all scrobbles date range: use chartScrobbles only (30-day window)
+  // We'll compute it client-side in the component from allScrobbles; pass null here
+
+  const profileStats = {
+    uniqueArtists: uniqueArtistCount,
+    uniqueTracks: uniqueTrackCount,
+    uniqueAlbums: uniqueAlbumCount,
+    scrobblesPerDay: Math.round(scrobblesPerDay * 10) / 10,
+    firstScrobbleAt: firstScrobble?.scrobbledAt ?? null,
+  }
+
+  const totalScrobbles = totalScrobblesCount
+  const imageUrl = userInfo?.imageUrl?.includes('2a96cbd8b46e442fc41c2b86b821562f') ? '' : (userInfo?.imageUrl ?? '')
+
   return (
-    <UserProfile
-      username={user.lastfmUsername}
-      totalScrobbles={userInfo?.playcount ?? user.scrobbles.length}
-      registeredAt={userInfo?.registered ?? user.createdAt}
-      imageUrl={userInfo?.imageUrl?.includes('2a96cbd8b46e442fc41c2b86b821562f') ? '' : (userInfo?.imageUrl ?? '')}
-      lastSyncedAt={user.lastSyncedAt}
-      isOwner={isOwner}
-      recentTracks={user.scrobbles.map((s) => ({
-        artist: s.artist,
-        album: s.album,
-        track: s.track,
-        scrobbledAt: s.scrobbledAt,
-      }))}
-      topArtists={groupByPeriod(user.topArtists)}
-      topAlbums={groupByPeriod(user.topAlbums)}
-      topTracks={groupByPeriod(user.topTracks)}
-      lovedTracks={user.lovedTracks.map((l) => ({ artist: l.artist, track: l.track, lovedAt: l.lovedAt }))}
-      allScrobbles={chartScrobbles}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: username,
+            url: `https://lastfm-advanced.vercel.app/user/${username}`,
+            ...(imageUrl ? { image: imageUrl } : {}),
+            description: `${username} has scrobbled ${totalScrobbles.toLocaleString('en-US')} tracks on Last.fm`,
+            memberOf: {
+              '@type': 'Organization',
+              name: 'Last.fm',
+              url: 'https://www.last.fm',
+            },
+            sameAs: [`https://www.last.fm/user/${username}`],
+          }),
+        }}
+      />
+      <UserProfile
+        username={user.lastfmUsername}
+        totalScrobbles={totalScrobbles}
+        registeredAt={registeredDate}
+        imageUrl={imageUrl}
+        lastSyncedAt={user.lastSyncedAt}
+        isOwner={isOwner}
+        recentTracks={user.scrobbles.map((s) => ({
+          artist: s.artist,
+          album: s.album,
+          track: s.track,
+          scrobbledAt: s.scrobbledAt,
+        }))}
+        topArtists={groupByPeriod(user.topArtists)}
+        topAlbums={groupByPeriod(user.topAlbums)}
+        topTracks={groupByPeriod(user.topTracks)}
+        lovedTracks={user.lovedTracks.map((l) => ({ artist: l.artist, track: l.track, lovedAt: l.lovedAt }))}
+        allScrobbles={chartScrobbles}
+        profileStats={profileStats}
+      />
+    </>
   )
 }

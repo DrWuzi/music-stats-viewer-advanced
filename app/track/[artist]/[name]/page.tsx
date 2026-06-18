@@ -4,13 +4,26 @@ import { prisma } from '@/lib/prisma'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ArtistChart } from '@/components/artist-chart'
-import { Music2, ExternalLink, Clock, Users, PlayCircle, BarChart2 } from 'lucide-react'
+import { ArtistImage } from '@/components/artist-image'
+import {
+  Music2,
+  ExternalLink,
+  Clock,
+  Users,
+  PlayCircle,
+  BarChart2,
+  BookOpen,
+  Search,
+  Trophy,
+} from 'lucide-react'
+import { ListenOn } from '@/components/listen-on'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface TrackInfo {
   name: string
   artist: string
+  album?: { title: string; url?: string }
   url: string
   duration: string
   playcount: string
@@ -41,9 +54,26 @@ function fmtDuration(seconds: string | number): string {
   return `${m}:${String(rem).padStart(2, '0')}`
 }
 
+function stripHtml(html: string): string {
+  return html
+    .replace(/<a[^>]*>Read more on Last\.fm<\/a>/gi, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
 // ─── Last.fm fetchers ─────────────────────────────────────────────────────────
 
-async function fetchTrackInfo(artist: string, track: string, username?: string): Promise<TrackInfo | null> {
+async function fetchTrackInfo(
+  artist: string,
+  track: string,
+  username?: string,
+): Promise<TrackInfo | null> {
   try {
     const params = new URLSearchParams({
       method: 'track.getInfo',
@@ -61,9 +91,14 @@ async function fetchTrackInfo(artist: string, track: string, username?: string):
     if (data.error || !data.track) return null
 
     const t = data.track
+    const albumRaw = t.album
     return {
       name: t.name,
       artist: typeof t.artist === 'string' ? t.artist : (t.artist?.name ?? artist),
+      album:
+        albumRaw?.title
+          ? { title: albumRaw.title, url: albumRaw.url ?? undefined }
+          : undefined,
       url: t.url ?? '',
       duration: t.duration ?? '0',
       playcount: t.playcount ?? '0',
@@ -88,7 +123,7 @@ async function fetchSimilarTracks(artist: string, track: string): Promise<Simila
       track,
       api_key: process.env.LASTFM_API_KEY!,
       format: 'json',
-      limit: '8',
+      limit: '6',
     })
     const res = await fetch(`https://ws.audioscrobbler.com/2.0/?${params}`, {
       next: { revalidate: 3600 },
@@ -105,19 +140,6 @@ async function fetchSimilarTracks(artist: string, track: string): Promise<Simila
   } catch {
     return []
   }
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<a[^>]*>Read more on Last\.fm<\/a>/gi, '')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\n{3,}/g, '\n\n')
-    .trim()
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -187,6 +209,15 @@ export default async function TrackPage({ params, searchParams }: Props) {
   const fmt = (d: Date) =>
     new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
+  // Medal logic: top listened if >= 50 plays
+  const userRankMedal =
+    userPlays >= 100 ? '🥇' : userPlays >= 50 ? '🥈' : userPlays >= 20 ? '🥉' : null
+
+  // Lyrics search URLs
+  const lyricsQuery = encodeURIComponent(`${trackName} ${artistName}`)
+  const geniusUrl = `https://genius.com/search?q=${lyricsQuery}`
+  const googleLyricsUrl = `https://www.google.com/search?q=${lyricsQuery}+lyrics`
+
   return (
     <main className="container mx-auto px-4 max-w-[1200px] py-8 space-y-8">
       {/* ── Breadcrumb + Header ─────────────────────────────────────── */}
@@ -223,6 +254,17 @@ export default async function TrackPage({ params, searchParams }: Props) {
             >
               {artistName}
             </Link>
+            {trackInfo?.album && (
+              <div className="mt-1">
+                <Link
+                  href={`/album/${encodeURIComponent(artistName)}/${encodeURIComponent(trackInfo.album.title)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
+                  className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-colors inline-flex items-center gap-1"
+                >
+                  <Music2 className="h-3 w-3" />
+                  {trackInfo.album.title}
+                </Link>
+              </div>
+            )}
           </div>
 
           <div className="flex flex-wrap gap-3 sm:shrink-0">
@@ -250,40 +292,118 @@ export default async function TrackPage({ params, searchParams }: Props) {
                 <p className="text-xl font-bold">{fmtNum(globalPlaycount)}</p>
               </div>
             )}
-            {username && userPlays > 0 && (
-              <div className="rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 min-w-[110px]">
+            {username && (
+              <div
+                className="rounded-xl border px-4 py-3 min-w-[110px]"
+                style={{
+                  borderColor: userPlays > 0
+                    ? 'color-mix(in oklch, var(--primary) 40%, transparent)'
+                    : 'color-mix(in oklch, var(--border) 50%, transparent)',
+                  background: userPlays > 0
+                    ? 'color-mix(in oklch, var(--primary) 10%, transparent)'
+                    : undefined,
+                }}
+              >
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                   <Music2 className="h-3 w-3" /> Your Plays
                 </div>
-                <p className="text-xl font-bold text-primary">{fmtNum(userPlays)}</p>
+                <p
+                  className="text-xl font-bold"
+                  style={{ color: userPlays > 0 ? 'var(--primary)' : undefined }}
+                >
+                  {fmtNum(userPlays)}
+                </p>
               </div>
             )}
           </div>
         </div>
 
-        {trackInfo?.url && (
-          <a
-            href={trackInfo.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+        {/* User rank medal */}
+        {userRankMedal && username && userPlays > 0 && (
+          <div
+            className="mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium"
+            style={{ background: 'color-mix(in oklch, var(--primary) 15%, transparent)' }}
           >
-            <ExternalLink className="h-3 w-3" />
-            View on Last.fm
-          </a>
+            <Trophy className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+            <span>
+              {userRankMedal} You&apos;ve played this{' '}
+              <span className="font-bold">{fmtNum(userPlays)}</span> times
+            </span>
+          </div>
         )}
+
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          {trackInfo?.url && (
+            <a
+              href={trackInfo.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ExternalLink className="h-3 w-3" />
+              View on Last.fm
+            </a>
+          )}
+          <ListenOn type="track" artist={artistName} track={trackName} variant="compact" />
+        </div>
       </div>
 
-      {/* ── Tags ────────────────────────────────────────────────────── */}
+      {/* ── Tags ─────────────────────────────────────────────────────── */}
       {trackInfo?.tags && trackInfo.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {trackInfo.tags.map((tag) => (
-            <Badge key={tag.name} variant="secondary" className="capitalize text-xs">
-              {tag.name}
-            </Badge>
+            <Link
+              key={tag.name}
+              href={`/genre/${encodeURIComponent(tag.name.toLowerCase())}`}
+            >
+              <Badge
+                variant="secondary"
+                className="capitalize text-xs cursor-pointer hover:bg-muted transition-colors"
+              >
+                {tag.name}
+              </Badge>
+            </Link>
           ))}
         </div>
       )}
+
+      {/* ── Lyrics section ───────────────────────────────────────────── */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <BookOpen className="h-4 w-4" /> Lyrics
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Find lyrics for{' '}
+            <span className="font-medium text-foreground">{trackName}</span> by{' '}
+            <span className="font-medium text-foreground">{artistName}</span>:
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={geniusUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80 border border-border"
+              style={{ background: '#ffff64', color: '#1a1a1a' }}
+            >
+              <BookOpen className="h-4 w-4" />
+              Search on Genius
+            </a>
+            <a
+              href={googleLyricsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium border border-border transition-colors hover:bg-muted"
+            >
+              <Search className="h-4 w-4" />
+              Google lyrics
+            </a>
+          </div>
+          <p className="text-xs text-muted-foreground">Lyrics provided by Genius</p>
+        </CardContent>
+      </Card>
 
       {/* ── Plays comparison + User stats ───────────────────────────── */}
       {username && (
@@ -299,7 +419,9 @@ export default async function TrackPage({ params, searchParams }: Props) {
               <div>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-muted-foreground">Your plays</span>
-                  <span className="font-semibold text-primary">{fmtNum(userPlays)}</span>
+                  <span className="font-semibold" style={{ color: 'var(--primary)' }}>
+                    {fmtNum(userPlays)}
+                  </span>
                 </div>
                 {Number(globalPlaycount) > 0 && (
                   <div
@@ -406,12 +528,30 @@ export default async function TrackPage({ params, searchParams }: Props) {
         </Card>
       )}
 
-      {/* ── Monthly plays chart ──────────────────────────────────────── */}
+      {/* ── Your History (Monthly plays chart) ──────────────────────── */}
       {playsByMonth.length > 0 && (
-        <ArtistChart
-          data={playsByMonth}
-          title={`Your "${trackName}" Play History`}
-        />
+        <div className="space-y-2">
+          <ArtistChart
+            data={playsByMonth}
+            title={`Your "${trackName}" Play History`}
+          />
+          {(firstHeard || lastHeard) && (
+            <div className="flex flex-wrap gap-4 px-1 text-xs text-muted-foreground">
+              {firstHeard && (
+                <span>
+                  First heard:{' '}
+                  <span className="font-medium text-foreground">{fmt(firstHeard)}</span>
+                </span>
+              )}
+              {lastHeard && (
+                <span>
+                  Most recent:{' '}
+                  <span className="font-medium text-foreground">{fmt(lastHeard)}</span>
+                </span>
+              )}
+            </div>
+          )}
+        </div>
       )}
 
       {/* ── Similar tracks ───────────────────────────────────────────── */}
@@ -424,18 +564,13 @@ export default async function TrackPage({ params, searchParams }: Props) {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {similarTracks.map((track) => (
+              {similarTracks.slice(0, 6).map((track) => (
                 <Link
                   key={`${track.artist}::${track.name}`}
                   href={`/track/${encodeURIComponent(track.artist)}/${encodeURIComponent(track.name)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
                   className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-muted/60 transition-colors group border border-transparent hover:border-border/50"
                 >
-                  <div
-                    className="shrink-0 w-8 h-8 rounded-md flex items-center justify-center"
-                    style={{ background: 'color-mix(in oklch, var(--primary) 15%, transparent)' }}
-                  >
-                    <Music2 className="h-4 w-4 text-primary" />
-                  </div>
+                  <ArtistImage name={track.artist} size="sm" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate group-hover:underline">
                       {track.name}

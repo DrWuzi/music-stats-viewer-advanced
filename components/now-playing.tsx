@@ -1,43 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { ArtistImage } from '@/components/artist-image'
+import { ListenOn } from '@/components/listen-on'
+import { useNowPlaying } from '@/components/now-playing-context'
 
-type NowPlayingData = {
-  nowPlaying: boolean
-  track?: string
-  artist?: string
-  album?: string
-}
-
-type Props = {
-  username: string
-}
-
-export function NowPlaying({ username }: Props) {
-  const [data, setData] = useState<NowPlayingData | null>(null)
-
-  useEffect(() => {
-    const fetchNowPlaying = async () => {
-      try {
-        const res = await fetch(
-          `/api/now-playing?username=${encodeURIComponent(username)}`,
-          { cache: 'no-store' },
-        )
-        if (res.ok) {
-          const json: NowPlayingData = await res.json()
-          setData(json)
-        }
-      } catch {
-        // silently ignore fetch errors
-      }
-    }
-
-    fetchNowPlaying()
-
-    const interval = setInterval(fetchNowPlaying, 30_000)
-    return () => clearInterval(interval)
-  }, [username])
+export function NowPlaying() {
+  const { data } = useNowPlaying()
 
   if (!data?.nowPlaying) return null
 
@@ -64,6 +32,9 @@ export function NowPlaying({ username }: Props) {
           </span>
         )}
       </div>
+      {data.artist && data.track && (
+        <ListenOn type="track" artist={data.artist} track={data.track} variant="icons" />
+      )}
     </div>
   )
 }

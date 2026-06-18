@@ -37,18 +37,16 @@ export async function GET(request: NextRequest) {
 
   if (format === 'csv') {
     const rows = scrobbles.map((s) => {
-      const date = s.scrobbledAt.toISOString().slice(0, 10)
-      const time = s.scrobbledAt.toISOString().slice(11, 19)
+      const timestamp = s.scrobbledAt.toISOString().replace('T', ' ').slice(0, 19)
       return [
-        csvEscape(date),
-        csvEscape(time),
+        csvEscape(timestamp),
+        csvEscape(s.track),
         csvEscape(s.artist),
         csvEscape(s.album ?? ''),
-        csvEscape(s.track),
       ].join(',')
     })
 
-    const body = 'Date,Time,Artist,Album,Track\n' + rows.join('\n')
+    const body = 'Timestamp,Track,Artist,Album\n' + rows.join('\n')
 
     return new NextResponse(body, {
       status: 200,

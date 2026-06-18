@@ -8,9 +8,19 @@ interface ShareProfileButtonProps {
   username: string
   scrobbles?: number
   topArtist?: string
+  topTrack?: string
+  totalArtists?: number
+  period?: string
 }
 
-export function ShareProfileButton({ username, scrobbles, topArtist }: ShareProfileButtonProps) {
+export function ShareProfileButton({
+  username,
+  scrobbles,
+  topArtist,
+  topTrack,
+  totalArtists,
+  period,
+}: ShareProfileButtonProps) {
   const [shared, setShared] = useState(false)
 
   const handleClick = async () => {
@@ -18,12 +28,24 @@ export function ShareProfileButton({ username, scrobbles, topArtist }: ShareProf
     const cardParams = new URLSearchParams({ username })
     if (scrobbles !== undefined) cardParams.set('scrobbles', String(scrobbles))
     if (topArtist) cardParams.set('artist', topArtist)
+    if (topTrack) cardParams.set('tracks', topTrack)
+    if (totalArtists !== undefined) cardParams.set('artists', String(totalArtists))
+    if (period) cardParams.set('period', period)
     const ogImage = `${window.location.origin}/api/share-card?${cardParams.toString()}`
+
+    const shareText = [
+      `Check out ${username}'s listening stats on Last.fm Advanced`,
+      scrobbles !== undefined ? `${scrobbles.toLocaleString()} scrobbles` : null,
+      topArtist ? `top artist: ${topArtist}` : null,
+      topTrack ? `top track: ${topTrack}` : null,
+    ]
+      .filter(Boolean)
+      .join(' · ')
 
     if (navigator.share) {
       await navigator.share({
         title: `${username} on Last.fm Advanced`,
-        text: `Check out ${username}'s listening stats — ${scrobbles?.toLocaleString() ?? ''} scrobbles${topArtist ? `, top artist: ${topArtist}` : ''}`,
+        text: shareText,
         url: profileUrl,
       })
     } else {

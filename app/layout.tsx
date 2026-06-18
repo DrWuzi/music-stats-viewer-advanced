@@ -6,6 +6,7 @@ import { NavProgress } from '@/components/nav-progress'
 import { MobileNav } from '@/components/mobile-nav'
 import { PwaInstallPrompt } from '@/components/pwa-install-prompt'
 import { NowPlayingMini } from '@/components/now-playing-mini'
+import { NowPlayingProvider } from '@/components/now-playing-context'
 import { getSession } from '@/lib/session'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -33,7 +34,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <MobileNav />
         <main className="min-h-screen bg-background pb-16 md:pb-0">{children}</main>
         {session?.lastfmUsername && (
-          <NowPlayingMini username={session.lastfmUsername} />
+          <NowPlayingProvider username={session.lastfmUsername}>
+            <NowPlayingMini />
+          </NowPlayingProvider>
         )}
         <PwaInstallPrompt />
       </body>

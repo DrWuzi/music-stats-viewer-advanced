@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Sparkles } from 'lucide-react'
+import { useEffect, useState, useCallback } from 'react'
+import { AlertCircle, Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { ArtistImage } from '@/components/artist-image'
 
 interface Recommendation {
@@ -17,7 +18,7 @@ export function YouMightLike({ username }: { username: string }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
+  const fetchRecommendations = useCallback(() => {
     if (!username) return
 
     setLoading(true)
@@ -38,6 +39,10 @@ export function YouMightLike({ username }: { username: string }) {
       })
       .finally(() => setLoading(false))
   }, [username])
+
+  useEffect(() => {
+    fetchRecommendations()
+  }, [fetchRecommendations])
 
   return (
     <Card>
@@ -63,7 +68,15 @@ export function YouMightLike({ username }: { username: string }) {
         )}
 
         {!loading && error && (
-          <p className="text-sm text-destructive">{error}</p>
+          <div className="flex flex-col items-center gap-3 py-4">
+            <div className="flex items-center gap-2" style={{ color: 'var(--muted-foreground)' }}>
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              <span className="text-sm">Failed to load. Retry?</span>
+            </div>
+            <Button variant="outline" size="sm" onClick={fetchRecommendations}>
+              Retry
+            </Button>
+          </div>
         )}
 
         {!loading && !error && recommendations.length === 0 && (

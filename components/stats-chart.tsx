@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import React from 'react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine, LabelList } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine, LabelList, Brush } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
@@ -10,6 +10,7 @@ import { Download } from 'lucide-react'
 
 type DayRange = 30 | 180 | 360
 type ViewMode = 'Daily' | 'Weekly' | 'Monthly'
+type ZoomPreset = '3m' | '6m' | '1y' | 'all'
 
 // ── data builders ─────────────────────────────────────────────────────────────
 
@@ -145,6 +146,69 @@ function PeakDot(props: {
   )
 }
 
+// ── milestone calculations ────────────────────────────────────────────────────
+
+const MILESTONE_THRESHOLDS = [10_000, 50_000, 100_000, 500_000, 1_000_000]
+
+function formatMilestone(n: number): string {
+  if (n >= 1_000_000) return `${n / 1_000_000}M`
+  if (n >= 1_000) return `${n / 1_000}k`
+  return String(n)
+}
+
+/**
+ * Given ALL scrobbles (sorted oldest→newest by scrobbledAt), returns a map
+ * from YYYY-MM key → array of milestone labels crossed in that month.
+ */
+function calcMilestoneMonths(
+  scrobbles: { scrobbledAt: Date | string }[],
+): Map<string, string[]> {
+  const sorted = [...scrobbles].sort(
+    (a, b) => new Date(a.scrobbledAt).getTime() - new Date(b.scrobbledAt).getTime(),
+  )
+  const result = new Map<string, string[]>()
+  let cumulative = 0
+  let nextIdx = 0 // index into MILESTONE_THRESHOLDS
+
+  for (const s of sorted) {
+    cumulative++
+    while (nextIdx < MILESTONE_THRESHOLDS.length && cumulative >= MILESTONE_THRESHOLDS[nextIdx]) {
+      const monthKey = new Date(s.scrobbledAt).toISOString().slice(0, 7)
+      const label = formatMilestone(MILESTONE_THRESHOLDS[nextIdx]) + ' ★'
+      const existing = result.get(monthKey) ?? []
+      result.set(monthKey, [...existing, label])
+      nextIdx++
+    }
+  }
+  return result
+}
+
+// ── milestone label component (used as ReferenceLine label) ──────────────────
+
+function MilestoneLabel(props: {
+  viewBox?: { x?: number; y?: number; width?: number; height?: number }
+  value?: string
+  isBiggest?: boolean
+}) {
+  const { viewBox, value, isBiggest } = props
+  if (!value && !isBiggest) return null
+  const x = (viewBox?.x ?? 0) + (viewBox?.width ?? 0) / 2
+  const y = (viewBox?.y ?? 0) - 4
+  const text = isBiggest ? '♛' : value ?? ''
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      fontSize={isBiggest ? 13 : 9}
+      fill="var(--primary)"
+      style={{ userSelect: 'none', pointerEvents: 'none' }}
+    >
+      {text}
+    </text>
+  )
+}
+
 // ── helpers ───────────────────────────────────────────────────────────────────
 
 interface DayTrack {
@@ -176,9 +240,49 @@ export function StatsChart({
   const [loading, setLoading] = useState(false)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [clickSummary, setClickSummary] = useState<string | null>(null)
+  const [zoomPreset, setZoomPreset] = useState<ZoomPreset>('all')
+  const [brushKey, setBrushKey] = useState(0)
 
-  const data = buildData(scrobbles, days, viewMode)
+  const allData = useMemo(() => buildData(scrobbles, days, viewMode), [scrobbles, days, viewMode])
+
+  // Slice data for quick zoom presets (no API calls — pure client-side filter)
+  const data = useMemo(() => {
+    if (zoomPreset === 'all') return allData
+    const now = new Date()
+    const cutoff = new Date(now)
+    if (zoomPreset === '3m') cutoff.setMonth(now.getMonth() - 3)
+    else if (zoomPreset === '6m') cutoff.setMonth(now.getMonth() - 6)
+    else if (zoomPreset === '1y') cutoff.setFullYear(now.getFullYear() - 1)
+    const cutoffStr = cutoff.toISOString().slice(0, 10)
+    return allData.filter((d) => d.date >= cutoffStr)
+  }, [allData, zoomPreset])
+
+  const resetZoom = () => {
+    setZoomPreset('all')
+    setBrushKey((k) => k + 1)
+  }
+
   const peakCount = data.reduce((m, d) => Math.max(m, d.count), 0)
+
+  // Milestone annotations — only meaningful in Monthly view
+  const milestoneMonths = useMemo(() => calcMilestoneMonths(scrobbles), [scrobbles])
+
+  // Map from label (short month name) → milestone strings, restricted to visible months
+  const milestoneLabelMap = useMemo(() => {
+    if (viewMode !== 'Monthly') return new Map<string, string[]>()
+    const map = new Map<string, string[]>()
+    for (const entry of data) {
+      const hits = milestoneMonths.get(entry.date)
+      if (hits?.length) map.set(entry.label, hits)
+    }
+    return map
+  }, [data, milestoneMonths, viewMode])
+
+  // Biggest month label in current view
+  const biggestMonthLabel = useMemo(() => {
+    if (viewMode !== 'Monthly' || peakCount === 0) return null
+    return data.find((d) => d.count === peakCount)?.label ?? null
+  }, [data, peakCount, viewMode])
 
   useEffect(() => {
     const handler = (e: Event) => { setDays((e as CustomEvent).detail as DayRange) }
@@ -277,6 +381,32 @@ export function StatsChart({
           </div>
         </CardHeader>
         <CardContent>
+          {/* Quick zoom filters */}
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <span className="text-xs text-muted-foreground">Zoom:</span>
+            <div className="flex gap-1">
+              {(['3m', '6m', '1y', 'all'] as ZoomPreset[]).map((preset) => (
+                <Button
+                  key={preset}
+                  variant={zoomPreset === preset ? 'default' : 'outline'}
+                  size="sm"
+                  className="h-6 px-2 text-xs"
+                  onClick={() => { setZoomPreset(preset); setBrushKey((k) => k + 1) }}
+                >
+                  {preset === 'all' ? 'All' : preset === '1y' ? '1Y' : preset === '6m' ? '6M' : '3M'}
+                </Button>
+              ))}
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-6 px-2 text-xs"
+              onClick={resetZoom}
+            >
+              Reset zoom
+            </Button>
+          </div>
+
           {/* Inline click summary */}
           {clickSummary && (
             <p className="text-xs text-muted-foreground mb-2 px-2 py-1 rounded bg-muted/50 truncate">
@@ -285,7 +415,7 @@ export function StatsChart({
           )}
 
           <div role="img" aria-label={`Bar chart showing ${viewMode.toLowerCase()} scrobble counts over the last ${days} days`}>
-          <ResponsiveContainer width="100%" height={200}>
+          <ResponsiveContainer width="100%" height={240}>
             <BarChart data={data} style={{ cursor: 'pointer' }}>
               <XAxis
                 dataKey="label"
@@ -325,6 +455,15 @@ export function StatsChart({
                   />
                 ))}
               </Bar>
+              {/* Date range brush for drag-to-zoom */}
+              <Brush
+                key={brushKey}
+                dataKey="label"
+                height={20}
+                stroke="var(--border)"
+                fill="var(--card)"
+                travellerWidth={6}
+              />
               {/* Week boundary lines in Daily mode */}
               {viewMode === 'Daily' && days > 30 && (() => {
                 const weekBoundaries = data
@@ -339,6 +478,31 @@ export function StatsChart({
                   }),
                 )
               })()}
+              {/* Milestone annotations in Monthly mode */}
+              {viewMode === 'Monthly' && Array.from(milestoneLabelMap.entries()).map(([label, hits]) => {
+                const hitText = hits.join(' · ')
+                return React.createElement(ReferenceLine, {
+                  key: `milestone-${label}`,
+                  x: label,
+                  stroke: 'var(--primary)',
+                  strokeDasharray: '3 3',
+                  strokeOpacity: 0.6,
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  label: { content: (p: any) => React.createElement(MilestoneLabel, { ...p, value: hitText }) } as any,
+                })
+              })}
+              {/* Biggest month crown */}
+              {viewMode === 'Monthly' && biggestMonthLabel && !milestoneLabelMap.has(biggestMonthLabel) &&
+                React.createElement(ReferenceLine, {
+                  key: 'biggest-month',
+                  x: biggestMonthLabel,
+                  stroke: 'var(--primary)',
+                  strokeDasharray: '4 2',
+                  strokeOpacity: 0.5,
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  label: { content: (p: any) => React.createElement(MilestoneLabel, { ...p, isBiggest: true }) } as any,
+                })
+              }
             </BarChart>
           </ResponsiveContainer>
           </div>

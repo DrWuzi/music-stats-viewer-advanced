@@ -33,6 +33,9 @@ export function KeyboardShortcuts({ isOwner }: KeyboardShortcutsProps) {
             window.dispatchEvent(new CustomEvent("toggleEditLayout"))
           }
           break
+        case "p":
+          window.print()
+          break
         case "/":
           e.preventDefault()
           window.dispatchEvent(new CustomEvent("focusNavSearch"))

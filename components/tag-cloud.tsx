@@ -1,7 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { AlertCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 interface Tag {
   name: string
@@ -35,29 +37,28 @@ export function TagCloud({ username }: TagCloudProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
+  const fetchTags = useCallback(async () => {
     if (!username) return
-
-    async function fetchTags() {
-      setLoading(true)
-      setError(null)
-      try {
-        const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY
-        const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&limit=30`
-        const res = await fetch(url)
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const data = await res.json()
-        const rawTags: Tag[] = data?.toptags?.tag ?? []
-        setTags(rawTags.map(t => ({ ...t, count: Number(t.count) })))
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load tags')
-      } finally {
-        setLoading(false)
-      }
+    setLoading(true)
+    setError(null)
+    try {
+      const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY
+      const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&limit=30`
+      const res = await fetch(url)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
+      const rawTags: Tag[] = data?.toptags?.tag ?? []
+      setTags(rawTags.map(t => ({ ...t, count: Number(t.count) })))
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load tags')
+    } finally {
+      setLoading(false)
     }
-
-    fetchTags()
   }, [username])
+
+  useEffect(() => {
+    fetchTags()
+  }, [fetchTags])
 
   const maxCount = tags.length > 0 ? Math.max(...tags.map(t => t.count)) : 1
 
@@ -83,9 +84,15 @@ export function TagCloud({ username }: TagCloudProps) {
         )}
 
         {!loading && error && (
-          <p style={{ color: 'var(--muted-foreground)' }} className="text-sm">
-            Could not load tags.
-          </p>
+          <div className="flex flex-col items-center gap-3 py-4">
+            <div className="flex items-center gap-2" style={{ color: 'var(--muted-foreground)' }}>
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              <span className="text-sm">Failed to load. Retry?</span>
+            </div>
+            <Button variant="outline" size="sm" onClick={fetchTags}>
+              Retry
+            </Button>
+          </div>
         )}
 
         {!loading && !error && tags.length === 0 && (

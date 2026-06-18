@@ -8,6 +8,7 @@ import { ArtistBio } from '@/components/artist-bio'
 import { Users, Disc3, Music2, ExternalLink, PlayCircle, BarChart2 } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { ListenOn } from '@/components/listen-on'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -328,6 +329,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                   <ExternalLink className="h-3.5 w-3.5 shrink-0" />
                   YouTube
                 </a>
+                <ListenOn type="artist" artist={artistInfo?.name ?? artistName} variant="compact" />
               </div>
               {/* Genre tags */}
               {artistInfo?.tags.length ? (
@@ -530,6 +532,18 @@ export default async function ArtistPage({ params, searchParams }: Props) {
               })}
             </div>
           </section>
+        )}
+
+        {/* ── View full discography link ───────────────────────────────── */}
+        {topAlbums.length > 0 && (
+          <div className="flex justify-end -mt-6">
+            <Link
+              href={`/artist/${encodeURIComponent(artistInfo?.name ?? artistName)}/discography${username ? `?username=${encodeURIComponent(username)}` : ''}`}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              View full discography →
+            </Link>
+          </div>
         )}
 
         {/* ── Tracks: global + user ─────────────────────────────────────── */}
