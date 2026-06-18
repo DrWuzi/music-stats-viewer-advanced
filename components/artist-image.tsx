@@ -30,7 +30,6 @@ export function ArtistImage({ name, size = 'md', className }: ArtistImageProps) 
   const cached = imageCache.get(name)
   const [imageUrl, setImageUrl] = useState<string | null>(cached !== undefined ? cached : null)
   const [loading, setLoading] = useState(cached === undefined)
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (imageCache.has(name)) {
@@ -82,14 +81,8 @@ export function ArtistImage({ name, size = 'md', className }: ArtistImageProps) 
 
   return (
     <Avatar className={`${sizeClass} shrink-0 ${className ?? ''}`}>
-      {imageUrl && (
-        <AvatarImage
-          src={imageUrl}
-          alt={name}
-          className={`transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-          onLoad={() => setLoaded(true)}
-        />
-      )}
+      {/* Radix pre-loads before inserting <img>, so no onLoad opacity trick needed */}
+      {imageUrl && <AvatarImage src={imageUrl} alt={name} />}
       <AvatarFallback className="text-xs font-semibold">
         {name[0]?.toUpperCase() ?? '?'}
       </AvatarFallback>

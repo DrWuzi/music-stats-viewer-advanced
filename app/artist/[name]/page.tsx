@@ -80,20 +80,28 @@ async function fetchHeroImage(artistName: string, lfmImages: Array<{ '#text': st
       return img['#text']
     }
   }
-  // Fallback: Wikipedia
+  // Fallback: Wikipedia MediaWiki API (handles redirects + disambiguation)
   try {
-    const title = artistName.trim().replace(/ /g, '_')
-    const res = await fetch(
-      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
-      {
-        headers: { 'User-Agent': 'LastFmAdvanced/1.0 (educational/personal project)' },
-        next: { revalidate: 86400 },
-      },
-    )
+    const params = new URLSearchParams({
+      action: 'query',
+      titles: artistName,
+      prop: 'pageimages',
+      pithumbsize: '1200',
+      pilimit: '1',
+      redirects: '1',
+      format: 'json',
+      formatversion: '2',
+      origin: '*',
+    })
+    const res = await fetch(`https://en.wikipedia.org/w/api.php?${params}`, {
+      headers: { 'User-Agent': 'LastFmAdvanced/1.0 (educational/personal project)' },
+      next: { revalidate: 86400 },
+    })
     if (res.ok) {
       const data = await res.json()
-      const src: string | undefined = data?.originalimage?.source ?? data?.thumbnail?.source
-      if (src) return src.replace(/\/\d+px-/, '/1200px-')
+      const pages: Array<{ thumbnail?: { source: string } }> = data?.query?.pages ?? []
+      const src = pages[0]?.thumbnail?.source
+      if (src) return src
     }
   } catch {}
   return null
