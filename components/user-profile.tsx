@@ -727,31 +727,14 @@ function UserProfileContent({
           <LoyaltyScoreBadge topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} />
           <LastActivityNudge lastSyncedAt={lastSyncedAt} />
         </div>
-        <div className="flex items-center gap-2 flex-wrap justify-end relative">
-          <PrintButton />
+        {/* Primary actions — always visible */}
+        <div className="flex items-center gap-2 shrink-0 relative">
           {isOwner && <ResyncButton username={username} />}
-          <CopyStatsButton
-            username={username}
-            totalScrobbles={totalScrobbles}
-            topArtist={topArtistsOverall[0]?.name}
-          />
-          <CopyProfileUrl />
-          <ShareProfileButton username={username} />
-          {isOwner && <ExportButton username={username} />}
-          <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
-
-          {/* Edit layout toggle */}
           {isEditing ? (
             <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground"
-                onClick={reset}
-                title="Reset to default layout"
-              >
+              <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={reset} title="Reset to default layout">
                 <RotateCcw className="h-4 w-4 mr-1" />
-                Reset
+                <span className="hidden sm:inline">Reset</span>
               </Button>
               <Button size="sm" onClick={() => setEditing(false)}>
                 <X className="h-4 w-4 mr-1" />
@@ -761,9 +744,21 @@ function UserProfileContent({
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
               <LayoutDashboard className="h-4 w-4 mr-1" />
-              Edit Layout
+              <span className="hidden sm:inline">Edit Layout</span>
             </Button>
           )}
+        </div>
+      </div>
+
+      {/* Secondary actions toolbar */}
+      <div className="flex items-center gap-1.5 flex-wrap mb-4 print:hidden">
+        <CopyStatsButton username={username} totalScrobbles={totalScrobbles} topArtist={topArtistsOverall[0]?.name} />
+        <CopyProfileUrl />
+        <ShareProfileButton username={username} />
+        {isOwner && <ExportButton username={username} />}
+        <PrintButton />
+        <div className="ml-auto">
+          <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
         </div>
       </div>
 
@@ -775,7 +770,7 @@ function UserProfileContent({
 
       {/* Edit mode hint banner */}
       {isEditing && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm text-muted-foreground">
+        <div className="mb-4 flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 px-4 py-2.5 text-sm text-muted-foreground print:hidden">
           <LayoutDashboard className="h-4 w-4 text-primary shrink-0" />
           <span>
             Drag sections to reorder · use <strong>↑ ↓</strong> arrows · toggle <strong>👁</strong> to hide/show · your layout is saved automatically.
