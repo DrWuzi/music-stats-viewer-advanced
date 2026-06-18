@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Compass } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
@@ -66,7 +67,11 @@ export function NewDiscoveries({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : discoveries.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No new discoveries in this period.</p>
+          <div className="flex flex-col items-center gap-2 p-8 text-muted-foreground">
+            <Compass className="h-8 w-8 opacity-40" />
+            <p className="text-sm">No new discoveries in this period.</p>
+            <p className="text-xs opacity-70">Try a longer window to surface more first-time artists.</p>
+          </div>
         ) : (
           <div className="flex flex-wrap gap-2">
             {discoveries.map((d) => {

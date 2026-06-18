@@ -11,6 +11,15 @@ const SIZE_CLASSES = {
   xl: 'h-32 w-32',
 }
 
+// Module-level cache to avoid re-fetching the same artist in the same session
+const imageCache = new Map<string, string | null>()
+
+async function fetchArtistImage(name: string): Promise<string | null> {
+  const res = await fetch(`/api/artist-image?name=${encodeURIComponent(name)}`)
+  const data = await res.json()
+  return data.url ?? null
+}
+
 interface ArtistImageProps {
   name: string
   size?: keyof typeof SIZE_CLASSES
@@ -18,20 +27,69 @@ interface ArtistImageProps {
 }
 
 export function ArtistImage({ name, size = 'md', className }: ArtistImageProps) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const cached = imageCache.get(name)
+  const [imageUrl, setImageUrl] = useState<string | null>(cached !== undefined ? cached : null)
+  const [loading, setLoading] = useState(cached === undefined)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
+    if (imageCache.has(name)) {
+      setImageUrl(imageCache.get(name) ?? null)
+      setLoading(false)
+      return
+    }
+
     let cancelled = false
-    fetch(`/api/artist-image?name=${encodeURIComponent(name)}`)
-      .then((r) => r.json())
-      .then((data) => { if (!cancelled && data.url) setImageUrl(data.url) })
-      .catch(() => {})
-    return () => { cancelled = true }
+
+    const attempt = (isRetry: boolean) => {
+      fetchArtistImage(name)
+        .then((url) => {
+          if (cancelled) return
+          imageCache.set(name, url)
+          setImageUrl(url)
+          setLoading(false)
+        })
+        .catch(() => {
+          if (cancelled) return
+          if (!isRetry) {
+            setTimeout(() => {
+              if (!cancelled) attempt(true)
+            }, 2000)
+          } else {
+            imageCache.set(name, null)
+            setLoading(false)
+          }
+        })
+    }
+
+    attempt(false)
+
+    return () => {
+      cancelled = true
+    }
   }, [name])
 
+  const sizeClass = SIZE_CLASSES[size]
+
+  if (loading) {
+    return (
+      <div
+        className={`animate-shimmer rounded-full shrink-0 ${sizeClass} ${className ?? ''}`}
+        aria-label={`Loading image for ${name}`}
+      />
+    )
+  }
+
   return (
-    <Avatar className={`${SIZE_CLASSES[size]} shrink-0 ${className ?? ''}`}>
-      {imageUrl && <AvatarImage src={imageUrl} alt={name} />}
+    <Avatar className={`${sizeClass} shrink-0 ${className ?? ''}`}>
+      {imageUrl && (
+        <AvatarImage
+          src={imageUrl}
+          alt={name}
+          className={`transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          onLoad={() => setLoaded(true)}
+        />
+      )}
       <AvatarFallback className="text-xs font-semibold">
         {name[0]?.toUpperCase() ?? '?'}
       </AvatarFallback>

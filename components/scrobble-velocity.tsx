@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { TrendingUp, TrendingDown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface ScrobbleVelocityProps {
@@ -73,8 +74,56 @@ function buildVelocityData(scrobbles: { scrobbledAt: Date | string }[]) {
   })
 }
 
+function computeStats(scrobbles: { scrobbledAt: Date | string }[]) {
+  if (scrobbles.length === 0) return null
+
+  // Build day-count map
+  const dayMap: Record<string, number> = {}
+  for (const s of scrobbles) {
+    const key = new Date(s.scrobbledAt).toISOString().slice(0, 10)
+    dayMap[key] = (dayMap[key] ?? 0) + 1
+  }
+
+  const entries = Object.entries(dayMap)
+  if (entries.length === 0) return null
+
+  // Peak day
+  const [peakDate, peakCount] = entries.reduce(
+    (best, curr) => (curr[1] > best[1] ? curr : best),
+    entries[0],
+  )
+
+  // Overall daily average across all tracked days (span-based)
+  const sortedDays = entries.map(([d]) => d).sort()
+  const firstDay = new Date(sortedDays[0])
+  const lastDay = new Date(sortedDays[sortedDays.length - 1])
+  const spanDays = Math.max(
+    1,
+    Math.round((lastDay.getTime() - firstDay.getTime()) / 86_400_000) + 1,
+  )
+  const overallAvg = scrobbles.length / spanDays
+
+  // Last 7 days pace
+  const now = new Date()
+  const sevenDaysAgo = new Date(now)
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+  const last7Count = scrobbles.filter(
+    (s) => new Date(s.scrobbledAt) >= sevenDaysAgo,
+  ).length
+  const last7Avg = last7Count / 7
+
+  const pacePercent =
+    overallAvg > 0
+      ? Math.round(((last7Avg - overallAvg) / overallAvg) * 100)
+      : 0
+  const isFaster = pacePercent >= 0
+
+  return { peakDate, peakCount, overallAvg, last7Avg, pacePercent, isFaster }
+}
+
 export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
   const data = useMemo(() => buildVelocityData(scrobbles), [scrobbles])
+  const stats = useMemo(() => computeStats(scrobbles), [scrobbles])
 
   if (scrobbles.length === 0 || data.length === 0) {
     return (
@@ -97,12 +146,70 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
     return { ...d, xLabel: d.label }
   })
 
+  const peakFormatted = stats?.peakDate
+    ? new Date(stats.peakDate).toLocaleDateString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : null
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Scrobble Velocity</CardTitle>
       </CardHeader>
       <CardContent>
+        {stats && (
+          <div className="grid grid-cols-2 gap-3 mb-4 animate-fade-in">
+            {/* Peak day */}
+            <div className="rounded-lg border bg-muted/30 px-3 py-2">
+              <p className="text-xs text-muted-foreground mb-0.5">Peak day</p>
+              <p className="text-sm font-semibold leading-tight">
+                {stats.peakCount.toLocaleString()} scrobbles
+              </p>
+              <p className="text-xs text-muted-foreground">{peakFormatted}</p>
+            </div>
+
+            {/* Current pace */}
+            <div
+              className="rounded-lg border px-3 py-2"
+              style={{
+                background: stats.isFaster
+                  ? 'color-mix(in srgb, var(--success, #22c55e) 10%, transparent)'
+                  : 'color-mix(in srgb, var(--muted) 40%, transparent)',
+                borderColor: stats.isFaster
+                  ? 'color-mix(in srgb, var(--success, #22c55e) 35%, transparent)'
+                  : 'var(--border)',
+              }}
+            >
+              <p className="text-xs text-muted-foreground mb-0.5">Current pace</p>
+              <div className="flex items-center gap-1">
+                {stats.isFaster ? (
+                  <TrendingUp
+                    className="h-4 w-4 shrink-0"
+                    style={{ color: 'var(--success, #22c55e)' }}
+                  />
+                ) : (
+                  <TrendingDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+                )}
+                <p
+                  className="text-sm font-semibold leading-tight"
+                  style={{
+                    color: stats.isFaster ? 'var(--success, #22c55e)' : undefined,
+                  }}
+                >
+                  {stats.isFaster ? '+' : ''}
+                  {stats.pacePercent}%
+                </p>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {stats.last7Avg.toFixed(1)} vs {stats.overallAvg.toFixed(1)} avg/day
+              </p>
+            </div>
+          </div>
+        )}
+
         <p className="text-xs text-muted-foreground mb-3">30-day rolling average · scrobbles/day</p>
         <ResponsiveContainer width="100%" height={200}>
           <AreaChart data={labeledData} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>

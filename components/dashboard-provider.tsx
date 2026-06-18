@@ -118,11 +118,6 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     persist(o, h)
   }, [persist])
 
-  // Avoid hydration mismatch by rendering children without context until client hydrates
-  if (!ready) {
-    return <>{children}</>
-  }
-
   return (
     <Ctx.Provider value={{ order, hidden, isEditing, setEditing: setIsEditing, moveUp, moveDown, moveTo, toggleHidden, reset }}>
       {children}

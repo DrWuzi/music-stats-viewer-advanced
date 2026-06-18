@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import {
   LineChart,
   Line,
@@ -18,15 +19,20 @@ interface Props {
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const YEAR_COLORS = [
-  'var(--primary)',
-  '#f59e0b',
-  '#10b981',
-  '#ef4444',
-  '#8b5cf6',
-  '#06b6d4',
-  '#f97316',
-  '#84cc16',
+function getCssVar(name: string) {
+  if (typeof window === 'undefined') return '#888'
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+}
+
+const YEAR_COLOR_VARS = [
+  '--primary',
+  '--chart-2',
+  '--chart-3',
+  '--chart-4',
+  '--chart-5',
+  '--chart-6',
+  '--chart-7',
+  '--chart-8',
 ]
 
 function buildData(scrobbles: { scrobbledAt: Date | string }[]) {
@@ -58,6 +64,12 @@ function buildData(scrobbles: { scrobbledAt: Date | string }[]) {
 }
 
 export function YoYChart({ scrobbles }: Props) {
+  const [resolvedColors, setResolvedColors] = useState<string[]>([])
+
+  useEffect(() => {
+    setResolvedColors(YEAR_COLOR_VARS.map((v) => getCssVar(v)))
+  }, [])
+
   if (!scrobbles.length) {
     return (
       <Card>
@@ -85,7 +97,7 @@ export function YoYChart({ scrobbles }: Props) {
                 key={year}
                 type="monotone"
                 dataKey={String(year)}
-                stroke={YEAR_COLORS[i % YEAR_COLORS.length]}
+                stroke={resolvedColors[i % YEAR_COLOR_VARS.length] ?? getCssVar(YEAR_COLOR_VARS[i % YEAR_COLOR_VARS.length])}
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 4 }}

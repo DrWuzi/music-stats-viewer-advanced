@@ -58,6 +58,14 @@ import { SectionErrorBoundary } from '@/components/section-error-boundary'
 import { CollapsibleSection } from '@/components/collapsible-section'
 import { DashboardProvider, useDashboard } from '@/components/dashboard-provider'
 import { DashboardWidget } from '@/components/dashboard-widget'
+import { ListeningPersonality } from '@/components/listening-personality'
+import { MonthlyTopTrack } from '@/components/monthly-top-track'
+import { StreakCalendar } from '@/components/streak-calendar'
+import { FirstListens } from '@/components/first-listens'
+import { MoodRing } from '@/components/mood-ring'
+import { ListeningBingo } from '@/components/listening-bingo'
+import { YearlyTopAlbum } from '@/components/yearly-top-album'
+import { MarathonSessions } from '@/components/marathon-sessions'
 import type { WidgetId } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
 
@@ -265,6 +273,49 @@ function UserProfileContent({
           </div>
         )
 
+      case 'listening-personality':
+        return (
+          <ListeningPersonality
+            topArtists={topArtistsOverall}
+            totalScrobbles={totalScrobbles}
+            scrobbles={allScrobbles}
+          />
+        )
+
+      case 'monthly-top-track':
+        return <MonthlyTopTrack scrobbles={allScrobbles} />
+
+      case 'streak-calendar':
+        return <StreakCalendar scrobbles={allScrobbles} />
+
+      case 'first-listens':
+        return (
+          <FirstListens
+            scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
+          />
+        )
+
+      case 'mood-ring':
+        return <MoodRing scrobbles={allScrobbles} />
+
+      case 'listening-bingo':
+        return (
+          <ListeningBingo
+            scrobbles={allScrobbles}
+            totalScrobbles={totalScrobbles}
+          />
+        )
+
+      case 'yearly-top-album':
+        return (
+          <YearlyTopAlbum
+            scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
+          />
+        )
+
+      case 'marathon-sessions':
+        return <MarathonSessions scrobbles={allScrobbles} />
+
       default:
         return null
     }
@@ -280,13 +331,13 @@ function UserProfileContent({
       <NowPlaying username={username} />
 
       {/* Profile header */}
-      <div className="flex items-center gap-4 mb-6 mt-4">
-        <Avatar className="h-16 w-16">
+      <div className="animate-fade-in bg-gradient-to-br from-primary/5 to-transparent rounded-2xl p-6 flex items-center gap-4 mb-6 mt-4">
+        <Avatar className="h-20 w-20 ring-2 ring-primary/20 ring-offset-2">
           <AvatarImage src={imageUrl} alt={username} />
           <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
         </Avatar>
         <div className="flex-1 min-w-0">
-          <h1 className="text-2xl font-bold">{username}</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">{username}</h1>
           <p className="text-muted-foreground text-sm">
             {totalScrobbles.toLocaleString('en-US')} scrobbles · Member since{' '}
             {new Date(registeredAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}

@@ -30,7 +30,7 @@ function List({ items, username }: { items: Item[]; username: string }) {
   return (
     <ul className="divide-y">
       {items.map((item) => (
-        <li key={item.rank} className="flex items-center justify-between py-2 gap-3">
+        <li key={item.rank} className="flex items-center justify-between py-2 px-2 gap-3 rounded-lg transition-colors duration-150 hover:bg-muted/50">
           <span className="text-sm text-muted-foreground w-5 shrink-0 text-right">{item.rank}</span>
           <div className="flex flex-col min-w-0 flex-1">
             <span className="font-medium truncate">{item.name}</span>
@@ -83,7 +83,7 @@ function ArtistList({ artists, username }: { artists: { name: string; playcount:
       </div>
       <ul className="divide-y">
         {sortedArtists.map((artist) => (
-          <li key={artist.name} className="flex items-center justify-between py-2 gap-3">
+          <li key={artist.name} className="flex items-center justify-between py-2 px-2 gap-3 rounded-lg transition-colors duration-150 hover:bg-muted/50">
             <span className="text-sm text-muted-foreground w-5 shrink-0 text-right">{artist.rank}</span>
             <Link
               href={`/artist/${encodeURIComponent(artist.name)}?username=${encodeURIComponent(username)}`}

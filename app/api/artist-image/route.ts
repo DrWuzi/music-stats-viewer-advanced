@@ -25,21 +25,26 @@ async function fromLastfm(name: string): Promise<string | null> {
 
 async function fromWikipedia(name: string): Promise<string | null> {
   try {
-    // Wikipedia uses underscores for spaces, title-cased
-    const title = name.trim().replace(/ /g, '_')
-    const res = await fetch(
-      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
-      {
-        headers: { 'User-Agent': 'LastFmAdvanced/1.0 (educational/personal project)' },
-        next: { revalidate: 86400 },
-      },
-    )
+    const params = new URLSearchParams({
+      action: 'query',
+      titles: name,
+      prop: 'pageimages',
+      pithumbsize: '600',
+      pilimit: '1',
+      redirects: '1',
+      format: 'json',
+      formatversion: '2',
+      origin: '*',
+    })
+    const res = await fetch(`https://en.wikipedia.org/w/api.php?${params}`, {
+      headers: { 'User-Agent': 'LastFmAdvanced/1.0 (educational/personal project)' },
+      next: { revalidate: 86400 },
+    })
     if (!res.ok) return null
     const data = await res.json()
-    const src: string | undefined = data?.thumbnail?.source
-    if (!src) return null
-    // Bump resolution: Wikipedia thumbnails often have /320px- in path; replace with /600px-
-    return src.replace(/\/\d+px-/, '/600px-')
+    const pages: Array<{ thumbnail?: { source: string } }> = data?.query?.pages ?? []
+    const src = pages[0]?.thumbnail?.source
+    return src ?? null
   } catch {}
   return null
 }

@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { NavSearch } from "@/components/nav-search"
 
 interface NavSession {
   lastfmUsername: string
@@ -85,6 +86,8 @@ export function NavClient({ session }: NavClientProps) {
             </Link>
           )}
 
+          <NavSearch username={session?.lastfmUsername} />
+
           <ThemeToggle />
 
           {/* Keyboard shortcuts button */}
@@ -121,6 +124,8 @@ export function NavClient({ session }: NavClientProps) {
       {/* Mobile dropdown */}
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 z-50 flex flex-col gap-1 bg-card border-b shadow-md p-4">
+          <NavSearch username={session?.lastfmUsername} />
+
           {navLinks.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}

@@ -245,7 +245,11 @@ export default async function ArtistPage({ params, searchParams }: Props) {
             style={{ backgroundImage: `url(${heroImage})` }}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950" />
+          <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950 flex items-center justify-center">
+            <span className="text-[20rem] font-black leading-none select-none opacity-10 text-white">
+              {artistName[0]?.toUpperCase()}
+            </span>
+          </div>
         )}
         {/* Subtle overall darkening so text is always readable */}
         <div className="absolute inset-0 bg-black/30" />
@@ -267,7 +271,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
             ← {username ? `${username}'s profile` : 'Home'}
           </Link>
 
-          <div className="flex flex-col md:flex-row md:items-end gap-6">
+          <div className="flex flex-col md:flex-row md:items-end gap-6 animate-fade-in-up">
             {/* Left: name + meta */}
             <div className="flex-1 min-w-0">
               <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">Artist</p>
@@ -416,15 +420,24 @@ export default async function ArtistPage({ params, searchParams }: Props) {
               <Disc3 className="h-5 w-5" /> Discography
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {topAlbums.map((album) => {
+              {topAlbums.map((album, idx) => {
                 const albumImg = getBestImage(album.image, ['extralarge', 'large', 'medium'])
+                const delays = [
+                  'animation-delay-0',
+                  'animation-delay-100',
+                  'animation-delay-200',
+                  'animation-delay-300',
+                  'animation-delay-400',
+                  'animation-delay-500',
+                ]
+                const delayClass = delays[idx % delays.length]
                 return (
                   <a
                     key={album.name}
                     href={album.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group"
+                    className={`group animate-fade-in-up ${delayClass}`}
                   >
                     <div className="aspect-square rounded-xl overflow-hidden bg-muted border border-border mb-2 shadow-sm">
                       {albumImg ? (
@@ -449,60 +462,62 @@ export default async function ArtistPage({ params, searchParams }: Props) {
         )}
 
         {/* ── Tracks: global + user ─────────────────────────────────────── */}
-        {(globalTopTracks.length > 0 || userTopTracks.length > 0) && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {globalTopTracks.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BarChart2 className="h-4 w-4" /> Popular Tracks
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ol className="space-y-3">
-                    {globalTopTracks.map((t, i) => (
-                      <li key={t.name} className="flex items-center gap-3">
-                        <span className="text-muted-foreground text-sm w-5 text-right shrink-0 tabular-nums">{i + 1}</span>
-                        <a
-                          href={t.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 text-sm truncate hover:underline"
-                        >
-                          {t.name}
-                        </a>
-                        <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
-                          {fmtNum(t.listeners)}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
-            )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart2 className="h-4 w-4" /> Popular Tracks
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {globalTopTracks.length > 0 ? (
+                <ol className="space-y-3">
+                  {globalTopTracks.map((t, i) => (
+                    <li key={t.name} className="flex items-center gap-3">
+                      <span className="text-muted-foreground text-sm w-5 text-right shrink-0 tabular-nums">{i + 1}</span>
+                      <a
+                        href={t.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 text-sm truncate hover:underline"
+                      >
+                        {t.name}
+                      </a>
+                      <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
+                        {fmtNum(t.listeners)}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-6">No tracks found</p>
+              )}
+            </CardContent>
+          </Card>
 
-            {userTopTracks.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Music2 className="h-4 w-4" /> Your Top Tracks
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ol className="space-y-3">
-                    {userTopTracks.map(([track, count], i) => (
-                      <li key={track} className="flex items-center gap-3">
-                        <span className="text-muted-foreground text-sm w-5 text-right shrink-0 tabular-nums">{i + 1}</span>
-                        <span className="flex-1 text-sm truncate">{track}</span>
-                        <span className="text-sm font-semibold shrink-0 tabular-nums">{count}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        )}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Music2 className="h-4 w-4" /> Your Top Tracks
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {userTopTracks.length > 0 ? (
+                <ol className="space-y-3">
+                  {userTopTracks.map(([track, count], i) => (
+                    <li key={track} className="flex items-center gap-3">
+                      <span className="text-muted-foreground text-sm w-5 text-right shrink-0 tabular-nums">{i + 1}</span>
+                      <span className="flex-1 text-sm truncate">{track}</span>
+                      <span className="text-sm font-semibold shrink-0 tabular-nums">{count}</span>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-6">No tracks found</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
 
         {/* ── Play history ──────────────────────────────────────────────── */}
         {playsByMonth.length > 0 && (

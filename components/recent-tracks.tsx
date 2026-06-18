@@ -57,7 +57,7 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
               const key = t.artist + '::' + t.track
               const loved = lovedMap[key] ?? false
               return (
-                <li key={i} className="flex items-center justify-between py-2">
+                <li key={i} className="flex items-center justify-between py-2 px-2 rounded-lg transition-colors duration-150 hover:bg-muted/50">
                   <div className="flex flex-col min-w-0">
                     <span className="font-medium truncate">{t.track}</span>
                     <span className="text-sm text-muted-foreground truncate">

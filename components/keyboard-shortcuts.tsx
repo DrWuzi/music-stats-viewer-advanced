@@ -25,6 +25,18 @@ export function KeyboardShortcuts({ isOwner }: KeyboardShortcutsProps) {
         case "?":
           window.dispatchEvent(new CustomEvent("showShortcuts"))
           break
+        case "t":
+          window.scrollTo({ top: 0, behavior: "smooth" })
+          break
+        case "e":
+          if (isOwner) {
+            window.dispatchEvent(new CustomEvent("toggleEditLayout"))
+          }
+          break
+        case "/":
+          e.preventDefault()
+          window.dispatchEvent(new CustomEvent("focusNavSearch"))
+          break
       }
     }
 
@@ -32,7 +44,7 @@ export function KeyboardShortcuts({ isOwner }: KeyboardShortcutsProps) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [])
+  }, [isOwner])
 
   return null
 }

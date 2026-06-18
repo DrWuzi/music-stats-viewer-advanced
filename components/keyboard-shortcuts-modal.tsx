@@ -52,6 +52,24 @@ export function KeyboardShortcutsModal() {
               </tr>
               <tr>
                 <td className="py-3">
+                  <kbd className="px-2 py-1 rounded bg-muted font-mono text-xs">t</kbd>
+                </td>
+                <td className="py-3 text-foreground">Scroll to top</td>
+              </tr>
+              <tr>
+                <td className="py-3">
+                  <kbd className="px-2 py-1 rounded bg-muted font-mono text-xs">e</kbd>
+                </td>
+                <td className="py-3 text-foreground">Toggle edit layout mode (owner only)</td>
+              </tr>
+              <tr>
+                <td className="py-3">
+                  <kbd className="px-2 py-1 rounded bg-muted font-mono text-xs">/</kbd>
+                </td>
+                <td className="py-3 text-foreground">Focus nav search</td>
+              </tr>
+              <tr>
+                <td className="py-3">
                   <kbd className="px-2 py-1 rounded bg-muted font-mono text-xs">?</kbd>
                 </td>
                 <td className="py-3 text-foreground">Show this help</td>
