@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { getChartColor } from '@/lib/chart-colors'
 
 export function ListeningClock({
   scrobbles,
@@ -45,6 +46,7 @@ export function ListeningClock({
         <CardTitle>Listening Clock</CardTitle>
       </CardHeader>
       <CardContent>
+        <div role="img" aria-label="Radial chart showing scrobble counts for each hour of the day">
         <ResponsiveContainer width="100%" height={260}>
           <RadialBarChart
             data={data}
@@ -55,7 +57,7 @@ export function ListeningClock({
           >
             <RadialBar
               dataKey="count"
-              fill="var(--primary)"
+              fill={getChartColor(0)}
               background={{ fill: 'var(--muted)' }}
               label={false}
             />
@@ -64,6 +66,7 @@ export function ListeningClock({
             />
           </RadialBarChart>
         </ResponsiveContainer>
+        </div>
         <p className="text-xs text-center text-muted-foreground mt-1">
           Each band represents one hour (0–23). 12 o'clock = midnight.
         </p>

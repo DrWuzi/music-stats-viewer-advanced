@@ -25,6 +25,11 @@ export const WIDGET_DEFS = [
   { id: 'listening-bingo',       label: 'Listening Bingo' },
   { id: 'yearly-top-album',      label: 'Top Album Each Year' },
   { id: 'marathon-sessions',     label: 'Longest Listening Sessions' },
+  { id: 'on-this-day',           label: 'On This Day' },
+  { id: 'tag-cloud',             label: 'Tag Cloud' },
+  { id: 'you-might-like',        label: 'Recommendations' },
+  { id: 'recent-carousel',       label: 'Recent Artists' },
+  { id: 'now-playing-banner',    label: 'Now Playing' },
 ] as const
 
 export type WidgetId = (typeof WIDGET_DEFS)[number]['id']

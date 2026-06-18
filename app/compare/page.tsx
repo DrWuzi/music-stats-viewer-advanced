@@ -1,15 +1,14 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { CompareScore } from '@/components/compare-score'
-import { CompareArtists } from '@/components/compare-artists'
+import { useRouter } from 'next/navigation'
+import { ClipboardPaste, ArrowRight, Clock } from 'lucide-react'
 
 const RECENTLY_COMPARED_KEY = 'recentlyCompared'
-const MAX_RECENT = 5
+const MAX_STORED = 5
+const MAX_SHOWN = 3
+const LASTFM_ME_KEY = 'lastfmMe'
 
 function saveRecentComparison(user1: string, user2: string) {
   try {
@@ -18,7 +17,7 @@ function saveRecentComparison(user1: string, user2: string) {
     const entry = `${user1}:${user2}`
     const filtered = list.filter((item) => item !== entry)
     filtered.unshift(entry)
-    localStorage.setItem(RECENTLY_COMPARED_KEY, JSON.stringify(filtered.slice(0, MAX_RECENT)))
+    localStorage.setItem(RECENTLY_COMPARED_KEY, JSON.stringify(filtered.slice(0, MAX_STORED)))
   } catch {
     // ignore storage errors
   }
@@ -33,124 +32,75 @@ function loadRecentComparisons(): string[] {
   }
 }
 
-interface CompareResult {
-  sharedArtists: number
-  compatibilityScore: number
-  uniqueToUser1: { name: string; playcount: number }[]
-  uniqueToUser2: { name: string; playcount: number }[]
-  topShared: { name: string; playcount1: number; playcount2: number; total: number }[]
-}
-
-function compatibilityLabel(score: number): string {
-  if (score > 50) return 'Music Twins!'
-  if (score >= 20) return 'Some overlap'
-  return 'Different taste'
+function loadMyUsername(): string {
+  try {
+    return localStorage.getItem(LASTFM_ME_KEY) ?? ''
+  } catch {
+    return ''
+  }
 }
 
 export default function ComparePage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const paramA = searchParams.get('a')?.trim() ?? ''
-  const paramB = searchParams.get('b')?.trim() ?? ''
-
-  const [inputA, setInputA] = useState(paramA)
-  const [inputB, setInputB] = useState(paramB)
-
-  const [result, setResult] = useState<CompareResult | null>(null)
-  const [errorMsg, setErrorMsg] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-
+  const [inputA, setInputA] = useState('')
+  const [inputB, setInputB] = useState('')
   const [recentList, setRecentList] = useState<string[]>([])
+  const [myUsername, setMyUsername] = useState('')
 
   useEffect(() => {
     setRecentList(loadRecentComparisons())
+    setMyUsername(loadMyUsername())
   }, [])
-
-  const fetchCompare = useCallback(async (user1: string, user2: string) => {
-    setLoading(true)
-    setResult(null)
-    setErrorMsg(null)
-    try {
-      const res = await fetch(`/api/compare?user1=${encodeURIComponent(user1)}&user2=${encodeURIComponent(user2)}`)
-      if (!res.ok) {
-        const body = await res.json()
-        setErrorMsg(body?.missing
-          ? `User "${body.missing}" not found — visit /user/${body.missing} first to sync their data.`
-          : (body?.error ?? 'Something went wrong'))
-        return
-      }
-      const data: CompareResult = await res.json()
-      setResult(data)
-      saveRecentComparison(user1, user2)
-      setRecentList(loadRecentComparisons())
-    } catch {
-      setErrorMsg('Network error. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  // Auto-fetch when both URL params are present
-  useEffect(() => {
-    if (paramA && paramB) {
-      setInputA(paramA)
-      setInputB(paramB)
-      fetchCompare(paramA, paramB)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paramA, paramB])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const a = inputA.trim()
     const b = inputB.trim()
     if (!a || !b) return
-    router.push(`/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`)
+    saveRecentComparison(a, b)
+    router.push(`/compare/${encodeURIComponent(a)}/${encodeURIComponent(b)}`)
   }
 
   function handleRecentClick(pair: string) {
     const [u1, u2] = pair.split(':')
-    router.push(`/compare?a=${encodeURIComponent(u1)}&b=${encodeURIComponent(u2)}`)
+    router.push(`/compare/${encodeURIComponent(u1)}/${encodeURIComponent(u2)}`)
   }
 
-  const showResults = result && paramA && paramB
+  function pasteMyUsername() {
+    if (myUsername) setInputA(myUsername)
+  }
 
   return (
     <main className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-lg mx-auto space-y-8">
         <div>
-          <Link href="/" className="text-muted-foreground hover:text-foreground text-sm mb-2 inline-block">
+          <Link href="/" className="text-muted-foreground hover:text-foreground text-sm mb-3 inline-flex items-center gap-1 transition-colors">
             ← Back to home
           </Link>
-          <h1 className="text-3xl font-bold">Compare Users</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Compare Users</h1>
           <p className="text-muted-foreground mt-1">
             Find out how compatible two Last.fm listeners are.
           </p>
         </div>
 
-        {/* Recently compared chips */}
-        {recentList.length > 0 && (
-          <div className="space-y-1">
-            <p className="text-xs text-muted-foreground uppercase tracking-wide">Recently compared</p>
-            <div className="flex flex-wrap gap-2">
-              {recentList.map((pair) => (
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Your username */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <label htmlFor="a" className="text-sm font-medium">Your username</label>
+              {myUsername && (
                 <button
-                  key={pair}
-                  onClick={() => handleRecentClick(pair)}
-                  className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium hover:bg-muted transition-colors"
+                  type="button"
+                  onClick={pasteMyUsername}
+                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  title={`Paste "${myUsername}"`}
                 >
-                  {pair.replace(':', ' vs ')}
+                  <ClipboardPaste className="h-3 w-3" />
+                  Paste {myUsername}
                 </button>
-              ))}
+              )}
             </div>
-          </div>
-        )}
-
-        {/* Search form */}
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-          <div className="space-y-2">
-            <label htmlFor="a" className="text-sm font-medium">First username</label>
             <input
               id="a"
               name="a"
@@ -159,11 +109,14 @@ export default function ComparePage() {
               onChange={(e) => setInputA(e.target.value)}
               placeholder="e.g. radiohead_fan"
               required
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              autoComplete="off"
+              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-shadow"
             />
           </div>
-          <div className="space-y-2">
-            <label htmlFor="b" className="text-sm font-medium">Second username</label>
+
+          {/* Friend's username */}
+          <div className="space-y-1.5">
+            <label htmlFor="b" className="text-sm font-medium">Friend&apos;s username</label>
             <input
               id="b"
               name="b"
@@ -172,62 +125,46 @@ export default function ComparePage() {
               onChange={(e) => setInputB(e.target.value)}
               placeholder="e.g. pinkfloyd_lover"
               required
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              autoComplete="off"
+              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-shadow"
             />
           </div>
+
           <button
             type="submit"
-            disabled={loading}
-            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-60"
+            disabled={!inputA.trim() || !inputB.trim()}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {loading ? 'Comparing…' : 'Compare'}
+            Compare
+            <ArrowRight className="h-4 w-4" />
           </button>
         </form>
 
-        {/* Error */}
-        {errorMsg && (
-          <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 max-w-md">
-            <p className="text-destructive font-medium text-sm">{errorMsg}</p>
+        {/* Recently compared */}
+        {recentList.length > 0 && (
+          <div className="space-y-2">
+            <p className="flex items-center gap-1.5 text-xs text-muted-foreground uppercase tracking-wide font-medium">
+              <Clock className="h-3 w-3" />
+              Recent comparisons
+            </p>
+            <div className="flex flex-col gap-1.5">
+              {recentList.slice(0, MAX_SHOWN).map((pair) => {
+                const [u1, u2] = pair.split(':')
+                return (
+                  <button
+                    key={pair}
+                    onClick={() => handleRecentClick(pair)}
+                    className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted transition-colors text-left"
+                  >
+                    <span className="font-medium">{u1}</span>
+                    <span className="text-muted-foreground text-xs px-2">vs</span>
+                    <span className="font-medium">{u2}</span>
+                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground ml-auto" />
+                  </button>
+                )
+              })}
+            </div>
           </div>
-        )}
-
-        {/* Results */}
-        {showResults && (
-          <>
-            <h2 className="text-xl font-bold">{paramA} vs {paramB}</h2>
-
-            {/* Compatibility score circle */}
-            <Card className="p-6">
-              <div className="flex flex-col items-center gap-2">
-                <p className="text-sm uppercase tracking-widest text-muted-foreground">
-                  Compatibility Score
-                </p>
-                <CompareScore
-                  score={result.compatibilityScore}
-                  user1={paramA}
-                  user2={paramB}
-                  sharedCount={result.sharedArtists}
-                />
-                <p className="text-lg font-semibold">{compatibilityLabel(result.compatibilityScore)}</p>
-              </div>
-            </Card>
-
-            {/* Artist breakdown */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Artist Breakdown</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CompareArtists
-                  topShared={result.topShared}
-                  uniqueToUser1={result.uniqueToUser1}
-                  uniqueToUser2={result.uniqueToUser2}
-                  user1={paramA}
-                  user2={paramB}
-                />
-              </CardContent>
-            </Card>
-          </>
         )}
       </div>
     </main>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -20,11 +21,29 @@ function getOpacityClass(count: number): string {
   return 'opacity-100'
 }
 
+function formatHourRange(hour: number): string {
+  const fmt = (h: number) => {
+    if (h === 0) return '12 AM'
+    if (h === 12) return '12 PM'
+    return h < 12 ? `${h} AM` : `${h - 12} PM`
+  }
+  const next = (hour + 1) % 24
+  return `${fmt(hour)} — ${fmt(next)}`
+}
+
 export function HourlyHeatmap({
   scrobbles,
 }: {
   scrobbles: { scrobbledAt: Date | string }[]
 }) {
+  const [tooltip, setTooltip] = useState<{
+    day: string
+    hour: number
+    count: number
+    x: number
+    y: number
+  } | null>(null)
+
   // counts[day][hour]
   const counts: number[][] = Array.from({ length: 7 }, () => new Array(24).fill(0))
 
@@ -54,8 +73,13 @@ export function HourlyHeatmap({
         <CardTitle>Listening Heatmap</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="w-full">
-          <div>
+        <div
+          role="img"
+          aria-label="Heatmap showing listening activity by hour of day and day of week"
+          className="w-full overflow-x-auto relative"
+          onMouseLeave={() => setTooltip(null)}
+        >
+          <div className="min-w-[600px]">
             {/* Hour labels row */}
             <div className="flex mb-1 ml-8">
               {HOURS.map((h) => (
@@ -79,8 +103,20 @@ export function HourlyHeatmap({
                 {HOURS.map((hour) => (
                   <div
                     key={hour}
-                    className="flex-1 mx-px"
-                    title={`${day} ${hour}:00 — ${counts[dayIdx][hour]} scrobbles`}
+                    className="flex-1 mx-px cursor-default"
+                    onMouseEnter={(e) => {
+                      const rect = (e.currentTarget as HTMLElement)
+                        .closest('[role="img"]')
+                        ?.getBoundingClientRect()
+                      const cellRect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+                      setTooltip({
+                        day,
+                        hour,
+                        count: counts[dayIdx][hour],
+                        x: cellRect.left - (rect?.left ?? 0) + cellRect.width / 2,
+                        y: cellRect.top - (rect?.top ?? 0),
+                      })
+                    }}
                   >
                     <div
                       className={`h-4 rounded-sm bg-primary ${getOpacityClass(counts[dayIdx][hour])}`}
@@ -90,6 +126,18 @@ export function HourlyHeatmap({
               </div>
             ))}
           </div>
+
+          {/* Floating tooltip */}
+          {tooltip && (
+            <div
+              className="pointer-events-none absolute z-10 bg-popover border border-border rounded-lg p-2 text-sm shadow-md whitespace-nowrap -translate-x-1/2 -translate-y-full"
+              style={{ left: tooltip.x, top: tooltip.y - 6 }}
+            >
+              <span className="font-medium">{tooltip.day}, {formatHourRange(tooltip.hour)}</span>
+              <span className="text-muted-foreground">: </span>
+              <span>{tooltip.count.toLocaleString()} scrobbles</span>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

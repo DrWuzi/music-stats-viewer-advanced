@@ -25,7 +25,7 @@ function getCssVar(name: string) {
 }
 
 const YEAR_COLOR_VARS = [
-  '--primary',
+  '--chart-1',
   '--chart-2',
   '--chart-3',
   '--chart-4',
@@ -65,9 +65,14 @@ function buildData(scrobbles: { scrobbledAt: Date | string }[]) {
 
 export function YoYChart({ scrobbles }: Props) {
   const [resolvedColors, setResolvedColors] = useState<string[]>([])
+  const [hiddenKeys, setHiddenKeys] = useState<Set<string>>(new Set())
 
   useEffect(() => {
-    setResolvedColors(YEAR_COLOR_VARS.map((v) => getCssVar(v)))
+    const resolve = () => setResolvedColors(YEAR_COLOR_VARS.map((v) => getCssVar(v)))
+    resolve()
+    const observer = new MutationObserver(resolve)
+    observer.observe(document.documentElement, { attributeFilter: ['class'] })
+    return () => observer.disconnect()
   }, [])
 
   if (!scrobbles.length) {
@@ -91,7 +96,18 @@ export function YoYChart({ scrobbles }: Props) {
             <XAxis dataKey="month" tick={{ fontSize: 11 }} />
             <YAxis tick={{ fontSize: 11 }} />
             <Tooltip />
-            <Legend />
+            <Legend
+              onClick={(e) => {
+                const key = String(e.dataKey ?? e.value)
+                setHiddenKeys((prev) => {
+                  const next = new Set(prev)
+                  if (next.has(key)) next.delete(key)
+                  else next.add(key)
+                  return next
+                })
+              }}
+              wrapperStyle={{ cursor: 'pointer' }}
+            />
             {years.map((year, i) => (
               <Line
                 key={year}
@@ -101,6 +117,7 @@ export function YoYChart({ scrobbles }: Props) {
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 4 }}
+                hide={hiddenKeys.has(String(year))}
               />
             ))}
           </LineChart>

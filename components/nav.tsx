@@ -53,7 +53,7 @@ export function NavClient({ session }: NavClientProps) {
         <div className="hidden md:flex items-center gap-3">
           {navLinks.map(({ href, label, icon: Icon }) => (
             <Link key={href} href={href} className={linkClass(href)}>
-              <Icon className="h-4 w-4" />
+              <Icon className="h-5 w-5" />
               {label}
             </Link>
           ))}
@@ -99,7 +99,7 @@ export function NavClient({ session }: NavClientProps) {
               window.dispatchEvent(new CustomEvent("showShortcuts"))
             }
           >
-            <Keyboard className="h-4 w-4" />
+            <Keyboard className="h-5 w-5" />
           </Button>
         </div>
 
@@ -133,7 +133,7 @@ export function NavClient({ session }: NavClientProps) {
               className={linkClass(href)}
               onClick={() => setMobileMenuOpen(false)}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-5 w-5" />
               {label}
             </Link>
           ))}
@@ -187,7 +187,7 @@ export function NavClient({ session }: NavClientProps) {
               setMobileMenuOpen(false)
             }}
           >
-            <Keyboard className="h-4 w-4" />
+            <Keyboard className="h-5 w-5" />
             Keyboard shortcuts
           </Button>
         </div>

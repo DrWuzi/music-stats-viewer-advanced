@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 interface Props {
-  scrobbles: { scrobbledAt: Date }[]
+  scrobbles: { scrobbledAt: Date; artist: string; track: string }[]
 }
 
 function toDateKey(d: Date): string {
@@ -35,13 +35,18 @@ function getIntensityStyle(count: number, max: number): React.CSSProperties {
 }
 
 export function StreakCalendar({ scrobbles }: Props) {
-  const { weeks, monthLabels, countByDay, maxCount, currentStreak, longestStreak } =
+  const [selectedDate, setSelectedDate] = useState<string | null>(null)
+
+  const { weeks, monthLabels, countByDay, maxCount, currentStreak, longestStreak, tracksByDay } =
     useMemo(() => {
-      // Build count map
+      // Build count map and tracks map
       const countByDay: Record<string, number> = {}
+      const tracksByDay: Record<string, { artist: string; track: string }[]> = {}
       for (const s of scrobbles) {
         const k = toDateKey(new Date(s.scrobbledAt))
         countByDay[k] = (countByDay[k] ?? 0) + 1
+        if (!tracksByDay[k]) tracksByDay[k] = []
+        tracksByDay[k].push({ artist: s.artist, track: s.track })
       }
 
       // Determine grid start: go back 52 weeks from today, aligned to Sunday
@@ -122,12 +127,23 @@ export function StreakCalendar({ scrobbles }: Props) {
         }
       }
 
-      return { weeks, monthLabels, countByDay, maxCount, currentStreak, longestStreak }
+      return { weeks, monthLabels, countByDay, maxCount, currentStreak, longestStreak, tracksByDay }
     }, [scrobbles])
 
   const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const CELL = 13 // px per cell
   const GAP = 2   // px gap
+
+  const selectedTracks = selectedDate ? (tracksByDay[selectedDate] ?? []) : []
+  const selectedCount = selectedDate ? (countByDay[selectedDate] ?? 0) : 0
+  const panelOpen = selectedDate !== null
+
+  // Format selectedDate for display
+  const selectedDateLabel = useMemo(() => {
+    if (!selectedDate) return ''
+    const d = new Date(selectedDate + 'T00:00:00')
+    return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+  }, [selectedDate])
 
   return (
     <div style={{ fontFamily: 'inherit' }}>
@@ -153,7 +169,7 @@ export function StreakCalendar({ scrobbles }: Props) {
                   height: CELL,
                   fontSize: 9,
                   lineHeight: `${CELL}px`,
-                  color: 'var(--muted-foreground, #888)',
+                  color: 'var(--muted-foreground)',
                   textAlign: 'right',
                   paddingRight: 2,
                   // Show only Mon, Wed, Fri to avoid crowding
@@ -183,7 +199,7 @@ export function StreakCalendar({ scrobbles }: Props) {
                     left: weekIndex * (CELL + GAP),
                     fontSize: 9,
                     lineHeight: `${CELL}px`,
-                    color: 'var(--muted-foreground, #888)',
+                    color: 'var(--muted-foreground)',
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -219,15 +235,19 @@ export function StreakCalendar({ scrobbles }: Props) {
                     month: 'short',
                     day: 'numeric',
                   })
+                  const isSelected = selectedDate === cell.key
                   return (
                     <div
                       key={cell.key}
                       title={`${dateStr}: ${count} scrobble${count !== 1 ? 's' : ''}`}
+                      onClick={() => setSelectedDate(isSelected ? null : cell.key)}
                       style={{
                         width: CELL,
                         height: CELL,
                         borderRadius: 2,
-                        cursor: 'default',
+                        cursor: 'pointer',
+                        outline: isSelected ? '2px solid var(--primary)' : 'none',
+                        outlineOffset: 1,
                         ...getIntensityStyle(count, maxCount),
                       }}
                     />
@@ -249,7 +269,7 @@ export function StreakCalendar({ scrobbles }: Props) {
           justifyContent: 'flex-end',
         }}
       >
-        <span style={{ fontSize: 10, color: 'var(--muted-foreground, #888)' }}>Less</span>
+        <span style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>Less</span>
         {[0, 0.2, 0.45, 0.7, 1].map((ratio, i) => {
           const style: React.CSSProperties =
             ratio === 0
@@ -273,7 +293,7 @@ export function StreakCalendar({ scrobbles }: Props) {
             />
           )
         })}
-        <span style={{ fontSize: 10, color: 'var(--muted-foreground, #888)' }}>More</span>
+        <span style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>More</span>
       </div>
 
       {/* Streak stats */}
@@ -283,21 +303,90 @@ export function StreakCalendar({ scrobbles }: Props) {
           gap: 24,
           marginTop: 10,
           fontSize: 13,
-          color: 'var(--foreground, inherit)',
+          color: 'var(--foreground)',
         }}
       >
         <span>
           <span style={{ fontWeight: 600 }}>{currentStreak}</span>
-          <span style={{ color: 'var(--muted-foreground, #888)', marginLeft: 4 }}>
+          <span style={{ color: 'var(--muted-foreground)', marginLeft: 4 }}>
             day current streak
           </span>
         </span>
         <span>
           <span style={{ fontWeight: 600 }}>{longestStreak}</span>
-          <span style={{ color: 'var(--muted-foreground, #888)', marginLeft: 4 }}>
+          <span style={{ color: 'var(--muted-foreground)', marginLeft: 4 }}>
             day longest streak
           </span>
         </span>
+      </div>
+
+      {/* Day detail panel */}
+      <div
+        style={{
+          overflow: 'hidden',
+          maxHeight: panelOpen ? 400 : 0,
+          transition: 'max-height 0.3s ease',
+        }}
+      >
+        <div
+          style={{
+            marginTop: 12,
+            borderRadius: 8,
+            border: '1px solid var(--border)',
+            backgroundColor: 'var(--card)',
+            padding: '12px 14px',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 10,
+            }}
+          >
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--foreground)' }}>
+              {selectedDateLabel}
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
+              {selectedCount} scrobble{selectedCount !== 1 ? 's' : ''}
+            </span>
+          </div>
+          {selectedTracks.length === 0 ? (
+            <p style={{ fontSize: 13, color: 'var(--muted-foreground)', margin: 0 }}>
+              No tracks played on this day.
+            </p>
+          ) : (
+            <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {selectedTracks.slice(0, 10).map((t, i) => (
+                <li
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: 8,
+                    fontSize: 13,
+                  }}
+                >
+                  <span style={{ color: 'var(--muted-foreground)', minWidth: 18, textAlign: 'right', fontSize: 11 }}>
+                    {i + 1}.
+                  </span>
+                  <span style={{ color: 'var(--foreground)', fontWeight: 500, flexShrink: 0, maxWidth: '55%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {t.track}
+                  </span>
+                  <span style={{ color: 'var(--muted-foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {t.artist}
+                  </span>
+                </li>
+              ))}
+              {selectedTracks.length > 10 && (
+                <li style={{ fontSize: 12, color: 'var(--muted-foreground)', paddingLeft: 26 }}>
+                  +{selectedTracks.length - 10} more
+                </li>
+              )}
+            </ol>
+          )}
+        </div>
       </div>
     </div>
   )

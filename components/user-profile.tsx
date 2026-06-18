@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { LayoutDashboard, RotateCcw, X } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -10,6 +11,7 @@ import { TopLists } from '@/components/top-lists'
 import { LovedTracks } from '@/components/loved-tracks'
 import { StatsChart } from '@/components/stats-chart'
 import { NowPlaying } from '@/components/now-playing'
+import { NowPlayingBanner } from '@/components/now-playing-banner'
 import { HourlyHeatmap } from '@/components/hourly-heatmap'
 import { DayOfWeekChart } from '@/components/day-of-week-chart'
 import { ListeningClock } from '@/components/listening-clock'
@@ -40,6 +42,7 @@ import { MusicTimeline } from '@/components/music-timeline'
 import { TasteBadge } from '@/components/taste-badge'
 import { ResyncButton } from '@/components/resync-button'
 import { CopyStatsButton } from '@/components/copy-stats-button'
+import { CopyProfileUrl } from '@/components/copy-profile-url'
 import { ShareProfileButton } from '@/components/share-profile-button'
 import { LoyaltyScoreBadge } from '@/components/loyalty-score-badge'
 import { MilestoneToast } from '@/components/milestone-toast'
@@ -66,6 +69,14 @@ import { MoodRing } from '@/components/mood-ring'
 import { ListeningBingo } from '@/components/listening-bingo'
 import { YearlyTopAlbum } from '@/components/yearly-top-album'
 import { MarathonSessions } from '@/components/marathon-sessions'
+import { OnThisDay } from '@/components/on-this-day'
+import { TagCloud } from '@/components/tag-cloud'
+import { YouMightLike } from '@/components/you-might-like'
+import { RecentArtistsCarousel } from '@/components/recent-artists-carousel'
+import { DynamicTitle } from '@/components/dynamic-title'
+import { LazyWidget } from '@/components/lazy-widget'
+import { LiveBadge } from '@/components/live-badge'
+import { ListeningGapAlert } from '@/components/listening-gap-alert'
 import type { WidgetId } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
 
@@ -100,11 +111,31 @@ function UserProfileContent({
   lovedTracks,
   allScrobbles,
 }: UserProfileProps) {
-  const [period, setPeriod] = useState<Period>('7day')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const period = (searchParams.get('period') as Period) || '7day'
+
+  function setPeriod(p: Period) {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('period', p)
+    router.replace(`?${params.toString()}`)
+  }
+
   const { order, isEditing, setEditing, reset } = useDashboard()
+
+  // Persist visited username so compare page can offer "Paste my username"
+  useEffect(() => {
+    try { localStorage.setItem('lastfmMe', username) } catch { /* ignore */ }
+  }, [username])
 
   const topArtistsOverall = topArtists['overall'] ?? []
   const topTracksOverall = topTracks['overall'] ?? []
+
+  const todayCount = (() => {
+    const now = new Date()
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    return allScrobbles.filter((s) => new Date(s.scrobbledAt) >= startOfToday).length
+  })()
 
   // ─── Widget render map ──────────────────────────────────────────────────────
   function renderWidget(id: WidgetId) {
@@ -144,7 +175,9 @@ function UserProfileContent({
       case 'artist-connections':
         return (
           <SectionErrorBoundary name="Artist Connections">
-            <ArtistConnections scrobbles={allScrobbles} topArtists={topArtistsOverall} />
+            <LazyWidget>
+              <ArtistConnections scrobbles={allScrobbles} topArtists={topArtistsOverall} />
+            </LazyWidget>
           </SectionErrorBoundary>
         )
 
@@ -171,7 +204,9 @@ function UserProfileContent({
       case 'treemap':
         return (
           <SectionErrorBoundary name="Listening Universe">
-            <ListeningTreemap topArtists={topArtistsOverall} />
+            <LazyWidget>
+              <ListeningTreemap topArtists={topArtistsOverall} />
+            </LazyWidget>
           </SectionErrorBoundary>
         )
 
@@ -185,17 +220,21 @@ function UserProfileContent({
       case 'evolution':
         return (
           <SectionErrorBoundary name="Music Evolution">
-            <MusicEvolution scrobbles={allScrobbles} />
+            <LazyWidget>
+              <MusicEvolution scrobbles={allScrobbles} />
+            </LazyWidget>
           </SectionErrorBoundary>
         )
 
       case 'chapters':
         return (
-          <ListeningChapters
-            scrobbles={allScrobbles}
-            totalScrobbles={totalScrobbles}
-            registeredAt={registeredAt}
-          />
+          <LazyWidget>
+            <ListeningChapters
+              scrobbles={allScrobbles}
+              totalScrobbles={totalScrobbles}
+              registeredAt={registeredAt}
+            />
+          </LazyWidget>
         )
 
       case 'forecast':
@@ -316,14 +355,30 @@ function UserProfileContent({
       case 'marathon-sessions':
         return <MarathonSessions scrobbles={allScrobbles} />
 
+      case 'on-this-day':
+        return <OnThisDay scrobbles={allScrobbles} />
+
+      case 'tag-cloud':
+        return <TagCloud username={username} />
+
+      case 'you-might-like':
+        return <YouMightLike username={username} />
+
+      case 'recent-carousel':
+        return <RecentArtistsCarousel scrobbles={allScrobbles} />
+
+      case 'now-playing-banner':
+        return <NowPlayingBanner username={username} />
+
       default:
         return null
     }
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container mx-auto px-4 py-8 max-w-[1400px]">
       {/* Invisible/overlay components */}
+      <DynamicTitle username={username} todayCount={todayCount} />
       <MilestoneToast totalScrobbles={totalScrobbles} />
       <KeyboardShortcuts isOwner={isOwner} />
       <KeyboardShortcutsModal />
@@ -331,27 +386,60 @@ function UserProfileContent({
       <NowPlaying username={username} />
 
       {/* Profile header */}
-      <div className="animate-fade-in bg-gradient-to-br from-primary/5 to-transparent rounded-2xl p-6 flex items-center gap-4 mb-6 mt-4">
-        <Avatar className="h-20 w-20 ring-2 ring-primary/20 ring-offset-2">
+      <div
+        className="animate-fade-in rounded-2xl p-6 flex items-center gap-4 mb-6 mt-4 relative overflow-hidden"
+        style={{ background: 'radial-gradient(circle at 20% 50%, color-mix(in oklch, var(--primary) 15%, transparent), transparent 60%)' }}
+      >
+        {/* Subtle dot-grid overlay */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-2xl opacity-[0.03]"
+          style={{
+            backgroundImage: 'radial-gradient(var(--foreground) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
+          }}
+        />
+        <Avatar className="h-20 w-20 ring-2 ring-primary/20 ring-offset-2 relative">
           <AvatarImage src={imageUrl} alt={username} />
           <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
         </Avatar>
-        <div className="flex-1 min-w-0">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">{username}</h1>
-          <p className="text-muted-foreground text-sm">
+        <div className="flex-1 min-w-0 relative">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent flex items-center flex-wrap gap-x-1">
+            {username}
+            <LiveBadge username={username} />
+          </h1>
+          <p className="text-muted-foreground text-base font-medium">
             {totalScrobbles.toLocaleString('en-US')} scrobbles · Member since{' '}
             {new Date(registeredAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </p>
+          {(() => {
+            const reg = new Date(registeredAt)
+            const now = new Date()
+            let years = now.getFullYear() - reg.getFullYear()
+            const monthDiff = now.getMonth() - reg.getMonth()
+            if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < reg.getDate())) years--
+            return years > 0 ? (
+              <span className="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-xs font-medium border"
+                style={{
+                  background: 'color-mix(in oklch, var(--primary) 10%, transparent)',
+                  borderColor: 'color-mix(in oklch, var(--primary) 25%, transparent)',
+                  color: 'var(--primary)',
+                }}>
+                {years} {years === 1 ? 'year' : 'years'} as a member
+              </span>
+            ) : null
+          })()}
           <LoyaltyScoreBadge topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} />
           <LastActivityNudge lastSyncedAt={lastSyncedAt} />
         </div>
-        <div className="flex items-center gap-2 flex-wrap justify-end">
+        <div className="flex items-center gap-2 flex-wrap justify-end relative">
           {isOwner && <ResyncButton username={username} />}
           <CopyStatsButton
             username={username}
             totalScrobbles={totalScrobbles}
             topArtist={topArtistsOverall[0]?.name}
           />
+          <CopyProfileUrl />
           <ShareProfileButton username={username} />
           {isOwner && <ExportButton username={username} />}
           <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
@@ -366,22 +454,25 @@ function UserProfileContent({
                 onClick={reset}
                 title="Reset to default layout"
               >
-                <RotateCcw className="h-3.5 w-3.5 mr-1" />
+                <RotateCcw className="h-4 w-4 mr-1" />
                 Reset
               </Button>
               <Button size="sm" onClick={() => setEditing(false)}>
-                <X className="h-3.5 w-3.5 mr-1" />
+                <X className="h-4 w-4 mr-1" />
                 Done
               </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
-              <LayoutDashboard className="h-3.5 w-3.5 mr-1" />
+              <LayoutDashboard className="h-4 w-4 mr-1" />
               Edit Layout
             </Button>
           )}
         </div>
       </div>
+
+      {/* Now playing prominent banner */}
+      <NowPlayingBanner username={username} />
 
       {/* Edit mode hint banner */}
       {isEditing && (
@@ -400,6 +491,9 @@ function UserProfileContent({
         topArtist={topArtistsOverall[0]?.name}
         username={username}
       />
+
+      {/* Listening gap alert */}
+      <ListeningGapAlert scrobbles={allScrobbles} username={username} />
 
       {/* Dashboard widgets in user-configured order */}
       <div className="grid gap-6 mt-6">

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Heart } from 'lucide-react'
+import { formatRelative } from '@/lib/format-date'
 
 interface Track {
   artist: string
@@ -13,18 +14,9 @@ interface Track {
   scrobbledAt: Date | string
 }
 
-function fmt(date: Date): string {
-  const today = new Date()
-  const time = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-  if (date.toDateString() === today.toDateString()) return `Today ${time}`
-  const yest = new Date(today)
-  yest.setDate(today.getDate() - 1)
-  if (date.toDateString() === yest.toDateString()) return `Yesterday ${time}`
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ` ${time}`
-}
-
 export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; isOwner?: boolean; username: string }) {
   const [lovedMap, setLovedMap] = useState<Record<string, boolean>>({})
+  const [shown, setShown] = useState(20)
 
   async function toggleLove(artist: string, track: string) {
     const key = artist + '::' + track
@@ -52,17 +44,21 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
           <p className="text-sm text-muted-foreground">No tracks scrobbled yet.</p>
         ) : (
           <ul className="divide-y">
-            {tracks.map((t, i) => {
-              const date = new Date(t.scrobbledAt)
+            {tracks.slice(0, shown).map((t, i) => {
               const key = t.artist + '::' + t.track
               const loved = lovedMap[key] ?? false
               return (
                 <li key={i} className="flex items-center justify-between py-2 px-2 rounded-lg transition-colors duration-150 hover:bg-muted/50">
                   <div className="flex flex-col min-w-0">
-                    <span className="font-medium truncate">{t.track}</span>
+                    <Link
+                      href={`/track/${encodeURIComponent(t.artist)}/${encodeURIComponent(t.track)}`}
+                      className="font-medium truncate hover:underline text-foreground"
+                    >
+                      {t.track}
+                    </Link>
                     <span className="text-sm text-muted-foreground truncate">
                       <Link
-                        href={`/artist/${encodeURIComponent(t.artist)}?username=${encodeURIComponent(username)}`}
+                        href={`/artist/${encodeURIComponent(t.artist)}${username ? `?username=${username}` : ''}`}
                         className="hover:underline hover:text-foreground transition-colors"
                       >
                         {t.artist}
@@ -71,7 +67,7 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
                     </span>
                   </div>
                   <div className="flex items-center gap-2 ml-4 shrink-0">
-                    <span className="text-xs text-muted-foreground">{fmt(date)}</span>
+                    <span className="text-xs text-muted-foreground">{formatRelative(t.scrobbledAt)}</span>
                     {isOwner && (
                       <Button
                         variant="ghost"
@@ -92,6 +88,13 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
               )
             })}
           </ul>
+        )}
+        {tracks.length > shown && (
+          <div className="mt-4 flex justify-center">
+            <Button variant="outline" onClick={() => setShown((prev) => prev + 20)}>
+              Load 20 more ({tracks.length - shown} remaining)
+            </Button>
+          </div>
         )}
       </CardContent>
     </Card>

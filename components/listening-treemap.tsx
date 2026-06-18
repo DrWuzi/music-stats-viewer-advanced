@@ -2,6 +2,7 @@
 
 import { Treemap, ResponsiveContainer, Tooltip } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { TreePine } from 'lucide-react'
 
 interface Props {
   topArtists: { name: string; playcount: number }[]
@@ -57,16 +58,23 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Toolti
 }
 
 export function ListeningTreemap({ topArtists }: Props) {
-  if (!topArtists.length) {
+  if (topArtists.length < 3) {
     return (
       <Card>
         <CardHeader><CardTitle>Your Listening Universe</CardTitle></CardHeader>
-        <CardContent><p className="text-sm text-muted-foreground">No artist data yet.</p></CardContent>
+        <CardContent>
+          <div className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground">
+            <TreePine className="h-8 w-8" />
+            <p className="text-sm">Not enough data yet — keep scrobbling!</p>
+          </div>
+        </CardContent>
       </Card>
     )
   }
 
-  const data = topArtists.map((a) => ({ name: a.name, size: a.playcount }))
+  const data = topArtists
+    .map((a) => ({ name: a.name, size: a.playcount }))
+    .filter((a) => a.size > 0)
   const total = data.length
 
   // Pass `total` through the content renderer via closure

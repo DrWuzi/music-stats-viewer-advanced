@@ -25,7 +25,7 @@ interface Item {
   rank: number
 }
 
-function List({ items, username }: { items: Item[]; username: string }) {
+function List({ items, username, type }: { items: Item[]; username: string; type: 'album' | 'track' }) {
   if (!items.length) return <p className="text-sm text-muted-foreground py-4">No data for this period.</p>
   return (
     <ul className="divide-y">
@@ -33,7 +33,16 @@ function List({ items, username }: { items: Item[]; username: string }) {
         <li key={item.rank} className="flex items-center justify-between py-2 px-2 gap-3 rounded-lg transition-colors duration-150 hover:bg-muted/50">
           <span className="text-sm text-muted-foreground w-5 shrink-0 text-right">{item.rank}</span>
           <div className="flex flex-col min-w-0 flex-1">
-            <span className="font-medium truncate">{item.name}</span>
+            {item.artist ? (
+              <Link
+                href={`/${type}/${encodeURIComponent(item.artist)}/${encodeURIComponent(item.name)}`}
+                className="font-medium truncate hover:underline hover:text-primary transition-colors w-fit max-w-full"
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <span className="font-medium truncate">{item.name}</span>
+            )}
             {item.artist && (
               <Link
                 href={`/artist/${encodeURIComponent(item.artist)}?username=${encodeURIComponent(username)}`}
@@ -135,8 +144,8 @@ export function TopLists({ username, artists, albums, tracks, period, onPeriodCh
             <TabsTrigger value="tracks">Tracks</TabsTrigger>
           </TabsList>
           <TabsContent value="artists"><ArtistList artists={artists} username={username} /></TabsContent>
-          <TabsContent value="albums"><List items={albums} username={username} /></TabsContent>
-          <TabsContent value="tracks"><List items={tracks} username={username} /></TabsContent>
+          <TabsContent value="albums"><List items={albums} username={username} type="album" /></TabsContent>
+          <TabsContent value="tracks"><List items={tracks} username={username} type="track" /></TabsContent>
         </Tabs>
       </CardContent>
     </Card>

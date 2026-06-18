@@ -10,8 +10,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
-import { TrendingUp, TrendingDown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { TrendDelta } from '@/components/trend-delta'
 
 interface ScrobbleVelocityProps {
   scrobbles: { scrobbledAt: Date | string }[]
@@ -112,13 +112,7 @@ function computeStats(scrobbles: { scrobbledAt: Date | string }[]) {
   ).length
   const last7Avg = last7Count / 7
 
-  const pacePercent =
-    overallAvg > 0
-      ? Math.round(((last7Avg - overallAvg) / overallAvg) * 100)
-      : 0
-  const isFaster = pacePercent >= 0
-
-  return { peakDate, peakCount, overallAvg, last7Avg, pacePercent, isFaster }
+  return { peakDate, peakCount, overallAvg, last7Avg }
 }
 
 export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
@@ -172,36 +166,14 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
             </div>
 
             {/* Current pace */}
-            <div
-              className="rounded-lg border px-3 py-2"
-              style={{
-                background: stats.isFaster
-                  ? 'color-mix(in srgb, var(--success, #22c55e) 10%, transparent)'
-                  : 'color-mix(in srgb, var(--muted) 40%, transparent)',
-                borderColor: stats.isFaster
-                  ? 'color-mix(in srgb, var(--success, #22c55e) 35%, transparent)'
-                  : 'var(--border)',
-              }}
-            >
+            <div className="rounded-lg border bg-muted/30 px-3 py-2">
               <p className="text-xs text-muted-foreground mb-0.5">Current pace</p>
-              <div className="flex items-center gap-1">
-                {stats.isFaster ? (
-                  <TrendingUp
-                    className="h-4 w-4 shrink-0"
-                    style={{ color: 'var(--success, #22c55e)' }}
-                  />
-                ) : (
-                  <TrendingDown className="h-4 w-4 shrink-0 text-muted-foreground" />
-                )}
-                <p
-                  className="text-sm font-semibold leading-tight"
-                  style={{
-                    color: stats.isFaster ? 'var(--success, #22c55e)' : undefined,
-                  }}
-                >
-                  {stats.isFaster ? '+' : ''}
-                  {stats.pacePercent}%
-                </p>
+              <div className="flex items-center gap-1 mb-0.5">
+                <TrendDelta
+                  current={stats.last7Avg}
+                  previous={stats.overallAvg}
+                  label="Last 7 days vs all-time average"
+                />
               </div>
               <p className="text-xs text-muted-foreground">
                 {stats.last7Avg.toFixed(1)} vs {stats.overallAvg.toFixed(1)} avg/day

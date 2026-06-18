@@ -3,6 +3,7 @@
 import { useMemo } from 'react'
 import Link from 'next/link'
 import { TrendingUp, TrendingDown, BarChart2, Music2, CalendarDays, Activity, Star } from 'lucide-react'
+import { AnimatedNumber } from '@/components/animated-number'
 
 interface TopStatsBannerProps {
   totalScrobbles: number
@@ -13,6 +14,13 @@ interface TopStatsBannerProps {
 
 function toDateStr(d: Date | string): string {
   return new Date(d).toISOString().slice(0, 10)
+}
+
+const tileHoverOn = (e: React.MouseEvent<HTMLDivElement>) => {
+  e.currentTarget.style.background = 'color-mix(in oklch, var(--primary) 5%, var(--card))'
+}
+const tileHoverOff = (e: React.MouseEvent<HTMLDivElement>) => {
+  e.currentTarget.style.background = ''
 }
 
 export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username }: TopStatsBannerProps) {
@@ -51,56 +59,79 @@ export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username 
 
   return (
     <div className="grid gap-3 grid-cols-2 sm:grid-cols-4">
-      {/* Total — top stat with accent line */}
+      {/* Total — most prominent tile: border-t-2 accent + larger number */}
       <div
-        className="rounded-lg border border-border/50 border-t-2 bg-card p-3 flex flex-col gap-2 hover:scale-[1.02] transition-transform duration-200 animate-fade-in-up"
+        className="rounded-lg border border-border/40 border-t-2 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
         style={{ borderTopColor: 'var(--primary)', animationDelay: '100ms' }}
+        onMouseEnter={tileHoverOn}
+        onMouseLeave={tileHoverOff}
       >
         <div className="flex items-center gap-2">
-          <span
-            className="rounded-full p-2"
-            style={{ background: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
-          >
-            <BarChart2 className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+          <span className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0">
+            <BarChart2 className="h-4 w-4" />
           </span>
           <span className="text-xs text-muted-foreground">Total</span>
         </div>
-        <span className="text-2xl font-bold">{totalScrobbles.toLocaleString('en-US')}</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          <AnimatedNumber value={totalScrobbles} className="text-3xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent" />
+          {stats.thisWeekCount !== stats.lastWeekCount && (
+            <span
+              className="inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-medium"
+              style={
+                stats.weekTrend === 'up'
+                  ? {
+                      background: 'color-mix(in oklch, var(--success, #22c55e) 15%, transparent)',
+                      color: 'var(--success, #22c55e)',
+                    }
+                  : {
+                      background: 'color-mix(in oklch, var(--muted-foreground) 15%, transparent)',
+                      color: 'var(--muted-foreground)',
+                    }
+              }
+            >
+              {stats.weekTrend === 'up' ? (
+                <TrendingUp className="h-3 w-3 shrink-0" />
+              ) : (
+                <TrendingDown className="h-3 w-3 shrink-0" />
+              )}
+              {stats.weekTrend === 'up' ? '+' : ''}
+              {stats.thisWeekCount - stats.lastWeekCount} this week
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Today */}
       <div
-        className="rounded-lg border border-border/50 bg-card p-3 flex flex-col gap-2 hover:scale-[1.02] transition-transform duration-200 animate-fade-in-up"
+        className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
         style={{ animationDelay: '200ms' }}
+        onMouseEnter={tileHoverOn}
+        onMouseLeave={tileHoverOff}
       >
         <div className="flex items-center gap-2">
-          <span
-            className="rounded-full p-2"
-            style={{ background: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
-          >
-            <Music2 className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+          <span className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0">
+            <Music2 className="h-4 w-4" />
           </span>
           <span className="text-xs text-muted-foreground">Today</span>
         </div>
-        <span className="text-2xl font-bold">{stats.todayCount.toLocaleString('en-US')}</span>
+        <AnimatedNumber value={stats.todayCount} className="text-2xl font-semibold" />
       </div>
 
       {/* This Week */}
       <div
-        className="rounded-lg border border-border/50 bg-card p-3 flex flex-col gap-2 hover:scale-[1.02] transition-transform duration-200 animate-fade-in-up"
+        className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
         style={{ animationDelay: '300ms' }}
+        onMouseEnter={tileHoverOn}
+        onMouseLeave={tileHoverOff}
       >
         <div className="flex items-center gap-2">
-          <span
-            className="rounded-full p-2"
-            style={{ background: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
-          >
-            <CalendarDays className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+          <span className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0">
+            <CalendarDays className="h-4 w-4" />
           </span>
           <span className="text-xs text-muted-foreground">This Week</span>
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-2xl font-bold">{stats.thisWeekCount.toLocaleString('en-US')}</span>
+          <AnimatedNumber value={stats.thisWeekCount} className="text-2xl font-semibold" />
           {stats.weekTrend === 'up' && <TrendingUp className="h-4 w-4 text-green-500 shrink-0" />}
           {stats.weekTrend === 'down' && <TrendingDown className="h-4 w-4 text-red-500 shrink-0" />}
         </div>
@@ -108,33 +139,31 @@ export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username 
 
       {/* Avg/Day (30d) */}
       <div
-        className="rounded-lg border border-border/50 bg-card p-3 flex flex-col gap-2 hover:scale-[1.02] transition-transform duration-200 animate-fade-in-up"
+        className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
         style={{ animationDelay: '400ms' }}
+        onMouseEnter={tileHoverOn}
+        onMouseLeave={tileHoverOff}
       >
         <div className="flex items-center gap-2">
-          <span
-            className="rounded-full p-2"
-            style={{ background: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
-          >
-            <Activity className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+          <span className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0">
+            <Activity className="h-4 w-4" />
           </span>
           <span className="text-xs text-muted-foreground">Avg/Day (30d)</span>
         </div>
-        <span className="text-2xl font-bold">{stats.avg30.toLocaleString('en-US')}</span>
+        <AnimatedNumber value={stats.avg30} className="text-2xl font-semibold" />
       </div>
 
       {/* Top Artist */}
       {topArtist && (
         <div
-          className="rounded-lg border border-border/50 bg-card p-3 flex flex-col gap-2 col-span-2 sm:col-span-4 hover:scale-[1.02] transition-transform duration-200 animate-fade-in-up"
+          className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 col-span-2 sm:col-span-4 transition-colors duration-200 animate-fade-in-up"
           style={{ animationDelay: '500ms' }}
+          onMouseEnter={tileHoverOn}
+          onMouseLeave={tileHoverOff}
         >
           <div className="flex items-center gap-2">
-            <span
-              className="rounded-full p-2"
-              style={{ background: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
-            >
-              <Star className="h-4 w-4" style={{ color: 'var(--primary)' }} />
+            <span className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0">
+              <Star className="h-4 w-4" />
             </span>
             <span className="text-xs text-muted-foreground">Top Artist</span>
           </div>

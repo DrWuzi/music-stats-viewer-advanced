@@ -74,14 +74,14 @@ export function ScatterPlot({ topArtists, topTracks }: Props) {
               dataKey="x"
               name="Artist Total Plays"
               tick={{ fontSize: 11 }}
-              label={{ value: 'Artist Total Plays', position: 'insideBottom', offset: -20, fontSize: 11, fill: 'currentColor' }}
+              label={{ value: 'Artist Plays', position: 'insideBottom', offset: -5, fontSize: 11, fill: 'currentColor' }}
             />
             <YAxis
               type="number"
               dataKey="y"
               name="Track Plays"
               tick={{ fontSize: 11 }}
-              label={{ value: 'Track Plays', angle: -90, position: 'insideLeft', offset: 15, fontSize: 11, fill: 'currentColor' }}
+              label={{ value: 'Track Plays', angle: -90, position: 'insideLeft', fontSize: 11, fill: 'currentColor' }}
             />
             <ZAxis range={[40, 40]} />
             <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
@@ -92,6 +92,15 @@ export function ScatterPlot({ topArtists, topTracks }: Props) {
             />
           </ScatterChart>
         </ResponsiveContainer>
+        <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
+          <span
+            className="mt-0.5 inline-block h-2.5 w-2.5 shrink-0 rounded-full"
+            style={{ backgroundColor: 'color-mix(in oklch, var(--primary) 70%, transparent)' }}
+          />
+          <span>
+            Each dot is a top track. Its horizontal position shows how many total plays its artist has; its vertical position shows how many plays that individual track has. Dots higher and to the right belong to both a popular artist and a frequently replayed song.
+          </span>
+        </div>
       </CardContent>
     </Card>
   )

@@ -66,7 +66,7 @@ export default async function UserProfilePage({ params }: Props) {
       username={user.lastfmUsername}
       totalScrobbles={userInfo?.playcount ?? user.scrobbles.length}
       registeredAt={userInfo?.registered ?? user.createdAt}
-      imageUrl={userInfo?.imageUrl ?? ''}
+      imageUrl={userInfo?.imageUrl?.includes('2a96cbd8b46e442fc41c2b86b821562f') ? '' : (userInfo?.imageUrl ?? '')}
       lastSyncedAt={user.lastSyncedAt}
       isOwner={isOwner}
       recentTracks={user.scrobbles.map((s) => ({

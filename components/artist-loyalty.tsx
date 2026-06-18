@@ -46,14 +46,14 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
       <CardContent className="flex flex-col gap-3">
         {/* Stacked horizontal bar */}
         <div className="flex h-8 w-full rounded-md overflow-hidden gap-px">
-          {segments.map((s) => (
+          {segments.filter((s) => s.pct > 0).map((s) => (
             <div
               key={s.name}
               title={`${s.name}: ${s.pct.toFixed(1)}%`}
               style={{
                 width: `${s.pct}%`,
                 backgroundColor: `color-mix(in oklch, var(--primary) ${Math.round(s.opacity * 100)}%, transparent)`,
-                minWidth: s.pct > 0 ? '2px' : undefined,
+                minWidth: '2px',
               }}
             />
           ))}
@@ -70,7 +70,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
 
         {/* Legend */}
         <div className="flex flex-col gap-2">
-          {segments.map((s) => (
+          {segments.filter((s) => s.pct > 0).map((s) => (
             <div key={s.name} className="flex items-center gap-2">
               <div
                 className="h-3 w-3 rounded-sm shrink-0"

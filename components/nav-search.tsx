@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { Search } from "lucide-react"
 
@@ -12,6 +12,14 @@ export function NavSearch({ username }: NavSearchProps) {
   const [query, setQuery] = useState("")
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    function onFocusNavSearch() {
+      inputRef.current?.focus()
+    }
+    window.addEventListener("focusNavSearch", onFocusNavSearch)
+    return () => window.removeEventListener("focusNavSearch", onFocusNavSearch)
+  }, [])
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
@@ -31,6 +39,7 @@ export function NavSearch({ username }: NavSearchProps) {
       <Search className="pointer-events-none absolute left-2.5 h-3.5 w-3.5 text-muted-foreground" />
       <input
         ref={inputRef}
+        id="nav-search-input"
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
