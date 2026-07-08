@@ -1,9 +1,12 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface Props {
   scrobbles: { scrobbledAt: Date; artist: string; track: string }[]
+  username: string
 }
 
 function toDateKey(d: Date): string {
@@ -34,7 +37,7 @@ function getIntensityStyle(count: number, max: number): React.CSSProperties {
   }
 }
 
-export function StreakCalendar({ scrobbles }: Props) {
+export function StreakCalendar({ scrobbles, username }: Props) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
 
   const { weeks, monthLabels, countByDay, maxCount, currentStreak, longestStreak, tracksByDay } =
@@ -371,12 +374,20 @@ export function StreakCalendar({ scrobbles }: Props) {
                   <span style={{ color: 'var(--muted-foreground)', minWidth: 18, textAlign: 'right', fontSize: 11 }}>
                     {i + 1}.
                   </span>
-                  <span style={{ color: 'var(--foreground)', fontWeight: 500, flexShrink: 0, maxWidth: '55%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <Link
+                    href={trackHref(t.artist, t.track, username)}
+                    className="hover:underline"
+                    style={{ color: 'var(--foreground)', fontWeight: 500, flexShrink: 0, maxWidth: '55%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  >
                     {t.track}
-                  </span>
-                  <span style={{ color: 'var(--muted-foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  </Link>
+                  <Link
+                    href={artistHref(t.artist, username)}
+                    className="hover:underline"
+                    style={{ color: 'var(--muted-foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                  >
                     {t.artist}
-                  </span>
+                  </Link>
                 </li>
               ))}
               {selectedTracks.length > 10 && (

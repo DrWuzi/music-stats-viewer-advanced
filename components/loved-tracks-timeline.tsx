@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface LovedTrack {
   artist: string
@@ -29,8 +31,10 @@ function toYearMonth(date: Date | string): string {
 
 export function LovedTracksTimeline({
   lovedTracks,
+  username,
 }: {
   lovedTracks: LovedTrack[]
+  username: string
 }) {
   const groupMap: Record<string, LovedTrack[]> = {}
 
@@ -71,9 +75,13 @@ export function LovedTracksTimeline({
                         key={`${month.key}-${i}`}
                         className="text-sm text-muted-foreground"
                       >
-                        <span className="font-medium text-foreground">{t.track}</span>
+                        <Link href={trackHref(t.artist, t.track, username)} className="font-medium text-foreground hover:underline">
+                          {t.track}
+                        </Link>
                         {' — '}
-                        {t.artist}
+                        <Link href={artistHref(t.artist, username)} className="hover:underline hover:text-foreground transition-colors">
+                          {t.artist}
+                        </Link>
                       </li>
                     ))}
                     {overflow > 0 && (

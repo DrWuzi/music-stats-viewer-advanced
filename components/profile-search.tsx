@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { Search, X } from 'lucide-react'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface TopArtist {
   name: string
@@ -17,9 +19,10 @@ interface TopTrack {
 interface ProfileSearchProps {
   topArtists: TopArtist[]
   topTracks: TopTrack[]
+  username: string
 }
 
-export function ProfileSearch({ topArtists, topTracks }: ProfileSearchProps) {
+export function ProfileSearch({ topArtists, topTracks, username }: ProfileSearchProps) {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -118,16 +121,18 @@ export function ProfileSearch({ topArtists, topTracks }: ProfileSearchProps) {
               </div>
               <ul>
                 {filteredArtists.map((a) => (
-                  <li
-                    key={a.name}
-                    className="flex items-center justify-between gap-2 px-3 py-2 hover:bg-muted/50 transition-colors cursor-default"
-                  >
-                    <span className="text-sm font-medium truncate" style={{ color: 'var(--foreground)' }}>
-                      {a.name}
-                    </span>
-                    <span className="text-xs shrink-0 tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
-                      {a.playcount.toLocaleString()} plays
-                    </span>
+                  <li key={a.name}>
+                    <Link
+                      href={artistHref(a.name, username)}
+                      className="flex items-center justify-between gap-2 px-3 py-2 hover:bg-muted/50 transition-colors"
+                    >
+                      <span className="text-sm font-medium truncate" style={{ color: 'var(--foreground)' }}>
+                        {a.name}
+                      </span>
+                      <span className="text-xs shrink-0 tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
+                        {a.playcount.toLocaleString()} plays
+                      </span>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -148,21 +153,23 @@ export function ProfileSearch({ topArtists, topTracks }: ProfileSearchProps) {
               </div>
               <ul>
                 {filteredTracks.map((t, i) => (
-                  <li
-                    key={i}
-                    className="flex items-center justify-between gap-2 px-3 py-2 hover:bg-muted/50 transition-colors cursor-default"
-                  >
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium truncate" style={{ color: 'var(--foreground)' }}>
-                        {t.name}
-                      </p>
-                      <p className="text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>
-                        {t.artist}
-                      </p>
-                    </div>
-                    <span className="text-xs shrink-0 tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
-                      {t.playcount.toLocaleString()} plays
-                    </span>
+                  <li key={i}>
+                    <Link
+                      href={trackHref(t.artist, t.name, username)}
+                      className="flex items-center justify-between gap-2 px-3 py-2 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium truncate" style={{ color: 'var(--foreground)' }}>
+                          {t.name}
+                        </p>
+                        <p className="text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>
+                          {t.artist}
+                        </p>
+                      </div>
+                      <span className="text-xs shrink-0 tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
+                        {t.playcount.toLocaleString()} plays
+                      </span>
+                    </Link>
                   </li>
                 ))}
               </ul>

@@ -1,8 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -71,7 +73,7 @@ function buildMonthlyTopTracks(scrobbles: Scrobble[]): MonthEntry[] {
   return entries
 }
 
-export function MonthlyTopTrack({ scrobbles }: { scrobbles: Scrobble[] }) {
+export function MonthlyTopTrack({ scrobbles, username }: { scrobbles: Scrobble[]; username: string }) {
   const entries = useMemo(() => buildMonthlyTopTracks(scrobbles), [scrobbles])
 
   const maxCount = useMemo(
@@ -134,10 +136,14 @@ export function MonthlyTopTrack({ scrobbles }: { scrobbles: Scrobble[] }) {
                   </div>
 
                   <p className="text-sm font-medium leading-tight truncate" title={entry.track}>
-                    {entry.track}
+                    <Link href={trackHref(entry.artist, entry.track, username)} className="hover:underline text-foreground">
+                      {entry.track}
+                    </Link>
                   </p>
                   <p className="text-xs text-muted-foreground truncate" title={entry.artist}>
-                    {entry.artist}
+                    <Link href={artistHref(entry.artist, username)} className="hover:underline hover:text-foreground transition-colors">
+                      {entry.artist}
+                    </Link>
                   </p>
 
                   {/* Play count bar */}

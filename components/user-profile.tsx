@@ -444,9 +444,9 @@ function UserProfileContent({
           <div className="grid gap-6">
             <div className="grid md:grid-cols-2 gap-6">
               <RecentTracks tracks={recentTracks} isOwner={isOwner} username={username} />
-              <LovedTracks tracks={lovedTracks} />
+              <LovedTracks tracks={lovedTracks} username={username} />
             </div>
-            <LovedTracksTimeline lovedTracks={lovedTracks} />
+            <LovedTracksTimeline lovedTracks={lovedTracks} username={username} />
           </div>
         )
 
@@ -460,10 +460,10 @@ function UserProfileContent({
         )
 
       case 'monthly-top-track':
-        return <MonthlyTopTrack scrobbles={allScrobbles} />
+        return <MonthlyTopTrack scrobbles={allScrobbles} username={username} />
 
       case 'streak-calendar':
-        return <StreakCalendar scrobbles={allScrobbles} />
+        return <StreakCalendar scrobbles={allScrobbles} username={username} />
 
       case 'first-listens':
         return (
@@ -603,7 +603,7 @@ function UserProfileContent({
         return <TopCollaborations scrobbles={allScrobbles} username={username} />
 
       case 'listening-report':
-        return <ListeningReport scrobbles={allScrobbles} />
+        return <ListeningReport scrobbles={allScrobbles} username={username} />
 
       case 'artist-network':
         return (

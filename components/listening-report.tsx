@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import {
   LineChart,
   Line,
@@ -9,6 +10,7 @@ import {
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -19,6 +21,7 @@ interface Scrobble {
 interface ListeningReportProps {
   scrobbles: Scrobble[]
   period?: '7day' | '30day'
+  username: string
 }
 
 function startOfDay(d: Date): Date {
@@ -70,11 +73,11 @@ function computeReport(scrobbles: Scrobble[], period: '7day' | '30day') {
   // Top track
   const trackCountsCurrent: Record<string, number> = {}
   for (const s of currentScrobbles) {
-    const key = `${s.artist} — ${s.track}`
+    const key = `${s.artist} ${s.track}`
     trackCountsCurrent[key] = (trackCountsCurrent[key] ?? 0) + 1
   }
   const topTrackEntry = Object.entries(trackCountsCurrent).sort((a, b) => b[1] - a[1])[0]
-  const topTrack = topTrackEntry?.[0] ?? '—'
+  const [topTrackArtist, topTrackName] = topTrackEntry ? topTrackEntry[0].split(' ') : ['', '—']
 
   // Active days
   const activeDaysCurrent = new Set(currentScrobbles.map((s) => isoDate(new Date(s.scrobbledAt)))).size
@@ -109,7 +112,8 @@ function computeReport(scrobbles: Scrobble[], period: '7day' | '30day') {
     totalCurrent,
     uniqueArtistsCurrent,
     topArtist,
-    topTrack,
+    topTrackArtist,
+    topTrackName,
     activeDaysCurrent,
     avgPerDay,
     pctChange,
@@ -148,7 +152,7 @@ function ChangeIndicator({ pct }: { pct: number | null }) {
   )
 }
 
-export function ListeningReport({ scrobbles, period = '7day' }: ListeningReportProps) {
+export function ListeningReport({ scrobbles, period = '7day', username }: ListeningReportProps) {
   const report = useMemo(() => computeReport(scrobbles, period), [scrobbles, period])
 
   const periodLabel = period === '7day' ? 'This week' : 'This month'
@@ -212,12 +216,30 @@ export function ListeningReport({ scrobbles, period = '7day' }: ListeningReportP
 
           <div className="rounded-md border bg-muted/30 px-3 py-2 col-span-2">
             <p className="text-xs text-muted-foreground">Top artist</p>
-            <p className="font-medium text-sm leading-tight mt-0.5 truncate">{report.topArtist}</p>
+            {report.topArtist === '—' ? (
+              <p className="font-medium text-sm leading-tight mt-0.5 truncate">{report.topArtist}</p>
+            ) : (
+              <Link
+                href={artistHref(report.topArtist, username)}
+                className="block font-medium text-sm leading-tight mt-0.5 truncate hover:underline text-foreground"
+              >
+                {report.topArtist}
+              </Link>
+            )}
           </div>
 
           <div className="rounded-md border bg-muted/30 px-3 py-2 col-span-2">
             <p className="text-xs text-muted-foreground">Top track</p>
-            <p className="font-medium text-sm leading-tight mt-0.5 truncate">{report.topTrack}</p>
+            {report.topTrackName === '—' ? (
+              <p className="font-medium text-sm leading-tight mt-0.5 truncate">{report.topTrackName}</p>
+            ) : (
+              <Link
+                href={trackHref(report.topTrackArtist, report.topTrackName, username)}
+                className="block font-medium text-sm leading-tight mt-0.5 truncate hover:underline text-foreground"
+              >
+                {report.topTrackName}
+              </Link>
+            )}
           </div>
 
           <div className="rounded-md border bg-muted/30 px-3 py-2">
