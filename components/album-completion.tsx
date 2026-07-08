@@ -1,7 +1,9 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { albumHref, artistHref } from '@/lib/urls'
 
 interface AlbumResult {
   album: string
@@ -55,8 +57,18 @@ export function AlbumCompletion({ username }: Props) {
               <div key={`${a.artist}-${a.album}`} className="space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium truncate">{a.album}</p>
-                    <p className="text-xs text-muted-foreground truncate">{a.artist}</p>
+                    <Link
+                      href={albumHref(a.artist, a.album, username)}
+                      className="text-sm font-medium truncate block hover:underline"
+                    >
+                      {a.album}
+                    </Link>
+                    <Link
+                      href={artistHref(a.artist, username)}
+                      className="text-xs text-muted-foreground truncate block hover:underline"
+                    >
+                      {a.artist}
+                    </Link>
                   </div>
                   <div className="shrink-0 text-right">
                     <p className="text-sm font-medium">{a.pct}%</p>

@@ -488,6 +488,7 @@ function UserProfileContent({
         return (
           <YearlyTopAlbum
             scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
+            username={username}
           />
         )
 

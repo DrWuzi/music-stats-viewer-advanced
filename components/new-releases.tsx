@@ -1,7 +1,9 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { albumHref, artistHref } from '@/lib/urls'
 
 interface Release {
   album: string
@@ -53,8 +55,18 @@ export function NewReleases({ username }: { username: string }) {
                   </div>
                 )}
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-sm font-medium leading-tight line-clamp-2">{r.album}</span>
-                  <span className="text-xs text-muted-foreground truncate">{r.artist}</span>
+                  <Link
+                    href={albumHref(r.artist, r.album, username)}
+                    className="text-sm font-medium leading-tight line-clamp-2 hover:underline"
+                  >
+                    {r.album}
+                  </Link>
+                  <Link
+                    href={artistHref(r.artist, username)}
+                    className="text-xs text-muted-foreground truncate hover:underline"
+                  >
+                    {r.artist}
+                  </Link>
                 </div>
               </div>
             ))}

@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { albumHref, artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -38,7 +40,7 @@ function buildYearlyTopAlbums(scrobbles: Scrobble[]): YearEntry[] {
     .sort((a, b) => b.year - a.year)
 }
 
-export function YearlyTopAlbum({ scrobbles }: { scrobbles: Scrobble[] }) {
+export function YearlyTopAlbum({ scrobbles, username }: { scrobbles: Scrobble[]; username: string }) {
   const entries = buildYearlyTopAlbums(scrobbles)
 
   if (entries.length === 0) {
@@ -92,7 +94,8 @@ export function YearlyTopAlbum({ scrobbles }: { scrobbles: Scrobble[] }) {
                 >
                   {year}
                 </div>
-                <div
+                <Link
+                  href={albumHref(artist, album, username)}
                   style={{
                     fontSize: '13px',
                     fontWeight: 600,
@@ -102,12 +105,15 @@ export function YearlyTopAlbum({ scrobbles }: { scrobbles: Scrobble[] }) {
                     display: '-webkit-box',
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical',
+                    color: 'inherit',
+                    textDecoration: 'none',
                   }}
                   title={album}
                 >
                   {album}
-                </div>
-                <div
+                </Link>
+                <Link
+                  href={artistHref(artist, username)}
                   style={{
                     fontSize: '11px',
                     opacity: 0.75,
@@ -115,11 +121,14 @@ export function YearlyTopAlbum({ scrobbles }: { scrobbles: Scrobble[] }) {
                     overflow: 'hidden',
                     whiteSpace: 'nowrap',
                     textOverflow: 'ellipsis',
+                    display: 'block',
+                    color: 'inherit',
+                    textDecoration: 'none',
                   }}
                   title={artist}
                 >
                   {artist}
-                </div>
+                </Link>
                 <div
                   style={{
                     fontSize: '11px',

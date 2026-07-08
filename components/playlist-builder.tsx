@@ -1,9 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { useState, useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { artistHref } from '@/lib/urls'
 
 interface TrackEntry {
   name: string
@@ -166,21 +168,38 @@ export function PlaylistBuilder({
                   const t = tracks[idx]
                   const checked = checkedTracks.has(idx)
                   return (
-                    <label
+                    <div
                       key={idx}
+                      role="checkbox"
+                      aria-checked={checked}
+                      tabIndex={0}
+                      onClick={() => toggleTrack(idx)}
+                      onKeyDown={(e) => {
+                        if (e.key === ' ' || e.key === 'Enter') {
+                          e.preventDefault()
+                          toggleTrack(idx)
+                        }
+                      }}
                       className="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-muted/40 transition-colors"
                     >
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleTrack(idx)}
-                        className="accent-primary w-4 h-4 shrink-0"
+                        className="accent-primary w-4 h-4 shrink-0 pointer-events-none"
+                        tabIndex={-1}
                       />
                       <span className="flex-1 min-w-0">
                         <span className="font-medium text-sm block truncate">{t.name}</span>
-                        <span className="text-xs text-muted-foreground block truncate">{t.artist}</span>
+                        <Link
+                          href={artistHref(t.artist, username)}
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-xs text-muted-foreground block truncate hover:underline hover:text-foreground w-fit"
+                        >
+                          {t.artist}
+                        </Link>
                       </span>
-                    </label>
+                    </div>
                   )
                 })
               )}
