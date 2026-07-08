@@ -12,11 +12,13 @@ export type NowPlayingData = {
 type NowPlayingContextValue = {
   data: NowPlayingData | null
   isLoading: boolean
+  username: string
 }
 
 const NowPlayingContext = createContext<NowPlayingContextValue>({
   data: null,
   isLoading: true,
+  username: '',
 })
 
 type ProviderProps = {
@@ -60,7 +62,7 @@ export function NowPlayingProvider({ username, children }: ProviderProps) {
   }, [username])
 
   return (
-    <NowPlayingContext.Provider value={{ data, isLoading }}>
+    <NowPlayingContext.Provider value={{ data, isLoading, username }}>
       {children}
     </NowPlayingContext.Provider>
   )

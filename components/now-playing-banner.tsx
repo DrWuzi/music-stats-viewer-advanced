@@ -1,9 +1,11 @@
 'use client'
 
+import Link from 'next/link'
 import { useNowPlaying } from '@/components/now-playing-context'
+import { artistHref, trackHref } from '@/lib/urls'
 
 export function NowPlayingBanner() {
-  const { data } = useNowPlaying()
+  const { data, username } = useNowPlaying()
 
   if (!data?.nowPlaying) return null
 
@@ -19,13 +21,21 @@ export function NowPlayingBanner() {
         Now playing:
       </span>
       <span className="font-bold text-foreground truncate">
-        {data.track}
+        {data.artist && data.track ? (
+          <Link href={trackHref(data.artist, data.track, username)} className="hover:underline">
+            {data.track}
+          </Link>
+        ) : (
+          data.track
+        )}
       </span>
       {data.artist && (
         <>
           <span className="text-muted-foreground shrink-0">—</span>
           <span className="text-muted-foreground font-medium truncate">
-            {data.artist}
+            <Link href={artistHref(data.artist, username)} className="hover:underline">
+              {data.artist}
+            </Link>
           </span>
         </>
       )}

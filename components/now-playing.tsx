@@ -1,11 +1,13 @@
 'use client'
 
+import Link from 'next/link'
 import { ArtistImage } from '@/components/artist-image'
 import { ListenOn } from '@/components/listen-on'
 import { useNowPlaying } from '@/components/now-playing-context'
+import { artistHref, trackHref } from '@/lib/urls'
 
 export function NowPlaying() {
-  const { data } = useNowPlaying()
+  const { data, username } = useNowPlaying()
 
   if (!data?.nowPlaying) return null
 
@@ -23,10 +25,22 @@ export function NowPlaying() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
           </span>
         </div>
-        <span className="font-semibold truncate leading-snug">{data.track}</span>
+        <span className="font-semibold truncate leading-snug">
+          {data.artist && data.track ? (
+            <Link href={trackHref(data.artist, data.track, username)} className="hover:underline">
+              {data.track}
+            </Link>
+          ) : (
+            data.track
+          )}
+        </span>
         {(data.artist || data.album) && (
           <span className="text-muted-foreground truncate text-xs">
-            {data.artist}
+            {data.artist && (
+              <Link href={artistHref(data.artist, username)} className="hover:underline">
+                {data.artist}
+              </Link>
+            )}
             {data.artist && data.album && ' · '}
             {data.album}
           </span>

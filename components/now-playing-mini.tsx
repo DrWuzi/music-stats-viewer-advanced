@@ -1,11 +1,13 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { X } from 'lucide-react'
 import { useNowPlaying } from '@/components/now-playing-context'
+import { artistHref, trackHref } from '@/lib/urls'
 
 export function NowPlayingMini() {
-  const { data } = useNowPlaying()
+  const { data, username } = useNowPlaying()
   const [dismissed, setDismissed] = useState(false)
   const progressRef = useRef<HTMLDivElement>(null)
   const progressAnim = useRef<number | null>(null)
@@ -58,11 +60,23 @@ export function NowPlayingMini() {
 
       {/* Track info */}
       <span className="text-sm font-medium truncate flex-1 min-w-0">
-        <span className="font-semibold">{data.track}</span>
+        <span className="font-semibold">
+          {data.artist && data.track ? (
+            <Link href={trackHref(data.artist, data.track, username)} className="hover:underline">
+              {data.track}
+            </Link>
+          ) : (
+            data.track
+          )}
+        </span>
         {data.artist && (
           <>
             <span className="mx-1.5 text-muted-foreground">—</span>
-            <span className="text-muted-foreground">{data.artist}</span>
+            <span className="text-muted-foreground">
+              <Link href={artistHref(data.artist, username)} className="hover:underline">
+                {data.artist}
+              </Link>
+            </span>
           </>
         )}
       </span>
