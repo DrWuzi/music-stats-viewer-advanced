@@ -20,6 +20,7 @@ model User {
   profileTagline    String?
   avatarDecoration  String?
   profileBackground String?
+  loadingAnimation  String?
 
   scrobbles   Scrobble[]
   topArtists  TopArtist[]
