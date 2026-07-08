@@ -131,4 +131,43 @@ describe('GET /api/artist-image', () => {
 
     expect(body.url).toBe('https://cdn-images.dzcdn.net/images/artist/abc123/1000x1000-000000-80-0-0.jpg')
   })
+
+  it('falls through to a live resolve when the cache read fails', async () => {
+    const { prisma } = await import('@/lib/prisma')
+    vi.mocked(prisma.artistImageCache.findUnique).mockRejectedValue(new Error('DB unavailable'))
+    vi.mocked(prisma.artistImageCache.upsert).mockResolvedValue({} as never)
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        artist: { image: [{ '#text': 'https://lastfm.example/img.jpg', size: 'mega' }] },
+      }),
+    } as Response)
+
+    const { GET } = await import('@/app/api/artist-image/route')
+    const res = await GET(makeRequest('Radiohead'))
+    const body = await res.json()
+
+    expect(res.status).toBe(200)
+    expect(body.url).toBe('https://lastfm.example/img.jpg')
+    expect(fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('still returns the resolved URL when persisting to the cache fails', async () => {
+    const { prisma } = await import('@/lib/prisma')
+    vi.mocked(prisma.artistImageCache.findUnique).mockResolvedValue(null)
+    vi.mocked(prisma.artistImageCache.upsert).mockRejectedValue(new Error('DB unavailable'))
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        artist: { image: [{ '#text': 'https://lastfm.example/img.jpg', size: 'mega' }] },
+      }),
+    } as Response)
+
+    const { GET } = await import('@/app/api/artist-image/route')
+    const res = await GET(makeRequest('Radiohead'))
+    const body = await res.json()
+
+    expect(res.status).toBe(200)
+    expect(body.url).toBe('https://lastfm.example/img.jpg')
+  })
 })

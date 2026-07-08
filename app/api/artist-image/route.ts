@@ -245,7 +245,12 @@ export async function GET(req: Request) {
   if (!name) return Response.json({ url: null }, { status: 400 })
 
   const artistKey = normalizeArtistKey(name)
-  const cached = await prisma.artistImageCache.findUnique({ where: { artistKey } })
+  let cached: Awaited<ReturnType<typeof prisma.artistImageCache.findUnique>> = null
+  try {
+    cached = await prisma.artistImageCache.findUnique({ where: { artistKey } })
+  } catch {
+    // DB unavailable/slow: treat as a cache miss and fall through to a live resolve.
+  }
 
   if (cached) {
     const isStaleFailure = cached.imageUrl === null && Date.now() - cached.resolvedAt.getTime() > FAILURE_RETRY_MS
@@ -256,11 +261,15 @@ export async function GET(req: Request) {
 
   const { url, source } = await resolveArtistImage(name)
 
-  await prisma.artistImageCache.upsert({
-    where: { artistKey },
-    create: { artistKey, imageUrl: url, source },
-    update: { imageUrl: url, source, resolvedAt: new Date() },
-  })
+  try {
+    await prisma.artistImageCache.upsert({
+      where: { artistKey },
+      create: { artistKey, imageUrl: url, source },
+      update: { imageUrl: url, source, resolvedAt: new Date() },
+    })
+  } catch {
+    // Best-effort persistence: don't fail the request if the write fails.
+  }
 
   return Response.json({ url }, url ? CACHE : CACHE_MISS)
 }
