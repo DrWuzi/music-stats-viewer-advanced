@@ -81,6 +81,9 @@ async function ProfilePageContent({ username }: { username: string }) {
   const session = await getSession()
 
   const user = await prisma.user.findUnique({ where: { lastfmUsername: username }, include: INCLUDE })
+  // Defensive only — UserProfilePage's existence check above already confirmed this row
+  // exists. If it's deleted in the narrow window between that check and this query, this
+  // notFound() runs inside the Suspense boundary and won't produce a correct 404 status.
   if (!user) notFound()
 
   const now = new Date()
