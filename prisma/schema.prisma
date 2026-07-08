@@ -28,6 +28,14 @@ model User {
   lovedTracks LovedTrack[]
 }
 
+model ArtistImageCache {
+  id         String   @id @default(cuid())
+  artistKey  String   @unique
+  imageUrl   String?
+  source     String?
+  resolvedAt DateTime @default(now())
+}
+
 model Scrobble {
   id          String   @id @default(cuid())
   userId      String
