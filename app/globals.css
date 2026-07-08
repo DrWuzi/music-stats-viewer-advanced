@@ -263,6 +263,38 @@
 .avatar-deco-shimmer { animation: avatarDecoShimmer 2.8s ease-in-out infinite; }
 .avatar-deco-ripple { animation: avatarDecoRipple 2s ease-out infinite; transform-origin: 50% 50%; }
 
+/* Profile background pattern animations (see components/profile-backgrounds.tsx) */
+@keyframes profileBgAuroraDriftA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6%, 4%) scale(1.08); }
+}
+@keyframes profileBgAuroraDriftB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5%, -6%) scale(1.06); }
+}
+@keyframes profileBgParticlesDrift {
+  from { background-position: 0 0; }
+  to { background-position: 0 -480px; }
+}
+@keyframes profileBgGlowPulse {
+  0%, 100% { opacity: 0.10; transform: scale(0.96); }
+  50% { opacity: 0.20; transform: scale(1.04); }
+}
+
+.profile-bg-aurora-a { animation: profileBgAuroraDriftA 22s ease-in-out infinite; }
+.profile-bg-aurora-b { animation: profileBgAuroraDriftB 26s ease-in-out infinite; }
+.profile-bg-particles { animation: profileBgParticlesDrift 18s linear infinite; }
+.profile-bg-glow { animation: profileBgGlowPulse 8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-bg-aurora-a,
+  .profile-bg-aurora-b,
+  .profile-bg-particles,
+  .profile-bg-glow {
+    animation: none !important;
+  }
+}
+
 .animation-delay-0 {
   animation-delay: 0ms;
 }
@@ -328,6 +360,13 @@ html {
 }
 
 @media print {
+  /* Explicit kill — the generic `opacity: 1 !important` rule below would
+     otherwise make this deliberately faint decorative layer render at full
+     strength on a printed page instead of disappearing. */
+  .profile-bg-layer {
+    display: none !important;
+  }
+
   /* Hide interactive chrome */
   nav,
   [data-nav],
