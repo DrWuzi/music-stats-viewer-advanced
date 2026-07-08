@@ -1,8 +1,12 @@
 export const runtime = 'nodejs'
 
+import { prisma } from '@/lib/prisma'
+
 const PLACEHOLDER = '2a96cbd8b46e442fc41c2b86b821562f'
+const DEEZER_PLACEHOLDER = 'd41d8cd98f00b204e9800998ecf8427e'
 const CACHE = { headers: { 'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600' } }
-const CACHE_MISS = { headers: { 'Cache-Control': 'public, max-age=3600' } }
+const CACHE_MISS = { headers: { 'Cache-Control': 'public, max-age=60' } }
+const FAILURE_RETRY_MS = 10 * 60 * 1000
 
 // Wikimedia's API etiquette policy requires a descriptive User-Agent identifying
 // the application; requests without one are throttled/rejected more aggressively.
@@ -34,9 +38,10 @@ interface WikipediaPage {
 // each firing an independent request. Wikimedia's anonymous-traffic rate limit
 // is tight enough that a burst of that size reliably triggers 429s, which the
 // catch-blocks below turn into silent misses. Serializing all Wikimedia-bound
-// requests through one queue (with a small minimum gap between request starts)
-// keeps a single page load well under the limit without meaningfully slowing
-// down any individual avatar (they already render behind a loading shimmer).
+// (and Deezer-bound) requests through one queue (with a small minimum gap
+// between request starts) keeps a single page load well under the limit
+// without meaningfully slowing down any individual avatar (they already
+// render behind a loading shimmer).
 let wikimediaQueue: Promise<unknown> = Promise.resolve()
 const WIKIMEDIA_MIN_INTERVAL_MS = 120
 
@@ -59,6 +64,31 @@ async function fromLastfm(name: string): Promise<string | null> {
       const img = images.find((i) => i.size === size)
       if (img?.['#text'] && !img['#text'].includes(PLACEHOLDER) && img['#text'].length > 10) {
         return img['#text']
+      }
+    }
+  } catch {}
+  return null
+}
+
+// Deezer's keyless artist-search endpoint, purpose-built for artist portraits
+// (unlike Wikipedia/Wikidata, which are general-purpose encyclopedic sources).
+// Deezer serves a fixed placeholder image (hash `d41d8cd98f00b204e9800998ecf8427e`)
+// for artists it has no photo for — verified live against the API, this hash
+// is identical across every artist lacking a real picture, the same way
+// Last.fm's PLACEHOLDER hash is.
+async function fromDeezer(name: string): Promise<string | null> {
+  try {
+    const params = new URLSearchParams({ q: name, limit: '5' })
+    const res = await throttledFetch(`https://api.deezer.com/search/artist?${params}`, {
+      headers: { 'User-Agent': USER_AGENT },
+      next: { revalidate: 86400 },
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    const artists: Array<{ picture_xl?: string }> = data?.data ?? []
+    for (const artist of artists) {
+      if (artist.picture_xl && !artist.picture_xl.includes(DEEZER_PLACEHOLDER)) {
+        return artist.picture_xl
       }
     }
   } catch {}
@@ -131,10 +161,6 @@ async function fromWikipediaSearch(name: string): Promise<string | null> {
   return null
 }
 
-async function fromWikipedia(name: string): Promise<string | null> {
-  return (await fromWikipediaExact(name)) ?? (await fromWikipediaSearch(name))
-}
-
 // Last-resort fallback: Wikidata, which models artists/bands as structured
 // entities with a dedicated P18 "image" property and its own fuzzy entity
 // search, independent of Wikipedia's page-title/full-text index. Useful for
@@ -194,11 +220,47 @@ async function fromWikidata(name: string): Promise<string | null> {
   return null
 }
 
+function normalizeArtistKey(name: string): string {
+  return name.trim().toLowerCase()
+}
+
+async function resolveArtistImage(name: string): Promise<{ url: string | null; source: string | null }> {
+  const attempts: Array<[string, () => Promise<string | null>]> = [
+    ['lastfm', () => fromLastfm(name)],
+    ['deezer', () => fromDeezer(name)],
+    ['wikipedia-exact', () => fromWikipediaExact(name)],
+    ['wikipedia-search', () => fromWikipediaSearch(name)],
+    ['wikidata', () => fromWikidata(name)],
+  ]
+  for (const [source, attempt] of attempts) {
+    const url = await attempt()
+    if (url) return { url, source }
+  }
+  return { url: null, source: null }
+}
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const name = searchParams.get('name')
   if (!name) return Response.json({ url: null }, { status: 400 })
 
-  const url = (await fromLastfm(name)) ?? (await fromWikipedia(name)) ?? (await fromWikidata(name))
+  const artistKey = normalizeArtistKey(name)
+  const cached = await prisma.artistImageCache.findUnique({ where: { artistKey } })
+
+  if (cached) {
+    const isStaleFailure = cached.imageUrl === null && Date.now() - cached.resolvedAt.getTime() > FAILURE_RETRY_MS
+    if (!isStaleFailure) {
+      return Response.json({ url: cached.imageUrl }, cached.imageUrl ? CACHE : CACHE_MISS)
+    }
+  }
+
+  const { url, source } = await resolveArtistImage(name)
+
+  await prisma.artistImageCache.upsert({
+    where: { artistKey },
+    create: { artistKey, imageUrl: url, source },
+    update: { imageUrl: url, source, resolvedAt: new Date() },
+  })
+
   return Response.json({ url }, url ? CACHE : CACHE_MISS)
 }
