@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 interface LazyWidgetProps {
   children: React.ReactNode
@@ -12,8 +13,13 @@ export function LazyWidget({ children, fallback }: LazyWidgetProps) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
+    // flushSync forces React to commit the state update synchronously so the DOM
+    // is updated before the browser captures the print layout snapshot.
+    const handleBeforePrint = () => flushSync(() => setVisible(true))
+    window.addEventListener('beforeprint', handleBeforePrint)
+
     const el = ref.current
-    if (!el) return
+    if (!el) return () => window.removeEventListener('beforeprint', handleBeforePrint)
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -26,7 +32,10 @@ export function LazyWidget({ children, fallback }: LazyWidgetProps) {
     )
 
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('beforeprint', handleBeforePrint)
+    }
   }, [])
 
   const defaultFallback = (

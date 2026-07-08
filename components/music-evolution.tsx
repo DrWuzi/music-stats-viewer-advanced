@@ -115,6 +115,14 @@ export function MusicEvolution({ scrobbles }: MusicEvolutionProps) {
             <Tooltip
               formatter={(value, name) => [`${value}%`, name as string]}
               cursor={{ fill: 'color-mix(in oklch, var(--foreground) 5%, transparent)' }}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
             <Legend wrapperStyle={{ fontSize: 12 }} />
             {artists.map((artist, i) => (

@@ -85,6 +85,14 @@ export function PeakYear({ scrobbles }: Props) {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               formatter={(value: any) => [typeof value === 'number' ? value.toLocaleString() : (value ?? 0), 'Scrobbles']}
               labelFormatter={(label) => String(label)}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
             <Bar dataKey="count" radius={[3, 3, 0, 0]}>
               {rows.map((row) => (

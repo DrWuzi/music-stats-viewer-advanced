@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { Disc3 } from 'lucide-react'
 

@@ -87,6 +87,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Page-width preference (Settings → Display → Page width), applied via a
+     class toggled on <html> by an inline script in app/layout.tsx — same
+     hydration-safe pattern used for the dark/light theme class. Default
+     ("comfortable", no class present) matches max-w-6xl. */
+  --content-max-width: 72rem;
+}
+
+.mw-wide {
+  --content-max-width: 80rem; /* matches max-w-7xl */
+}
+
+.mw-full {
+  --content-max-width: 100%;
 }
 
 .dark {
@@ -211,6 +225,44 @@
   background-size: 200% 100%;
 }
 
+/* Avatar decoration animations (see components/avatar-decorations.tsx) */
+@keyframes avatarDecoTwinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.75); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+@keyframes avatarDecoPulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+@keyframes avatarDecoFlicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.85; }
+  50% { transform: scaleY(1.15) scaleX(0.9); opacity: 1; }
+}
+@keyframes avatarDecoBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes avatarDecoSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes avatarDecoShimmer {
+  0%, 100% { opacity: 0.4; transform: scale(0.9) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.05) rotate(12deg); }
+}
+@keyframes avatarDecoRipple {
+  0% { transform: scale(0.75); opacity: 0.8; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+
+.avatar-deco-twinkle { animation: avatarDecoTwinkle 2.2s ease-in-out infinite; }
+.avatar-deco-pulse { animation: avatarDecoPulse 2.6s ease-in-out infinite; }
+.avatar-deco-flicker { animation: avatarDecoFlicker 1.1s ease-in-out infinite; }
+.avatar-deco-bob { animation: avatarDecoBob 2.4s ease-in-out infinite; }
+.avatar-deco-spin { animation: avatarDecoSpin 6s linear infinite; }
+.avatar-deco-shimmer { animation: avatarDecoShimmer 2.8s ease-in-out infinite; }
+.avatar-deco-ripple { animation: avatarDecoRipple 2s ease-out infinite; transform-origin: 50% 50%; }
+
 .animation-delay-0 {
   animation-delay: 0ms;
 }
@@ -276,55 +328,47 @@ html {
 }
 
 @media print {
-  /* Hide all interactive chrome */
+  /* Hide interactive chrome */
   nav,
   [data-nav],
   .mobile-nav,
-  .print\\:hidden,
   [class*="dashboard-widget"] > [class*="absolute"],
   footer {
     display: none !important;
   }
 
-  /* Force light mode for print — CSS vars won't resolve to readable colors otherwise */
-  :root, html, html.dark {
-    --background: 1 1 1;
-    --foreground: 0 0 0;
-    --card: 1 1 1;
-    --card-foreground: 0 0 0;
-    --muted: 0.95 0 0;
-    --muted-foreground: 0.4 0 0;
-    --border: 0.85 0 0;
-    color-scheme: light;
+  /* Kill all animations — animate-fade-in-up/fade-in use fill:both which keeps
+     opacity:0 until the animation runs; animations never run during print capture */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    /* Force black text regardless of CSS var resolution in dark mode */
+    color: black !important;
+    /* Make backgrounds transparent so white page shows through */
+    background-color: transparent !important;
+    /* Ensure nothing is invisible due to opacity tricks */
+    opacity: 1 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    text-shadow: none !important;
+    /* Remove gradient text clipping (text-transparent + bg-clip-text = invisible) */
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
   }
 
-  html, body {
-    background: white !important;
-    color: black !important;
+  html, body, main {
+    background-color: white !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* Cards print cleanly */
-  [class*="rounded"] {
-    break-inside: avoid;
+  /* Give cards a very subtle off-white so they're distinguishable from page */
+  [data-slot="card"] {
+    background-color: rgb(250, 250, 250) !important;
+    border: 1px solid rgb(220, 220, 220) !important;
   }
 
-  /* Remove all shadows and backdrops */
-  * {
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    text-shadow: none !important;
-  }
-
-  /* Remove gradients from headings */
-  .bg-clip-text {
-    -webkit-background-clip: unset !important;
-    background-clip: unset !important;
-    color: black !important;
-  }
-
-  /* Chart containers keep their size */
+  /* Keep charts from splitting across pages */
   .recharts-wrapper {
     break-inside: avoid;
     page-break-inside: avoid;

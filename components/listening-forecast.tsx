@@ -129,6 +129,14 @@ export function ListeningForecast({ scrobbles }: ListeningForecastProps) {
             <Tooltip
               formatter={(value) => [`${value}`, 'Predicted scrobbles']}
               cursor={{ fill: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
             <Bar
               dataKey="predicted"

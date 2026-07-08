@@ -141,7 +141,7 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
   })
 
   const peakFormatted = stats?.peakDate
-    ? new Date(stats.peakDate).toLocaleDateString(undefined, {
+    ? new Date(stats.peakDate).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
@@ -205,6 +205,14 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
               labelFormatter={(_, payload) => payload?.[0]?.payload?.date ?? ''}
               formatter={(value) => [`${value} scrobbles/day`, '30-day avg']}
               cursor={{ stroke: 'var(--border)' }}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
             <Area
               type="monotone"

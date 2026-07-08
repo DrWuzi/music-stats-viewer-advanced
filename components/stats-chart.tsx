@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import React from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine, LabelList, Brush } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Download } from 'lucide-react'
+import { downloadChartAsPng } from '@/lib/export-chart'
 
 type DayRange = 30 | 180 | 360
 type ViewMode = 'Daily' | 'Weekly' | 'Monthly'
@@ -242,6 +243,7 @@ export function StatsChart({
   const [clickSummary, setClickSummary] = useState<string | null>(null)
   const [zoomPreset, setZoomPreset] = useState<ZoomPreset>('all')
   const [brushKey, setBrushKey] = useState(0)
+  const chartRef = useRef<HTMLDivElement>(null)
 
   const allData = useMemo(() => buildData(scrobbles, days, viewMode), [scrobbles, days, viewMode])
 
@@ -331,14 +333,7 @@ export function StatsChart({
 
   return (
     <>
-      <style>{`
-        @media print {
-          body > * { display: none !important; }
-          .stats-chart-print { display: block !important; position: fixed; inset: 0; background: white; z-index: 9999; padding: 2rem; }
-        }
-        .stats-chart-print { display: contents; }
-      `}</style>
-      <Card className="animate-fade-in-up stats-chart-print">
+      <Card className="animate-fade-in-up">
         <CardHeader className="flex flex-row items-center justify-between flex-wrap gap-2">
           <CardTitle>Scrobbles</CardTitle>
           <div className="flex items-center gap-2 flex-wrap">
@@ -372,8 +367,11 @@ export function StatsChart({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => window.print()}
-              title="Export chart as image via print"
+              onClick={() => {
+                if (!chartRef.current) return
+                void downloadChartAsPng(chartRef.current, `${username}-scrobbles-chart.svg`)
+              }}
+              title="Export chart"
             >
               <Download className="h-4 w-4 mr-1" />
               Export
@@ -414,7 +412,11 @@ export function StatsChart({
             </p>
           )}
 
-          <div role="img" aria-label={`Bar chart showing ${viewMode.toLowerCase()} scrobble counts over the last ${days} days`}>
+          <div
+            ref={chartRef}
+            role="img"
+            aria-label={`Bar chart showing ${viewMode.toLowerCase()} scrobble counts over the last ${days} days`}
+          >
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={data} style={{ cursor: 'pointer' }}>
               <XAxis
@@ -430,6 +432,14 @@ export function StatsChart({
                   return formatTooltipLabel(date, viewMode)
                 }}
                 formatter={(value) => [value, 'Scrobbles']}
+                contentStyle={{
+                  background: 'var(--card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '6px',
+                  color: 'var(--foreground)',
+                }}
+                labelStyle={{ color: 'var(--foreground)' }}
+                itemStyle={{ color: 'var(--foreground)' }}
               />
               <Bar
                 dataKey="count"

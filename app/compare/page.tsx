@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ClipboardPaste, ArrowRight, Clock } from 'lucide-react'
+import { BackButton } from '@/components/back-button'
 
 const RECENTLY_COMPARED_KEY = 'recentlyCompared'
 const MAX_STORED = 5
@@ -73,10 +73,8 @@ export default function ComparePage() {
   return (
     <main className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-lg mx-auto space-y-8">
+        <BackButton />
         <div>
-          <Link href="/" className="text-muted-foreground hover:text-foreground text-sm mb-3 inline-flex items-center gap-1 transition-colors">
-            ← Back to home
-          </Link>
           <h1 className="text-3xl font-bold tracking-tight">Compare Users</h1>
           <p className="text-muted-foreground mt-1">
             Find out how compatible two Last.fm listeners are.

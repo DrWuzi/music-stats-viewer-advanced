@@ -127,6 +127,8 @@ export function SeasonListening({ scrobbles }: Props) {
                           fontSize: '11px',
                           color: 'var(--foreground)',
                         }}
+                        labelStyle={{ color: 'var(--foreground)' }}
+                        itemStyle={{ color: 'var(--foreground)' }}
                       />
                     </RadialBarChart>
                   </ResponsiveContainer>

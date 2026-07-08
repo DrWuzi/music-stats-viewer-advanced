@@ -219,6 +219,14 @@ export function SonicDna({ scrobbles, topArtists, topTracks, totalScrobbles }: S
             <Tooltip
               formatter={(value) => [`${value}`, '']}
               cursor={false}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
           </RadarChart>
         </ResponsiveContainer>

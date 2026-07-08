@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AnimatedNumber } from '@/components/animated-number'
 import { Crown, Medal, Users, Music2, Clock } from 'lucide-react'
+import { BackButton } from '@/components/back-button'
 
 export const metadata = { title: 'Top Listeners — Last.fm Advanced' }
 
@@ -70,14 +71,7 @@ export default async function LeaderboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
-      <div className="mb-6">
-        <Link
-          href="/"
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          &larr; Home
-        </Link>
-      </div>
+      <BackButton />
 
       {/* Page header */}
       <div className="mb-8">

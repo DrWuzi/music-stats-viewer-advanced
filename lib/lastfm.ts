@@ -200,4 +200,101 @@ export const lastfmClient = {
     if (data.error) throw new Error(data.message ?? 'Failed to get Last.fm session')
     return { name: data.session.name, key: data.session.key }
   },
+
+  async getFriends(username: string, limit = 10): Promise<{ name: string; imageUrl: string }[]> {
+    type R = {
+      friends: {
+        user: Array<{
+          name: string
+          image: Array<{ '#text': string; size: string }>
+        }>
+      }
+    }
+    const data = await call<R>({ method: 'user.getfriends', user: username, limit: String(limit) })
+    const users = data.friends.user
+    if (!Array.isArray(users)) return []
+    return users.map((u) => {
+      const img = u.image.find((i) => i.size === 'large') ?? u.image[u.image.length - 1]
+      return { name: u.name, imageUrl: img?.['#text'] ?? '' }
+    })
+  },
+
+  async getWeeklyArtistChart(username: string): Promise<{ name: string; playcount: number }[]> {
+    type R = {
+      weeklyartistchart: {
+        artist: Array<{ name: string; playcount: string }>
+      }
+    }
+    const data = await call<R>({ method: 'user.getweeklyartistchart', user: username })
+    const artists = data.weeklyartistchart.artist
+    if (!Array.isArray(artists)) return []
+    return artists.map((a) => ({ name: a.name, playcount: Number(a.playcount) }))
+  },
+
+  async getFriendRecentTrack(username: string): Promise<{ track: string; artist: string; timestamp: Date | null } | null> {
+    type R = {
+      recenttracks: {
+        track: Array<{
+          name: string
+          artist: { '#text': string }
+          date?: { uts: string }
+          '@attr'?: { nowplaying: string }
+        }>
+      }
+    }
+    const data = await call<R>({ method: 'user.getrecenttracks', user: username, limit: '1' })
+    const tracks = data.recenttracks.track
+    if (!Array.isArray(tracks) || tracks.length === 0) return null
+    const t = tracks[0]
+    return {
+      track: t.name,
+      artist: t.artist['#text'],
+      timestamp: t.date ? new Date(Number(t.date.uts) * 1000) : null,
+    }
+  },
+
+  async getSimilarArtists(artist: string, limit = 20): Promise<{ name: string; match: number }[]> {
+    type R = {
+      similarartists: {
+        artist: Array<{ name: string; match: string }>
+      }
+    }
+    const data = await call<R>({ method: 'artist.getsimilar', artist, limit: String(limit) })
+    const artists = data.similarartists.artist
+    if (!Array.isArray(artists)) return []
+    return artists.map((a) => ({ name: a.name, match: Number(a.match) }))
+  },
+
+  async chartGetTopArtists(limit = 20): Promise<{ name: string; playcount: number; listeners: number }[]> {
+    type R = {
+      artists: {
+        artist: Array<{ name: string; playcount: string; listeners: string }>
+      }
+    }
+    const data = await call<R>({ method: 'chart.gettopartists', limit: String(limit) })
+    const artists = data.artists.artist
+    if (!Array.isArray(artists)) return []
+    return artists.map((a) => ({
+      name: a.name,
+      playcount: Number(a.playcount),
+      listeners: Number(a.listeners),
+    }))
+  },
+
+  async chartGetTopTracks(limit = 20): Promise<{ name: string; artist: string; playcount: number; listeners: number }[]> {
+    type R = {
+      tracks: {
+        track: Array<{ name: string; artist: { name: string }; playcount: string; listeners: string }>
+      }
+    }
+    const data = await call<R>({ method: 'chart.gettoptracks', limit: String(limit) })
+    const tracks = data.tracks.track
+    if (!Array.isArray(tracks)) return []
+    return tracks.map((t) => ({
+      name: t.name,
+      artist: t.artist.name,
+      playcount: Number(t.playcount),
+      listeners: Number(t.listeners),
+    }))
+  },
 }

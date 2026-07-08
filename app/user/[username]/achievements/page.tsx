@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { Card, CardContent } from '@/components/ui/card'
+import { SortControl } from '@/components/sort-control'
 import {
   Star,
   Award,
@@ -28,12 +29,22 @@ import {
 
 type Props = {
   params: Promise<{ username: string }>
+  searchParams?: Promise<{ sort?: string }>
 }
 
 export async function generateMetadata({ params }: Props) {
   const { username } = await params
   return { title: `${username}'s Achievements — Last.fm Advanced` }
 }
+
+type AchievementSort = 'unlocked_desc' | 'name_az'
+
+const SORT_OPTIONS: { value: AchievementSort; label: string }[] = [
+  { value: 'unlocked_desc', label: 'Recently unlocked' },
+  { value: 'name_az', label: 'Name A–Z' },
+]
+
+const VALID_SORTS = new Set<AchievementSort>(['unlocked_desc', 'name_az'])
 
 // --- Achievement definitions ---
 
@@ -307,8 +318,12 @@ function buildAchievements(data: {
   return achievements
 }
 
-export default async function AchievementsPage({ params }: Props) {
+export default async function AchievementsPage({ params, searchParams }: Props) {
   const { username } = await params
+  const sp = await searchParams
+  const sort: AchievementSort = VALID_SORTS.has(sp?.sort as AchievementSort)
+    ? (sp!.sort as AchievementSort)
+    : 'unlocked_desc'
 
   const user = await prisma.user.findUnique({ where: { lastfmUsername: username } })
   if (!user) notFound()
@@ -367,11 +382,24 @@ export default async function AchievementsPage({ params }: Props) {
     topTrackCount,
   })
 
-  const earned = achievements.filter((a) => a.earned)
-  const locked = achievements.filter((a) => !a.earned)
+  const earnedBase = achievements.filter((a) => a.earned)
+  const lockedBase = achievements.filter((a) => !a.earned)
 
-  // Find "next" badge for progress display (first locked by progress desc)
-  const nextBadge = locked.sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0))[0]
+  // Find "next" badge for progress display (highest progress locked badge),
+  // independent of the user's chosen display sort order.
+  const nextBadge = [...lockedBase].sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0))[0]
+
+  // 'unlocked_desc' has no per-badge unlock timestamp to sort by, so it
+  // preserves the natural (most-significant-first) definition order as the
+  // default view. 'name_az' sorts both lists alphabetically.
+  const earned =
+    sort === 'name_az'
+      ? [...earnedBase].sort((a, b) => a.label.localeCompare(b.label))
+      : earnedBase
+  const locked =
+    sort === 'name_az'
+      ? [...lockedBase].sort((a, b) => a.label.localeCompare(b.label))
+      : [...lockedBase].sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0))
 
   return (
     <main className="min-h-screen bg-background p-4 md:p-8">
@@ -384,10 +412,18 @@ export default async function AchievementsPage({ params }: Props) {
           >
             ← Back to profile
           </Link>
-          <h1 className="text-3xl font-bold">{username}&apos;s Achievements</h1>
-          <p className="text-muted-foreground mt-1">
-            {earned.length} of {achievements.length} achievements unlocked
-          </p>
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <h1 className="text-3xl font-bold">{username}&apos;s Achievements</h1>
+              <p className="text-muted-foreground mt-1">
+                {earned.length} of {achievements.length} achievements unlocked
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Sort by</span>
+              <SortControl options={SORT_OPTIONS} defaultValue="unlocked_desc" />
+            </div>
+          </div>
         </div>
 
         {/* Progress summary bar */}
@@ -441,10 +477,8 @@ export default async function AchievementsPage({ params }: Props) {
               Locked ({locked.length})
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {locked
-                .sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0))
-                .map((a) => (
-                  <Card key={a.id} className="border opacity-70">
+              {locked.map((a) => (
+                <Card key={a.id} className="border opacity-70">
                     <CardContent className="p-4 flex flex-col items-center text-center gap-2">
                       <div className="relative rounded-full p-3 bg-muted">
                         <span className="grayscale">{a.icon}</span>

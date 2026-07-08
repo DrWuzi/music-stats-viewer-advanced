@@ -11,10 +11,13 @@ import {
   Keyboard,
   Menu,
   X,
+  TrendingUp,
+  Compass,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { NavSearch } from "@/components/nav-search"
+import { NotificationsButton } from "@/components/notifications-panel"
 
 interface NavSession {
   lastfmUsername: string
@@ -25,6 +28,8 @@ interface NavClientProps {
 }
 
 const navLinks = [
+  { href: "/charts", label: "Charts", icon: TrendingUp },
+  { href: "/discover", label: "Discover", icon: Compass },
   { href: "/search", label: "Search", icon: Search },
   { href: "/compare", label: "Compare", icon: Users },
   { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
@@ -37,15 +42,15 @@ export function NavClient({ session }: NavClientProps) {
 
   function linkClass(href: string) {
     return pathname === href
-      ? "flex items-center gap-1 text-sm font-semibold text-foreground"
-      : "flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      ? "flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-sm font-medium text-foreground transition-all duration-150"
+      : "flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-sm font-medium text-foreground/60 hover:text-foreground transition-all duration-150 dark:text-muted-foreground dark:hover:text-foreground"
   }
 
   return (
     <header className="border-b relative">
-      <div className="container mx-auto flex h-14 items-center justify-between px-4">
+      <div className="container mx-auto flex h-11 items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="font-semibold text-lg shrink-0">
+        <Link href="/" className="font-semibold text-base shrink-0">
           Last.fm Advanced
         </Link>
 
@@ -53,32 +58,23 @@ export function NavClient({ session }: NavClientProps) {
         <div className="hidden md:flex items-center gap-3">
           {navLinks.map(({ href, label, icon: Icon }) => (
             <Link key={href} href={href} className={linkClass(href)}>
-              <Icon className="h-5 w-5" />
+              <Icon className="h-4 w-4" />
               {label}
             </Link>
           ))}
 
           {session ? (
             <>
+              {/* Notifications bell */}
+              <NotificationsButton username={session.lastfmUsername} />
+
+              {/* Username compact link to profile */}
               <Link
                 href={`/user/${session.lastfmUsername}`}
                 className={linkClass(`/user/${session.lastfmUsername}`)}
               >
                 {session.lastfmUsername}
               </Link>
-              <Link href="/dashboard">
-                <Button
-                  variant={pathname === "/dashboard" ? "default" : "outline"}
-                  size="sm"
-                >
-                  Dashboard
-                </Button>
-              </Link>
-              <form action="/api/auth/logout" method="POST">
-                <Button variant="ghost" size="sm" type="submit">
-                  Sign out
-                </Button>
-              </form>
             </>
           ) : (
             <Link href="/login">
@@ -99,7 +95,7 @@ export function NavClient({ session }: NavClientProps) {
               window.dispatchEvent(new CustomEvent("showShortcuts"))
             }
           >
-            <Keyboard className="h-5 w-5" />
+            <Keyboard className="h-4 w-4" />
           </Button>
         </div>
 
@@ -113,9 +109,9 @@ export function NavClient({ session }: NavClientProps) {
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             ) : (
-              <Menu className="h-5 w-5" />
+              <Menu className="h-4 w-4" />
             )}
           </Button>
         </div>
@@ -133,7 +129,7 @@ export function NavClient({ session }: NavClientProps) {
               className={linkClass(href)}
               onClick={() => setMobileMenuOpen(false)}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className="h-4 w-4" />
               {label}
             </Link>
           ))}
@@ -146,18 +142,6 @@ export function NavClient({ session }: NavClientProps) {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {session.lastfmUsername}
-              </Link>
-              <Link
-                href="/dashboard"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Button
-                  variant={pathname === "/dashboard" ? "default" : "outline"}
-                  size="sm"
-                  className="w-full justify-start"
-                >
-                  Dashboard
-                </Button>
               </Link>
               <form action="/api/auth/logout" method="POST">
                 <Button
@@ -187,7 +171,7 @@ export function NavClient({ session }: NavClientProps) {
               setMobileMenuOpen(false)
             }}
           >
-            <Keyboard className="h-5 w-5" />
+            <Keyboard className="h-4 w-4" />
             Keyboard shortcuts
           </Button>
         </div>

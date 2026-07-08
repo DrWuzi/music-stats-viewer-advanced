@@ -23,7 +23,7 @@ export function KeyboardShortcutsModal() {
         <SheetHeader>
           <SheetTitle>Keyboard Shortcuts</SheetTitle>
         </SheetHeader>
-        <div className="mt-6">
+        <div className="mt-6 px-4 pb-4">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border">

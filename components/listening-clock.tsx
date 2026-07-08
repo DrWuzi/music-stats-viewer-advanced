@@ -63,6 +63,14 @@ export function ListeningClock({
             />
             <Tooltip
               formatter={(value, _name, props) => [value, (props as { payload?: { name?: string } })?.payload?.name ?? 'Hour']}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
           </RadialBarChart>
         </ResponsiveContainer>

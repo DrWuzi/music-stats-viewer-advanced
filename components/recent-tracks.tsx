@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Heart } from 'lucide-react'
 import { formatRelative } from '@/lib/format-date'
+import { ArtistImage } from '@/components/artist-image'
 
 interface Track {
   artist: string
@@ -49,22 +50,27 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
               const loved = lovedMap[key] ?? false
               return (
                 <li key={i} className="flex items-center justify-between py-2 px-2 rounded-lg transition-colors duration-150 hover:bg-muted/50">
-                  <div className="flex flex-col min-w-0">
-                    <Link
-                      href={`/track/${encodeURIComponent(t.artist)}/${encodeURIComponent(t.track)}`}
-                      className="font-medium truncate hover:underline text-foreground"
-                    >
-                      {t.track}
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    <Link href={`/artist/${encodeURIComponent(t.artist)}${username ? `?username=${username}` : ''}`} className="shrink-0">
+                      <ArtistImage name={t.artist} size="xs" />
                     </Link>
-                    <span className="text-sm text-muted-foreground truncate">
+                    <div className="flex flex-col min-w-0">
                       <Link
-                        href={`/artist/${encodeURIComponent(t.artist)}${username ? `?username=${username}` : ''}`}
-                        className="hover:underline hover:text-foreground transition-colors"
+                        href={`/track/${encodeURIComponent(t.artist)}/${encodeURIComponent(t.track)}`}
+                        className="font-medium truncate hover:underline text-foreground"
                       >
-                        {t.artist}
+                        {t.track}
                       </Link>
-                      {t.album ? ` — ${t.album}` : ''}
-                    </span>
+                      <span className="text-sm text-muted-foreground truncate">
+                        <Link
+                          href={`/artist/${encodeURIComponent(t.artist)}${username ? `?username=${username}` : ''}`}
+                          className="hover:underline hover:text-foreground transition-colors"
+                        >
+                          {t.artist}
+                        </Link>
+                        {t.album ? ` — ${t.album}` : ''}
+                      </span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-2 ml-4 shrink-0">
                     <span className="text-xs text-muted-foreground">{formatRelative(t.scrobbledAt)}</span>

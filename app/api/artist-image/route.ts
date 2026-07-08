@@ -4,6 +4,48 @@ const PLACEHOLDER = '2a96cbd8b46e442fc41c2b86b821562f'
 const CACHE = { headers: { 'Cache-Control': 'public, max-age=86400, stale-while-revalidate=3600' } }
 const CACHE_MISS = { headers: { 'Cache-Control': 'public, max-age=3600' } }
 
+// Wikimedia's API etiquette policy requires a descriptive User-Agent identifying
+// the application; requests without one are throttled/rejected more aggressively.
+const USER_AGENT = 'LastFmAdvanced/1.0 (educational/personal project)'
+
+const MUSIC_KEYWORDS = [
+  'musician',
+  'singer',
+  'band',
+  'rapper',
+  'musical group',
+  'composer',
+  'songwriter',
+  'dj',
+  'rock band',
+  'music duo',
+  'record producer',
+  'vocalist',
+  'recording artist',
+]
+
+interface WikipediaPage {
+  thumbnail?: { source: string }
+  pageprops?: { disambiguation?: string }
+  index?: number
+}
+
+// Pages like the leaderboard/top-lists render dozens of <ArtistImage> at once,
+// each firing an independent request. Wikimedia's anonymous-traffic rate limit
+// is tight enough that a burst of that size reliably triggers 429s, which the
+// catch-blocks below turn into silent misses. Serializing all Wikimedia-bound
+// requests through one queue (with a small minimum gap between request starts)
+// keeps a single page load well under the limit without meaningfully slowing
+// down any individual avatar (they already render behind a loading shimmer).
+let wikimediaQueue: Promise<unknown> = Promise.resolve()
+const WIKIMEDIA_MIN_INTERVAL_MS = 120
+
+function throttledFetch(url: string, init: RequestInit): Promise<Response> {
+  const result = wikimediaQueue.then(() => fetch(url, init))
+  wikimediaQueue = result.catch(() => {}).then(() => new Promise((resolve) => setTimeout(resolve, WIKIMEDIA_MIN_INTERVAL_MS)))
+  return result
+}
+
 async function fromLastfm(name: string): Promise<string | null> {
   try {
     const res = await fetch(
@@ -23,7 +65,12 @@ async function fromLastfm(name: string): Promise<string | null> {
   return null
 }
 
-async function fromWikipedia(name: string): Promise<string | null> {
+// Direct, exact page-title lookup. Fast and works whenever the artist name
+// matches the Wikipedia article title exactly (the common case), but fails
+// for anything phrased differently than the article title (missing "The",
+// different punctuation/casing, disambiguated titles like "Chicago (band)",
+// non-English romanizations, etc).
+async function fromWikipediaExact(name: string): Promise<string | null> {
   try {
     const params = new URLSearchParams({
       action: 'query',
@@ -36,15 +83,113 @@ async function fromWikipedia(name: string): Promise<string | null> {
       formatversion: '2',
       origin: '*',
     })
-    const res = await fetch(`https://en.wikipedia.org/w/api.php?${params}`, {
-      headers: { 'User-Agent': 'LastFmAdvanced/1.0 (educational/personal project)' },
+    const res = await throttledFetch(`https://en.wikipedia.org/w/api.php?${params}`, {
+      headers: { 'User-Agent': USER_AGENT },
       next: { revalidate: 86400 },
     })
     if (!res.ok) return null
     const data = await res.json()
-    const pages: Array<{ thumbnail?: { source: string } }> = data?.query?.pages ?? []
-    const src = pages[0]?.thumbnail?.source
-    return src ?? null
+    const pages: WikipediaPage[] = data?.query?.pages ?? []
+    return pages[0]?.thumbnail?.source ?? null
+  } catch {}
+  return null
+}
+
+// Fuzzy fallback using MediaWiki's full-text search (generator=search) instead
+// of an exact title match. This resolves cases the exact lookup misses, and
+// explicitly skips disambiguation pages (e.g. searching "Chicago" or "Genesis"
+// would otherwise land on a disambiguation page with no image) in favor of the
+// next best-ranked candidate that actually has a thumbnail.
+async function fromWikipediaSearch(name: string): Promise<string | null> {
+  try {
+    const params = new URLSearchParams({
+      action: 'query',
+      generator: 'search',
+      gsrsearch: name,
+      gsrlimit: '5',
+      prop: 'pageimages|pageprops',
+      pithumbsize: '600',
+      ppprop: 'disambiguation',
+      redirects: '1',
+      format: 'json',
+      formatversion: '2',
+      origin: '*',
+    })
+    const res = await throttledFetch(`https://en.wikipedia.org/w/api.php?${params}`, {
+      headers: { 'User-Agent': USER_AGENT },
+      next: { revalidate: 86400 },
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    const pages: WikipediaPage[] = data?.query?.pages ?? []
+    const ranked = [...pages].sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
+    for (const page of ranked) {
+      if (page.pageprops?.disambiguation) continue
+      if (page.thumbnail?.source) return page.thumbnail.source
+    }
+  } catch {}
+  return null
+}
+
+async function fromWikipedia(name: string): Promise<string | null> {
+  return (await fromWikipediaExact(name)) ?? (await fromWikipediaSearch(name))
+}
+
+// Last-resort fallback: Wikidata, which models artists/bands as structured
+// entities with a dedicated P18 "image" property and its own fuzzy entity
+// search, independent of Wikipedia's page-title/full-text index. Useful for
+// niche artists that have a Wikidata item (often with a Commons image) but no
+// (or a thin, imageless) English Wikipedia article.
+async function fromWikidata(name: string): Promise<string | null> {
+  try {
+    const searchParams = new URLSearchParams({
+      action: 'wbsearchentities',
+      search: name,
+      language: 'en',
+      type: 'item',
+      limit: '5',
+      format: 'json',
+      origin: '*',
+    })
+    const searchRes = await throttledFetch(`https://www.wikidata.org/w/api.php?${searchParams}`, {
+      headers: { 'User-Agent': USER_AGENT },
+      next: { revalidate: 86400 },
+    })
+    if (!searchRes.ok) return null
+    const searchData = await searchRes.json()
+    const candidates: Array<{ id: string; description?: string }> = searchData?.search ?? []
+    if (!candidates.length) return null
+
+    // Fetch claims for every candidate in a single batched request (Wikidata
+    // allows pipe-separated ids) instead of one request per candidate.
+    const entityParams = new URLSearchParams({
+      action: 'wbgetentities',
+      ids: candidates.map((c) => c.id).join('|'),
+      props: 'claims',
+      format: 'json',
+      origin: '*',
+    })
+    const entityRes = await throttledFetch(`https://www.wikidata.org/w/api.php?${entityParams}`, {
+      headers: { 'User-Agent': USER_AGENT },
+      next: { revalidate: 86400 },
+    })
+    if (!entityRes.ok) return null
+    const entityData = await entityRes.json()
+    const entities: Record<string, { claims?: Record<string, Array<{ mainsnak?: { datavalue?: { value?: string } } }>> }> =
+      entityData?.entities ?? {}
+
+    // Prefer candidates whose description reads like a musician/band, but
+    // still fall back to the remaining candidates in original rank order.
+    const isMusical = (c: { description?: string }) =>
+      !!c.description && MUSIC_KEYWORDS.some((k) => c.description!.toLowerCase().includes(k))
+    const ranked = [...candidates.filter(isMusical), ...candidates.filter((c) => !isMusical(c))]
+
+    for (const candidate of ranked) {
+      const filename = entities[candidate.id]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value
+      if (filename) {
+        return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=600`
+      }
+    }
   } catch {}
   return null
 }
@@ -54,6 +199,6 @@ export async function GET(req: Request) {
   const name = searchParams.get('name')
   if (!name) return Response.json({ url: null }, { status: 400 })
 
-  const url = (await fromLastfm(name)) ?? (await fromWikipedia(name))
+  const url = (await fromLastfm(name)) ?? (await fromWikipedia(name)) ?? (await fromWikidata(name))
   return Response.json({ url }, url ? CACHE : CACHE_MISS)
 }

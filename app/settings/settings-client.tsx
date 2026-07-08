@@ -164,7 +164,10 @@ interface SettingsClientProps {
   lastSyncedAt: string | null
 }
 
-export function SettingsClient({ username, lastSyncedAt }: SettingsClientProps) {
+export function SettingsClient({
+  username,
+  lastSyncedAt,
+}: SettingsClientProps) {
   const router = useRouter()
 
   // Display prefs
@@ -188,6 +191,12 @@ export function SettingsClient({ username, lastSyncedAt }: SettingsClientProps) 
   function handleMaxWidthChange(opt: MaxWidthOption) {
     setMaxWidth(opt)
     localStorage.setItem(MAX_WIDTH_KEY, opt)
+    // Apply immediately, same pattern as ThemeToggle — the <html> element
+    // persists across client-side navigations, so the inline bootstrap
+    // script (which only runs on a full page load) isn't enough on its own.
+    document.documentElement.classList.remove('mw-wide', 'mw-full')
+    if (opt === 'wide') document.documentElement.classList.add('mw-wide')
+    else if (opt === 'full') document.documentElement.classList.add('mw-full')
   }
 
   // ── Dashboard config ───────────────────────────────────────────────────────
@@ -317,6 +326,17 @@ export function SettingsClient({ username, lastSyncedAt }: SettingsClientProps) 
 
           <Row label="Re-sync library" description="Queue a full re-import from Last.fm.">
             <ResyncButton username={username} />
+          </Row>
+
+          <Row
+            label="Profile appearance"
+            description="Accent theme, avatar decoration, and tagline are edited on your profile page — click the pencil icon next to your avatar."
+          >
+            <Link href={`/user/${username}`}>
+              <Button variant="outline" size="sm">
+                Go to profile
+              </Button>
+            </Link>
           </Row>
 
           <Row label="Sign out" description="End your session on this device.">

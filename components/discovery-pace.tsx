@@ -102,6 +102,14 @@ export function DiscoveryPace({ scrobbles }: Props) {
             <Tooltip
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               formatter={(value: any) => [value ?? 0, 'New Artists']}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
             <Bar dataKey="count" fill="var(--primary)" radius={[2, 2, 0, 0]} />
           </BarChart>

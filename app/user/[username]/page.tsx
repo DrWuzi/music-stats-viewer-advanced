@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { syncUser } from '@/lib/sync'
 import { lastfmClient } from '@/lib/lastfm'
 import { UserProfile } from '@/components/user-profile'
+import { DEFAULT_ORDER, type WidgetId } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
 
 type Props = { params: Promise<{ username: string }> }
@@ -69,6 +70,25 @@ export default async function UserProfilePage({ params }: Props) {
   ])
   const isOwner = session?.lastfmUsername === username
 
+  const savedOrder: WidgetId[] | undefined = (() => {
+    try {
+      const raw = user.dashboardOrder
+      if (!raw) return undefined
+      const parsed = JSON.parse(raw) as WidgetId[]
+      const valid = parsed.filter((id) => (DEFAULT_ORDER as readonly string[]).includes(id))
+      const added = DEFAULT_ORDER.filter((id) => !valid.includes(id))
+      return [...valid, ...added]
+    } catch { return undefined }
+  })()
+
+  const savedHidden: WidgetId[] | undefined = (() => {
+    try {
+      const raw = user.dashboardHidden
+      if (!raw) return undefined
+      return (JSON.parse(raw) as WidgetId[]).filter((id) => (DEFAULT_ORDER as readonly string[]).includes(id))
+    } catch { return undefined }
+  })()
+
   const uniqueArtistCount = uniqueArtistsResult.length
   const uniqueTrackCount = uniqueTracksResult.length
   const uniqueAlbumCount = uniqueAlbumsResult.length
@@ -124,6 +144,8 @@ export default async function UserProfilePage({ params }: Props) {
         imageUrl={imageUrl}
         lastSyncedAt={user.lastSyncedAt}
         isOwner={isOwner}
+        initialDashboardOrder={savedOrder}
+        initialDashboardHidden={savedHidden}
         recentTracks={user.scrobbles.map((s) => ({
           artist: s.artist,
           album: s.album,

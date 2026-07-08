@@ -27,6 +27,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script dangerouslySetInnerHTML={{
           __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')}catch(e){}})()`
         }} />
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){try{var w=localStorage.getItem('maxWidthPref');if(w==='wide')document.documentElement.classList.add('mw-wide');else if(w==='full')document.documentElement.classList.add('mw-full')}catch(e){}})()`
+        }} />
       </head>
       <body className={inter.className}>
         <NavProgress />

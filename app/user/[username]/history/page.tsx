@@ -4,6 +4,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { SortControl } from '@/components/sort-control'
+
+type HistorySort = 'date_desc' | 'date_asc' | 'artist_az'
+
+const SORT_OPTIONS: { value: HistorySort; label: string }[] = [
+  { value: 'date_desc', label: 'Newest first' },
+  { value: 'date_asc', label: 'Oldest first' },
+  { value: 'artist_az', label: 'Artist A–Z' },
+]
+
+const VALID_SORTS = new Set<HistorySort>(['date_desc', 'date_asc', 'artist_az'])
 
 type Props = {
   params: Promise<{ username: string }>
@@ -12,6 +23,7 @@ type Props = {
     per_page?: string
     artist?: string
     q?: string
+    sort?: string
   }>
 }
 
@@ -28,6 +40,9 @@ export default async function HistoryPage({ params, searchParams }: Props) {
   const perPage = Math.min(200, Math.max(10, Number(sp?.per_page ?? 50)))
   const artistFilter = sp?.artist?.trim() ?? ''
   const searchQuery = sp?.q?.trim() ?? ''
+  const sort: HistorySort = VALID_SORTS.has(sp?.sort as HistorySort)
+    ? (sp!.sort as HistorySort)
+    : 'date_desc'
 
   const user = await prisma.user.findUnique({ where: { lastfmUsername: username } })
 
@@ -64,11 +79,18 @@ export default async function HistoryPage({ params, searchParams }: Props) {
       : {}),
   }
 
+  const orderBy =
+    sort === 'date_asc'
+      ? { scrobbledAt: 'asc' as const }
+      : sort === 'artist_az'
+        ? { artist: 'asc' as const }
+        : { scrobbledAt: 'desc' as const }
+
   const [totalScrobbles, scrobbles, artistOptions] = await Promise.all([
     prisma.scrobble.count({ where }),
     prisma.scrobble.findMany({
       where,
-      orderBy: { scrobbledAt: 'desc' },
+      orderBy,
       skip: (page - 1) * perPage,
       take: perPage,
     }),
@@ -94,6 +116,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
     if (perPage !== 50) params.set('per_page', String(perPage))
     if (artistFilter) params.set('artist', artistFilter)
     if (searchQuery) params.set('q', searchQuery)
+    if (sort !== 'date_desc') params.set('sort', sort)
     const qs = params.toString()
     return `/user/${username}/history${qs ? `?${qs}` : ''}`
   }
@@ -122,6 +145,9 @@ export default async function HistoryPage({ params, searchParams }: Props) {
 
         {/* Filter Bar */}
         <form method="GET" className="flex flex-col sm:flex-row gap-3">
+          {/* Preserve current sort selection when submitting the filter form */}
+          {sort !== 'date_desc' && <input type="hidden" name="sort" value={sort} />}
+
           {/* Search input */}
           <div className="flex-1">
             <input
@@ -177,6 +203,12 @@ export default async function HistoryPage({ params, searchParams }: Props) {
             </Link>
           )}
         </form>
+
+        {/* Sort control */}
+        <div className="flex items-center justify-end gap-2">
+          <span className="text-sm text-muted-foreground">Sort by</span>
+          <SortControl options={SORT_OPTIONS} defaultValue="date_desc" resetParams={['page']} />
+        </div>
 
         {/* Table Card */}
         <Card>

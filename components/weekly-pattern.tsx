@@ -107,6 +107,14 @@ export function WeeklyPattern({ scrobbles }: WeeklyPatternProps) {
             <Tooltip
               formatter={(value) => [`${value} scrobbles/day`, 'Avg']}
               cursor={{ fill: 'var(--muted)' }}
+              contentStyle={{
+                background: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--foreground)',
+              }}
+              labelStyle={{ color: 'var(--foreground)' }}
+              itemStyle={{ color: 'var(--foreground)' }}
             />
             <Bar dataKey="avg" fill="var(--primary)" radius={[4, 4, 0, 0]} />
           </BarChart>

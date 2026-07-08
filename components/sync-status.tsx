@@ -55,7 +55,7 @@ export function SyncStatus({
 
   return (
     <div className="flex items-center gap-2 text-sm">
-      <Badge variant="secondary">
+      <Badge variant="secondary" suppressHydrationWarning>
         {syncedAt ? `Synced ${rel(syncedAt)}` : 'Never synced'}
       </Badge>
       {isOwner && (

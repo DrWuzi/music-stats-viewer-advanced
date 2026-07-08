@@ -6,8 +6,8 @@ import Link from 'next/link'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { ArtistImage } from '@/components/artist-image'
+import { SortMenu } from '@/components/sort-menu'
 import type { Period } from '@/lib/lastfm'
 
 const PERIOD_LABELS: Record<string, string> = {
@@ -114,23 +114,15 @@ function ArtistList({
 
   return (
     <div>
-      <div className="flex gap-1 mb-3">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setArtistSort('rank')}
-          className={artistSort === 'rank' ? 'font-semibold' : 'font-normal'}
-        >
-          # Rank
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setArtistSort('az')}
-          className={artistSort === 'az' ? 'font-semibold' : 'font-normal'}
-        >
-          A–Z
-        </Button>
+      <div className="flex justify-end mb-3">
+        <SortMenu
+          value={artistSort}
+          onChange={(v) => setArtistSort(v as 'rank' | 'az')}
+          options={[
+            { value: 'rank', label: '# Rank' },
+            { value: 'az', label: 'A–Z' },
+          ]}
+        />
       </div>
       <ul className="divide-y">
         {sortedArtists.map((artist, i) => (

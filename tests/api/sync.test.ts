@@ -31,6 +31,11 @@ describe('POST /api/sync', () => {
       lastSyncedAt: null,
       lastManualSyncAt: new Date(Date.now() - 60_000),
       createdAt: new Date(),
+      dashboardOrder: null,
+      dashboardHidden: null,
+      profileTheme: null,
+      profileTagline: null,
+      avatarDecoration: null,
     })
 
     const { POST } = await import('@/app/api/sync/route')
@@ -46,10 +51,14 @@ describe('POST /api/sync', () => {
     vi.mocked(prisma.user.findUnique).mockResolvedValue({
       id: 'u1', lastfmUsername: 'user', sessionKey: 'key',
       lastSyncedAt: null, lastManualSyncAt: null, createdAt: new Date(),
+      dashboardOrder: null, dashboardHidden: null,
+      profileTheme: null, profileTagline: null, avatarDecoration: null,
     })
     vi.mocked(prisma.user.update).mockResolvedValue({
       id: 'u1', lastfmUsername: 'user', sessionKey: 'key',
       lastSyncedAt: now, lastManualSyncAt: now, createdAt: new Date(),
+      dashboardOrder: null, dashboardHidden: null,
+      profileTheme: null, profileTagline: null, avatarDecoration: null,
     })
 
     const { POST } = await import('@/app/api/sync/route')

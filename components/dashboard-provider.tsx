@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
 import { DEFAULT_ORDER, type WidgetId } from '@/lib/dashboard-widgets'
 
 interface DashboardCtx {
@@ -17,47 +17,32 @@ interface DashboardCtx {
 
 const Ctx = createContext<DashboardCtx | null>(null)
 
-const ORDER_KEY = 'dashboardOrder_v1'
-const HIDDEN_KEY = 'dashboardHidden_v1'
-
-function readOrder(): WidgetId[] {
-  try {
-    const raw = localStorage.getItem(ORDER_KEY)
-    if (!raw) return DEFAULT_ORDER
-    const parsed = JSON.parse(raw) as WidgetId[]
-    const valid = parsed.filter((id) => (DEFAULT_ORDER as readonly string[]).includes(id))
-    const added = DEFAULT_ORDER.filter((id) => !valid.includes(id))
-    return [...valid, ...added]
-  } catch {
-    return DEFAULT_ORDER
-  }
+interface DashboardProviderProps {
+  children: ReactNode
+  isOwner: boolean
+  initialOrder?: WidgetId[]
+  initialHidden?: WidgetId[]
 }
 
-function readHidden(): Set<WidgetId> {
-  try {
-    const raw = localStorage.getItem(HIDDEN_KEY)
-    return raw ? new Set(JSON.parse(raw) as WidgetId[]) : new Set()
-  } catch {
-    return new Set()
-  }
-}
-
-export function DashboardProvider({ children }: { children: ReactNode }) {
-  const [order, setOrder] = useState<WidgetId[]>(DEFAULT_ORDER)
-  const [hidden, setHidden] = useState<Set<WidgetId>>(new Set())
+export function DashboardProvider({ children, isOwner, initialOrder, initialHidden }: DashboardProviderProps) {
+  const [order, setOrder] = useState<WidgetId[]>(initialOrder ?? DEFAULT_ORDER)
+  const [hidden, setHidden] = useState<Set<WidgetId>>(new Set(initialHidden ?? []))
   const [isEditing, setIsEditing] = useState(false)
-  const [ready, setReady] = useState(false)
 
-  useEffect(() => {
-    setOrder(readOrder())
-    setHidden(readHidden())
-    setReady(true)
-  }, [])
+  // Debounce timer ref — avoids hammering the API on every drag step
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const persist = useCallback((nextOrder: WidgetId[], nextHidden: Set<WidgetId>) => {
-    localStorage.setItem(ORDER_KEY, JSON.stringify(nextOrder))
-    localStorage.setItem(HIDDEN_KEY, JSON.stringify([...nextHidden]))
-  }, [])
+  const saveToDb = useCallback((nextOrder: WidgetId[], nextHidden: Set<WidgetId>) => {
+    if (!isOwner) return
+    if (saveTimer.current) clearTimeout(saveTimer.current)
+    saveTimer.current = setTimeout(() => {
+      fetch('/api/dashboard-layout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order: nextOrder, hidden: [...nextHidden] }),
+      }).catch(() => { /* silent — non-critical */ })
+    }, 800)
+  }, [isOwner])
 
   const moveUp = useCallback(
     (id: WidgetId) =>
@@ -66,10 +51,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         if (i <= 0) return prev
         const next = [...prev]
         ;[next[i - 1], next[i]] = [next[i], next[i - 1]]
-        persist(next, hidden)
+        saveToDb(next, hidden)
         return next
       }),
-    [hidden, persist],
+    [hidden, saveToDb],
   )
 
   const moveDown = useCallback(
@@ -79,10 +64,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         if (i >= prev.length - 1) return prev
         const next = [...prev]
         ;[next[i + 1], next[i]] = [next[i], next[i + 1]]
-        persist(next, hidden)
+        saveToDb(next, hidden)
         return next
       }),
-    [hidden, persist],
+    [hidden, saveToDb],
   )
 
   const moveTo = useCallback(
@@ -92,11 +77,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         const next = prev.filter((id) => id !== fromId)
         const toIdx = next.indexOf(toId)
         next.splice(toIdx, 0, fromId)
-        persist(next, hidden)
+        saveToDb(next, hidden)
         return next
       })
     },
-    [hidden, persist],
+    [hidden, saveToDb],
   )
 
   const toggleHidden = useCallback(
@@ -104,10 +89,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       setHidden((prev) => {
         const next = new Set(prev)
         next.has(id) ? next.delete(id) : next.add(id)
-        persist(order, next)
+        saveToDb(order, next)
         return next
       }),
-    [order, persist],
+    [order, saveToDb],
   )
 
   const reset = useCallback(() => {
@@ -115,8 +100,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     const h = new Set<WidgetId>()
     setOrder(o)
     setHidden(h)
-    persist(o, h)
-  }, [persist])
+    saveToDb(o, h)
+  }, [saveToDb])
+
+  // Cleanup debounce on unmount
+  useEffect(() => () => { if (saveTimer.current) clearTimeout(saveTimer.current) }, [])
 
   return (
     <Ctx.Provider value={{ order, hidden, isEditing, setEditing: setIsEditing, moveUp, moveDown, moveTo, toggleHidden, reset }}>

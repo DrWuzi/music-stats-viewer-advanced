@@ -1,13 +1,10 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import Link from 'next/link'
-import { LayoutDashboard, RotateCcw, X, User, Clock, Trophy, Sparkles, Music, Disc, Mic2, Calendar, TrendingUp, Flame } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { LayoutDashboard, RotateCcw, X, User, Music, Disc, Mic2, Calendar, TrendingUp, Flame } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { SyncStatus } from '@/components/sync-status'
 import { RecentTracks } from '@/components/recent-tracks'
 import { TopLists } from '@/components/top-lists'
 import { LovedTracks } from '@/components/loved-tracks'
@@ -25,7 +22,6 @@ import { NewDiscoveries } from '@/components/new-discoveries'
 import { GenreBreakdown } from '@/components/genre-breakdown'
 import { LovedTracksTimeline } from '@/components/loved-tracks-timeline'
 import { ExportButton } from '@/components/export-button'
-import { LastActivityNudge } from '@/components/last-activity-nudge'
 import { ListeningTimeEstimate } from '@/components/listening-time-estimate'
 import { NightOwlStats } from '@/components/night-owl-stats'
 import { WeeklyPattern } from '@/components/weekly-pattern'
@@ -44,7 +40,6 @@ import { AlbumCompletion } from '@/components/album-completion'
 import { MusicTimeline } from '@/components/music-timeline'
 import { TasteBadge } from '@/components/taste-badge'
 import { PrintButton } from '@/components/print-button'
-import { ResyncButton } from '@/components/resync-button'
 import { CopyStatsButton } from '@/components/copy-stats-button'
 import { CopyProfileUrl } from '@/components/copy-profile-url'
 import { ShareProfileButton } from '@/components/share-profile-button'
@@ -79,7 +74,6 @@ import { YouMightLike } from '@/components/you-might-like'
 import { RecentArtistsCarousel } from '@/components/recent-artists-carousel'
 import { DynamicTitle } from '@/components/dynamic-title'
 import { LazyWidget } from '@/components/lazy-widget'
-import { LiveBadge } from '@/components/live-badge'
 import { ListeningGapAlert } from '@/components/listening-gap-alert'
 import { DecadeBreakdown } from '@/components/decade-breakdown'
 import { SeasonListening } from '@/components/season-listening'
@@ -126,6 +120,8 @@ interface UserProfileProps {
   lovedTracks: { artist: string; track: string; lovedAt: Date }[]
   allScrobbles: { scrobbledAt: Date; artist: string; track: string }[]
   profileStats?: ProfileStats
+  initialDashboardOrder?: WidgetId[]
+  initialDashboardHidden?: WidgetId[]
 }
 
 // ─── Inner component (uses context) ──────────────────────────────────────────
@@ -237,55 +233,6 @@ function ProfileStatsSidebar({
   )
 }
 
-// ─── Profile Nav Tabs ────────────────────────────────────────────────────────
-
-function ProfileNavTabs({ username }: { username: string }) {
-  const pathname = usePathname()
-  const base = `/user/${username}`
-
-  const tabs = [
-    { href: base, label: 'Overview', icon: <LayoutDashboard className="h-4 w-4" /> },
-    { href: `${base}/history`, label: 'History', icon: <Clock className="h-4 w-4" /> },
-    { href: `${base}/achievements`, label: 'Achievements', icon: <Trophy className="h-4 w-4" /> },
-    { href: `${base}/wrapped`, label: 'Wrapped', icon: <Sparkles className="h-4 w-4" /> },
-  ]
-
-  return (
-    <nav
-      className="flex items-center gap-1 rounded-xl p-1 mb-6"
-      style={{ background: 'color-mix(in oklch, var(--muted) 60%, transparent)' }}
-      aria-label="Profile navigation"
-    >
-      {tabs.map((tab) => {
-        const isActive = tab.href === base ? pathname === base : pathname.startsWith(tab.href)
-        return (
-          <Link
-            key={tab.href}
-            href={tab.href}
-            className={[
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 select-none',
-              isActive
-                ? 'shadow-sm text-foreground'
-                : 'text-muted-foreground hover:text-foreground',
-            ].join(' ')}
-            style={
-              isActive
-                ? {
-                    background: 'var(--background)',
-                    boxShadow: '0 1px 3px color-mix(in oklch, var(--foreground) 10%, transparent)',
-                  }
-                : {}
-            }
-            aria-current={isActive ? 'page' : undefined}
-          >
-            {tab.icon}
-            <span className="hidden sm:inline">{tab.label}</span>
-          </Link>
-        )
-      })}
-    </nav>
-  )
-}
 
 // ─── UserProfileContent ───────────────────────────────────────────────────────
 
@@ -671,7 +618,7 @@ function UserProfileContent({
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-[1400px]">
+    <div className="container mx-auto px-4 pb-8 pt-2 max-w-[var(--content-max-width)]">
       {/* Invisible/overlay components */}
       <DynamicTitle username={username} todayCount={todayCount} />
       <MilestoneToast totalScrobbles={totalScrobbles} />
@@ -680,90 +627,36 @@ function UserProfileContent({
 
       <NowPlaying />
 
-      {/* Profile header */}
-      <div
-        className="animate-fade-in rounded-2xl p-6 flex items-center gap-4 mb-6 mt-4 relative overflow-hidden"
-        style={{ background: 'radial-gradient(circle at 20% 50%, color-mix(in oklch, var(--primary) 15%, transparent), transparent 60%)' }}
-      >
-        {/* Subtle dot-grid overlay */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-[0.03]"
-          style={{
-            backgroundImage: 'radial-gradient(var(--foreground) 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-          }}
-        />
-        <Avatar className="h-20 w-20 ring-2 ring-primary/20 ring-offset-2 relative">
-          <AvatarImage src={imageUrl} alt={username} />
-          <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
-        </Avatar>
-        <div className="flex-1 min-w-0 relative">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent flex items-center flex-wrap gap-x-1">
-            {username}
-            <LiveBadge username={username} />
-          </h1>
-          <p className="text-muted-foreground text-base font-medium">
-            {totalScrobbles.toLocaleString('en-US')} scrobbles · Member since{' '}
-            {new Date(registeredAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
-          </p>
-          {(() => {
-            const reg = new Date(registeredAt)
-            const now = new Date()
-            let years = now.getFullYear() - reg.getFullYear()
-            const monthDiff = now.getMonth() - reg.getMonth()
-            if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < reg.getDate())) years--
-            return years > 0 ? (
-              <span className="inline-flex items-center mt-1 px-2 py-0.5 rounded-full text-xs font-medium border"
-                style={{
-                  background: 'color-mix(in oklch, var(--primary) 10%, transparent)',
-                  borderColor: 'color-mix(in oklch, var(--primary) 25%, transparent)',
-                  color: 'var(--primary)',
-                }}>
-                {years} {years === 1 ? 'year' : 'years'} as a member
-              </span>
-            ) : null
-          })()}
-          <LoyaltyScoreBadge topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} />
-          <LastActivityNudge lastSyncedAt={lastSyncedAt} />
-        </div>
-        {/* Primary actions — always visible */}
-        <div className="flex items-center gap-2 shrink-0 relative">
-          {isOwner && <ResyncButton username={username} />}
-          {isEditing ? (
-            <div className="flex items-center gap-1">
-              <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={reset} title="Reset to default layout">
-                <RotateCcw className="h-4 w-4 mr-1" />
-                <span className="hidden sm:inline">Reset</span>
-              </Button>
-              <Button size="sm" onClick={() => setEditing(false)}>
-                <X className="h-4 w-4 mr-1" />
-                Done
-              </Button>
-            </div>
-          ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
-              <LayoutDashboard className="h-4 w-4 mr-1" />
-              <span className="hidden sm:inline">Edit Layout</span>
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Secondary actions toolbar */}
-      <div className="flex items-center gap-1.5 flex-wrap mb-4 print:hidden">
+      {/* Actions toolbar */}
+      <div className="flex items-center gap-1.5 flex-wrap mb-3 print:hidden">
         <CopyStatsButton username={username} totalScrobbles={totalScrobbles} topArtist={topArtistsOverall[0]?.name} />
         <CopyProfileUrl />
         <ShareProfileButton username={username} />
         {isOwner && <ExportButton username={username} />}
         <PrintButton />
-        <div className="ml-auto">
-          <SyncStatus lastSyncedAt={lastSyncedAt} isOwner={isOwner} />
+        <div className="ml-auto flex items-center gap-1.5">
+          <LoyaltyScoreBadge topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} />
+          {isOwner && (
+            isEditing ? (
+              <div className="flex items-center gap-1">
+                <Button variant="ghost" size="sm" className="text-muted-foreground" onClick={reset} title="Reset to default layout">
+                  <RotateCcw className="h-4 w-4 mr-1" />
+                  <span className="hidden sm:inline">Reset</span>
+                </Button>
+                <Button size="sm" onClick={() => setEditing(false)}>
+                  <X className="h-4 w-4 mr-1" />
+                  Done
+                </Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
+                <LayoutDashboard className="h-4 w-4 mr-1" />
+                <span className="hidden sm:inline">Edit Layout</span>
+              </Button>
+            )
+          )}
         </div>
       </div>
-
-      {/* Quick navigation tabs */}
-      <ProfileNavTabs username={username} />
 
       {/* Now playing prominent banner */}
       <NowPlayingBanner />
@@ -819,7 +712,11 @@ function UserProfileContent({
 export function UserProfile(props: UserProfileProps) {
   return (
     <NowPlayingProvider username={props.username}>
-      <DashboardProvider>
+      <DashboardProvider
+        isOwner={props.isOwner}
+        initialOrder={props.initialDashboardOrder}
+        initialHidden={props.initialDashboardHidden}
+      >
         <UserProfileContent {...props} />
       </DashboardProvider>
     </NowPlayingProvider>

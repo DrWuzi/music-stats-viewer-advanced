@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArtistImage } from '@/components/artist-image'
 import { SearchClient } from './SearchClient'
+import { BackButton } from '@/components/back-button'
 
 type Props = {
   searchParams?: Promise<{ q?: string; type?: string; username?: string }>
@@ -141,6 +142,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-8">
+      <BackButton />
       <h1 className="text-2xl font-bold mb-6">Search</h1>
 
       {/* Client-side: type-ahead suggestions + recent searches + tab switcher */}
