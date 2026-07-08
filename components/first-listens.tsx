@@ -1,8 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -13,6 +15,7 @@ interface Scrobble {
 
 interface FirstListensProps {
   scrobbles: Scrobble[]
+  username: string
 }
 
 function formatRelativeDate(date: Date): string {
@@ -35,7 +38,7 @@ function formatRelativeDate(date: Date): string {
   return `${years} ${years === 1 ? 'year' : 'years'} ago`
 }
 
-export function FirstListens({ scrobbles }: FirstListensProps) {
+export function FirstListens({ scrobbles, username }: FirstListensProps) {
   const topDiscoveries = useMemo(() => {
     if (!scrobbles || scrobbles.length === 0) return []
 
@@ -97,12 +100,13 @@ export function FirstListens({ scrobbles }: FirstListensProps) {
           {topDiscoveries.map(({ artist, firstListenDate, totalPlays, isNew }) => (
             <li key={artist} className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2 min-w-0">
-                <span
-                  className="font-medium truncate"
+                <Link
+                  href={artistHref(artist, username)}
+                  className="font-medium truncate hover:underline hover:text-primary transition-colors"
                   style={{ color: 'var(--foreground)' }}
                 >
                   {artist}
-                </span>
+                </Link>
                 {isNew && (
                   <Badge variant="secondary" className="shrink-0 text-xs px-1.5 py-0">
                     NEW

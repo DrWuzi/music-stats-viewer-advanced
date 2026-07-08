@@ -1,8 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Clock, Trophy } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -94,7 +96,7 @@ function buildSessions(scrobbles: Scrobble[]): Session[] {
   return sessions.sort((a, b) => b.durationMs - a.durationMs).slice(0, 5)
 }
 
-export function MarathonSessions({ scrobbles }: { scrobbles: Scrobble[] }) {
+export function MarathonSessions({ scrobbles, username }: { scrobbles: Scrobble[]; username: string }) {
   const sessions = useMemo(() => buildSessions(scrobbles), [scrobbles])
 
   return (
@@ -144,7 +146,7 @@ export function MarathonSessions({ scrobbles }: { scrobbles: Scrobble[] }) {
                       </span>
                     </div>
                     <div className="mt-0.5 text-xs text-muted-foreground truncate">
-                      Top artist: <span className="font-medium text-foreground">{session.topArtist}</span>
+                      Top artist: <Link href={artistHref(session.topArtist, username)} className="font-medium text-foreground hover:underline hover:text-primary transition-colors">{session.topArtist}</Link>
                     </div>
                   </div>
                 </li>

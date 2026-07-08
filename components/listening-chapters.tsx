@@ -1,13 +1,16 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref } from '@/lib/urls'
 
 interface ListeningChaptersProps {
   scrobbles: { scrobbledAt: Date | string; artist: string }[]
   totalScrobbles: number
   registeredAt: Date | string
+  username: string
 }
 
 const MONTH_NAMES = [
@@ -87,7 +90,7 @@ function buildChapters(
   })
 }
 
-function ChapterCard({ chapter, isLast }: { chapter: Chapter; isLast: boolean }) {
+function ChapterCard({ chapter, isLast, username }: { chapter: Chapter; isLast: boolean; username: string }) {
   const { year, topArtist, topArtistCount, peakMonth, peakMonthCount, yearTotal, changeVsPrev } =
     chapter
 
@@ -131,9 +134,9 @@ function ChapterCard({ chapter, isLast }: { chapter: Chapter; isLast: boolean })
           <CardContent>
             <p className="text-sm leading-relaxed">
               In {year},{' '}
-              <span className="font-semibold" style={{ color: 'var(--primary)' }}>
+              <Link href={artistHref(topArtist, username)} className="font-semibold hover:underline hover:text-primary transition-colors" style={{ color: 'var(--primary)' }}>
                 {topArtist}
-              </span>{' '}
+              </Link>{' '}
               dominated your year with{' '}
               <span className="font-medium">{topArtistCount.toLocaleString('en-US')}</span>{' '}
               plays. Your peak month was{' '}
@@ -158,6 +161,7 @@ export function ListeningChapters({
   scrobbles,
   totalScrobbles,
   registeredAt,
+  username,
 }: ListeningChaptersProps) {
   const chapters = useMemo(() => buildChapters(scrobbles), [scrobbles])
 
@@ -190,6 +194,7 @@ export function ListeningChapters({
               key={chapter.year}
               chapter={chapter}
               isLast={idx === chapters.length - 1}
+              username={username}
             />
           ))}
         </div>

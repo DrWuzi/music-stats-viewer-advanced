@@ -290,7 +290,7 @@ function UserProfileContent({
             <ListeningTimeEstimate totalScrobbles={totalScrobbles} />
             <NightOwlStats scrobbles={allScrobbles} />
             <WeeklyPattern scrobbles={allScrobbles} />
-            <ArtistLoyalty topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} />
+            <ArtistLoyalty topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} username={username} />
           </div>
         )
 
@@ -370,6 +370,7 @@ function UserProfileContent({
               scrobbles={allScrobbles}
               totalScrobbles={totalScrobbles}
               registeredAt={registeredAt}
+              username={username}
             />
           </LazyWidget>
         )
@@ -468,6 +469,7 @@ function UserProfileContent({
         return (
           <FirstListens
             scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
+            username={username}
           />
         )
 
@@ -490,10 +492,10 @@ function UserProfileContent({
         )
 
       case 'marathon-sessions':
-        return <MarathonSessions scrobbles={allScrobbles} />
+        return <MarathonSessions scrobbles={allScrobbles} username={username} />
 
       case 'on-this-day':
-        return <OnThisDay scrobbles={allScrobbles} />
+        return <OnThisDay scrobbles={allScrobbles} username={username} />
 
       case 'tag-cloud':
         return <TagCloud username={username} />
@@ -528,6 +530,7 @@ function UserProfileContent({
           <DiversityScore
             topArtists={topArtistsOverall}
             totalScrobbles={totalScrobbles}
+            username={username}
           />
         )
 
@@ -561,7 +564,7 @@ function UserProfileContent({
       case 'chart-rise-fall':
         return (
           <SectionErrorBoundary name="Chart Rise & Fall">
-            <ChartRiseFall topArtists={topArtists} />
+            <ChartRiseFall topArtists={topArtists} username={username} />
           </SectionErrorBoundary>
         )
 

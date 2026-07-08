@@ -1,16 +1,19 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { artistHref } from '@/lib/urls'
 
 interface ArtistLoyaltyProps {
   topArtists: { name: string; playcount: number }[]
   totalScrobbles: number
+  username: string
 }
 
 const ARTIST_OPACITIES = [1, 0.8, 0.6, 0.45, 0.3]
 
-export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps) {
+export function ArtistLoyalty({ topArtists, totalScrobbles, username }: ArtistLoyaltyProps) {
   const segments = useMemo(() => {
     if (totalScrobbles === 0 || topArtists.length === 0) return []
 
@@ -76,7 +79,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles }: ArtistLoyaltyProps
                 className="h-3 w-3 rounded-sm shrink-0"
                 style={{ backgroundColor: `color-mix(in oklch, var(--primary) ${Math.round(s.opacity * 100)}%, transparent)` }}
               />
-              <span className="text-sm truncate flex-1 min-w-0">{s.name}</span>
+              <Link href={artistHref(s.name, username)} className="text-sm truncate flex-1 min-w-0 hover:underline hover:text-primary transition-colors">{s.name}</Link>
               <span className="text-sm text-muted-foreground tabular-nums shrink-0">
                 {s.playcount.toLocaleString('en-US')} · {s.pct.toFixed(1)}%
               </span>

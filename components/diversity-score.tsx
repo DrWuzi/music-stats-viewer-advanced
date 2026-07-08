@@ -1,11 +1,14 @@
 'use client'
 
+import Link from 'next/link'
 import { AnimatedNumber } from '@/components/animated-number'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { artistHref } from '@/lib/urls'
 
 interface DiversityScoreProps {
   topArtists: { name: string; playcount: number }[]
   totalScrobbles: number
+  username: string
 }
 
 type Category = 'Highly Focused' | 'Balanced' | 'Diverse' | 'Eclectic'
@@ -26,7 +29,7 @@ const CATEGORY_STYLES: Record<Category, string> = {
 
 const AVERAGE_LISTENER_SCORE = 55
 
-export function DiversityScore({ topArtists, totalScrobbles }: DiversityScoreProps) {
+export function DiversityScore({ topArtists, totalScrobbles, username }: DiversityScoreProps) {
   if (!topArtists.length || totalScrobbles === 0) {
     return (
       <Card>
@@ -120,12 +123,13 @@ export function DiversityScore({ topArtists, totalScrobbles }: DiversityScorePro
           <div className="space-y-1.5">
             {top5.map((artist) => (
               <div key={artist.name} className="flex items-center gap-2">
-                <span
-                  className="w-28 truncate text-right text-xs text-[var(--muted-foreground)]"
+                <Link
+                  href={artistHref(artist.name, username)}
+                  className="w-28 truncate text-right text-xs text-[var(--muted-foreground)] hover:underline hover:text-primary transition-colors"
                   title={artist.name}
                 >
                   {artist.name}
-                </span>
+                </Link>
                 <div className="relative flex-1 h-2.5 rounded-full bg-[color-mix(in_oklch,var(--muted)_60%,transparent)]">
                   <div
                     className="absolute left-0 top-0 h-2.5 rounded-full bg-[color-mix(in_oklch,var(--primary)_70%,transparent)]"

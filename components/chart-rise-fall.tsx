@@ -1,8 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { TrendingUp, TrendingDown, Sparkles } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { Badge } from '@/components/ui/badge'
+import { artistHref } from '@/lib/urls'
 
 interface ArtistPeriod {
   name: string
@@ -12,6 +14,7 @@ interface ArtistPeriod {
 
 interface ChartRiseFallProps {
   topArtists: Record<string, ArtistPeriod[]>
+  username: string
 }
 
 interface Riser {
@@ -33,7 +36,7 @@ interface NewArtist {
   rank: number
 }
 
-export function ChartRiseFall({ topArtists }: ChartRiseFallProps) {
+export function ChartRiseFall({ topArtists, username }: ChartRiseFallProps) {
   const monthly = topArtists['1month'] ?? []
   const quarterly = topArtists['3month'] ?? []
 
@@ -99,7 +102,7 @@ export function ChartRiseFall({ topArtists }: ChartRiseFallProps) {
                 className="flex items-center gap-3 rounded-lg px-3 py-2 bg-[var(--muted)]"
               >
                 <ArtistImage name={artist.name} size="sm" />
-                <span className="flex-1 text-sm font-medium truncate">{artist.name}</span>
+                <Link href={artistHref(artist.name, username)} className="flex-1 text-sm font-medium truncate hover:underline hover:text-primary transition-colors">{artist.name}</Link>
                 <span
                   className="text-xs font-semibold tabular-nums"
                   style={{ color: 'oklch(0.65 0.15 145)' }}
@@ -125,7 +128,7 @@ export function ChartRiseFall({ topArtists }: ChartRiseFallProps) {
                 className="flex items-center gap-3 rounded-lg px-3 py-2 bg-[var(--muted)]"
               >
                 <ArtistImage name={artist.name} size="sm" />
-                <span className="flex-1 text-sm font-medium truncate">{artist.name}</span>
+                <Link href={artistHref(artist.name, username)} className="flex-1 text-sm font-medium truncate hover:underline hover:text-primary transition-colors">{artist.name}</Link>
                 <span className="text-xs font-semibold tabular-nums text-[var(--muted-foreground)]">
                   {artist.change}
                 </span>
@@ -148,7 +151,7 @@ export function ChartRiseFall({ topArtists }: ChartRiseFallProps) {
                 className="flex items-center gap-3 rounded-lg px-3 py-2 bg-[var(--muted)]"
               >
                 <ArtistImage name={artist.name} size="sm" />
-                <span className="flex-1 text-sm font-medium truncate">{artist.name}</span>
+                <Link href={artistHref(artist.name, username)} className="flex-1 text-sm font-medium truncate hover:underline hover:text-primary transition-colors">{artist.name}</Link>
                 <Badge variant="secondary" className="text-xs shrink-0">
                   NEW
                 </Badge>

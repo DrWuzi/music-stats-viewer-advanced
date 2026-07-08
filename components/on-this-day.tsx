@@ -1,9 +1,11 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Calendar } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -13,9 +15,10 @@ interface Scrobble {
 
 interface OnThisDayProps {
   scrobbles: Scrobble[]
+  username: string
 }
 
-export function OnThisDay({ scrobbles }: OnThisDayProps) {
+export function OnThisDay({ scrobbles, username }: OnThisDayProps) {
   const { targetDate, topArtists, topTracks, hasData } = useMemo(() => {
     const now = new Date()
     const target = new Date(now)
@@ -85,9 +88,11 @@ export function OnThisDay({ scrobbles }: OnThisDayProps) {
                 <div className="flex flex-wrap gap-2">
                   {topArtists.map(({ name, count }) => (
                     <div key={name} className="flex items-center gap-1.5">
-                      <Badge variant="secondary" className="text-xs">
-                        {name}
-                      </Badge>
+                      <Link href={artistHref(name, username)} className="hover:underline hover:text-primary transition-colors">
+                        <Badge variant="secondary" className="text-xs">
+                          {name}
+                        </Badge>
+                      </Link>
                       <span className="text-xs text-muted-foreground">{count}</span>
                     </div>
                   ))}
