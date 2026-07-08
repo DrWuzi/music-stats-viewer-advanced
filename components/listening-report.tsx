@@ -73,11 +73,13 @@ function computeReport(scrobbles: Scrobble[], period: '7day' | '30day') {
   // Top track
   const trackCountsCurrent: Record<string, number> = {}
   for (const s of currentScrobbles) {
-    const key = `${s.artist} ${s.track}`
+    const key = `${encodeURIComponent(s.artist)} ${encodeURIComponent(s.track)}`
     trackCountsCurrent[key] = (trackCountsCurrent[key] ?? 0) + 1
   }
   const topTrackEntry = Object.entries(trackCountsCurrent).sort((a, b) => b[1] - a[1])[0]
-  const [topTrackArtist, topTrackName] = topTrackEntry ? topTrackEntry[0].split(' ') : ['', '—']
+  const [topTrackArtistEncoded, topTrackNameEncoded] = topTrackEntry ? topTrackEntry[0].split(' ') : ['', '']
+  const topTrackArtist = topTrackArtistEncoded ? decodeURIComponent(topTrackArtistEncoded) : ''
+  const topTrackName = topTrackNameEncoded ? decodeURIComponent(topTrackNameEncoded) : '—'
 
   // Active days
   const activeDaysCurrent = new Set(currentScrobbles.map((s) => isoDate(new Date(s.scrobbledAt)))).size
