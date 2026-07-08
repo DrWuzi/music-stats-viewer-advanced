@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArtistImage } from '@/components/artist-image'
 import { SortMenu } from '@/components/sort-menu'
+import { albumHref, artistHref, trackHref } from '@/lib/urls'
 import type { Period } from '@/lib/lastfm'
 
 const PERIOD_LABELS: Record<string, string> = {
@@ -24,17 +25,6 @@ interface Item {
   artist?: string
   playcount: number
   rank: number
-}
-
-function itemHref(item: Item, username: string, type: 'album' | 'track'): string {
-  if (item.artist) {
-    return `/${type}/${encodeURIComponent(item.artist)}/${encodeURIComponent(item.name)}`
-  }
-  return '#'
-}
-
-function artistHref(name: string, username: string): string {
-  return `/artist/${encodeURIComponent(name)}?username=${encodeURIComponent(username)}`
 }
 
 function List({
@@ -67,7 +57,7 @@ function List({
           <div className="flex flex-col min-w-0 flex-1">
             {item.artist ? (
               <Link
-                href={itemHref(item, username, type)}
+                href={item.artist ? (type === 'album' ? albumHref(item.artist, item.name, username) : trackHref(item.artist, item.name, username)) : '#'}
                 className="font-medium truncate hover:underline hover:text-primary transition-colors w-fit max-w-full"
               >
                 {item.name}
@@ -195,11 +185,11 @@ export function TopLists({ username, artists, albums, tracks, period, onPeriodCh
     }
     if (activeTab === 'albums') {
       const album = albums[selectedIndex]
-      return album ? itemHref(album, username, 'album') : null
+      return album ? (album.artist ? albumHref(album.artist, album.name, username) : null) : null
     }
     if (activeTab === 'tracks') {
       const track = tracks[selectedIndex]
-      return track ? itemHref(track, username, 'track') : null
+      return track ? (track.artist ? trackHref(track.artist, track.name, username) : null) : null
     }
     return null
   }, [selectedIndex, activeTab, artists, albums, tracks, username])
