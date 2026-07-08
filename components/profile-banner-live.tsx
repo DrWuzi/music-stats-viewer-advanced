@@ -30,6 +30,13 @@ import {
   isValidProfileBackground,
   type ProfileBackgroundKey,
 } from '@/components/profile-backgrounds'
+import {
+  ProfileLoadingAnimationPreview,
+  LOADING_ANIMATION_KEYS,
+  LOADING_ANIMATION_LABELS,
+  isValidLoadingAnimation,
+  type LoadingAnimationKey,
+} from '@/components/profile-loading-animations'
 
 const MAX_TAGLINE_LENGTH = 60
 const TAGLINE_DEBOUNCE_MS = 500
@@ -46,6 +53,7 @@ interface ProfileBannerLiveProps {
   initialTagline: string | null
   initialAvatarDecoration: string | null
   initialBackground: string | null
+  initialLoadingAnimation: string | null
 }
 
 export function ProfileBannerLive({
@@ -60,6 +68,7 @@ export function ProfileBannerLive({
   initialTagline,
   initialAvatarDecoration,
   initialBackground,
+  initialLoadingAnimation,
 }: ProfileBannerLiveProps) {
   const [theme, setTheme] = useState<ProfileThemeKey>(
     isValidProfileTheme(initialTheme) ? initialTheme : 'default',
@@ -70,6 +79,9 @@ export function ProfileBannerLive({
   )
   const [background, setBackground] = useState<ProfileBackgroundKey>(
     isValidProfileBackground(initialBackground) ? initialBackground : 'none',
+  )
+  const [loadingAnimation, setLoadingAnimation] = useState<LoadingAnimationKey>(
+    isValidLoadingAnimation(initialLoadingAnimation) ? initialLoadingAnimation : 'none',
   )
   const [editing, setEditing] = useState(false)
   const [savedMsg, setSavedMsg] = useState<string | null>(null)
@@ -101,6 +113,7 @@ export function ProfileBannerLive({
     profileTagline?: string
     avatarDecoration?: string
     profileBackground?: string
+    loadingAnimation?: string
   }) {
     try {
       const res = await fetch('/api/profile-customization', {
@@ -130,6 +143,11 @@ export function ProfileBannerLive({
     persist({ profileBackground: key })
   }
 
+  function handleLoadingAnimationSelect(key: LoadingAnimationKey) {
+    setLoadingAnimation(key)
+    persist({ loadingAnimation: key })
+  }
+
   function handleTaglineChange(value: string) {
     const clamped = value.slice(0, MAX_TAGLINE_LENGTH)
     setTagline(clamped)
@@ -143,11 +161,13 @@ export function ProfileBannerLive({
     setTagline('')
     setDecoration('none')
     setBackground('none')
+    setLoadingAnimation('none')
     persist({
       profileTheme: 'default',
       profileTagline: '',
       avatarDecoration: 'none',
       profileBackground: 'none',
+      loadingAnimation: 'none',
     })
   }
 
@@ -364,6 +384,31 @@ export function ProfileBannerLive({
                             }}
                           >
                             <ProfileBackgroundPreview pattern={key} />
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium">Loading animation</p>
+                    <div className="grid grid-cols-4 gap-2">
+                      {LOADING_ANIMATION_KEYS.map((key) => {
+                        const isSelected = loadingAnimation === key
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => handleLoadingAnimationSelect(key)}
+                            aria-pressed={isSelected}
+                            title={LOADING_ANIMATION_LABELS[key]}
+                            className="rounded-lg p-1 flex items-center justify-center transition-colors"
+                            style={{
+                              background: isSelected ? 'color-mix(in oklch, var(--profile-accent, var(--primary)) 15%, transparent)' : 'transparent',
+                              border: isSelected ? '1px solid var(--profile-accent, var(--primary))' : '1px solid transparent',
+                            }}
+                          >
+                            <ProfileLoadingAnimationPreview preset={key} />
                           </button>
                         )
                       })}
