@@ -1,22 +1,26 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { TrendingUp, Clock, Trophy, Repeat, CheckCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface ScrobbleIntegrityProps {
   scrobbles: { scrobbledAt: Date | string; artist: string; track: string }[]
+  username: string
 }
 
 interface Finding {
   icon: React.ReactNode
-  message: string
+  message: React.ReactNode
   variant: 'warning' | 'success' | 'info'
 }
 
 function analyzeScrobbles(
-  scrobbles: { scrobbledAt: Date | string; artist: string; track: string }[]
+  scrobbles: { scrobbledAt: Date | string; artist: string; track: string }[],
+  username: string,
 ): Finding[] {
   if (scrobbles.length === 0) return []
 
@@ -122,7 +126,19 @@ function analyzeScrobbles(
         })
         findings.push({
           icon: <Repeat className="h-4 w-4" />,
-          message: `"${track}" by ${artist} played ${count}× on ${formatted}`,
+          message: (
+            <>
+              &quot;
+              <Link href={trackHref(artist, track, username)} className="hover:underline font-medium">
+                {track}
+              </Link>
+              &quot; by{' '}
+              <Link href={artistHref(artist, username)} className="hover:underline font-medium">
+                {artist}
+              </Link>
+              {' '}played {count}× on {formatted}
+            </>
+          ),
           variant: 'info',
         })
       }
@@ -144,8 +160,8 @@ const BADGE_LABELS: Record<Finding['variant'], string> = {
   info: 'Info',
 }
 
-export function ScrobbleIntegrity({ scrobbles }: ScrobbleIntegrityProps) {
-  const findings = useMemo(() => analyzeScrobbles(scrobbles), [scrobbles])
+export function ScrobbleIntegrity({ scrobbles, username }: ScrobbleIntegrityProps) {
+  const findings = useMemo(() => analyzeScrobbles(scrobbles, username), [scrobbles, username])
 
   if (scrobbles.length === 0) {
     return (

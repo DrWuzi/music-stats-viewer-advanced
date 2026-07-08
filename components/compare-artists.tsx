@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
+import { artistHref } from '@/lib/urls'
 
 interface ArtistEntry {
   name: string
@@ -32,7 +34,9 @@ export function CompareArtists({
           ) : (
             uniqueToUser1.map((a) => (
               <Badge key={a.name} variant="outline" className="truncate justify-center text-xs">
-                {a.name}
+                <Link href={artistHref(a.name, user1)} className="hover:underline">
+                  {a.name}
+                </Link>
               </Badge>
             ))
           )}
@@ -48,7 +52,9 @@ export function CompareArtists({
           ) : (
             topShared.map((a) => (
               <Badge key={a.name} variant="default" className="truncate justify-center text-xs">
-                {a.name}
+                <Link href={artistHref(a.name, user1)} className="hover:underline">
+                  {a.name}
+                </Link>
               </Badge>
             ))
           )}
@@ -64,7 +70,9 @@ export function CompareArtists({
           ) : (
             uniqueToUser2.map((a) => (
               <Badge key={a.name} variant="outline" className="truncate justify-center text-xs">
-                {a.name}
+                <Link href={artistHref(a.name, user1)} className="hover:underline">
+                  {a.name}
+                </Link>
               </Badge>
             ))
           )}

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 type Props = { params: Promise<{ user1: string; user2: string }> }
 
@@ -279,7 +280,9 @@ export default async function ComparePage({ params }: Props) {
                   className="rounded-xl border border-border bg-card p-3 flex flex-col items-center gap-2 text-center"
                 >
                   <ArtistImage name={a.name} size="md" />
-                  <p className="text-sm font-medium leading-tight line-clamp-2">{a.name}</p>
+                  <Link href={artistHref(a.name, user1)} className="text-sm font-medium leading-tight line-clamp-2 hover:underline">
+                    {a.name}
+                  </Link>
                   <div className="w-full text-xs text-muted-foreground space-y-0.5">
                     <p>{a.playcount1.toLocaleString()} plays by {user1}</p>
                     <p>{a.playcount2.toLocaleString()} plays by {user2}</p>
@@ -306,7 +309,9 @@ export default async function ComparePage({ params }: Props) {
                   >
                     <ArtistImage name={a.name} size="sm" />
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium truncate">{a.name}</p>
+                      <Link href={artistHref(a.name, user1)} className="text-sm font-medium truncate hover:underline block">
+                        {a.name}
+                      </Link>
                       <p className="text-xs text-muted-foreground">
                         {parseInt(a.playcount, 10).toLocaleString()} plays
                       </p>
@@ -336,7 +341,9 @@ export default async function ComparePage({ params }: Props) {
                   >
                     <ArtistImage name={a.name} size="sm" />
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium truncate">{a.name}</p>
+                      <Link href={artistHref(a.name, user1)} className="text-sm font-medium truncate hover:underline block">
+                        {a.name}
+                      </Link>
                       <p className="text-xs text-muted-foreground">
                         {parseInt(a.playcount, 10).toLocaleString()} plays
                       </p>

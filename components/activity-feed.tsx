@@ -1,7 +1,9 @@
 'use client'
 
 import { useMemo } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date | string
@@ -13,6 +15,7 @@ interface ActivityFeedProps {
   scrobbles: Scrobble[]
   totalScrobbles: number
   registeredAt: Date
+  username: string
 }
 
 type EventType = 'milestone' | 'first-artist' | 'streak' | 'recent'
@@ -20,7 +23,7 @@ type EventType = 'milestone' | 'first-artist' | 'streak' | 'recent'
 interface FeedEvent {
   date: Date
   type: EventType
-  label: string
+  label: React.ReactNode
 }
 
 const MILESTONE_VALUES = [100, 500, 1000, 5000, 10000, 50000, 100000]
@@ -36,6 +39,7 @@ function toDate(d: Date | string): Date {
 function buildEvents(
   scrobbles: Scrobble[],
   totalScrobbles: number,
+  username: string,
 ): FeedEvent[] {
   if (scrobbles.length === 0) return []
 
@@ -85,7 +89,14 @@ function buildEvents(
       events.push({
         date: first.date,
         type: 'first-artist',
-        label: `🎵 First listened to ${artist}`,
+        label: (
+          <>
+            🎵 First listened to{' '}
+            <Link href={artistHref(artist, username)} className="hover:underline font-medium">
+              {artist}
+            </Link>
+          </>
+        ),
       })
     }
   }
@@ -141,7 +152,18 @@ function buildEvents(
     events.push({
       date: toDate(latest.scrobbledAt),
       type: 'recent',
-      label: `🎧 Last played: ${latest.track} — ${latest.artist}`,
+      label: (
+        <>
+          🎧 Last played:{' '}
+          <Link href={trackHref(latest.artist, latest.track, username)} className="hover:underline font-medium">
+            {latest.track}
+          </Link>
+          {' — '}
+          <Link href={artistHref(latest.artist, username)} className="hover:underline">
+            {latest.artist}
+          </Link>
+        </>
+      ),
     })
   }
 
@@ -157,11 +179,11 @@ const dotColor: Record<EventType, string> = {
   recent: 'var(--muted-foreground)',
 }
 
-export function ActivityFeed({ scrobbles, totalScrobbles, registeredAt }: ActivityFeedProps) {
+export function ActivityFeed({ scrobbles, totalScrobbles, registeredAt, username }: ActivityFeedProps) {
   const events = useMemo(
-    () => buildEvents(scrobbles, totalScrobbles),
+    () => buildEvents(scrobbles, totalScrobbles, username),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [scrobbles, totalScrobbles],
+    [scrobbles, totalScrobbles, username],
   )
 
   return (

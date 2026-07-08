@@ -379,7 +379,7 @@ function UserProfileContent({
         return (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <ListeningForecast scrobbles={allScrobbles} />
-            <ScrobbleIntegrity scrobbles={allScrobbles} />
+            <ScrobbleIntegrity scrobbles={allScrobbles} username={username} />
           </div>
         )
 
@@ -585,6 +585,7 @@ function UserProfileContent({
             scrobbles={allScrobbles}
             totalScrobbles={totalScrobbles}
             registeredAt={registeredAt}
+            username={username}
           />
         )
 
@@ -599,7 +600,7 @@ function UserProfileContent({
         return <ScrobbleHeatmap scrobbles={allScrobbles} />
 
       case 'top-collaborations':
-        return <TopCollaborations scrobbles={allScrobbles} />
+        return <TopCollaborations scrobbles={allScrobbles} username={username} />
 
       case 'listening-report':
         return <ListeningReport scrobbles={allScrobbles} />
