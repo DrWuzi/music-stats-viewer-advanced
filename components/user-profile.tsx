@@ -605,7 +605,7 @@ function UserProfileContent({
         return (
           <SectionErrorBoundary name="Artist Network">
             <LazyWidget>
-              <ArtistNetwork scrobbles={allScrobbles} topArtists={topArtistsOverall} />
+              <ArtistNetwork scrobbles={allScrobbles} topArtists={topArtistsOverall} username={username} />
             </LazyWidget>
           </SectionErrorBoundary>
         )

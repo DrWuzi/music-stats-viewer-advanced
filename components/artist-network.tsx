@@ -1,8 +1,10 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -17,6 +19,7 @@ interface TopArtist {
 interface Props {
   scrobbles: Scrobble[]
   topArtists: TopArtist[]
+  username: string
 }
 
 interface Connection {
@@ -34,7 +37,8 @@ interface NodePosition {
 
 const SESSION_GAP_MS = 60 * 60 * 1000 // 1 hour
 
-export function ArtistNetwork({ scrobbles, topArtists }: Props) {
+export function ArtistNetwork({ scrobbles, topArtists, username }: Props) {
+  const router = useRouter()
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
 
   const top10 = useMemo(() => topArtists.slice(0, 10), [topArtists])
@@ -185,6 +189,8 @@ export function ArtistNetwork({ scrobbles, topArtists }: Props) {
             return (
               <div
                 key={node.artist.name}
+                role="button"
+                tabIndex={0}
                 className="absolute flex items-center justify-center cursor-pointer transition-transform duration-150"
                 style={{
                   left: node.x - node.r,
@@ -197,7 +203,14 @@ export function ArtistNetwork({ scrobbles, topArtists }: Props) {
                 }}
                 onMouseEnter={() => setHoveredIdx(i)}
                 onMouseLeave={() => setHoveredIdx(null)}
-                aria-label={node.artist.name}
+                onClick={() => router.push(artistHref(node.artist.name, username))}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    router.push(artistHref(node.artist.name, username))
+                  }
+                }}
+                aria-label={`View ${node.artist.name}`}
               >
                 {/* Outer ring on hover */}
                 {isHovered && (
