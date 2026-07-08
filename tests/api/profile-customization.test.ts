@@ -65,4 +65,43 @@ describe('POST /api/profile-customization', () => {
       }),
     )
   })
+
+  it('ignores an invalid loadingAnimation value', async () => {
+    const { getSession } = await import('@/lib/session')
+    vi.mocked(getSession).mockResolvedValue({ userId: 'u1', lastfmUsername: 'user' })
+    const { prisma } = await import('@/lib/prisma')
+    vi.mocked(prisma.user.update).mockResolvedValue({} as never)
+
+    const { POST } = await import('@/app/api/profile-customization/route')
+    const res = await POST(makeRequest({ loadingAnimation: 'not-a-real-preset' }))
+    const body = await res.json()
+
+    expect(res.status).toBe(200)
+    expect(body.loadingAnimation).toBeUndefined()
+    expect(prisma.user.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.not.objectContaining({ loadingAnimation: expect.anything() }),
+      }),
+    )
+  })
+
+  it('persists a valid loadingAnimation value', async () => {
+    const { getSession } = await import('@/lib/session')
+    vi.mocked(getSession).mockResolvedValue({ userId: 'u1', lastfmUsername: 'user' })
+    const { prisma } = await import('@/lib/prisma')
+    vi.mocked(prisma.user.update).mockResolvedValue({} as never)
+
+    const { POST } = await import('@/app/api/profile-customization/route')
+    const res = await POST(makeRequest({ loadingAnimation: 'vinyl' }))
+    const body = await res.json()
+
+    expect(res.status).toBe(200)
+    expect(body.loadingAnimation).toBe('vinyl')
+    expect(prisma.user.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { lastfmUsername: 'user' },
+        data: expect.objectContaining({ loadingAnimation: 'vinyl' }),
+      }),
+    )
+  })
 })
