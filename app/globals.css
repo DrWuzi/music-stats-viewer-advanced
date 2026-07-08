@@ -406,6 +406,32 @@
   }
 }
 
+/* Profile loading-animation presets (see components/profile-loading-animations.tsx) */
+@keyframes profileLoadingVinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes profileLoadingEqBar {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.7; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+@keyframes profileLoadingSoundwaveRing {
+  0% { transform: scale(0.4); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.profile-loading-vinyl-spin { animation: profileLoadingVinylSpin 3s linear infinite; }
+.profile-loading-eq-bar { animation: profileLoadingEqBar 0.9s ease-in-out infinite; transform-origin: bottom; }
+.profile-loading-soundwave-ring { animation: profileLoadingSoundwaveRing 2.4s ease-out infinite; transform-origin: 50% 50%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-loading-vinyl-spin,
+  .profile-loading-eq-bar,
+  .profile-loading-soundwave-ring {
+    animation: none !important;
+  }
+}
+
 .animation-delay-0 {
   animation-delay: 0ms;
 }
