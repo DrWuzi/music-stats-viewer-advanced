@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import React from 'react'
+import Link from 'next/link'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine, LabelList, Brush } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Download } from 'lucide-react'
 import { downloadChartAsPng } from '@/lib/export-chart'
+import { artistHref, trackHref } from '@/lib/urls'
 
 type DayRange = 30 | 180 | 360
 type ViewMode = 'Daily' | 'Weekly' | 'Monthly'
@@ -533,14 +535,40 @@ export function StatsChart({
           ) : (
             <div className="mt-4 space-y-1">
               <p className="text-xs text-muted-foreground mb-3">
-                {dayTracks.length} scrobbles · Top artist: {topArtist(dayTracks)}
+                {dayTracks.length} scrobbles · Top artist:{' '}
+                {(() => {
+                  const name = topArtist(dayTracks)
+                  return name === '—' ? (
+                    name
+                  ) : (
+                    <Link
+                      href={artistHref(name, username)}
+                      className="hover:underline hover:text-primary transition-colors"
+                    >
+                      {name}
+                    </Link>
+                  )
+                })()}
               </p>
               {dayTracks.map((t, i) => (
                 <div key={i} className="flex items-start gap-3 py-2 border-b last:border-0">
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium truncate">{t.track}</p>
+                    <p className="text-sm font-medium truncate">
+                      <Link
+                        href={trackHref(t.artist, t.track, username)}
+                        className="hover:underline hover:text-primary transition-colors"
+                      >
+                        {t.track}
+                      </Link>
+                    </p>
                     <p className="text-xs text-muted-foreground truncate">
-                      {t.artist}{t.album ? ` · ${t.album}` : ''}
+                      <Link
+                        href={artistHref(t.artist, username)}
+                        className="hover:underline hover:text-primary transition-colors"
+                      >
+                        {t.artist}
+                      </Link>
+                      {t.album ? ` · ${t.album}` : ''}
                     </p>
                   </div>
                   <span className="text-xs text-muted-foreground shrink-0 pt-0.5">

@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { WrappedSlide } from '@/components/wrapped-slide'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface WrappedClientProps {
   username: string
@@ -53,12 +55,30 @@ export function WrappedClient({
     },
     {
       title: 'Top Artist',
-      stat: topArtist?.name ?? '—',
+      stat: topArtist ? (
+        <Link
+          href={artistHref(topArtist.name, username)}
+          className="hover:underline hover:text-primary transition-colors"
+        >
+          {topArtist.name}
+        </Link>
+      ) : (
+        '—'
+      ),
       subtitle: topArtist ? `${topArtist.playcount.toLocaleString()} plays` : 'No data',
     },
     {
       title: 'Anthem',
-      stat: topTrack?.name ?? '—',
+      stat: topTrack ? (
+        <Link
+          href={trackHref(topTrack.artist, topTrack.name, username)}
+          className="hover:underline hover:text-primary transition-colors"
+        >
+          {topTrack.name}
+        </Link>
+      ) : (
+        '—'
+      ),
       subtitle: topTrack ? `by ${topTrack.artist}` : 'No data',
     },
     {

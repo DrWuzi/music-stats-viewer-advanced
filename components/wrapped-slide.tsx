@@ -8,7 +8,7 @@ interface WrappedSlideProps {
   slideNum: number
   total: number
   title: string
-  stat: string
+  stat: React.ReactNode
   subtitle: string
   accent: string
   onPrev: () => void

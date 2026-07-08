@@ -21,6 +21,7 @@ import {
   Play,
   Headphones,
 } from 'lucide-react'
+import { artistHref, trackHref } from '@/lib/urls'
 
 export interface WrappedYearData {
   username: string
@@ -206,14 +207,32 @@ export function WrappedYearSummary({
       bg: 'oklch(0.15 0.2 160)',
       icon: <Mic2 className="w-16 h-16" style={{ color: 'rgba(255,255,255,0.9)' }} />,
       label: 'Top Artist',
-      stat: topArtist?.name ?? '—',
+      stat: topArtist ? (
+        <Link
+          href={artistHref(topArtist.name, username)}
+          className="hover:underline hover:text-primary transition-colors"
+        >
+          {topArtist.name}
+        </Link>
+      ) : (
+        '—'
+      ),
       sub: topArtist ? `${topArtist.playcount.toLocaleString()} plays` : 'No data',
     },
     {
       bg: 'oklch(0.15 0.2 340)',
       icon: <Music2 className="w-16 h-16" style={{ color: 'rgba(255,255,255,0.9)' }} />,
       label: 'Anthem',
-      stat: topTrack?.name ?? '—',
+      stat: topTrack ? (
+        <Link
+          href={trackHref(topTrack.artist, topTrack.name, username)}
+          className="hover:underline hover:text-primary transition-colors"
+        >
+          {topTrack.name}
+        </Link>
+      ) : (
+        '—'
+      ),
       sub: topTrack ? `by ${topTrack.artist}` : 'No data',
     },
     {
@@ -373,14 +392,36 @@ export function WrappedYearSummary({
         <StatCard
           icon={<Mic2 className="w-5 h-5" />}
           label="Top Artist"
-          value={topArtist?.name ?? '—'}
+          value={
+            topArtist ? (
+              <Link
+                href={artistHref(topArtist.name, username)}
+                className="hover:underline hover:text-primary transition-colors"
+              >
+                {topArtist.name}
+              </Link>
+            ) : (
+              '—'
+            )
+          }
           sub={topArtist ? `${topArtist.playcount.toLocaleString()} plays` : undefined}
           accent="oklch(0.15 0.2 160)"
         />
         <StatCard
           icon={<Music2 className="w-5 h-5" />}
           label="Anthem"
-          value={topTrack?.name ?? '—'}
+          value={
+            topTrack ? (
+              <Link
+                href={trackHref(topTrack.artist, topTrack.name, username)}
+                className="hover:underline hover:text-primary transition-colors"
+              >
+                {topTrack.name}
+              </Link>
+            ) : (
+              '—'
+            )
+          }
           sub={topTrack ? `by ${topTrack.artist} · ${topTrack.playcount.toLocaleString()} plays` : undefined}
           accent="oklch(0.15 0.2 340)"
         />

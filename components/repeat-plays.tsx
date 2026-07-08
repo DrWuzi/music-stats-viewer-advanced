@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface RepeatTrack {
   track: string
@@ -76,8 +78,22 @@ export function RepeatPlays({ username }: { username: string }) {
                   {i + 1}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{t.track}</p>
-                  <p className="text-xs text-muted-foreground truncate">{t.artist}</p>
+                  <p className="text-sm font-medium truncate">
+                    <Link
+                      href={trackHref(t.artist, t.track, username)}
+                      className="hover:underline hover:text-primary transition-colors"
+                    >
+                      {t.track}
+                    </Link>
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    <Link
+                      href={artistHref(t.artist, username)}
+                      className="hover:underline hover:text-primary transition-colors"
+                    >
+                      {t.artist}
+                    </Link>
+                  </p>
                 </div>
                 <Badge variant="secondary" className="shrink-0">
                   {t.count.toLocaleString('en-US')}×

@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Mic2 } from 'lucide-react'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface UnderratedTrack {
   name: string
@@ -130,10 +132,19 @@ export function UnderratedTracks({ username, topArtists }: UnderratedTracksProps
                 className="flex items-start justify-between gap-3"
               >
                 <div className="flex flex-col gap-0.5 min-w-0">
-                  <span className="text-sm font-medium truncate">{t.name}</span>
-                  <span className="text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>
+                  <Link
+                    href={trackHref(t.artist, t.name, username)}
+                    className="text-sm font-medium truncate hover:underline hover:text-primary transition-colors"
+                  >
+                    {t.name}
+                  </Link>
+                  <Link
+                    href={artistHref(t.artist, username)}
+                    className="text-xs truncate hover:underline hover:text-primary transition-colors"
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
                     {t.artist}
-                  </span>
+                  </Link>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
                   <Badge

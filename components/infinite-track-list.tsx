@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { Loader2 } from 'lucide-react'
+import { artistHref, trackHref } from '@/lib/urls'
 
 interface Track {
   artist: string
@@ -113,10 +115,20 @@ export function InfiniteTrackList({ username, initialTracks, total }: InfiniteTr
                 >
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-sm truncate" style={{ color: 'var(--foreground)' }}>
-                      {t.track}
+                      <Link
+                        href={trackHref(t.artist, t.track, username)}
+                        className="hover:underline hover:text-primary transition-colors"
+                      >
+                        {t.track}
+                      </Link>
                     </p>
                     <p className="text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>
-                      {t.artist}
+                      <Link
+                        href={artistHref(t.artist, username)}
+                        className="hover:underline hover:text-primary transition-colors"
+                      >
+                        {t.artist}
+                      </Link>
                       {t.album ? ` · ${t.album}` : ''}
                     </p>
                   </div>
