@@ -35,7 +35,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <NavProgress />
         <Nav />
         <MobileNav />
-        <main className="min-h-screen bg-background pb-16 md:pb-0">{children}</main>
+        {/* No bg-background here — <body> already applies the identical
+            class (see app/globals.css's `@layer base` rule) one level up,
+            painting even earlier in the stacking order. A `position:fixed;
+            z-index:-1` decorative layer (see components/profile-backgrounds.tsx)
+            paints *before* ordinary in-flow boxes like this one — if this
+            div had its own opaque background, it would completely hide that
+            layer. Removing the redundant copy here has zero visual effect on
+            any page that doesn't add such a layer. */}
+        <main className="min-h-screen pb-16 md:pb-0">{children}</main>
         {session?.lastfmUsername && (
           <NowPlayingProvider username={session.lastfmUsername}>
             <NowPlayingMini />

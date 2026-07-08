@@ -22,6 +22,14 @@ import {
   isValidAvatarDecoration,
   type AvatarDecorationKey,
 } from '@/components/avatar-decorations'
+import {
+  ProfileBackgroundLayer,
+  ProfileBackgroundPreview,
+  PROFILE_BACKGROUND_KEYS,
+  PROFILE_BACKGROUND_LABELS,
+  isValidProfileBackground,
+  type ProfileBackgroundKey,
+} from '@/components/profile-backgrounds'
 
 const MAX_TAGLINE_LENGTH = 60
 const TAGLINE_DEBOUNCE_MS = 500
@@ -37,6 +45,7 @@ interface ProfileBannerLiveProps {
   initialTheme: string | null
   initialTagline: string | null
   initialAvatarDecoration: string | null
+  initialBackground: string | null
 }
 
 export function ProfileBannerLive({
@@ -50,6 +59,7 @@ export function ProfileBannerLive({
   initialTheme,
   initialTagline,
   initialAvatarDecoration,
+  initialBackground,
 }: ProfileBannerLiveProps) {
   const [theme, setTheme] = useState<ProfileThemeKey>(
     isValidProfileTheme(initialTheme) ? initialTheme : 'default',
@@ -57,6 +67,9 @@ export function ProfileBannerLive({
   const [tagline, setTagline] = useState(initialTagline ?? '')
   const [decoration, setDecoration] = useState<AvatarDecorationKey>(
     isValidAvatarDecoration(initialAvatarDecoration) ? initialAvatarDecoration : 'none',
+  )
+  const [background, setBackground] = useState<ProfileBackgroundKey>(
+    isValidProfileBackground(initialBackground) ? initialBackground : 'none',
   )
   const [editing, setEditing] = useState(false)
   const [savedMsg, setSavedMsg] = useState<string | null>(null)
@@ -87,6 +100,7 @@ export function ProfileBannerLive({
     profileTheme?: string
     profileTagline?: string
     avatarDecoration?: string
+    profileBackground?: string
   }) {
     try {
       const res = await fetch('/api/profile-customization', {
@@ -111,6 +125,11 @@ export function ProfileBannerLive({
     persist({ avatarDecoration: key })
   }
 
+  function handleBackgroundSelect(key: ProfileBackgroundKey) {
+    setBackground(key)
+    persist({ profileBackground: key })
+  }
+
   function handleTaglineChange(value: string) {
     const clamped = value.slice(0, MAX_TAGLINE_LENGTH)
     setTagline(clamped)
@@ -123,7 +142,13 @@ export function ProfileBannerLive({
     setTheme('default')
     setTagline('')
     setDecoration('none')
-    persist({ profileTheme: 'default', profileTagline: '', avatarDecoration: 'none' })
+    setBackground('none')
+    persist({
+      profileTheme: 'default',
+      profileTagline: '',
+      avatarDecoration: 'none',
+      profileBackground: 'none',
+    })
   }
 
   const preset = PROFILE_THEME_PRESETS[theme]
@@ -131,6 +156,8 @@ export function ProfileBannerLive({
 
   return (
     <>
+      <ProfileBackgroundLayer pattern={background} />
+
       {/* This <style> tag's selector applies to the ancestor .profile-theme-scope
           element regardless of where this component sits in the tree — CSS
           custom properties then cascade to every descendant (banner, tabs,
@@ -312,6 +339,31 @@ export function ProfileBannerLive({
                             }}
                           >
                             <AvatarDecorationPreview decoration={key} size={32} />
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium">Background</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {PROFILE_BACKGROUND_KEYS.map((key) => {
+                        const isSelected = background === key
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => handleBackgroundSelect(key)}
+                            aria-pressed={isSelected}
+                            title={PROFILE_BACKGROUND_LABELS[key]}
+                            className="rounded-lg p-1 flex items-center justify-center transition-colors"
+                            style={{
+                              background: isSelected ? 'color-mix(in oklch, var(--profile-accent, var(--primary)) 15%, transparent)' : 'transparent',
+                              border: isSelected ? '1px solid var(--profile-accent, var(--primary))' : '1px solid transparent',
+                            }}
+                          >
+                            <ProfileBackgroundPreview pattern={key} />
                           </button>
                         )
                       })}

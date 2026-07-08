@@ -22,6 +22,7 @@ export default async function UserLayout({ children, params }: Props) {
         profileTheme: true,
         profileTagline: true,
         avatarDecoration: true,
+        profileBackground: true,
       },
     }),
     lastfmClient.getUserInfo(username).catch(() => null),
@@ -68,6 +69,7 @@ export default async function UserLayout({ children, params }: Props) {
           initialTheme={user?.profileTheme ?? null}
           initialTagline={user?.profileTagline ?? null}
           initialAvatarDecoration={user?.avatarDecoration ?? null}
+          initialBackground={user?.profileBackground ?? null}
         />
 
         <div className="mt-3">
