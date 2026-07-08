@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -22,6 +23,7 @@ interface ComebackArtist {
 
 interface ComebackArtistsProps {
   scrobbles: Scrobble[]
+  username: string
 }
 
 const GAP_THRESHOLD_DAYS = 90
@@ -30,7 +32,7 @@ function daysBetween(a: Date, b: Date): number {
   return Math.round(Math.abs(b.getTime() - a.getTime()) / (1000 * 60 * 60 * 24))
 }
 
-export function ComebackArtists({ scrobbles }: ComebackArtistsProps) {
+export function ComebackArtists({ scrobbles, username }: ComebackArtistsProps) {
   const comebacks = useMemo<ComebackArtist[]>(() => {
     // Group scrobbles by artist
     const byArtist = new Map<string, Date[]>()
@@ -124,7 +126,7 @@ export function ComebackArtists({ scrobbles }: ComebackArtistsProps) {
             <ArtistImage name={artist.name} size="md" />
             <div className="flex flex-col gap-0.5 min-w-0 flex-1">
               <Link
-                href={`/artist/${encodeURIComponent(artist.name)}`}
+                href={artistHref(artist.name, username)}
                 className="text-sm font-semibold truncate hover:underline"
                 style={{ color: 'var(--foreground)' }}
               >

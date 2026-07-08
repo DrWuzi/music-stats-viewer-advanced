@@ -1,11 +1,14 @@
 'use client'
 
+import Link from 'next/link'
 import { useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 interface ArtistLongevityProps {
   scrobbles: { scrobbledAt: Date; artist: string }[]
+  username: string
 }
 
 interface ArtistStat {
@@ -15,7 +18,7 @@ interface ArtistStat {
   firstDate: Date
 }
 
-export function ArtistLongevity({ scrobbles }: ArtistLongevityProps) {
+export function ArtistLongevity({ scrobbles, username }: ArtistLongevityProps) {
   const artists = useMemo<ArtistStat[]>(() => {
     if (!scrobbles || scrobbles.length === 0) return []
 
@@ -86,15 +89,13 @@ export function ArtistLongevity({ scrobbles }: ArtistLongevityProps) {
               <ArtistImage name={artist.name} size="sm" />
               <div className="flex flex-col gap-1 flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
-                  <a
-                    href={`https://www.last.fm/music/${encodeURIComponent(artist.name)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={artistHref(artist.name, username)}
                     className="text-sm font-medium truncate hover:underline"
                     style={{ color: 'var(--foreground)' }}
                   >
                     {artist.name}
-                  </a>
+                  </Link>
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-xs tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
                       {artist.totalPlays.toLocaleString('en-US')} plays

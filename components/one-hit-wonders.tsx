@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ArtistImage } from '@/components/artist-image'
 import { Sparkles } from 'lucide-react'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -15,6 +16,7 @@ interface Scrobble {
 
 interface OneHitWondersProps {
   scrobbles: Scrobble[]
+  username: string
 }
 
 function formatRelativeDate(date: Date): string {
@@ -37,7 +39,7 @@ function formatRelativeDate(date: Date): string {
   return `${years} ${years === 1 ? 'year' : 'years'} ago`
 }
 
-export function OneHitWonders({ scrobbles }: OneHitWondersProps) {
+export function OneHitWonders({ scrobbles, username }: OneHitWondersProps) {
   const wonders = useMemo(() => {
     if (!scrobbles || scrobbles.length === 0) return []
 
@@ -102,7 +104,7 @@ export function OneHitWonders({ scrobbles }: OneHitWondersProps) {
                 <ArtistImage name={artist} size="xs" />
                 <div className="flex flex-col min-w-0 flex-1">
                   <Link
-                    href={`/artist/${encodeURIComponent(artist)}`}
+                    href={artistHref(artist, username)}
                     className="text-sm font-medium truncate hover:underline"
                     style={{ color: 'var(--foreground)' }}
                   >

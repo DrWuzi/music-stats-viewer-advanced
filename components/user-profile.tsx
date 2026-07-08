@@ -502,7 +502,7 @@ function UserProfileContent({
         return <YouMightLike username={username} />
 
       case 'recent-carousel':
-        return <RecentArtistsCarousel scrobbles={allScrobbles} />
+        return <RecentArtistsCarousel scrobbles={allScrobbles} username={username} />
 
       case 'now-playing-banner':
         return <NowPlayingBanner />
@@ -518,7 +518,7 @@ function UserProfileContent({
         return <SeasonListening scrobbles={allScrobbles} layoutSize={widgetSize} />
 
       case 'comeback-artists':
-        return <ComebackArtists scrobbles={allScrobbles} />
+        return <ComebackArtists scrobbles={allScrobbles} username={username} />
 
       case 'discovery-pace':
         return <DiscoveryPace scrobbles={allScrobbles} />
@@ -542,15 +542,16 @@ function UserProfileContent({
         )
 
       case 'artist-longevity':
-        return <ArtistLongevity scrobbles={allScrobbles} />
+        return <ArtistLongevity scrobbles={allScrobbles} username={username} />
 
       case 'one-hit-wonders':
-        return <OneHitWonders scrobbles={allScrobbles} />
+        return <OneHitWonders scrobbles={allScrobbles} username={username} />
 
       case 'album-of-month':
         return (
           <AlbumOfMonth
             scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
+            username={username}
           />
         )
 

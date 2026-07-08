@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRef } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -12,6 +13,7 @@ interface Scrobble {
 
 interface RecentArtistsCarouselProps {
   scrobbles: Scrobble[]
+  username: string
 }
 
 function getRecentDistinctArtists(scrobbles: Scrobble[], limit = 10): string[] {
@@ -34,7 +36,7 @@ function getRecentDistinctArtists(scrobbles: Scrobble[], limit = 10): string[] {
   return result
 }
 
-export function RecentArtistsCarousel({ scrobbles }: RecentArtistsCarouselProps) {
+export function RecentArtistsCarousel({ scrobbles, username }: RecentArtistsCarouselProps) {
   const artists = getRecentDistinctArtists(scrobbles)
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -65,7 +67,7 @@ export function RecentArtistsCarousel({ scrobbles }: RecentArtistsCarouselProps)
         {artists.map((artist) => (
           <Link
             key={artist}
-            href={`/artist/${encodeURIComponent(artist)}`}
+            href={artistHref(artist, username)}
             className="flex flex-col items-center gap-1.5 min-w-[72px] max-w-[72px] shrink-0 group/item"
           >
             <ArtistImage

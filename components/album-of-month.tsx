@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { albumHref, artistHref } from '@/lib/urls'
 
 interface Scrobble {
   scrobbledAt: Date
@@ -13,6 +14,7 @@ interface Scrobble {
 
 interface AlbumOfMonthProps {
   scrobbles: Scrobble[]
+  username: string
 }
 
 interface MonthEntry {
@@ -28,11 +30,7 @@ function getMonthLabel(year: number, month: number): string {
   return date.toLocaleString('default', { month: 'long', year: 'numeric' })
 }
 
-function encodeSegment(s: string): string {
-  return encodeURIComponent(s)
-}
-
-export function AlbumOfMonth({ scrobbles }: AlbumOfMonthProps) {
+export function AlbumOfMonth({ scrobbles, username }: AlbumOfMonthProps) {
   const monthEntries = useMemo((): MonthEntry[] => {
     const now = new Date()
     const currentYear = now.getFullYear()
@@ -142,14 +140,14 @@ export function AlbumOfMonth({ scrobbles }: AlbumOfMonthProps) {
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <Link
-                        href={`/album/${encodeSegment(entry.artist)}/${encodeSegment(entry.album)}`}
+                        href={albumHref(entry.artist, entry.album, username)}
                         className="block truncate font-medium leading-tight hover:underline"
                         style={{ color: 'var(--foreground)' }}
                       >
                         {entry.album}
                       </Link>
                       <Link
-                        href={`/artist/${encodeSegment(entry.artist)}`}
+                        href={artistHref(entry.artist, username)}
                         className="mt-0.5 block truncate text-sm hover:underline"
                         style={{ color: 'var(--muted-foreground)' }}
                       >

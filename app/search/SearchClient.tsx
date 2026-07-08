@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 const RECENT_SEARCHES_KEY = 'lastfm_recent_searches'
 const MAX_RECENT = 8
@@ -103,7 +104,7 @@ export function SearchClient({ initialQ, initialType, username }: Props) {
 
   const handleSuggestionClick = (name: string) => {
     addRecentSearch(name)
-    router.push(`/artist/${encodeURIComponent(name)}`)
+    router.push(artistHref(name, username))
   }
 
   const handleRecentClick = (term: string) => {
