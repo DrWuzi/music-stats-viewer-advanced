@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { artistHref } from '@/lib/urls'
 
 interface TasteBadgeProps {
   username: string
@@ -35,7 +37,12 @@ export function TasteBadge({ username, topArtists }: TasteBadgeProps) {
             {top3.map((artist, idx) => (
               <li key={artist.name} className="text-sm flex items-center gap-2">
                 <span className="text-muted-foreground text-xs w-4">{idx + 1}.</span>
-                <span className="font-medium">{artist.name}</span>
+                <Link
+                  href={artistHref(artist.name, username)}
+                  className="font-medium hover:underline hover:text-primary transition-colors"
+                >
+                  {artist.name}
+                </Link>
               </li>
             ))}
           </ul>

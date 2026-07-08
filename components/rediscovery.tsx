@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { RotateCcw } from 'lucide-react'
+import { artistHref } from '@/lib/urls'
 
 interface Rediscovery {
   artist: string
@@ -47,7 +49,14 @@ export function Rediscovery({ username }: { username: string }) {
               >
                 <RotateCcw className="h-4 w-4 text-muted-foreground shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{r.artist}</p>
+                  <p className="text-sm font-medium truncate">
+                    <Link
+                      href={artistHref(r.artist, username)}
+                      className="hover:underline hover:text-primary transition-colors"
+                    >
+                      {r.artist}
+                    </Link>
+                  </p>
                   <p className="text-xs text-muted-foreground">
                     last heard{' '}
                     {new Date(r.lastHeard).toLocaleDateString('en-US', {

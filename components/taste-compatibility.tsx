@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { artistHref } from '@/lib/urls'
 
 interface TasteMatchResult {
   score: number
@@ -114,7 +116,13 @@ export function TasteCompatibility({ username }: TasteCompatibilityProps) {
                 Because you listen to{' '}
                 {result.matchingArtists.slice(0, 5).map((a, i) => (
                   <span key={a}>
-                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>{a}</span>
+                    <Link
+                      href={artistHref(a, username)}
+                      className="font-medium hover:underline hover:text-primary transition-colors"
+                      style={{ color: 'var(--foreground)' }}
+                    >
+                      {a}
+                    </Link>
                     {i < Math.min(result.matchingArtists.length, 5) - 1 ? ', ' : ''}
                   </span>
                 ))}

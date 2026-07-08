@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { artistHref } from '@/lib/urls'
 
 interface ListeningFriendsProps {
   username: string
@@ -120,7 +121,12 @@ export function ListeningFriends({ username, topArtists }: ListeningFriendsProps
                     color: 'var(--foreground)',
                   }}
                 >
-                  {artist.name}
+                  <Link
+                    href={artistHref(artist.name, username)}
+                    className="hover:underline hover:text-primary transition-colors"
+                  >
+                    {artist.name}
+                  </Link>
                 </span>
               ))}
             </div>

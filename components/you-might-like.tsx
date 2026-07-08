@@ -1,11 +1,13 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
+import Link from 'next/link'
 import { AlertCircle, Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ArtistImage } from '@/components/artist-image'
+import { artistHref } from '@/lib/urls'
 
 interface Recommendation {
   name: string
@@ -95,7 +97,14 @@ export function YouMightLike({ username }: { username: string }) {
               <li key={rec.name} className="flex items-center gap-3 min-w-0">
                 <ArtistImage name={rec.name} size="md" className="shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{rec.name}</p>
+                  <p className="text-sm font-medium truncate">
+                    <Link
+                      href={artistHref(rec.name, username)}
+                      className="hover:underline hover:text-primary transition-colors"
+                    >
+                      {rec.name}
+                    </Link>
+                  </p>
                 </div>
                 <Badge variant="secondary" className="shrink-0 text-xs">
                   {rec.tag}

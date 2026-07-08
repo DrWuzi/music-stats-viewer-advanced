@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { artistHref } from '@/lib/urls'
 
 interface Discovery {
   artist: string
@@ -75,7 +77,12 @@ export function MusicTimeline({ username }: { username: string }) {
                       </span>
                       <span className="text-sm">
                         You first heard{' '}
-                        <span className="font-medium">{d.artist}</span>{' '}
+                        <Link
+                          href={artistHref(d.artist, username)}
+                          className="font-medium hover:underline hover:text-primary transition-colors"
+                        >
+                          {d.artist}
+                        </Link>{' '}
                         <span className="text-muted-foreground">
                           ({d.totalPlays} total {d.totalPlays === 1 ? 'play' : 'plays'})
                         </span>

@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { Compass } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { artistHref } from '@/lib/urls'
 
 interface Discovery {
   artist: string
@@ -81,7 +83,12 @@ export function NewDiscoveries({ username }: { username: string }) {
                   key={d.artist}
                   className="flex flex-col gap-0.5 rounded-lg border bg-card px-3 py-2"
                 >
-                  <span className="text-sm font-medium">{d.artist}</span>
+                  <Link
+                    href={artistHref(d.artist, username)}
+                    className="text-sm font-medium hover:underline hover:text-primary transition-colors"
+                  >
+                    {d.artist}
+                  </Link>
                   <span className="text-xs text-muted-foreground">
                     first heard {ago === 0 ? 'today' : `${ago}d ago`}
                   </span>
