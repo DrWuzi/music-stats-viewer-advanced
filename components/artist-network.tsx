@@ -132,6 +132,15 @@ export function ArtistNetwork({ scrobbles, topArtists }: Props) {
             height={400}
             viewBox="0 0 400 400"
           >
+            <defs>
+              <filter id="network-line-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="1.5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
             {connections.map((conn, i) => {
               const from = nodes[conn.from]
               const to = nodes[conn.to]
@@ -139,10 +148,11 @@ export function ArtistNetwork({ scrobbles, topArtists }: Props) {
                 hoveredIdx === conn.from || hoveredIdx === conn.to
               const opacity =
                 hoveredIdx === null
-                  ? 0.15 + conn.weight * 0.55
+                  ? 0.28 + conn.weight * 0.52
                   : isHoveredRelated
                     ? 0.85
-                    : 0.05
+                    : 0.08
+              const lineWidth = hoveredIdx !== null && isHoveredRelated ? 4 : 1.75 + conn.weight * 2.75
               return (
                 <line
                   key={i}
@@ -151,7 +161,9 @@ export function ArtistNetwork({ scrobbles, topArtists }: Props) {
                   x2={to.x}
                   y2={to.y}
                   stroke="var(--primary)"
-                  strokeWidth={hoveredIdx !== null && isHoveredRelated ? 2 : 1}
+                  strokeWidth={lineWidth}
+                  strokeLinecap="round"
+                  filter="url(#network-line-glow)"
                   strokeOpacity={opacity}
                 />
               )
@@ -194,8 +206,15 @@ export function ArtistNetwork({ scrobbles, topArtists }: Props) {
                     style={{ borderRadius: '50%' }}
                   />
                 )}
-                <div style={{ width: node.r * 2, height: node.r * 2 }} className="rounded-full overflow-hidden shrink-0">
-                  <ArtistImage name={node.artist.name} size="sm" className="rounded-full" />
+                <div
+                  style={{ width: node.r * 2, height: node.r * 2 }}
+                  className="flex items-center justify-center rounded-full overflow-hidden shrink-0"
+                >
+                  <ArtistImage
+                    name={node.artist.name}
+                    size="sm"
+                    className="h-full w-full rounded-full"
+                  />
                 </div>
 
                 {/* Tooltip */}

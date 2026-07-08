@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <meta name="view-transition" content="same-origin" />
         <script dangerouslySetInnerHTML={{
-          __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')}catch(e){}})()`
+          __html: `(function(){try{var t=localStorage.getItem('theme');var root=document.documentElement;root.classList.remove('dark','theme-rosepine','theme-catppuccin','theme-dracula');if(t==='dark'){root.classList.add('dark')}else if(t==='rosepine'){root.classList.add('dark','theme-rosepine')}else if(t==='catppuccin'){root.classList.add('dark','theme-catppuccin')}else if(t==='dracula'){root.classList.add('dark','theme-dracula')}}catch(e){}})()`
         }} />
         <script dangerouslySetInnerHTML={{
           __html: `(function(){try{var w=localStorage.getItem('maxWidthPref');if(w==='wide')document.documentElement.classList.add('mw-wide');else if(w==='full')document.documentElement.classList.add('mw-full')}catch(e){}})()`

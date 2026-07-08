@@ -1,12 +1,12 @@
 'use client'
 
 import { useMemo } from 'react'
-import { RadialBarChart, RadialBar, ResponsiveContainer, Tooltip } from 'recharts'
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 
 interface Props {
   scrobbles: { scrobbledAt: Date }[]
+  layoutSize?: 1 | 2
 }
 
 type SeasonKey = 'spring' | 'summer' | 'fall' | 'winter'
@@ -34,7 +34,7 @@ function getSeason(date: Date): SeasonKey {
   return 'winter'
 }
 
-export function SeasonListening({ scrobbles }: Props) {
+export function SeasonListening({ scrobbles, layoutSize = 2 }: Props) {
   const data = useMemo(() => {
     const counts: Record<SeasonKey, number> = { spring: 0, summer: 0, fall: 0, winter: 0 }
     for (const s of scrobbles) {
@@ -54,88 +54,106 @@ export function SeasonListening({ scrobbles }: Props) {
     [data],
   )
 
+  const total = data.reduce((sum, season) => sum + season.count, 0)
+  const isCompact = layoutSize === 1
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-sm font-medium">Season Listening</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-3">
-          {data.map((season) => {
-            const isPeak = season.key === peakKey
-            const chartData = [
-              { name: season.label, value: season.pct, fill: season.fill },
-            ]
-            return (
-              <div
-                key={season.key}
-                className="relative rounded-lg border p-3 flex flex-col gap-1"
-                style={{
-                  borderColor: isPeak
-                    ? 'color-mix(in oklch, var(--primary) 60%, transparent)'
-                    : 'var(--border)',
-                  background: isPeak
-                    ? 'color-mix(in oklch, var(--primary) 8%, transparent)'
-                    : undefined,
-                }}
-              >
-                {isPeak && (
-                  <Badge
-                    className="absolute -top-2 left-1/2 -translate-x-1/2 text-[10px] px-1.5 py-0 whitespace-nowrap"
-                    variant="default"
+        <div className={[
+          'grid gap-5 items-center',
+          isCompact ? 'grid-cols-1' : 'lg:grid-cols-[minmax(0,1.2fr)_minmax(190px,0.8fr)]',
+        ].join(' ')}>
+          <div className={[
+            'relative mx-auto w-full',
+            isCompact ? 'max-w-[18rem]' : 'max-w-[22rem]',
+          ].join(' ')}>
+            <div className={isCompact ? 'h-56 sm:h-64' : 'h-64 sm:h-72'}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={data}
+                    dataKey="count"
+                    nameKey="label"
+                    innerRadius="64%"
+                    outerRadius="88%"
+                    paddingAngle={3}
+                    stroke="var(--background)"
+                    strokeWidth={2}
                   >
-                    Peak season
-                  </Badge>
-                )}
-                <div className="flex items-center justify-between">
-                  <span className="text-xl leading-none">{season.icon}</span>
-                  <span className="text-xs font-semibold" style={{ color: 'var(--muted-foreground)' }}>
-                    {season.pct}%
-                  </span>
-                </div>
-                <p className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-                  {season.label}
-                </p>
-                <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>
-                  {season.count.toLocaleString()} scrobbles
-                </p>
-                {/* Mini radial bar */}
-                <div className="h-12 w-full mt-1">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RadialBarChart
-                      cx="50%"
-                      cy="100%"
-                      innerRadius="60%"
-                      outerRadius="100%"
-                      startAngle={180}
-                      endAngle={0}
-                      data={chartData}
-                      barSize={8}
-                    >
-                      <RadialBar
-                        dataKey="value"
-                        background={{ fill: 'color-mix(in oklch, var(--muted) 40%, transparent)' }}
-                        cornerRadius={4}
-                      />
-                      <Tooltip
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        formatter={(v: any) => [`${v ?? 0}%`, season.label]}
-                        contentStyle={{
-                          background: 'var(--card)',
-                          border: '1px solid var(--border)',
-                          borderRadius: '6px',
-                          fontSize: '11px',
-                          color: 'var(--foreground)',
-                        }}
-                        labelStyle={{ color: 'var(--foreground)' }}
-                        itemStyle={{ color: 'var(--foreground)' }}
-                      />
-                    </RadialBarChart>
-                  </ResponsiveContainer>
-                </div>
+                    {data.map((season) => (
+                      <Cell key={season.key} fill={season.fill} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: number, _name, entry) => [
+                      `${value.toLocaleString()} scrobbles`,
+                      `${entry?.payload?.icon ?? ''} ${entry?.payload?.label ?? ''}`.trim(),
+                    ]}
+                    contentStyle={{
+                      background: 'var(--card)',
+                      border: '1px solid var(--border)',
+                      borderRadius: '8px',
+                      fontSize: '11px',
+                      color: 'var(--foreground)',
+                    }}
+                    labelStyle={{ color: 'var(--foreground)' }}
+                    itemStyle={{ color: 'var(--foreground)' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+              <div className="text-3xl font-semibold tabular-nums text-foreground">
+                {total.toLocaleString()}
               </div>
-            )
-          })}
+              <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                seasonal scrobbles
+              </div>
+            </div>
+          </div>
+
+          <div className={[
+            'grid gap-2',
+            isCompact ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-1',
+          ].join(' ')}>
+            {data.map((season) => {
+              const isPeak = season.key === peakKey
+              return (
+                <div
+                  key={season.key}
+                  className="flex items-center gap-3 rounded-xl border bg-muted/20 px-3 py-2.5"
+                  style={{
+                    borderColor: isPeak
+                      ? 'color-mix(in oklch, var(--primary) 45%, transparent)'
+                      : 'var(--border)',
+                  }}
+                >
+                  <span className="text-2xl leading-none">{season.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="truncate text-sm font-medium text-foreground">{season.label}</span>
+                      <span className="text-sm font-semibold tabular-nums text-foreground">
+                        {season.pct}%
+                      </span>
+                    </div>
+                    <div className="mt-1 flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                      <span>{season.count.toLocaleString()} scrobbles</span>
+                      {isPeak && (
+                        <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
+                          Peak season
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </CardContent>
     </Card>

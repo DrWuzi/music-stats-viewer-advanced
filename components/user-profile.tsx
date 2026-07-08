@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { LayoutDashboard, RotateCcw, X, User, Music, Disc, Mic2, Calendar, TrendingUp, Flame } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -95,7 +95,7 @@ import { ScrobbleHeatmap } from '@/components/scrobble-heatmap'
 import { TopCollaborations } from '@/components/top-collaborations'
 import { ListeningReport } from '@/components/listening-report'
 import { ArtistNetwork } from '@/components/artist-network'
-import type { WidgetId } from '@/lib/dashboard-widgets'
+import type { WidgetId, WidgetSize } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
 
 interface ProfileStats {
@@ -122,6 +122,7 @@ interface UserProfileProps {
   profileStats?: ProfileStats
   initialDashboardOrder?: WidgetId[]
   initialDashboardHidden?: WidgetId[]
+  initialDashboardSizes?: Partial<Record<WidgetId, WidgetSize>>
 }
 
 // ─── Inner component (uses context) ──────────────────────────────────────────
@@ -156,12 +157,10 @@ function computeLongestStreak(scrobbles: { scrobbledAt: Date | string }[]): numb
 
 function ProfileStatsSidebar({
   registeredAt,
-  totalScrobbles,
   profileStats,
   allScrobbles,
 }: {
   registeredAt: Date
-  totalScrobbles: number
   profileStats: ProfileStats | undefined
   allScrobbles: { scrobbledAt: Date | string }[]
 }) {
@@ -240,8 +239,6 @@ function UserProfileContent({
   username,
   totalScrobbles,
   registeredAt,
-  imageUrl,
-  lastSyncedAt,
   isOwner,
   recentTracks,
   topArtists,
@@ -261,7 +258,7 @@ function UserProfileContent({
     router.replace(`?${params.toString()}`)
   }
 
-  const { order, isEditing, setEditing, reset } = useDashboard()
+  const { order, sizes, isEditing, setEditing, reset } = useDashboard()
 
   // Persist visited username so compare page can offer "Paste my username"
   useEffect(() => {
@@ -278,7 +275,7 @@ function UserProfileContent({
   })()
 
   // ─── Widget render map ──────────────────────────────────────────────────────
-  function renderWidget(id: WidgetId) {
+  function renderWidget(id: WidgetId, widgetSize: WidgetSize) {
     switch (id) {
       case 'stats-chart':
         return (
@@ -518,7 +515,7 @@ function UserProfileContent({
         )
 
       case 'season-listening':
-        return <SeasonListening scrobbles={allScrobbles} />
+        return <SeasonListening scrobbles={allScrobbles} layoutSize={widgetSize} />
 
       case 'comeback-artists':
         return <ComebackArtists scrobbles={allScrobbles} />
@@ -685,10 +682,10 @@ function UserProfileContent({
       {/* Main content + sidebar layout */}
       <div className="flex gap-6 mt-6 items-start">
         {/* Dashboard widgets in user-configured order */}
-        <div className="grid gap-6 flex-1 min-w-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-w-0 auto-rows-min grid-flow-row-dense">
           {order.map((id) => (
             <DashboardWidget key={id} id={id}>
-              {renderWidget(id)}
+              {renderWidget(id, sizes[id] ?? 2)}
             </DashboardWidget>
           ))}
         </div>
@@ -716,6 +713,7 @@ export function UserProfile(props: UserProfileProps) {
         isOwner={props.isOwner}
         initialOrder={props.initialDashboardOrder}
         initialHidden={props.initialDashboardHidden}
+        initialSizes={props.initialDashboardSizes}
       >
         <UserProfileContent {...props} />
       </DashboardProvider>

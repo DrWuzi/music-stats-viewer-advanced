@@ -351,7 +351,7 @@ export function SettingsClient({
 
         {/* ── Display ────────────────────────────────────────────────────── */}
         <Section icon={Monitor} title="Display" description="Appearance and layout preferences.">
-          <Row label="Theme" description="Toggle between light and dark mode.">
+          <Row label="Theme" description="Cycle between light, dark, Rosé Pine, Catppuccin, and Dracula.">
             <ThemeToggle />
           </Row>
 

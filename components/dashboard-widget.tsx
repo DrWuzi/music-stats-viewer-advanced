@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, type ReactNode } from 'react'
-import { ChevronUp, ChevronDown, GripVertical, Eye, EyeOff } from 'lucide-react'
+import { ChevronUp, ChevronDown, GripVertical, Eye, EyeOff, Columns2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useDashboard } from '@/components/dashboard-provider'
 import { WIDGET_LABELS, type WidgetId } from '@/lib/dashboard-widgets'
@@ -12,11 +12,12 @@ interface Props {
 }
 
 export function DashboardWidget({ id, children }: Props) {
-  const { order, hidden, isEditing, moveUp, moveDown, moveTo, toggleHidden } = useDashboard()
+  const { order, hidden, sizes, isEditing, moveUp, moveDown, moveTo, toggleHidden, toggleSize } = useDashboard()
   const [isDragOver, setIsDragOver] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
 
   const isHidden = hidden.has(id)
+  const widgetSize = sizes[id] ?? 2
 
   // Determine position for arrow disable state
   const visibleOrder = order.filter((wid) => !hidden.has(wid))
@@ -50,7 +51,8 @@ export function DashboardWidget({ id, children }: Props) {
         setIsDragOver(false)
       }}
       className={[
-        'relative transition-opacity',
+        'relative transition-opacity min-w-0',
+        widgetSize === 1 ? 'lg:col-span-1' : 'lg:col-span-2',
         isDragging ? 'opacity-40' : '',
         isDragOver && isEditing ? 'ring-2 ring-primary ring-offset-2 rounded-xl' : '',
       ].join(' ')}
@@ -92,6 +94,17 @@ export function DashboardWidget({ id, children }: Props) {
             title="Move down"
           >
             <ChevronDown className="h-3 w-3" />
+          </Button>
+
+          {/* Show / hide */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6"
+            onClick={() => toggleSize(id)}
+            title={widgetSize === 2 ? 'Make half width' : 'Make full width'}
+          >
+            <Columns2 className="h-3.5 w-3.5" />
           </Button>
 
           {/* Show / hide */}

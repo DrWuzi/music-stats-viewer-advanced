@@ -53,9 +53,18 @@ export const WIDGET_DEFS = [
 ] as const
 
 export type WidgetId = (typeof WIDGET_DEFS)[number]['id']
+export type WidgetSize = 1 | 2
 
 export const WIDGET_LABELS: Record<WidgetId, string> = Object.fromEntries(
   WIDGET_DEFS.map((w) => [w.id, w.label]),
 ) as Record<WidgetId, string>
 
 export const DEFAULT_ORDER: WidgetId[] = WIDGET_DEFS.map((w) => w.id)
+
+export const DEFAULT_WIDGET_SIZE: WidgetSize = 2
+
+export function createDefaultSizes(overrides?: Partial<Record<WidgetId, WidgetSize>>) {
+  return Object.fromEntries(
+    WIDGET_DEFS.map((widget) => [widget.id, overrides?.[widget.id] ?? DEFAULT_WIDGET_SIZE]),
+  ) as Record<WidgetId, WidgetSize>
+}

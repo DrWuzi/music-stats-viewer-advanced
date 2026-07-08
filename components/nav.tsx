@@ -5,10 +5,6 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import {
   Search,
-  Trophy,
-  Users,
-  Settings,
-  Keyboard,
   Menu,
   X,
   TrendingUp,
@@ -18,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { NavSearch } from "@/components/nav-search"
 import { NotificationsButton } from "@/components/notifications-panel"
+import { HeaderMoreMenu } from "@/components/header-more-menu"
 
 interface NavSession {
   lastfmUsername: string
@@ -31,31 +28,32 @@ const navLinks = [
   { href: "/charts", label: "Charts", icon: TrendingUp },
   { href: "/discover", label: "Discover", icon: Compass },
   { href: "/search", label: "Search", icon: Search },
-  { href: "/compare", label: "Compare", icon: Users },
-  { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
-  { href: "/settings", label: "Settings", icon: Settings },
 ]
 
 export function NavClient({ session }: NavClientProps) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  function isActive(href: string) {
+    return pathname === href || pathname.startsWith(`${href}/`)
+  }
+
   function linkClass(href: string) {
-    return pathname === href
+    return isActive(href)
       ? "flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-sm font-medium text-foreground transition-all duration-150"
       : "flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-sm font-medium text-foreground/60 hover:text-foreground transition-all duration-150 dark:text-muted-foreground dark:hover:text-foreground"
   }
 
   return (
-    <header className="border-b relative">
-      <div className="container mx-auto flex h-11 items-center justify-between px-4">
+    <header className="relative border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="container mx-auto flex h-11 items-center justify-between gap-3 px-4">
         {/* Logo */}
         <Link href="/" className="font-semibold text-base shrink-0">
           Last.fm Advanced
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
           {navLinks.map(({ href, label, icon: Icon }) => (
             <Link key={href} href={href} className={linkClass(href)}>
               <Icon className="h-4 w-4" />
@@ -63,40 +61,19 @@ export function NavClient({ session }: NavClientProps) {
             </Link>
           ))}
 
-          {session ? (
-            <>
-              {/* Notifications bell */}
-              <NotificationsButton username={session.lastfmUsername} />
+          <NavSearch username={session?.lastfmUsername} />
 
-              {/* Username compact link to profile */}
-              <Link
-                href={`/user/${session.lastfmUsername}`}
-                className={linkClass(`/user/${session.lastfmUsername}`)}
-              >
-                {session.lastfmUsername}
-              </Link>
-            </>
+          <HeaderMoreMenu pathname={pathname} username={session?.lastfmUsername} />
+
+          {session ? (
+            <NotificationsButton username={session.lastfmUsername} />
           ) : (
             <Link href="/login">
               <Button size="sm">Sign in</Button>
             </Link>
           )}
 
-          <NavSearch username={session?.lastfmUsername} />
-
           <ThemeToggle />
-
-          {/* Keyboard shortcuts button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            title="Keyboard shortcuts (?)"
-            onClick={() =>
-              window.dispatchEvent(new CustomEvent("showShortcuts"))
-            }
-          >
-            <Keyboard className="h-4 w-4" />
-          </Button>
         </div>
 
         {/* Mobile: theme toggle + hamburger */}

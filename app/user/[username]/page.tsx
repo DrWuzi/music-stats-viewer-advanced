@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { syncUser } from '@/lib/sync'
 import { lastfmClient } from '@/lib/lastfm'
 import { UserProfile } from '@/components/user-profile'
-import { DEFAULT_ORDER, type WidgetId } from '@/lib/dashboard-widgets'
+import { DEFAULT_ORDER, type WidgetId, type WidgetSize } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
 
 type Props = { params: Promise<{ username: string }> }
@@ -44,7 +44,7 @@ export default async function UserProfilePage({ params }: Props) {
         await prisma.user.create({ data: { lastfmUsername: username, sessionKey: '' } })
       }
       await syncUser(username)
-    } catch (err) {
+    } catch {
       // If user was never in DB and sync failed, 404. If stub exists, fall through and show what we have.
       if (!user) notFound()
     }
@@ -52,7 +52,8 @@ export default async function UserProfilePage({ params }: Props) {
     if (!user) notFound()
   }
 
-  const thirtyDaysAgo = new Date(Date.now() - 360 * 24 * 60 * 60 * 1000)
+  const now = new Date()
+  const thirtyDaysAgo = new Date(now.getTime() - 360 * 24 * 60 * 60 * 1000)
   const [userInfo, chartScrobbles, uniqueArtistsResult, uniqueTracksResult, uniqueAlbumsResult, firstScrobble] = await Promise.all([
     lastfmClient.getUserInfo(username).catch(() => null),
     prisma.scrobble.findMany({
@@ -70,16 +71,37 @@ export default async function UserProfilePage({ params }: Props) {
   ])
   const isOwner = session?.lastfmUsername === username
 
-  const savedOrder: WidgetId[] | undefined = (() => {
+  const savedLayout: { order?: WidgetId[]; sizes?: Partial<Record<WidgetId, WidgetSize>> } | undefined = (() => {
     try {
       const raw = user.dashboardOrder
       if (!raw) return undefined
-      const parsed = JSON.parse(raw) as WidgetId[]
-      const valid = parsed.filter((id) => (DEFAULT_ORDER as readonly string[]).includes(id))
-      const added = DEFAULT_ORDER.filter((id) => !valid.includes(id))
-      return [...valid, ...added]
+      const parsed = JSON.parse(raw) as WidgetId[] | { order?: WidgetId[]; sizes?: Partial<Record<WidgetId, WidgetSize>> }
+      if (Array.isArray(parsed)) {
+        const valid = parsed.filter((id) => (DEFAULT_ORDER as readonly string[]).includes(id))
+        const added = DEFAULT_ORDER.filter((id) => !valid.includes(id))
+        return { order: [...valid, ...added] }
+      }
+
+      const validOrder = Array.isArray(parsed.order)
+        ? parsed.order.filter((id) => (DEFAULT_ORDER as readonly string[]).includes(id))
+        : undefined
+      const added = DEFAULT_ORDER.filter((id) => !validOrder?.includes(id))
+      const validSizes = parsed.sizes && typeof parsed.sizes === 'object'
+        ? Object.fromEntries(
+            Object.entries(parsed.sizes)
+              .filter(([id, value]) => (DEFAULT_ORDER as readonly string[]).includes(id) && (value === 1 || value === 2)),
+          ) as Partial<Record<WidgetId, WidgetSize>>
+        : undefined
+
+      return {
+        order: validOrder ? [...validOrder, ...added] : [...DEFAULT_ORDER],
+        sizes: validSizes,
+      }
     } catch { return undefined }
   })()
+
+  const savedOrder = savedLayout?.order
+  const savedSizes = savedLayout?.sizes
 
   const savedHidden: WidgetId[] | undefined = (() => {
     try {
@@ -97,7 +119,7 @@ export default async function UserProfilePage({ params }: Props) {
   const registeredDate = userInfo?.registered ?? user.createdAt
   const daysSinceRegistration = Math.max(
     1,
-    Math.floor((Date.now() - new Date(registeredDate).getTime()) / (1000 * 60 * 60 * 24)),
+    Math.floor((now.getTime() - new Date(registeredDate).getTime()) / (1000 * 60 * 60 * 24)),
   )
   const totalScrobblesCount = userInfo?.playcount ?? user.scrobbles.length
   const scrobblesPerDay = totalScrobblesCount / daysSinceRegistration
@@ -146,6 +168,7 @@ export default async function UserProfilePage({ params }: Props) {
         isOwner={isOwner}
         initialDashboardOrder={savedOrder}
         initialDashboardHidden={savedHidden}
+        initialDashboardSizes={savedSizes}
         recentTracks={user.scrobbles.map((s) => ({
           artist: s.artist,
           album: s.album,
