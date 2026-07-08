@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
@@ -6,6 +7,11 @@ import { lastfmClient } from '@/lib/lastfm'
 import { UserProfile } from '@/components/user-profile'
 import { DEFAULT_ORDER, type WidgetId, type WidgetSize } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
+import {
+  ProfileLoadingAnimation,
+  isValidLoadingAnimation,
+  type LoadingAnimationKey,
+} from '@/components/profile-loading-animations'
 
 type Props = { params: Promise<{ username: string }> }
 
@@ -32,25 +38,50 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function UserProfilePage({ params }: Props) {
   const { username } = await params
-  const session = await getSession()
 
-  let user = await prisma.user.findUnique({ where: { lastfmUsername: username }, include: INCLUDE })
+  // Cheap existence probe — resolved (and any notFound() thrown) before the
+  // Suspense boundary below starts streaming, since Next.js cannot change
+  // the HTTP status code once the response body has started streaming.
+  let existing = await prisma.user.findUnique({
+    where: { lastfmUsername: username },
+    select: { id: true, lastSyncedAt: true, loadingAnimation: true },
+  })
 
   // Sync if: user doesn't exist yet, OR exists but never completed a sync
-  if (!user || !user.lastSyncedAt) {
+  if (!existing || !existing.lastSyncedAt) {
     try {
       await lastfmClient.getUserInfo(username) // 404s if username invalid on Last.fm
-      if (!user) {
+      if (!existing) {
         await prisma.user.create({ data: { lastfmUsername: username, sessionKey: '' } })
       }
       await syncUser(username)
     } catch {
       // If user was never in DB and sync failed, 404. If stub exists, fall through and show what we have.
-      if (!user) notFound()
+      if (!existing) notFound()
     }
-    user = await prisma.user.findUnique({ where: { lastfmUsername: username }, include: INCLUDE })
-    if (!user) notFound()
+    existing = await prisma.user.findUnique({
+      where: { lastfmUsername: username },
+      select: { id: true, lastSyncedAt: true, loadingAnimation: true },
+    })
+    if (!existing) notFound()
   }
+
+  const preset: LoadingAnimationKey = isValidLoadingAnimation(existing.loadingAnimation)
+    ? existing.loadingAnimation
+    : 'none'
+
+  return (
+    <Suspense fallback={<ProfileLoadingAnimation preset={preset} />}>
+      <ProfilePageContent username={username} />
+    </Suspense>
+  )
+}
+
+async function ProfilePageContent({ username }: { username: string }) {
+  const session = await getSession()
+
+  const user = await prisma.user.findUnique({ where: { lastfmUsername: username }, include: INCLUDE })
+  if (!user) notFound()
 
   const now = new Date()
   const thirtyDaysAgo = new Date(now.getTime() - 360 * 24 * 60 * 60 * 1000)
