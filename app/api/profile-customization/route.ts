@@ -3,6 +3,7 @@ import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
 import { isValidProfileTheme } from '@/lib/profile-themes'
 import { isValidAvatarDecoration } from '@/components/avatar-decorations'
+import { isValidProfileBackground } from '@/components/profile-backgrounds'
 
 const MAX_TAGLINE_LENGTH = 60
 
@@ -22,10 +23,11 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null)
   if (!body) return NextResponse.json({ error: 'Bad request' }, { status: 400 })
 
-  const { profileTheme, profileTagline, avatarDecoration } = body as {
+  const { profileTheme, profileTagline, avatarDecoration, profileBackground } = body as {
     profileTheme?: string
     profileTagline?: string
     avatarDecoration?: string
+    profileBackground?: string
   }
 
   const validTheme = isValidProfileTheme(profileTheme) ? profileTheme : undefined
@@ -35,12 +37,15 @@ export async function POST(req: Request) {
 
   const validDecoration = isValidAvatarDecoration(avatarDecoration) ? avatarDecoration : undefined
 
+  const validBackground = isValidProfileBackground(profileBackground) ? profileBackground : undefined
+
   await prisma.user.update({
     where: { lastfmUsername: session.lastfmUsername },
     data: {
       ...(validTheme !== undefined ? { profileTheme: validTheme } : {}),
       ...(validTagline !== undefined ? { profileTagline: validTagline } : {}),
       ...(validDecoration !== undefined ? { avatarDecoration: validDecoration } : {}),
+      ...(validBackground !== undefined ? { profileBackground: validBackground } : {}),
     },
   })
 
@@ -49,5 +54,6 @@ export async function POST(req: Request) {
     profileTheme: validTheme,
     profileTagline: validTagline,
     avatarDecoration: validDecoration,
+    profileBackground: validBackground,
   })
 }
