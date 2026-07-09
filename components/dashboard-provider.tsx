@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback, useRef, type ReactNode } from 'react'
-import { DEFAULT_ORDER, createDefaultSizes, type WidgetId, type WidgetSize } from '@/lib/dashboard-widgets'
+import { DEFAULT_ORDER, createDefaultHidden, createDefaultSizes, type WidgetId, type WidgetSize } from '@/lib/dashboard-widgets'
 
 interface DashboardCtx {
   order: WidgetId[]
@@ -29,7 +29,7 @@ interface DashboardProviderProps {
 
 export function DashboardProvider({ children, isOwner, initialOrder, initialHidden, initialSizes }: DashboardProviderProps) {
   const [order, setOrder] = useState<WidgetId[]>(initialOrder ?? DEFAULT_ORDER)
-  const [hidden, setHidden] = useState<Set<WidgetId>>(new Set(initialHidden ?? []))
+  const [hidden, setHidden] = useState<Set<WidgetId>>(initialHidden ? new Set(initialHidden) : createDefaultHidden())
   const [sizes, setSizes] = useState<Record<WidgetId, WidgetSize>>(createDefaultSizes(initialSizes))
   const [isEditing, setIsEditing] = useState(false)
 
@@ -118,7 +118,7 @@ export function DashboardProvider({ children, isOwner, initialOrder, initialHidd
 
   const reset = useCallback(() => {
     const o = DEFAULT_ORDER
-    const h = new Set<WidgetId>()
+    const h = createDefaultHidden()
     const s = createDefaultSizes()
     setOrder(o)
     setHidden(h)

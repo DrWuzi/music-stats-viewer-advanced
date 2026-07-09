@@ -521,10 +521,18 @@ function UserProfileContent({
         return <SeasonListening scrobbles={allScrobbles} layoutSize={widgetSize} />
 
       case 'comeback-artists':
-        return <ComebackArtists scrobbles={allScrobbles} username={username} />
+        return (
+          <LazyWidget>
+            <ComebackArtists scrobbles={allScrobbles} username={username} />
+          </LazyWidget>
+        )
 
       case 'discovery-pace':
-        return <DiscoveryPace scrobbles={allScrobbles} />
+        return (
+          <LazyWidget>
+            <DiscoveryPace scrobbles={allScrobbles} />
+          </LazyWidget>
+        )
 
       case 'diversity-score':
         return (
@@ -582,12 +590,14 @@ function UserProfileContent({
 
       case 'activity-feed':
         return (
-          <ActivityFeed
-            scrobbles={allScrobbles}
-            totalScrobbles={totalScrobbles}
-            registeredAt={registeredAt}
-            username={username}
-          />
+          <LazyWidget>
+            <ActivityFeed
+              scrobbles={allScrobbles}
+              totalScrobbles={totalScrobbles}
+              registeredAt={registeredAt}
+              username={username}
+            />
+          </LazyWidget>
         )
 
       case 'underrated-tracks':
@@ -598,13 +608,25 @@ function UserProfileContent({
         )
 
       case 'scrobble-heatmap':
-        return <ScrobbleHeatmap scrobbles={allScrobbles} />
+        return (
+          <LazyWidget>
+            <ScrobbleHeatmap scrobbles={allScrobbles} />
+          </LazyWidget>
+        )
 
       case 'top-collaborations':
-        return <TopCollaborations scrobbles={allScrobbles} username={username} />
+        return (
+          <LazyWidget>
+            <TopCollaborations scrobbles={allScrobbles} username={username} />
+          </LazyWidget>
+        )
 
       case 'listening-report':
-        return <ListeningReport scrobbles={allScrobbles} username={username} />
+        return (
+          <LazyWidget>
+            <ListeningReport scrobbles={allScrobbles} username={username} />
+          </LazyWidget>
+        )
 
       case 'artist-network':
         return (

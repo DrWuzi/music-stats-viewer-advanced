@@ -1,0 +1,1575 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Last.fm Advanced" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "Charts" [ref=e6] [cursor=pointer]:
+          - /url: /charts
+          - img [ref=e7]
+          - text: Charts
+        - link "Discover" [ref=e10] [cursor=pointer]:
+          - /url: /discover
+          - img [ref=e11]
+          - text: Discover
+        - link "Search" [ref=e14] [cursor=pointer]:
+          - /url: /search
+          - img [ref=e15]
+          - text: Search
+        - generic [ref=e18]:
+          - img
+          - textbox "Search artists" [ref=e19]:
+            - /placeholder: Search artists...
+        - button "More" [ref=e20]:
+          - text: More
+          - img
+        - link "Sign in" [ref=e21] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in" [ref=e22]
+        - 'button "Theme: Light. Next: Dark" [ref=e23]':
+          - img
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic [ref=e30]: T
+          - generic [ref=e31]:
+            - heading "testuser" [level=1] [ref=e32]
+            - paragraph [ref=e33]: 1,891 scrobbles · Member since May 2004
+            - generic [ref=e34]: 22 years as a member
+          - generic [ref=e37]: Never synced
+        - navigation "Profile navigation" [ref=e39]:
+          - link "Overview" [ref=e40] [cursor=pointer]:
+            - /url: /user/testuser
+            - img [ref=e41]
+            - generic [ref=e46]: Overview
+          - link "History" [ref=e47] [cursor=pointer]:
+            - /url: /user/testuser/history
+            - img [ref=e48]
+            - generic [ref=e51]: History
+          - link "Achievements" [ref=e52] [cursor=pointer]:
+            - /url: /user/testuser/achievements
+            - img [ref=e53]
+            - generic [ref=e59]: Achievements
+          - link "Wrapped" [ref=e60] [cursor=pointer]:
+            - /url: /user/testuser/wrapped
+            - img [ref=e61]
+            - generic [ref=e64]: Wrapped
+          - link "Reports" [ref=e65] [cursor=pointer]:
+            - /url: /user/testuser/reports
+            - img [ref=e66]
+            - generic [ref=e69]: Reports
+          - link "Concerts" [ref=e70] [cursor=pointer]:
+            - /url: /user/testuser/concerts
+            - img [ref=e71]
+            - generic [ref=e74]: Concerts
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - button "Copy Stats" [ref=e77]:
+            - img
+            - text: Copy Stats
+          - button "Copy Link" [ref=e78]:
+            - img
+            - text: Copy Link
+          - button "Share" [ref=e79]:
+            - img
+            - text: Share
+          - button "Print" [ref=e80]:
+            - img
+            - text: Print
+          - generic "Your top 5 artists account for 3.9% of your listening" [ref=e82]:
+            - img
+            - generic [ref=e83]: The Explorer
+        - generic [ref=e84]:
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - img [ref=e88]
+              - generic [ref=e89]: Total
+            - generic [ref=e91]: "0"
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - img [ref=e95]
+              - generic [ref=e98]: Today
+            - generic [ref=e99]: "0"
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - img [ref=e103]
+              - generic [ref=e105]: This Week
+            - generic [ref=e107]: "0"
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - img [ref=e111]
+              - generic [ref=e113]: Avg/Day (30d)
+            - generic [ref=e114]: "0"
+          - generic [ref=e115]:
+            - generic [ref=e116]:
+              - img [ref=e118]
+              - generic [ref=e120]: Top Artist
+            - link "Against Me!" [ref=e121] [cursor=pointer]:
+              - /url: /artist/Against%20Me!?username=testuser
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e126]:
+              - generic [ref=e128]: Scrobbles
+              - paragraph [ref=e130]: No scrobble data yet.
+            - generic [ref=e133]:
+              - generic [ref=e134]:
+                - generic [ref=e136]:
+                  - img [ref=e137]
+                  - text: Listening Time
+                - generic [ref=e141]:
+                  - generic [ref=e142]:
+                    - generic [ref=e143]: ~110 hours
+                    - generic [ref=e144]: ~5 days of music
+                  - generic [ref=e146]:
+                    - generic [ref=e147]: "% of last year spent listening"
+                    - generic [ref=e148]: 1.26%
+                  - generic [ref=e152]:
+                    - generic [ref=e153]: "% of your life spent listening"
+                    - generic [ref=e154]: 0.017%
+                  - generic [ref=e157]:
+                    - paragraph [ref=e158]: Fun comparisons
+                    - list [ref=e159]:
+                      - listitem [ref=e160]: 55 movies watched (avg 2h each)
+                      - listitem [ref=e161]:
+                        - generic [ref=e162]: 2.8x
+                        - text: around the world by plane
+              - generic [ref=e163]:
+                - generic [ref=e165]: When You Listen
+                - paragraph [ref=e167]: No scrobble data yet.
+              - generic [ref=e168]:
+                - generic [ref=e170]: Weekday vs Weekend
+                - paragraph [ref=e172]: No scrobble data yet.
+              - generic [ref=e173]:
+                - generic [ref=e175]: Artist Loyalty
+                - generic [ref=e176]:
+                  - generic [ref=e177]:
+                    - 'generic "Against Me!: 0.7%" [ref=e178]'
+                    - 'generic "Air: 1.0%" [ref=e179]'
+                    - 'generic "Alanis Morissette: 1.0%" [ref=e180]'
+                    - 'generic "Albert Hammond Jr.: 0.6%" [ref=e181]'
+                    - 'generic "Apparat: 0.6%" [ref=e182]'
+                    - 'generic "Other: 96.1%" [ref=e183]'
+                  - generic [ref=e184]:
+                    - generic [ref=e185]:
+                      - link "Against Me!" [ref=e187] [cursor=pointer]:
+                        - /url: /artist/Against%20Me!?username=testuser
+                      - generic [ref=e188]: 14 · 0.7%
+                    - generic [ref=e189]:
+                      - link "Air" [ref=e191] [cursor=pointer]:
+                        - /url: /artist/Air?username=testuser
+                      - generic [ref=e192]: 18 · 1.0%
+                    - generic [ref=e193]:
+                      - link "Alanis Morissette" [ref=e195] [cursor=pointer]:
+                        - /url: /artist/Alanis%20Morissette?username=testuser
+                      - generic [ref=e196]: 19 · 1.0%
+                    - generic [ref=e197]:
+                      - link "Albert Hammond Jr." [ref=e199] [cursor=pointer]:
+                        - /url: /artist/Albert%20Hammond%20Jr.?username=testuser
+                      - generic [ref=e200]: 12 · 0.6%
+                    - generic [ref=e201]:
+                      - link "Apparat" [ref=e203] [cursor=pointer]:
+                        - /url: /artist/Apparat?username=testuser
+                      - generic [ref=e204]: 11 · 0.6%
+                    - generic [ref=e205]:
+                      - generic [ref=e207]: Other
+                      - generic [ref=e208]: 96.1%
+            - generic [ref=e211]:
+              - generic [ref=e213]: Scrobble Velocity
+              - paragraph [ref=e215]: No scrobble data yet.
+            - generic [ref=e218]:
+              - generic [ref=e220]: Sonic DNA
+              - paragraph [ref=e222]: No data available
+            - generic [ref=e229]:
+              - generic [ref=e230]:
+                - generic [ref=e231]: Time Patterns
+                - button "Collapse section" [expanded] [ref=e232]:
+                  - img
+              - generic [ref=e234]:
+                - generic [ref=e235]:
+                  - generic [ref=e237]: Listening Heatmap
+                  - paragraph [ref=e239]: No scrobble data yet.
+                - generic [ref=e240]:
+                  - generic [ref=e242]: By Day of Week
+                  - paragraph [ref=e244]: No scrobble data yet.
+                - generic [ref=e245]:
+                  - generic [ref=e247]: Listening Clock
+                  - paragraph [ref=e249]: No scrobble data yet.
+            - generic [ref=e252]:
+              - generic [ref=e253]:
+                - generic [ref=e255]: Listening Streaks
+                - paragraph [ref=e257]: No scrobble data yet.
+              - generic [ref=e258]:
+                - generic [ref=e260]: Listening Sessions
+                - paragraph [ref=e262]: No scrobble data yet.
+              - generic [ref=e263]:
+                - generic [ref=e265]: Milestones
+                - generic [ref=e266]:
+                  - list [ref=e267]:
+                    - listitem [ref=e268]:
+                      - img [ref=e269]
+                      - generic [ref=e271]: 1,000
+                  - generic [ref=e272]:
+                    - generic [ref=e273]:
+                      - generic [ref=e274]: 1,891 / 5,000
+                      - generic [ref=e275]: 22%
+                    - paragraph [ref=e278]: 3,109 scrobbles until 5,000
+            - generic [ref=e285]:
+              - generic [ref=e287]: Year-over-Year
+              - paragraph [ref=e289]: No scrobble data yet.
+            - generic [ref=e300]:
+              - generic [ref=e301]:
+                - generic [ref=e303]: Listening Forecast
+                - paragraph [ref=e305]: No data
+              - generic [ref=e306]:
+                - generic [ref=e308]: Data Health
+                - paragraph [ref=e310]: No data
+            - generic [ref=e313]:
+              - generic [ref=e315]: Track vs Artist Plays
+              - generic [ref=e320]: Each dot is a top track. Its horizontal position shows how many total plays its artist has; its vertical position shows how many plays that individual track has. Dots higher and to the right belong to both a popular artist and a frequently replayed song.
+            - generic [ref=e323]:
+              - generic [ref=e324]:
+                - generic [ref=e325]: Top Charts
+                - combobox [ref=e326]:
+                  - generic [ref=e327]: Last 7 Days
+                  - img: ▼
+                - textbox [ref=e328]: 7day
+              - generic [ref=e331]:
+                - tablist [ref=e332]:
+                  - tab "Artists" [selected] [ref=e333]
+                  - tab "Albums" [ref=e334]
+                  - tab "Tracks" [ref=e335]
+                - tabpanel [ref=e336]:
+                  - paragraph [ref=e337]: No data for this period.
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - generic [ref=e342]: Discovery & Recommendations
+                - button "Collapse section" [expanded] [ref=e343]:
+                  - img
+              - generic [ref=e345]:
+                - generic [ref=e346]:
+                  - generic [ref=e348]: You Might Like
+                  - paragraph [ref=e350]: Loading…
+                - generic [ref=e351]:
+                  - generic [ref=e353]:
+                    - img [ref=e354]
+                    - text: Hidden Gems
+                  - paragraph [ref=e358]: Finding your hidden gems…
+                - generic [ref=e359]:
+                  - generic [ref=e361]: Unheard From Your Artists
+                  - paragraph [ref=e363]: Loading…
+                - generic [ref=e364]:
+                  - generic [ref=e366]: Rediscovered
+                  - paragraph [ref=e368]: Loading…
+            - generic [ref=e371]:
+              - generic [ref=e372]:
+                - generic [ref=e374]: Artist Match
+                - generic [ref=e376]:
+                  - textbox "Enter an artist name…" [ref=e377]
+                  - button "Check Match" [disabled]
+              - generic [ref=e380]: Your Genre Profile
+              - generic [ref=e407]:
+                - generic [ref=e409]:
+                  - generic [ref=e410]: New Discoveries
+                  - generic [ref=e411]:
+                    - button "30d" [ref=e412]
+                    - button "90d" [ref=e413]
+                    - button "180d" [ref=e414]
+                - paragraph [ref=e416]: Loading…
+              - generic [ref=e417]:
+                - generic [ref=e419]: Taste Profile
+                - paragraph [ref=e421]: Analyzing taste…
+            - generic [ref=e424]:
+              - generic [ref=e425]:
+                - generic [ref=e427]:
+                  - generic [ref=e428]: Obsessions
+                  - generic [ref=e429]:
+                    - button "10×" [ref=e430]
+                    - button "25×" [ref=e431]
+                    - button "50×" [ref=e432]
+                    - button "100×" [ref=e433]
+                - paragraph [ref=e435]: Loading…
+              - generic [ref=e436]:
+                - generic [ref=e438]: Listening Gaps
+                - paragraph [ref=e440]: No scrobble data yet.
+              - generic [ref=e441]:
+                - generic [ref=e442]:
+                  - generic [ref=e444]:
+                    - img [ref=e445]
+                    - text: Music Timeline
+                  - paragraph [ref=e449]: Loading…
+                - generic [ref=e450]:
+                  - generic [ref=e451]:
+                    - img [ref=e452]
+                    - text: Share profile
+                  - generic [ref=e458]:
+                    - generic [ref=e459]: testuser
+                    - list [ref=e460]:
+                      - listitem [ref=e461]:
+                        - generic [ref=e462]: "1."
+                        - link "Against Me!" [ref=e463] [cursor=pointer]:
+                          - /url: /artist/Against%20Me!?username=testuser
+                      - listitem [ref=e464]:
+                        - generic [ref=e465]: "2."
+                        - link "Air" [ref=e466] [cursor=pointer]:
+                          - /url: /artist/Air?username=testuser
+                      - listitem [ref=e467]:
+                        - generic [ref=e468]: "3."
+                        - link "Alanis Morissette" [ref=e469] [cursor=pointer]:
+                          - /url: /artist/Alanis%20Morissette?username=testuser
+                  - button "Copy link" [ref=e470]
+              - generic [ref=e471]:
+                - generic [ref=e473]: Album Completion
+                - paragraph [ref=e475]: Loading album data…
+            - generic [ref=e478]:
+              - generic [ref=e479]:
+                - generic [ref=e480]:
+                  - generic [ref=e482]: Recent Tracks
+                  - generic [ref=e483]:
+                    - list [ref=e484]:
+                      - listitem [ref=e485]:
+                        - generic [ref=e486]:
+                          - link "Loading image for Ashtar Command" [ref=e487] [cursor=pointer]:
+                            - /url: /artist/Ashtar%20Command?username=testuser
+                            - generic "Loading image for Ashtar Command" [ref=e488]
+                          - generic [ref=e489]:
+                            - link "Deadman's Gun" [ref=e490] [cursor=pointer]:
+                              - /url: /track/Ashtar%20Command/Deadman's%20Gun
+                            - link "Ashtar Command" [ref=e492] [cursor=pointer]:
+                              - /url: /artist/Ashtar%20Command?username=testuser
+                        - generic [ref=e494]: 13 years ago
+                      - listitem [ref=e495]:
+                        - generic [ref=e496]:
+                          - link "Loading image for Architecture in Helsinki" [ref=e497] [cursor=pointer]:
+                            - /url: /artist/Architecture%20in%20Helsinki?username=testuser
+                            - generic "Loading image for Architecture in Helsinki" [ref=e498]
+                          - generic [ref=e499]:
+                            - link "Wishbone" [ref=e500] [cursor=pointer]:
+                              - /url: /track/Architecture%20in%20Helsinki/Wishbone
+                            - link "Architecture in Helsinki" [ref=e502] [cursor=pointer]:
+                              - /url: /artist/Architecture%20in%20Helsinki?username=testuser
+                        - generic [ref=e504]: 13 years ago
+                      - listitem [ref=e505]:
+                        - generic [ref=e506]:
+                          - link "Loading image for Archie Bell & The Drells" [ref=e507] [cursor=pointer]:
+                            - /url: /artist/Archie%20Bell%20%26%20The%20Drells?username=testuser
+                            - generic "Loading image for Archie Bell & The Drells" [ref=e508]
+                          - generic [ref=e509]:
+                            - link "Tighten Up" [ref=e510] [cursor=pointer]:
+                              - /url: /track/Archie%20Bell%20%26%20The%20Drells/Tighten%20Up
+                            - link "Archie Bell & The Drells" [ref=e512] [cursor=pointer]:
+                              - /url: /artist/Archie%20Bell%20%26%20The%20Drells?username=testuser
+                        - generic [ref=e514]: 13 years ago
+                      - listitem [ref=e515]:
+                        - generic [ref=e516]:
+                          - link "Loading image for The Chemical Brothers" [ref=e517] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e518]
+                          - generic [ref=e519]:
+                            - link "Horse Power" [ref=e520] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Horse%20Power
+                            - generic [ref=e521]:
+                              - link "The Chemical Brothers" [ref=e522] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e524]: 16 years ago
+                      - listitem [ref=e525]:
+                        - generic [ref=e526]:
+                          - link "Loading image for The Chemical Brothers" [ref=e527] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e528]
+                          - generic [ref=e529]:
+                            - link "Dissolve" [ref=e530] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Dissolve
+                            - generic [ref=e531]:
+                              - link "The Chemical Brothers" [ref=e532] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e534]: 16 years ago
+                      - listitem [ref=e535]:
+                        - generic [ref=e536]:
+                          - link "Loading image for The Chemical Brothers" [ref=e537] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e538]
+                          - generic [ref=e539]:
+                            - link "Another World" [ref=e540] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Another%20World
+                            - generic [ref=e541]:
+                              - link "The Chemical Brothers" [ref=e542] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e544]: 16 years ago
+                      - listitem [ref=e545]:
+                        - generic [ref=e546]:
+                          - link "Loading image for The Chemical Brothers" [ref=e547] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e548]
+                          - generic [ref=e549]:
+                            - link "Escape Velocity" [ref=e550] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Escape%20Velocity
+                            - generic [ref=e551]:
+                              - link "The Chemical Brothers" [ref=e552] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e554]: 16 years ago
+                      - listitem [ref=e555]:
+                        - generic [ref=e556]:
+                          - link "Loading image for The Chemical Brothers" [ref=e557] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e558]
+                          - generic [ref=e559]:
+                            - link "Snow" [ref=e560] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Snow
+                            - generic [ref=e561]:
+                              - link "The Chemical Brothers" [ref=e562] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e564]: 16 years ago
+                      - listitem [ref=e565]:
+                        - generic [ref=e566]:
+                          - link "Loading image for The Chemical Brothers" [ref=e567] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e568]
+                          - generic [ref=e569]:
+                            - link "Wonders of the Deep" [ref=e570] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Wonders%20of%20the%20Deep
+                            - generic [ref=e571]:
+                              - link "The Chemical Brothers" [ref=e572] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e574]: 16 years ago
+                      - listitem [ref=e575]:
+                        - generic [ref=e576]:
+                          - link "Loading image for The Chemical Brothers" [ref=e577] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e578]
+                          - generic [ref=e579]:
+                            - link "Swoon" [ref=e580] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Swoon
+                            - generic [ref=e581]:
+                              - link "The Chemical Brothers" [ref=e582] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e584]: 16 years ago
+                      - listitem [ref=e585]:
+                        - generic [ref=e586]:
+                          - link "Loading image for The Chemical Brothers" [ref=e587] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e588]
+                          - generic [ref=e589]:
+                            - link "Horse Power" [ref=e590] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Horse%20Power
+                            - generic [ref=e591]:
+                              - link "The Chemical Brothers" [ref=e592] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e594]: 16 years ago
+                      - listitem [ref=e595]:
+                        - generic [ref=e596]:
+                          - link "Loading image for The Chemical Brothers" [ref=e597] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e598]
+                          - generic [ref=e599]:
+                            - link "Dissolve" [ref=e600] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Dissolve
+                            - generic [ref=e601]:
+                              - link "The Chemical Brothers" [ref=e602] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e604]: 16 years ago
+                      - listitem [ref=e605]:
+                        - generic [ref=e606]:
+                          - link "Loading image for The Chemical Brothers" [ref=e607] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e608]
+                          - generic [ref=e609]:
+                            - link "Another World" [ref=e610] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Another%20World
+                            - generic [ref=e611]:
+                              - link "The Chemical Brothers" [ref=e612] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e614]: 16 years ago
+                      - listitem [ref=e615]:
+                        - generic [ref=e616]:
+                          - link "Loading image for The Chemical Brothers" [ref=e617] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e618]
+                          - generic [ref=e619]:
+                            - link "Escape Velocity" [ref=e620] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Escape%20Velocity
+                            - generic [ref=e621]:
+                              - link "The Chemical Brothers" [ref=e622] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e624]: 16 years ago
+                      - listitem [ref=e625]:
+                        - generic [ref=e626]:
+                          - link "Loading image for The Chemical Brothers" [ref=e627] [cursor=pointer]:
+                            - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                            - generic "Loading image for The Chemical Brothers" [ref=e628]
+                          - generic [ref=e629]:
+                            - link "Snow" [ref=e630] [cursor=pointer]:
+                              - /url: /track/The%20Chemical%20Brothers/Snow
+                            - generic [ref=e631]:
+                              - link "The Chemical Brothers" [ref=e632] [cursor=pointer]:
+                                - /url: /artist/The%20Chemical%20Brothers?username=testuser
+                              - text: — Further
+                        - generic [ref=e634]: 16 years ago
+                      - listitem [ref=e635]:
+                        - generic [ref=e636]:
+                          - link "Loading image for Feist" [ref=e637] [cursor=pointer]:
+                            - /url: /artist/Feist?username=testuser
+                            - generic "Loading image for Feist" [ref=e638]
+                          - generic [ref=e639]:
+                            - link "Secret Heart" [ref=e640] [cursor=pointer]:
+                              - /url: /track/Feist/Secret%20Heart
+                            - link "Feist" [ref=e642] [cursor=pointer]:
+                              - /url: /artist/Feist?username=testuser
+                        - generic [ref=e644]: 16 years ago
+                      - listitem [ref=e645]:
+                        - generic [ref=e646]:
+                          - link "Loading image for Feist" [ref=e647] [cursor=pointer]:
+                            - /url: /artist/Feist?username=testuser
+                            - generic "Loading image for Feist" [ref=e648]
+                          - generic [ref=e649]:
+                            - link "When I Was a Young Girl" [ref=e650] [cursor=pointer]:
+                              - /url: /track/Feist/When%20I%20Was%20a%20Young%20Girl
+                            - link "Feist" [ref=e652] [cursor=pointer]:
+                              - /url: /artist/Feist?username=testuser
+                        - generic [ref=e654]: 16 years ago
+                      - listitem [ref=e655]:
+                        - generic [ref=e656]:
+                          - link "Loading image for Feist" [ref=e657] [cursor=pointer]:
+                            - /url: /artist/Feist?username=testuser
+                            - generic "Loading image for Feist" [ref=e658]
+                          - generic [ref=e659]:
+                            - link "Lonely Lonely" [ref=e660] [cursor=pointer]:
+                              - /url: /track/Feist/Lonely%20Lonely
+                            - link "Feist" [ref=e662] [cursor=pointer]:
+                              - /url: /artist/Feist?username=testuser
+                        - generic [ref=e664]: 16 years ago
+                      - listitem [ref=e665]:
+                        - generic [ref=e666]:
+                          - link "Loading image for Feist" [ref=e667] [cursor=pointer]:
+                            - /url: /artist/Feist?username=testuser
+                            - generic "Loading image for Feist" [ref=e668]
+                          - generic [ref=e669]:
+                            - link "Leisure Suite" [ref=e670] [cursor=pointer]:
+                              - /url: /track/Feist/Leisure%20Suite
+                            - link "Feist" [ref=e672] [cursor=pointer]:
+                              - /url: /artist/Feist?username=testuser
+                        - generic [ref=e674]: 16 years ago
+                      - listitem [ref=e675]:
+                        - generic [ref=e676]:
+                          - link "Loading image for Soundgarden" [ref=e677] [cursor=pointer]:
+                            - /url: /artist/Soundgarden?username=testuser
+                            - generic "Loading image for Soundgarden" [ref=e678]
+                          - generic [ref=e679]:
+                            - link "Blow Up the Outside World" [ref=e680] [cursor=pointer]:
+                              - /url: /track/Soundgarden/Blow%20Up%20the%20Outside%20World
+                            - link "Soundgarden" [ref=e682] [cursor=pointer]:
+                              - /url: /artist/Soundgarden?username=testuser
+                        - generic [ref=e684]: 16 years ago
+                    - button "Load 20 more (30 remaining)" [ref=e686]
+                - generic [ref=e687]:
+                  - generic [ref=e689]: Loved Tracks
+                  - list [ref=e691]:
+                    - listitem [ref=e692]:
+                      - link "Secret Heart" [ref=e693] [cursor=pointer]:
+                        - /url: /track/Feist/Secret%20Heart?username=testuser
+                      - link "Feist" [ref=e694] [cursor=pointer]:
+                        - /url: /artist/Feist?username=testuser
+                    - listitem [ref=e695]:
+                      - link "Dusty" [ref=e696] [cursor=pointer]:
+                        - /url: /track/Soundgarden/Dusty?username=testuser
+                      - link "Soundgarden" [ref=e697] [cursor=pointer]:
+                        - /url: /artist/Soundgarden?username=testuser
+                    - listitem [ref=e698]:
+                      - link "Paper Planes" [ref=e699] [cursor=pointer]:
+                        - /url: /track/M.I.A./Paper%20Planes?username=testuser
+                      - link "M.I.A." [ref=e700] [cursor=pointer]:
+                        - /url: /artist/M.I.A.?username=testuser
+                    - listitem [ref=e701]:
+                      - link "Last Bit (Lovely Words)" [ref=e702] [cursor=pointer]:
+                        - /url: /track/The%20Lytics/Last%20Bit%20(Lovely%20Words)?username=testuser
+                      - link "The Lytics" [ref=e703] [cursor=pointer]:
+                        - /url: /artist/The%20Lytics?username=testuser
+                    - listitem [ref=e704]:
+                      - link "Luv Deluxe" [ref=e705] [cursor=pointer]:
+                        - /url: /track/Cinnamon%20Chasers/Luv%20Deluxe?username=testuser
+                      - link "Cinnamon Chasers" [ref=e706] [cursor=pointer]:
+                        - /url: /artist/Cinnamon%20Chasers?username=testuser
+                    - listitem [ref=e707]:
+                      - link "Modern Love" [ref=e708] [cursor=pointer]:
+                        - /url: /track/Cinnamon%20Chasers/Modern%20Love?username=testuser
+                      - link "Cinnamon Chasers" [ref=e709] [cursor=pointer]:
+                        - /url: /artist/Cinnamon%20Chasers?username=testuser
+                    - listitem [ref=e710]:
+                      - link "Silver Rider" [ref=e711] [cursor=pointer]:
+                        - /url: /track/Low/Silver%20Rider?username=testuser
+                      - link "Low" [ref=e712] [cursor=pointer]:
+                        - /url: /artist/Low?username=testuser
+                    - listitem [ref=e713]:
+                      - link "Ring A Ling" [ref=e714] [cursor=pointer]:
+                        - /url: /track/Black%20Eyed%20Peas/Ring%20A%20Ling?username=testuser
+                      - link "Black Eyed Peas" [ref=e715] [cursor=pointer]:
+                        - /url: /artist/Black%20Eyed%20Peas?username=testuser
+                    - listitem [ref=e716]:
+                      - link "Say Something" [ref=e717] [cursor=pointer]:
+                        - /url: /track/Drake/Say%20Something?username=testuser
+                      - link "Drake" [ref=e718] [cursor=pointer]:
+                        - /url: /artist/Drake?username=testuser
+                    - listitem [ref=e719]:
+                      - link "All The World Is Mad" [ref=e720] [cursor=pointer]:
+                        - /url: /track/Thrice/All%20The%20World%20Is%20Mad?username=testuser
+                      - link "Thrice" [ref=e721] [cursor=pointer]:
+                        - /url: /artist/Thrice?username=testuser
+                    - listitem [ref=e722]:
+                      - link "Wood And Wire" [ref=e723] [cursor=pointer]:
+                        - /url: /track/Thrice/Wood%20And%20Wire?username=testuser
+                      - link "Thrice" [ref=e724] [cursor=pointer]:
+                        - /url: /artist/Thrice?username=testuser
+                    - listitem [ref=e725]:
+                      - link "Marabou" [ref=e726] [cursor=pointer]:
+                        - /url: /track/The%20Cinematic%20Orchestra/Marabou?username=testuser
+                      - link "The Cinematic Orchestra" [ref=e727] [cursor=pointer]:
+                        - /url: /artist/The%20Cinematic%20Orchestra?username=testuser
+                    - listitem [ref=e728]:
+                      - link "Error404" [ref=e729] [cursor=pointer]:
+                        - /url: /track/Apparat/Error404?username=testuser
+                      - link "Apparat" [ref=e730] [cursor=pointer]:
+                        - /url: /artist/Apparat?username=testuser
+              - generic [ref=e731]:
+                - generic [ref=e733]: Loved Timeline
+                - generic [ref=e735]:
+                  - generic [ref=e736]:
+                    - heading "February 2010" [level=3] [ref=e737]
+                    - list [ref=e738]:
+                      - listitem [ref=e739]:
+                        - link "Secret Heart" [ref=e740] [cursor=pointer]:
+                          - /url: /track/Feist/Secret%20Heart?username=testuser
+                        - text: —
+                        - link "Feist" [ref=e741] [cursor=pointer]:
+                          - /url: /artist/Feist?username=testuser
+                  - generic [ref=e742]:
+                    - heading "January 2010" [level=3] [ref=e743]
+                    - list [ref=e744]:
+                      - listitem [ref=e745]:
+                        - link "Dusty" [ref=e746] [cursor=pointer]:
+                          - /url: /track/Soundgarden/Dusty?username=testuser
+                        - text: —
+                        - link "Soundgarden" [ref=e747] [cursor=pointer]:
+                          - /url: /artist/Soundgarden?username=testuser
+                      - listitem [ref=e748]:
+                        - link "Paper Planes" [ref=e749] [cursor=pointer]:
+                          - /url: /track/M.I.A./Paper%20Planes?username=testuser
+                        - text: —
+                        - link "M.I.A." [ref=e750] [cursor=pointer]:
+                          - /url: /artist/M.I.A.?username=testuser
+                      - listitem [ref=e751]:
+                        - link "Last Bit (Lovely Words)" [ref=e752] [cursor=pointer]:
+                          - /url: /track/The%20Lytics/Last%20Bit%20(Lovely%20Words)?username=testuser
+                        - text: —
+                        - link "The Lytics" [ref=e753] [cursor=pointer]:
+                          - /url: /artist/The%20Lytics?username=testuser
+                      - listitem [ref=e754]:
+                        - link "Luv Deluxe" [ref=e755] [cursor=pointer]:
+                          - /url: /track/Cinnamon%20Chasers/Luv%20Deluxe?username=testuser
+                        - text: —
+                        - link "Cinnamon Chasers" [ref=e756] [cursor=pointer]:
+                          - /url: /artist/Cinnamon%20Chasers?username=testuser
+                      - listitem [ref=e757]:
+                        - link "Modern Love" [ref=e758] [cursor=pointer]:
+                          - /url: /track/Cinnamon%20Chasers/Modern%20Love?username=testuser
+                        - text: —
+                        - link "Cinnamon Chasers" [ref=e759] [cursor=pointer]:
+                          - /url: /artist/Cinnamon%20Chasers?username=testuser
+                  - generic [ref=e760]:
+                    - heading "November 2009" [level=3] [ref=e761]
+                    - list [ref=e762]:
+                      - listitem [ref=e763]:
+                        - link "Silver Rider" [ref=e764] [cursor=pointer]:
+                          - /url: /track/Low/Silver%20Rider?username=testuser
+                        - text: —
+                        - link "Low" [ref=e765] [cursor=pointer]:
+                          - /url: /artist/Low?username=testuser
+                  - generic [ref=e766]:
+                    - heading "October 2009" [level=3] [ref=e767]
+                    - list [ref=e768]:
+                      - listitem [ref=e769]:
+                        - link "Ring A Ling" [ref=e770] [cursor=pointer]:
+                          - /url: /track/Black%20Eyed%20Peas/Ring%20A%20Ling?username=testuser
+                        - text: —
+                        - link "Black Eyed Peas" [ref=e771] [cursor=pointer]:
+                          - /url: /artist/Black%20Eyed%20Peas?username=testuser
+                      - listitem [ref=e772]:
+                        - link "Say Something" [ref=e773] [cursor=pointer]:
+                          - /url: /track/Drake/Say%20Something?username=testuser
+                        - text: —
+                        - link "Drake" [ref=e774] [cursor=pointer]:
+                          - /url: /artist/Drake?username=testuser
+                  - generic [ref=e775]:
+                    - heading "August 2009" [level=3] [ref=e776]
+                    - list [ref=e777]:
+                      - listitem [ref=e778]:
+                        - link "All The World Is Mad" [ref=e779] [cursor=pointer]:
+                          - /url: /track/Thrice/All%20The%20World%20Is%20Mad?username=testuser
+                        - text: —
+                        - link "Thrice" [ref=e780] [cursor=pointer]:
+                          - /url: /artist/Thrice?username=testuser
+                      - listitem [ref=e781]:
+                        - link "Wood And Wire" [ref=e782] [cursor=pointer]:
+                          - /url: /track/Thrice/Wood%20And%20Wire?username=testuser
+                        - text: —
+                        - link "Thrice" [ref=e783] [cursor=pointer]:
+                          - /url: /artist/Thrice?username=testuser
+                  - generic [ref=e784]:
+                    - heading "July 2009" [level=3] [ref=e785]
+                    - list [ref=e786]:
+                      - listitem [ref=e787]:
+                        - link "Marabou" [ref=e788] [cursor=pointer]:
+                          - /url: /track/The%20Cinematic%20Orchestra/Marabou?username=testuser
+                        - text: —
+                        - link "The Cinematic Orchestra" [ref=e789] [cursor=pointer]:
+                          - /url: /artist/The%20Cinematic%20Orchestra?username=testuser
+            - generic [ref=e792]:
+              - generic [ref=e794]: Listening Personality
+              - paragraph [ref=e796]: Not enough data to determine your listening personality yet.
+            - generic [ref=e799]:
+              - generic [ref=e801]: Top Track of Every Month
+              - paragraph [ref=e803]: No scrobble data yet.
+            - generic [ref=e806]:
+              - generic [ref=e808]:
+                - generic [ref=e809]:
+                  - generic [ref=e811]: Mon
+                  - generic [ref=e812]: Wed
+                  - generic [ref=e813]: Fri
+                - generic [ref=e814]:
+                  - generic [ref=e815]:
+                    - generic [ref=e816]: Aug
+                    - generic [ref=e817]: Sep
+                    - generic [ref=e818]: Oct
+                    - generic [ref=e819]: Nov
+                    - generic [ref=e820]: Dec
+                    - generic [ref=e821]: Jan
+                    - generic [ref=e822]: Feb
+                    - generic [ref=e823]: Mar
+                    - generic [ref=e824]: Apr
+                    - generic [ref=e825]: May
+                    - generic [ref=e826]: Jun
+                    - generic [ref=e827]: Jul
+                  - generic [ref=e828]:
+                    - 'generic "Sun, Jul 13, 2025: 0 scrobbles" [ref=e829] [cursor=pointer]'
+                    - 'generic "Mon, Jul 14, 2025: 0 scrobbles" [ref=e830] [cursor=pointer]'
+                    - 'generic "Tue, Jul 15, 2025: 0 scrobbles" [ref=e831] [cursor=pointer]'
+                    - 'generic "Wed, Jul 16, 2025: 0 scrobbles" [ref=e832] [cursor=pointer]'
+                    - 'generic "Thu, Jul 17, 2025: 0 scrobbles" [ref=e833] [cursor=pointer]'
+                    - 'generic "Fri, Jul 18, 2025: 0 scrobbles" [ref=e834] [cursor=pointer]'
+                    - 'generic "Sat, Jul 19, 2025: 0 scrobbles" [ref=e835] [cursor=pointer]'
+                    - 'generic "Sun, Jul 20, 2025: 0 scrobbles" [ref=e836] [cursor=pointer]'
+                    - 'generic "Mon, Jul 21, 2025: 0 scrobbles" [ref=e837] [cursor=pointer]'
+                    - 'generic "Tue, Jul 22, 2025: 0 scrobbles" [ref=e838] [cursor=pointer]'
+                    - 'generic "Wed, Jul 23, 2025: 0 scrobbles" [ref=e839] [cursor=pointer]'
+                    - 'generic "Thu, Jul 24, 2025: 0 scrobbles" [ref=e840] [cursor=pointer]'
+                    - 'generic "Fri, Jul 25, 2025: 0 scrobbles" [ref=e841] [cursor=pointer]'
+                    - 'generic "Sat, Jul 26, 2025: 0 scrobbles" [ref=e842] [cursor=pointer]'
+                    - 'generic "Sun, Jul 27, 2025: 0 scrobbles" [ref=e843] [cursor=pointer]'
+                    - 'generic "Mon, Jul 28, 2025: 0 scrobbles" [ref=e844] [cursor=pointer]'
+                    - 'generic "Tue, Jul 29, 2025: 0 scrobbles" [ref=e845] [cursor=pointer]'
+                    - 'generic "Wed, Jul 30, 2025: 0 scrobbles" [ref=e846] [cursor=pointer]'
+                    - 'generic "Thu, Jul 31, 2025: 0 scrobbles" [ref=e847] [cursor=pointer]'
+                    - 'generic "Fri, Aug 1, 2025: 0 scrobbles" [ref=e848] [cursor=pointer]'
+                    - 'generic "Sat, Aug 2, 2025: 0 scrobbles" [ref=e849] [cursor=pointer]'
+                    - 'generic "Sun, Aug 3, 2025: 0 scrobbles" [ref=e850] [cursor=pointer]'
+                    - 'generic "Mon, Aug 4, 2025: 0 scrobbles" [ref=e851] [cursor=pointer]'
+                    - 'generic "Tue, Aug 5, 2025: 0 scrobbles" [ref=e852] [cursor=pointer]'
+                    - 'generic "Wed, Aug 6, 2025: 0 scrobbles" [ref=e853] [cursor=pointer]'
+                    - 'generic "Thu, Aug 7, 2025: 0 scrobbles" [ref=e854] [cursor=pointer]'
+                    - 'generic "Fri, Aug 8, 2025: 0 scrobbles" [ref=e855] [cursor=pointer]'
+                    - 'generic "Sat, Aug 9, 2025: 0 scrobbles" [ref=e856] [cursor=pointer]'
+                    - 'generic "Sun, Aug 10, 2025: 0 scrobbles" [ref=e857] [cursor=pointer]'
+                    - 'generic "Mon, Aug 11, 2025: 0 scrobbles" [ref=e858] [cursor=pointer]'
+                    - 'generic "Tue, Aug 12, 2025: 0 scrobbles" [ref=e859] [cursor=pointer]'
+                    - 'generic "Wed, Aug 13, 2025: 0 scrobbles" [ref=e860] [cursor=pointer]'
+                    - 'generic "Thu, Aug 14, 2025: 0 scrobbles" [ref=e861] [cursor=pointer]'
+                    - 'generic "Fri, Aug 15, 2025: 0 scrobbles" [ref=e862] [cursor=pointer]'
+                    - 'generic "Sat, Aug 16, 2025: 0 scrobbles" [ref=e863] [cursor=pointer]'
+                    - 'generic "Sun, Aug 17, 2025: 0 scrobbles" [ref=e864] [cursor=pointer]'
+                    - 'generic "Mon, Aug 18, 2025: 0 scrobbles" [ref=e865] [cursor=pointer]'
+                    - 'generic "Tue, Aug 19, 2025: 0 scrobbles" [ref=e866] [cursor=pointer]'
+                    - 'generic "Wed, Aug 20, 2025: 0 scrobbles" [ref=e867] [cursor=pointer]'
+                    - 'generic "Thu, Aug 21, 2025: 0 scrobbles" [ref=e868] [cursor=pointer]'
+                    - 'generic "Fri, Aug 22, 2025: 0 scrobbles" [ref=e869] [cursor=pointer]'
+                    - 'generic "Sat, Aug 23, 2025: 0 scrobbles" [ref=e870] [cursor=pointer]'
+                    - 'generic "Sun, Aug 24, 2025: 0 scrobbles" [ref=e871] [cursor=pointer]'
+                    - 'generic "Mon, Aug 25, 2025: 0 scrobbles" [ref=e872] [cursor=pointer]'
+                    - 'generic "Tue, Aug 26, 2025: 0 scrobbles" [ref=e873] [cursor=pointer]'
+                    - 'generic "Wed, Aug 27, 2025: 0 scrobbles" [ref=e874] [cursor=pointer]'
+                    - 'generic "Thu, Aug 28, 2025: 0 scrobbles" [ref=e875] [cursor=pointer]'
+                    - 'generic "Fri, Aug 29, 2025: 0 scrobbles" [ref=e876] [cursor=pointer]'
+                    - 'generic "Sat, Aug 30, 2025: 0 scrobbles" [ref=e877] [cursor=pointer]'
+                    - 'generic "Sun, Aug 31, 2025: 0 scrobbles" [ref=e878] [cursor=pointer]'
+                    - 'generic "Mon, Sep 1, 2025: 0 scrobbles" [ref=e879] [cursor=pointer]'
+                    - 'generic "Tue, Sep 2, 2025: 0 scrobbles" [ref=e880] [cursor=pointer]'
+                    - 'generic "Wed, Sep 3, 2025: 0 scrobbles" [ref=e881] [cursor=pointer]'
+                    - 'generic "Thu, Sep 4, 2025: 0 scrobbles" [ref=e882] [cursor=pointer]'
+                    - 'generic "Fri, Sep 5, 2025: 0 scrobbles" [ref=e883] [cursor=pointer]'
+                    - 'generic "Sat, Sep 6, 2025: 0 scrobbles" [ref=e884] [cursor=pointer]'
+                    - 'generic "Sun, Sep 7, 2025: 0 scrobbles" [ref=e885] [cursor=pointer]'
+                    - 'generic "Mon, Sep 8, 2025: 0 scrobbles" [ref=e886] [cursor=pointer]'
+                    - 'generic "Tue, Sep 9, 2025: 0 scrobbles" [ref=e887] [cursor=pointer]'
+                    - 'generic "Wed, Sep 10, 2025: 0 scrobbles" [ref=e888] [cursor=pointer]'
+                    - 'generic "Thu, Sep 11, 2025: 0 scrobbles" [ref=e889] [cursor=pointer]'
+                    - 'generic "Fri, Sep 12, 2025: 0 scrobbles" [ref=e890] [cursor=pointer]'
+                    - 'generic "Sat, Sep 13, 2025: 0 scrobbles" [ref=e891] [cursor=pointer]'
+                    - 'generic "Sun, Sep 14, 2025: 0 scrobbles" [ref=e892] [cursor=pointer]'
+                    - 'generic "Mon, Sep 15, 2025: 0 scrobbles" [ref=e893] [cursor=pointer]'
+                    - 'generic "Tue, Sep 16, 2025: 0 scrobbles" [ref=e894] [cursor=pointer]'
+                    - 'generic "Wed, Sep 17, 2025: 0 scrobbles" [ref=e895] [cursor=pointer]'
+                    - 'generic "Thu, Sep 18, 2025: 0 scrobbles" [ref=e896] [cursor=pointer]'
+                    - 'generic "Fri, Sep 19, 2025: 0 scrobbles" [ref=e897] [cursor=pointer]'
+                    - 'generic "Sat, Sep 20, 2025: 0 scrobbles" [ref=e898] [cursor=pointer]'
+                    - 'generic "Sun, Sep 21, 2025: 0 scrobbles" [ref=e899] [cursor=pointer]'
+                    - 'generic "Mon, Sep 22, 2025: 0 scrobbles" [ref=e900] [cursor=pointer]'
+                    - 'generic "Tue, Sep 23, 2025: 0 scrobbles" [ref=e901] [cursor=pointer]'
+                    - 'generic "Wed, Sep 24, 2025: 0 scrobbles" [ref=e902] [cursor=pointer]'
+                    - 'generic "Thu, Sep 25, 2025: 0 scrobbles" [ref=e903] [cursor=pointer]'
+                    - 'generic "Fri, Sep 26, 2025: 0 scrobbles" [ref=e904] [cursor=pointer]'
+                    - 'generic "Sat, Sep 27, 2025: 0 scrobbles" [ref=e905] [cursor=pointer]'
+                    - 'generic "Sun, Sep 28, 2025: 0 scrobbles" [ref=e906] [cursor=pointer]'
+                    - 'generic "Mon, Sep 29, 2025: 0 scrobbles" [ref=e907] [cursor=pointer]'
+                    - 'generic "Tue, Sep 30, 2025: 0 scrobbles" [ref=e908] [cursor=pointer]'
+                    - 'generic "Wed, Oct 1, 2025: 0 scrobbles" [ref=e909] [cursor=pointer]'
+                    - 'generic "Thu, Oct 2, 2025: 0 scrobbles" [ref=e910] [cursor=pointer]'
+                    - 'generic "Fri, Oct 3, 2025: 0 scrobbles" [ref=e911] [cursor=pointer]'
+                    - 'generic "Sat, Oct 4, 2025: 0 scrobbles" [ref=e912] [cursor=pointer]'
+                    - 'generic "Sun, Oct 5, 2025: 0 scrobbles" [ref=e913] [cursor=pointer]'
+                    - 'generic "Mon, Oct 6, 2025: 0 scrobbles" [ref=e914] [cursor=pointer]'
+                    - 'generic "Tue, Oct 7, 2025: 0 scrobbles" [ref=e915] [cursor=pointer]'
+                    - 'generic "Wed, Oct 8, 2025: 0 scrobbles" [ref=e916] [cursor=pointer]'
+                    - 'generic "Thu, Oct 9, 2025: 0 scrobbles" [ref=e917] [cursor=pointer]'
+                    - 'generic "Fri, Oct 10, 2025: 0 scrobbles" [ref=e918] [cursor=pointer]'
+                    - 'generic "Sat, Oct 11, 2025: 0 scrobbles" [ref=e919] [cursor=pointer]'
+                    - 'generic "Sun, Oct 12, 2025: 0 scrobbles" [ref=e920] [cursor=pointer]'
+                    - 'generic "Mon, Oct 13, 2025: 0 scrobbles" [ref=e921] [cursor=pointer]'
+                    - 'generic "Tue, Oct 14, 2025: 0 scrobbles" [ref=e922] [cursor=pointer]'
+                    - 'generic "Wed, Oct 15, 2025: 0 scrobbles" [ref=e923] [cursor=pointer]'
+                    - 'generic "Thu, Oct 16, 2025: 0 scrobbles" [ref=e924] [cursor=pointer]'
+                    - 'generic "Fri, Oct 17, 2025: 0 scrobbles" [ref=e925] [cursor=pointer]'
+                    - 'generic "Sat, Oct 18, 2025: 0 scrobbles" [ref=e926] [cursor=pointer]'
+                    - 'generic "Sun, Oct 19, 2025: 0 scrobbles" [ref=e927] [cursor=pointer]'
+                    - 'generic "Mon, Oct 20, 2025: 0 scrobbles" [ref=e928] [cursor=pointer]'
+                    - 'generic "Tue, Oct 21, 2025: 0 scrobbles" [ref=e929] [cursor=pointer]'
+                    - 'generic "Wed, Oct 22, 2025: 0 scrobbles" [ref=e930] [cursor=pointer]'
+                    - 'generic "Thu, Oct 23, 2025: 0 scrobbles" [ref=e931] [cursor=pointer]'
+                    - 'generic "Fri, Oct 24, 2025: 0 scrobbles" [ref=e932] [cursor=pointer]'
+                    - 'generic "Sat, Oct 25, 2025: 0 scrobbles" [ref=e933] [cursor=pointer]'
+                    - 'generic "Sun, Oct 26, 2025: 0 scrobbles" [ref=e934] [cursor=pointer]'
+                    - 'generic "Mon, Oct 27, 2025: 0 scrobbles" [ref=e935] [cursor=pointer]'
+                    - 'generic "Tue, Oct 28, 2025: 0 scrobbles" [ref=e936] [cursor=pointer]'
+                    - 'generic "Wed, Oct 29, 2025: 0 scrobbles" [ref=e937] [cursor=pointer]'
+                    - 'generic "Thu, Oct 30, 2025: 0 scrobbles" [ref=e938] [cursor=pointer]'
+                    - 'generic "Fri, Oct 31, 2025: 0 scrobbles" [ref=e939] [cursor=pointer]'
+                    - 'generic "Sat, Nov 1, 2025: 0 scrobbles" [ref=e940] [cursor=pointer]'
+                    - 'generic "Sun, Nov 2, 2025: 0 scrobbles" [ref=e941] [cursor=pointer]'
+                    - 'generic "Mon, Nov 3, 2025: 0 scrobbles" [ref=e942] [cursor=pointer]'
+                    - 'generic "Tue, Nov 4, 2025: 0 scrobbles" [ref=e943] [cursor=pointer]'
+                    - 'generic "Wed, Nov 5, 2025: 0 scrobbles" [ref=e944] [cursor=pointer]'
+                    - 'generic "Thu, Nov 6, 2025: 0 scrobbles" [ref=e945] [cursor=pointer]'
+                    - 'generic "Fri, Nov 7, 2025: 0 scrobbles" [ref=e946] [cursor=pointer]'
+                    - 'generic "Sat, Nov 8, 2025: 0 scrobbles" [ref=e947] [cursor=pointer]'
+                    - 'generic "Sun, Nov 9, 2025: 0 scrobbles" [ref=e948] [cursor=pointer]'
+                    - 'generic "Mon, Nov 10, 2025: 0 scrobbles" [ref=e949] [cursor=pointer]'
+                    - 'generic "Tue, Nov 11, 2025: 0 scrobbles" [ref=e950] [cursor=pointer]'
+                    - 'generic "Wed, Nov 12, 2025: 0 scrobbles" [ref=e951] [cursor=pointer]'
+                    - 'generic "Thu, Nov 13, 2025: 0 scrobbles" [ref=e952] [cursor=pointer]'
+                    - 'generic "Fri, Nov 14, 2025: 0 scrobbles" [ref=e953] [cursor=pointer]'
+                    - 'generic "Sat, Nov 15, 2025: 0 scrobbles" [ref=e954] [cursor=pointer]'
+                    - 'generic "Sun, Nov 16, 2025: 0 scrobbles" [ref=e955] [cursor=pointer]'
+                    - 'generic "Mon, Nov 17, 2025: 0 scrobbles" [ref=e956] [cursor=pointer]'
+                    - 'generic "Tue, Nov 18, 2025: 0 scrobbles" [ref=e957] [cursor=pointer]'
+                    - 'generic "Wed, Nov 19, 2025: 0 scrobbles" [ref=e958] [cursor=pointer]'
+                    - 'generic "Thu, Nov 20, 2025: 0 scrobbles" [ref=e959] [cursor=pointer]'
+                    - 'generic "Fri, Nov 21, 2025: 0 scrobbles" [ref=e960] [cursor=pointer]'
+                    - 'generic "Sat, Nov 22, 2025: 0 scrobbles" [ref=e961] [cursor=pointer]'
+                    - 'generic "Sun, Nov 23, 2025: 0 scrobbles" [ref=e962] [cursor=pointer]'
+                    - 'generic "Mon, Nov 24, 2025: 0 scrobbles" [ref=e963] [cursor=pointer]'
+                    - 'generic "Tue, Nov 25, 2025: 0 scrobbles" [ref=e964] [cursor=pointer]'
+                    - 'generic "Wed, Nov 26, 2025: 0 scrobbles" [ref=e965] [cursor=pointer]'
+                    - 'generic "Thu, Nov 27, 2025: 0 scrobbles" [ref=e966] [cursor=pointer]'
+                    - 'generic "Fri, Nov 28, 2025: 0 scrobbles" [ref=e967] [cursor=pointer]'
+                    - 'generic "Sat, Nov 29, 2025: 0 scrobbles" [ref=e968] [cursor=pointer]'
+                    - 'generic "Sun, Nov 30, 2025: 0 scrobbles" [ref=e969] [cursor=pointer]'
+                    - 'generic "Mon, Dec 1, 2025: 0 scrobbles" [ref=e970] [cursor=pointer]'
+                    - 'generic "Tue, Dec 2, 2025: 0 scrobbles" [ref=e971] [cursor=pointer]'
+                    - 'generic "Wed, Dec 3, 2025: 0 scrobbles" [ref=e972] [cursor=pointer]'
+                    - 'generic "Thu, Dec 4, 2025: 0 scrobbles" [ref=e973] [cursor=pointer]'
+                    - 'generic "Fri, Dec 5, 2025: 0 scrobbles" [ref=e974] [cursor=pointer]'
+                    - 'generic "Sat, Dec 6, 2025: 0 scrobbles" [ref=e975] [cursor=pointer]'
+                    - 'generic "Sun, Dec 7, 2025: 0 scrobbles" [ref=e976] [cursor=pointer]'
+                    - 'generic "Mon, Dec 8, 2025: 0 scrobbles" [ref=e977] [cursor=pointer]'
+                    - 'generic "Tue, Dec 9, 2025: 0 scrobbles" [ref=e978] [cursor=pointer]'
+                    - 'generic "Wed, Dec 10, 2025: 0 scrobbles" [ref=e979] [cursor=pointer]'
+                    - 'generic "Thu, Dec 11, 2025: 0 scrobbles" [ref=e980] [cursor=pointer]'
+                    - 'generic "Fri, Dec 12, 2025: 0 scrobbles" [ref=e981] [cursor=pointer]'
+                    - 'generic "Sat, Dec 13, 2025: 0 scrobbles" [ref=e982] [cursor=pointer]'
+                    - 'generic "Sun, Dec 14, 2025: 0 scrobbles" [ref=e983] [cursor=pointer]'
+                    - 'generic "Mon, Dec 15, 2025: 0 scrobbles" [ref=e984] [cursor=pointer]'
+                    - 'generic "Tue, Dec 16, 2025: 0 scrobbles" [ref=e985] [cursor=pointer]'
+                    - 'generic "Wed, Dec 17, 2025: 0 scrobbles" [ref=e986] [cursor=pointer]'
+                    - 'generic "Thu, Dec 18, 2025: 0 scrobbles" [ref=e987] [cursor=pointer]'
+                    - 'generic "Fri, Dec 19, 2025: 0 scrobbles" [ref=e988] [cursor=pointer]'
+                    - 'generic "Sat, Dec 20, 2025: 0 scrobbles" [ref=e989] [cursor=pointer]'
+                    - 'generic "Sun, Dec 21, 2025: 0 scrobbles" [ref=e990] [cursor=pointer]'
+                    - 'generic "Mon, Dec 22, 2025: 0 scrobbles" [ref=e991] [cursor=pointer]'
+                    - 'generic "Tue, Dec 23, 2025: 0 scrobbles" [ref=e992] [cursor=pointer]'
+                    - 'generic "Wed, Dec 24, 2025: 0 scrobbles" [ref=e993] [cursor=pointer]'
+                    - 'generic "Thu, Dec 25, 2025: 0 scrobbles" [ref=e994] [cursor=pointer]'
+                    - 'generic "Fri, Dec 26, 2025: 0 scrobbles" [ref=e995] [cursor=pointer]'
+                    - 'generic "Sat, Dec 27, 2025: 0 scrobbles" [ref=e996] [cursor=pointer]'
+                    - 'generic "Sun, Dec 28, 2025: 0 scrobbles" [ref=e997] [cursor=pointer]'
+                    - 'generic "Mon, Dec 29, 2025: 0 scrobbles" [ref=e998] [cursor=pointer]'
+                    - 'generic "Tue, Dec 30, 2025: 0 scrobbles" [ref=e999] [cursor=pointer]'
+                    - 'generic "Wed, Dec 31, 2025: 0 scrobbles" [ref=e1000] [cursor=pointer]'
+                    - 'generic "Thu, Jan 1, 2026: 0 scrobbles" [ref=e1001] [cursor=pointer]'
+                    - 'generic "Fri, Jan 2, 2026: 0 scrobbles" [ref=e1002] [cursor=pointer]'
+                    - 'generic "Sat, Jan 3, 2026: 0 scrobbles" [ref=e1003] [cursor=pointer]'
+                    - 'generic "Sun, Jan 4, 2026: 0 scrobbles" [ref=e1004] [cursor=pointer]'
+                    - 'generic "Mon, Jan 5, 2026: 0 scrobbles" [ref=e1005] [cursor=pointer]'
+                    - 'generic "Tue, Jan 6, 2026: 0 scrobbles" [ref=e1006] [cursor=pointer]'
+                    - 'generic "Wed, Jan 7, 2026: 0 scrobbles" [ref=e1007] [cursor=pointer]'
+                    - 'generic "Thu, Jan 8, 2026: 0 scrobbles" [ref=e1008] [cursor=pointer]'
+                    - 'generic "Fri, Jan 9, 2026: 0 scrobbles" [ref=e1009] [cursor=pointer]'
+                    - 'generic "Sat, Jan 10, 2026: 0 scrobbles" [ref=e1010] [cursor=pointer]'
+                    - 'generic "Sun, Jan 11, 2026: 0 scrobbles" [ref=e1011] [cursor=pointer]'
+                    - 'generic "Mon, Jan 12, 2026: 0 scrobbles" [ref=e1012] [cursor=pointer]'
+                    - 'generic "Tue, Jan 13, 2026: 0 scrobbles" [ref=e1013] [cursor=pointer]'
+                    - 'generic "Wed, Jan 14, 2026: 0 scrobbles" [ref=e1014] [cursor=pointer]'
+                    - 'generic "Thu, Jan 15, 2026: 0 scrobbles" [ref=e1015] [cursor=pointer]'
+                    - 'generic "Fri, Jan 16, 2026: 0 scrobbles" [ref=e1016] [cursor=pointer]'
+                    - 'generic "Sat, Jan 17, 2026: 0 scrobbles" [ref=e1017] [cursor=pointer]'
+                    - 'generic "Sun, Jan 18, 2026: 0 scrobbles" [ref=e1018] [cursor=pointer]'
+                    - 'generic "Mon, Jan 19, 2026: 0 scrobbles" [ref=e1019] [cursor=pointer]'
+                    - 'generic "Tue, Jan 20, 2026: 0 scrobbles" [ref=e1020] [cursor=pointer]'
+                    - 'generic "Wed, Jan 21, 2026: 0 scrobbles" [ref=e1021] [cursor=pointer]'
+                    - 'generic "Thu, Jan 22, 2026: 0 scrobbles" [ref=e1022] [cursor=pointer]'
+                    - 'generic "Fri, Jan 23, 2026: 0 scrobbles" [ref=e1023] [cursor=pointer]'
+                    - 'generic "Sat, Jan 24, 2026: 0 scrobbles" [ref=e1024] [cursor=pointer]'
+                    - 'generic "Sun, Jan 25, 2026: 0 scrobbles" [ref=e1025] [cursor=pointer]'
+                    - 'generic "Mon, Jan 26, 2026: 0 scrobbles" [ref=e1026] [cursor=pointer]'
+                    - 'generic "Tue, Jan 27, 2026: 0 scrobbles" [ref=e1027] [cursor=pointer]'
+                    - 'generic "Wed, Jan 28, 2026: 0 scrobbles" [ref=e1028] [cursor=pointer]'
+                    - 'generic "Thu, Jan 29, 2026: 0 scrobbles" [ref=e1029] [cursor=pointer]'
+                    - 'generic "Fri, Jan 30, 2026: 0 scrobbles" [ref=e1030] [cursor=pointer]'
+                    - 'generic "Sat, Jan 31, 2026: 0 scrobbles" [ref=e1031] [cursor=pointer]'
+                    - 'generic "Sun, Feb 1, 2026: 0 scrobbles" [ref=e1032] [cursor=pointer]'
+                    - 'generic "Mon, Feb 2, 2026: 0 scrobbles" [ref=e1033] [cursor=pointer]'
+                    - 'generic "Tue, Feb 3, 2026: 0 scrobbles" [ref=e1034] [cursor=pointer]'
+                    - 'generic "Wed, Feb 4, 2026: 0 scrobbles" [ref=e1035] [cursor=pointer]'
+                    - 'generic "Thu, Feb 5, 2026: 0 scrobbles" [ref=e1036] [cursor=pointer]'
+                    - 'generic "Fri, Feb 6, 2026: 0 scrobbles" [ref=e1037] [cursor=pointer]'
+                    - 'generic "Sat, Feb 7, 2026: 0 scrobbles" [ref=e1038] [cursor=pointer]'
+                    - 'generic "Sun, Feb 8, 2026: 0 scrobbles" [ref=e1039] [cursor=pointer]'
+                    - 'generic "Mon, Feb 9, 2026: 0 scrobbles" [ref=e1040] [cursor=pointer]'
+                    - 'generic "Tue, Feb 10, 2026: 0 scrobbles" [ref=e1041] [cursor=pointer]'
+                    - 'generic "Wed, Feb 11, 2026: 0 scrobbles" [ref=e1042] [cursor=pointer]'
+                    - 'generic "Thu, Feb 12, 2026: 0 scrobbles" [ref=e1043] [cursor=pointer]'
+                    - 'generic "Fri, Feb 13, 2026: 0 scrobbles" [ref=e1044] [cursor=pointer]'
+                    - 'generic "Sat, Feb 14, 2026: 0 scrobbles" [ref=e1045] [cursor=pointer]'
+                    - 'generic "Sun, Feb 15, 2026: 0 scrobbles" [ref=e1046] [cursor=pointer]'
+                    - 'generic "Mon, Feb 16, 2026: 0 scrobbles" [ref=e1047] [cursor=pointer]'
+                    - 'generic "Tue, Feb 17, 2026: 0 scrobbles" [ref=e1048] [cursor=pointer]'
+                    - 'generic "Wed, Feb 18, 2026: 0 scrobbles" [ref=e1049] [cursor=pointer]'
+                    - 'generic "Thu, Feb 19, 2026: 0 scrobbles" [ref=e1050] [cursor=pointer]'
+                    - 'generic "Fri, Feb 20, 2026: 0 scrobbles" [ref=e1051] [cursor=pointer]'
+                    - 'generic "Sat, Feb 21, 2026: 0 scrobbles" [ref=e1052] [cursor=pointer]'
+                    - 'generic "Sun, Feb 22, 2026: 0 scrobbles" [ref=e1053] [cursor=pointer]'
+                    - 'generic "Mon, Feb 23, 2026: 0 scrobbles" [ref=e1054] [cursor=pointer]'
+                    - 'generic "Tue, Feb 24, 2026: 0 scrobbles" [ref=e1055] [cursor=pointer]'
+                    - 'generic "Wed, Feb 25, 2026: 0 scrobbles" [ref=e1056] [cursor=pointer]'
+                    - 'generic "Thu, Feb 26, 2026: 0 scrobbles" [ref=e1057] [cursor=pointer]'
+                    - 'generic "Fri, Feb 27, 2026: 0 scrobbles" [ref=e1058] [cursor=pointer]'
+                    - 'generic "Sat, Feb 28, 2026: 0 scrobbles" [ref=e1059] [cursor=pointer]'
+                    - 'generic "Sun, Mar 1, 2026: 0 scrobbles" [ref=e1060] [cursor=pointer]'
+                    - 'generic "Mon, Mar 2, 2026: 0 scrobbles" [ref=e1061] [cursor=pointer]'
+                    - 'generic "Tue, Mar 3, 2026: 0 scrobbles" [ref=e1062] [cursor=pointer]'
+                    - 'generic "Wed, Mar 4, 2026: 0 scrobbles" [ref=e1063] [cursor=pointer]'
+                    - 'generic "Thu, Mar 5, 2026: 0 scrobbles" [ref=e1064] [cursor=pointer]'
+                    - 'generic "Fri, Mar 6, 2026: 0 scrobbles" [ref=e1065] [cursor=pointer]'
+                    - 'generic "Sat, Mar 7, 2026: 0 scrobbles" [ref=e1066] [cursor=pointer]'
+                    - 'generic "Sun, Mar 8, 2026: 0 scrobbles" [ref=e1067] [cursor=pointer]'
+                    - 'generic "Mon, Mar 9, 2026: 0 scrobbles" [ref=e1068] [cursor=pointer]'
+                    - 'generic "Tue, Mar 10, 2026: 0 scrobbles" [ref=e1069] [cursor=pointer]'
+                    - 'generic "Wed, Mar 11, 2026: 0 scrobbles" [ref=e1070] [cursor=pointer]'
+                    - 'generic "Thu, Mar 12, 2026: 0 scrobbles" [ref=e1071] [cursor=pointer]'
+                    - 'generic "Fri, Mar 13, 2026: 0 scrobbles" [ref=e1072] [cursor=pointer]'
+                    - 'generic "Sat, Mar 14, 2026: 0 scrobbles" [ref=e1073] [cursor=pointer]'
+                    - 'generic "Sun, Mar 15, 2026: 0 scrobbles" [ref=e1074] [cursor=pointer]'
+                    - 'generic "Mon, Mar 16, 2026: 0 scrobbles" [ref=e1075] [cursor=pointer]'
+                    - 'generic "Tue, Mar 17, 2026: 0 scrobbles" [ref=e1076] [cursor=pointer]'
+                    - 'generic "Wed, Mar 18, 2026: 0 scrobbles" [ref=e1077] [cursor=pointer]'
+                    - 'generic "Thu, Mar 19, 2026: 0 scrobbles" [ref=e1078] [cursor=pointer]'
+                    - 'generic "Fri, Mar 20, 2026: 0 scrobbles" [ref=e1079] [cursor=pointer]'
+                    - 'generic "Sat, Mar 21, 2026: 0 scrobbles" [ref=e1080] [cursor=pointer]'
+                    - 'generic "Sun, Mar 22, 2026: 0 scrobbles" [ref=e1081] [cursor=pointer]'
+                    - 'generic "Mon, Mar 23, 2026: 0 scrobbles" [ref=e1082] [cursor=pointer]'
+                    - 'generic "Tue, Mar 24, 2026: 0 scrobbles" [ref=e1083] [cursor=pointer]'
+                    - 'generic "Wed, Mar 25, 2026: 0 scrobbles" [ref=e1084] [cursor=pointer]'
+                    - 'generic "Thu, Mar 26, 2026: 0 scrobbles" [ref=e1085] [cursor=pointer]'
+                    - 'generic "Fri, Mar 27, 2026: 0 scrobbles" [ref=e1086] [cursor=pointer]'
+                    - 'generic "Sat, Mar 28, 2026: 0 scrobbles" [ref=e1087] [cursor=pointer]'
+                    - 'generic "Sun, Mar 29, 2026: 0 scrobbles" [ref=e1088] [cursor=pointer]'
+                    - 'generic "Mon, Mar 30, 2026: 0 scrobbles" [ref=e1089] [cursor=pointer]'
+                    - 'generic "Tue, Mar 31, 2026: 0 scrobbles" [ref=e1090] [cursor=pointer]'
+                    - 'generic "Wed, Apr 1, 2026: 0 scrobbles" [ref=e1091] [cursor=pointer]'
+                    - 'generic "Thu, Apr 2, 2026: 0 scrobbles" [ref=e1092] [cursor=pointer]'
+                    - 'generic "Fri, Apr 3, 2026: 0 scrobbles" [ref=e1093] [cursor=pointer]'
+                    - 'generic "Sat, Apr 4, 2026: 0 scrobbles" [ref=e1094] [cursor=pointer]'
+                    - 'generic "Sun, Apr 5, 2026: 0 scrobbles" [ref=e1095] [cursor=pointer]'
+                    - 'generic "Mon, Apr 6, 2026: 0 scrobbles" [ref=e1096] [cursor=pointer]'
+                    - 'generic "Tue, Apr 7, 2026: 0 scrobbles" [ref=e1097] [cursor=pointer]'
+                    - 'generic "Wed, Apr 8, 2026: 0 scrobbles" [ref=e1098] [cursor=pointer]'
+                    - 'generic "Thu, Apr 9, 2026: 0 scrobbles" [ref=e1099] [cursor=pointer]'
+                    - 'generic "Fri, Apr 10, 2026: 0 scrobbles" [ref=e1100] [cursor=pointer]'
+                    - 'generic "Sat, Apr 11, 2026: 0 scrobbles" [ref=e1101] [cursor=pointer]'
+                    - 'generic "Sun, Apr 12, 2026: 0 scrobbles" [ref=e1102] [cursor=pointer]'
+                    - 'generic "Mon, Apr 13, 2026: 0 scrobbles" [ref=e1103] [cursor=pointer]'
+                    - 'generic "Tue, Apr 14, 2026: 0 scrobbles" [ref=e1104] [cursor=pointer]'
+                    - 'generic "Wed, Apr 15, 2026: 0 scrobbles" [ref=e1105] [cursor=pointer]'
+                    - 'generic "Thu, Apr 16, 2026: 0 scrobbles" [ref=e1106] [cursor=pointer]'
+                    - 'generic "Fri, Apr 17, 2026: 0 scrobbles" [ref=e1107] [cursor=pointer]'
+                    - 'generic "Sat, Apr 18, 2026: 0 scrobbles" [ref=e1108] [cursor=pointer]'
+                    - 'generic "Sun, Apr 19, 2026: 0 scrobbles" [ref=e1109] [cursor=pointer]'
+                    - 'generic "Mon, Apr 20, 2026: 0 scrobbles" [ref=e1110] [cursor=pointer]'
+                    - 'generic "Tue, Apr 21, 2026: 0 scrobbles" [ref=e1111] [cursor=pointer]'
+                    - 'generic "Wed, Apr 22, 2026: 0 scrobbles" [ref=e1112] [cursor=pointer]'
+                    - 'generic "Thu, Apr 23, 2026: 0 scrobbles" [ref=e1113] [cursor=pointer]'
+                    - 'generic "Fri, Apr 24, 2026: 0 scrobbles" [ref=e1114] [cursor=pointer]'
+                    - 'generic "Sat, Apr 25, 2026: 0 scrobbles" [ref=e1115] [cursor=pointer]'
+                    - 'generic "Sun, Apr 26, 2026: 0 scrobbles" [ref=e1116] [cursor=pointer]'
+                    - 'generic "Mon, Apr 27, 2026: 0 scrobbles" [ref=e1117] [cursor=pointer]'
+                    - 'generic "Tue, Apr 28, 2026: 0 scrobbles" [ref=e1118] [cursor=pointer]'
+                    - 'generic "Wed, Apr 29, 2026: 0 scrobbles" [ref=e1119] [cursor=pointer]'
+                    - 'generic "Thu, Apr 30, 2026: 0 scrobbles" [ref=e1120] [cursor=pointer]'
+                    - 'generic "Fri, May 1, 2026: 0 scrobbles" [ref=e1121] [cursor=pointer]'
+                    - 'generic "Sat, May 2, 2026: 0 scrobbles" [ref=e1122] [cursor=pointer]'
+                    - 'generic "Sun, May 3, 2026: 0 scrobbles" [ref=e1123] [cursor=pointer]'
+                    - 'generic "Mon, May 4, 2026: 0 scrobbles" [ref=e1124] [cursor=pointer]'
+                    - 'generic "Tue, May 5, 2026: 0 scrobbles" [ref=e1125] [cursor=pointer]'
+                    - 'generic "Wed, May 6, 2026: 0 scrobbles" [ref=e1126] [cursor=pointer]'
+                    - 'generic "Thu, May 7, 2026: 0 scrobbles" [ref=e1127] [cursor=pointer]'
+                    - 'generic "Fri, May 8, 2026: 0 scrobbles" [ref=e1128] [cursor=pointer]'
+                    - 'generic "Sat, May 9, 2026: 0 scrobbles" [ref=e1129] [cursor=pointer]'
+                    - 'generic "Sun, May 10, 2026: 0 scrobbles" [ref=e1130] [cursor=pointer]'
+                    - 'generic "Mon, May 11, 2026: 0 scrobbles" [ref=e1131] [cursor=pointer]'
+                    - 'generic "Tue, May 12, 2026: 0 scrobbles" [ref=e1132] [cursor=pointer]'
+                    - 'generic "Wed, May 13, 2026: 0 scrobbles" [ref=e1133] [cursor=pointer]'
+                    - 'generic "Thu, May 14, 2026: 0 scrobbles" [ref=e1134] [cursor=pointer]'
+                    - 'generic "Fri, May 15, 2026: 0 scrobbles" [ref=e1135] [cursor=pointer]'
+                    - 'generic "Sat, May 16, 2026: 0 scrobbles" [ref=e1136] [cursor=pointer]'
+                    - 'generic "Sun, May 17, 2026: 0 scrobbles" [ref=e1137] [cursor=pointer]'
+                    - 'generic "Mon, May 18, 2026: 0 scrobbles" [ref=e1138] [cursor=pointer]'
+                    - 'generic "Tue, May 19, 2026: 0 scrobbles" [ref=e1139] [cursor=pointer]'
+                    - 'generic "Wed, May 20, 2026: 0 scrobbles" [ref=e1140] [cursor=pointer]'
+                    - 'generic "Thu, May 21, 2026: 0 scrobbles" [ref=e1141] [cursor=pointer]'
+                    - 'generic "Fri, May 22, 2026: 0 scrobbles" [ref=e1142] [cursor=pointer]'
+                    - 'generic "Sat, May 23, 2026: 0 scrobbles" [ref=e1143] [cursor=pointer]'
+                    - 'generic "Sun, May 24, 2026: 0 scrobbles" [ref=e1144] [cursor=pointer]'
+                    - 'generic "Mon, May 25, 2026: 0 scrobbles" [ref=e1145] [cursor=pointer]'
+                    - 'generic "Tue, May 26, 2026: 0 scrobbles" [ref=e1146] [cursor=pointer]'
+                    - 'generic "Wed, May 27, 2026: 0 scrobbles" [ref=e1147] [cursor=pointer]'
+                    - 'generic "Thu, May 28, 2026: 0 scrobbles" [ref=e1148] [cursor=pointer]'
+                    - 'generic "Fri, May 29, 2026: 0 scrobbles" [ref=e1149] [cursor=pointer]'
+                    - 'generic "Sat, May 30, 2026: 0 scrobbles" [ref=e1150] [cursor=pointer]'
+                    - 'generic "Sun, May 31, 2026: 0 scrobbles" [ref=e1151] [cursor=pointer]'
+                    - 'generic "Mon, Jun 1, 2026: 0 scrobbles" [ref=e1152] [cursor=pointer]'
+                    - 'generic "Tue, Jun 2, 2026: 0 scrobbles" [ref=e1153] [cursor=pointer]'
+                    - 'generic "Wed, Jun 3, 2026: 0 scrobbles" [ref=e1154] [cursor=pointer]'
+                    - 'generic "Thu, Jun 4, 2026: 0 scrobbles" [ref=e1155] [cursor=pointer]'
+                    - 'generic "Fri, Jun 5, 2026: 0 scrobbles" [ref=e1156] [cursor=pointer]'
+                    - 'generic "Sat, Jun 6, 2026: 0 scrobbles" [ref=e1157] [cursor=pointer]'
+                    - 'generic "Sun, Jun 7, 2026: 0 scrobbles" [ref=e1158] [cursor=pointer]'
+                    - 'generic "Mon, Jun 8, 2026: 0 scrobbles" [ref=e1159] [cursor=pointer]'
+                    - 'generic "Tue, Jun 9, 2026: 0 scrobbles" [ref=e1160] [cursor=pointer]'
+                    - 'generic "Wed, Jun 10, 2026: 0 scrobbles" [ref=e1161] [cursor=pointer]'
+                    - 'generic "Thu, Jun 11, 2026: 0 scrobbles" [ref=e1162] [cursor=pointer]'
+                    - 'generic "Fri, Jun 12, 2026: 0 scrobbles" [ref=e1163] [cursor=pointer]'
+                    - 'generic "Sat, Jun 13, 2026: 0 scrobbles" [ref=e1164] [cursor=pointer]'
+                    - 'generic "Sun, Jun 14, 2026: 0 scrobbles" [ref=e1165] [cursor=pointer]'
+                    - 'generic "Mon, Jun 15, 2026: 0 scrobbles" [ref=e1166] [cursor=pointer]'
+                    - 'generic "Tue, Jun 16, 2026: 0 scrobbles" [ref=e1167] [cursor=pointer]'
+                    - 'generic "Wed, Jun 17, 2026: 0 scrobbles" [ref=e1168] [cursor=pointer]'
+                    - 'generic "Thu, Jun 18, 2026: 0 scrobbles" [ref=e1169] [cursor=pointer]'
+                    - 'generic "Fri, Jun 19, 2026: 0 scrobbles" [ref=e1170] [cursor=pointer]'
+                    - 'generic "Sat, Jun 20, 2026: 0 scrobbles" [ref=e1171] [cursor=pointer]'
+                    - 'generic "Sun, Jun 21, 2026: 0 scrobbles" [ref=e1172] [cursor=pointer]'
+                    - 'generic "Mon, Jun 22, 2026: 0 scrobbles" [ref=e1173] [cursor=pointer]'
+                    - 'generic "Tue, Jun 23, 2026: 0 scrobbles" [ref=e1174] [cursor=pointer]'
+                    - 'generic "Wed, Jun 24, 2026: 0 scrobbles" [ref=e1175] [cursor=pointer]'
+                    - 'generic "Thu, Jun 25, 2026: 0 scrobbles" [ref=e1176] [cursor=pointer]'
+                    - 'generic "Fri, Jun 26, 2026: 0 scrobbles" [ref=e1177] [cursor=pointer]'
+                    - 'generic "Sat, Jun 27, 2026: 0 scrobbles" [ref=e1178] [cursor=pointer]'
+                    - 'generic "Sun, Jun 28, 2026: 0 scrobbles" [ref=e1179] [cursor=pointer]'
+                    - 'generic "Mon, Jun 29, 2026: 0 scrobbles" [ref=e1180] [cursor=pointer]'
+                    - 'generic "Tue, Jun 30, 2026: 0 scrobbles" [ref=e1181] [cursor=pointer]'
+                    - 'generic "Wed, Jul 1, 2026: 0 scrobbles" [ref=e1182] [cursor=pointer]'
+                    - 'generic "Thu, Jul 2, 2026: 0 scrobbles" [ref=e1183] [cursor=pointer]'
+                    - 'generic "Fri, Jul 3, 2026: 0 scrobbles" [ref=e1184] [cursor=pointer]'
+                    - 'generic "Sat, Jul 4, 2026: 0 scrobbles" [ref=e1185] [cursor=pointer]'
+                    - 'generic "Sun, Jul 5, 2026: 0 scrobbles" [ref=e1186] [cursor=pointer]'
+                    - 'generic "Mon, Jul 6, 2026: 0 scrobbles" [ref=e1187] [cursor=pointer]'
+                    - 'generic "Tue, Jul 7, 2026: 0 scrobbles" [ref=e1188] [cursor=pointer]'
+                    - 'generic "Wed, Jul 8, 2026: 0 scrobbles" [ref=e1189] [cursor=pointer]'
+                    - 'generic "Thu, Jul 9, 2026: 0 scrobbles" [ref=e1190] [cursor=pointer]'
+                    - 'generic "Fri, Jul 10, 2026: 0 scrobbles" [ref=e1191] [cursor=pointer]'
+                    - 'generic "Sat, Jul 11, 2026: 0 scrobbles" [ref=e1192] [cursor=pointer]'
+              - generic [ref=e1193]:
+                - generic [ref=e1194]: Less
+                - generic [ref=e1200]: More
+              - generic [ref=e1201]:
+                - generic [ref=e1202]: 0day current streak
+                - generic [ref=e1203]: 0day longest streak
+              - generic [ref=e1204]:
+                - generic [ref=e1206]: 0 scrobbles
+                - paragraph [ref=e1207]: No tracks played on this day.
+            - generic [ref=e1210]:
+              - generic [ref=e1212]: First Listens
+              - paragraph [ref=e1214]: No data available.
+            - generic [ref=e1217]:
+              - generic [ref=e1218]:
+                - generic [ref=e1219]:
+                  - img [ref=e1221]
+                  - generic [ref=e1227]: Morning (6–12)
+                - generic [ref=e1228]:
+                  - generic [ref=e1229]: Energized
+                  - generic [ref=e1230]: 0%
+                - generic [ref=e1231]: 0 scrobbles
+              - generic [ref=e1233]:
+                - generic [ref=e1234]:
+                  - img [ref=e1236]
+                  - generic [ref=e1241]: Afternoon (12–18)
+                - generic [ref=e1242]:
+                  - generic [ref=e1243]: Focused
+                  - generic [ref=e1244]: 0%
+                - generic [ref=e1245]: 0 scrobbles
+              - generic [ref=e1247]:
+                - generic [ref=e1248]:
+                  - img [ref=e1250]
+                  - generic [ref=e1252]: Evening (18–23)
+                - generic [ref=e1253]:
+                  - generic [ref=e1254]: Relaxed
+                  - generic [ref=e1255]: 0%
+                - generic [ref=e1256]: 0 scrobbles
+              - generic [ref=e1258]:
+                - generic [ref=e1259]:
+                  - img [ref=e1261]
+                  - generic [ref=e1263]: Night (23–6)
+                - generic [ref=e1264]:
+                  - generic [ref=e1265]: Nocturnal
+                  - generic [ref=e1266]: 0%
+                - generic [ref=e1267]: 0 scrobbles
+            - generic [ref=e1271]:
+              - generic [ref=e1273]:
+                - generic [ref=e1274]: Listening Bingo
+                - generic [ref=e1275]: 2 / 24 achieved
+              - generic [ref=e1276]:
+                - generic [ref=e1277]:
+                  - generic "Listened at midnight" [ref=e1278]:
+                    - generic [ref=e1279]: Listened at midnight
+                  - generic "100+ plays of one artist" [ref=e1280]:
+                    - generic [ref=e1281]: 100+ plays of one artist
+                  - generic "Listened 7 days in a row" [ref=e1282]:
+                    - generic [ref=e1283]: Listened 7 days in a row
+                  - generic "Discovered 5 new artists this month" [ref=e1284]:
+                    - generic [ref=e1285]: Discovered 5 new artists this month
+                  - generic "Played same song 3x in a row" [ref=e1286]:
+                    - generic [ref=e1287]: Played same song 3x in a row
+                  - generic "Weekend marathon (50+ songs)" [ref=e1288]:
+                    - generic [ref=e1289]: Weekend marathon (50+ songs)
+                  - generic "Early bird (listened before 7am)" [ref=e1290]:
+                    - generic [ref=e1291]: Early bird (listened before 7am)
+                  - generic "500+ total scrobbles" [ref=e1292]:
+                    - img [ref=e1293]
+                    - generic [ref=e1295]: 500+ total scrobbles
+                  - generic "Late-night session (10+ songs after midnight)" [ref=e1296]:
+                    - generic [ref=e1297]: Late-night session (10+ songs after midnight)
+                  - generic "Listened to 10+ artists in one day" [ref=e1298]:
+                    - generic [ref=e1299]: Listened to 10+ artists in one day
+                  - generic "30-day listening streak" [ref=e1300]:
+                    - generic [ref=e1301]: 30-day listening streak
+                  - generic "Listened to 20+ different artists" [ref=e1302]:
+                    - generic [ref=e1303]: Listened to 20+ different artists
+                  - generic "Free Space" [ref=e1304]:
+                    - img [ref=e1305]
+                    - generic [ref=e1307]: Free Space
+                  - generic "50+ songs in one day" [ref=e1308]:
+                    - generic [ref=e1309]: 50+ songs in one day
+                  - generic "1000+ total scrobbles" [ref=e1310]:
+                    - img [ref=e1311]
+                    - generic [ref=e1313]: 1000+ total scrobbles
+                  - generic "Returned to an old favorite" [ref=e1314]:
+                    - generic [ref=e1315]: Returned to an old favorite
+                  - generic "Played 5+ genres in one day" [ref=e1316]:
+                    - generic [ref=e1317]: Played 5+ genres in one day
+                  - generic "Listened on every day of the week" [ref=e1318]:
+                    - generic [ref=e1319]: Listened on every day of the week
+                  - generic "Replayed an album (same artist, 5+ tracks in a row)" [ref=e1320]:
+                    - generic [ref=e1321]: Replayed an album (same artist, 5+ tracks in a row)
+                  - generic "Scrobbled on New Year's Day" [ref=e1322]:
+                    - generic [ref=e1323]: Scrobbled on New Year's Day
+                  - generic "20+ plays of one artist in a day" [ref=e1324]:
+                    - generic [ref=e1325]: 20+ plays of one artist in a day
+                  - generic "100+ unique tracks" [ref=e1326]:
+                    - generic [ref=e1327]: 100+ unique tracks
+                  - generic "Listened 5+ days before 8am" [ref=e1328]:
+                    - generic [ref=e1329]: Listened 5+ days before 8am
+                  - generic "Party mode (100+ songs in one day)" [ref=e1330]:
+                    - generic [ref=e1331]: Party mode (100+ songs in one day)
+                - paragraph [ref=e1332]: Keep listening to complete your bingo card!
+            - generic [ref=e1335]:
+              - generic [ref=e1337]: Top Album Each Year
+              - paragraph [ref=e1339]: No album data available.
+            - generic [ref=e1342]:
+              - generic [ref=e1343]:
+                - img [ref=e1344]
+                - generic [ref=e1350]: Longest Listening Sessions
+              - paragraph [ref=e1352]: No sessions found.
+            - generic [ref=e1355]:
+              - generic [ref=e1356]:
+                - generic [ref=e1357]:
+                  - img [ref=e1358]
+                  - text: On This Day
+                - paragraph [ref=e1360]: "1 year ago: July 8, 2025"
+              - paragraph [ref=e1362]: No scrobbles found around this time last year
+            - generic [ref=e1367]: Top Tags
+            - generic [ref=e1390]:
+              - generic [ref=e1392]:
+                - img [ref=e1393]
+                - text: You Might Also Like
+              - list [ref=e1397]:
+                - listitem [ref=e1398]
+                - listitem [ref=e1403]
+                - listitem [ref=e1408]
+                - listitem [ref=e1413]
+                - listitem [ref=e1418]
+            - generic [ref=e1425]:
+              - generic [ref=e1427]: Top Genres
+              - paragraph [ref=e1430]: Loading genre data…
+            - generic [ref=e1433]:
+              - generic [ref=e1435]: Season Listening
+              - generic [ref=e1437]:
+                - generic [ref=e1438]:
+                  - generic:
+                    - generic: "0"
+                    - generic: seasonal scrobbles
+                - generic [ref=e1441]:
+                  - generic [ref=e1442]:
+                    - generic [ref=e1443]: 🌸
+                    - generic [ref=e1444]:
+                      - generic [ref=e1445]:
+                        - generic [ref=e1446]: Spring
+                        - generic [ref=e1447]: 0%
+                      - generic [ref=e1448]:
+                        - generic [ref=e1449]: 0 scrobbles
+                        - generic [ref=e1450]: Peak season
+                  - generic [ref=e1451]:
+                    - generic [ref=e1452]: ☀️
+                    - generic [ref=e1453]:
+                      - generic [ref=e1454]:
+                        - generic [ref=e1455]: Summer
+                        - generic [ref=e1456]: 0%
+                      - generic [ref=e1458]: 0 scrobbles
+                  - generic [ref=e1459]:
+                    - generic [ref=e1460]: 🍂
+                    - generic [ref=e1461]:
+                      - generic [ref=e1462]:
+                        - generic [ref=e1463]: Fall
+                        - generic [ref=e1464]: 0%
+                      - generic [ref=e1466]: 0 scrobbles
+                  - generic [ref=e1467]:
+                    - generic [ref=e1468]: ❄️
+                    - generic [ref=e1469]:
+                      - generic [ref=e1470]:
+                        - generic [ref=e1471]: Winter
+                        - generic [ref=e1472]: 0%
+                      - generic [ref=e1474]: 0 scrobbles
+            - generic [ref=e1477]:
+              - generic [ref=e1479]: Comeback Artists
+              - paragraph [ref=e1481]: No comeback artists found yet. Keep listening!
+            - generic [ref=e1484]:
+              - generic [ref=e1486]: Discovery Pace
+              - generic [ref=e1488]:
+                - generic [ref=e1489]:
+                  - generic [ref=e1490]: "0"
+                  - generic [ref=e1491]: Unique Artists
+                - generic [ref=e1492]:
+                  - generic [ref=e1493]: "0"
+                  - generic [ref=e1494]: Avg New / Month
+                - generic [ref=e1495]:
+                  - generic [ref=e1496]: Aug 25
+                  - generic [ref=e1497]: Best Month (0)
+            - generic [ref=e1501]:
+              - generic [ref=e1503]: Listening Diversity Score
+              - generic [ref=e1504]:
+                - generic [ref=e1505]:
+                  - generic [ref=e1506]: "0"
+                  - generic [ref=e1507]:
+                    - generic [ref=e1508]: Eclectic
+                    - generic [ref=e1509]: out of 100
+                - paragraph [ref=e1510]:
+                  - text: Your top 10 artists account for
+                  - generic [ref=e1511]: 8%
+                  - text: of all plays.
+                - generic [ref=e1512]:
+                  - paragraph [ref=e1513]: vs. Average Listener
+                  - generic [ref=e1517]:
+                    - generic [ref=e1518]: "You: 98"
+                    - generic [ref=e1519]: "Avg: 55"
+                - generic [ref=e1520]:
+                  - paragraph [ref=e1521]: Top 5 Artists Share
+                  - generic [ref=e1522]:
+                    - generic [ref=e1523]:
+                      - link "Against Me!" [ref=e1524] [cursor=pointer]:
+                        - /url: /artist/Against%20Me!?username=testuser
+                      - generic [ref=e1527]: 0.7%
+                    - generic [ref=e1528]:
+                      - link "Air" [ref=e1529] [cursor=pointer]:
+                        - /url: /artist/Air?username=testuser
+                      - generic [ref=e1532]: 1.0%
+                    - generic [ref=e1533]:
+                      - link "Alanis Morissette" [ref=e1534] [cursor=pointer]:
+                        - /url: /artist/Alanis%20Morissette?username=testuser
+                      - generic [ref=e1537]: 1.0%
+                    - generic [ref=e1538]:
+                      - link "Albert Hammond Jr." [ref=e1539] [cursor=pointer]:
+                        - /url: /artist/Albert%20Hammond%20Jr.?username=testuser
+                      - generic [ref=e1542]: 0.6%
+                    - generic [ref=e1543]:
+                      - link "Apparat" [ref=e1544] [cursor=pointer]:
+                        - /url: /artist/Apparat?username=testuser
+                      - generic [ref=e1547]: 0.6%
+            - generic [ref=e1550]:
+              - generic [ref=e1552]: Peak Year
+              - paragraph [ref=e1554]: No scrobble data yet.
+            - generic [ref=e1559]: Music Age
+            - generic [ref=e1567]:
+              - generic [ref=e1569]: Artist Longevity
+              - paragraph [ref=e1571]: No artists with 2+ years of consistent listening yet.
+            - generic [ref=e1574]:
+              - generic [ref=e1576]:
+                - img [ref=e1577]
+                - text: One Hit Wonders
+              - generic [ref=e1581]:
+                - img [ref=e1582]
+                - paragraph [ref=e1585]: No one-hit wonders found.
+                - paragraph [ref=e1586]: Artists you've only heard once or twice will appear here.
+            - generic [ref=e1589]:
+              - generic [ref=e1591]: Album of the Month
+              - paragraph [ref=e1593]: Not enough data to show monthly albums.
+            - generic [ref=e1596]:
+              - generic [ref=e1598]:
+                - generic [ref=e1599]: Live Stats
+                - generic [ref=e1600]:
+                  - img [ref=e1601]
+                  - text: LIVE
+              - generic [ref=e1607]:
+                - generic [ref=e1608]:
+                  - generic [ref=e1609]:
+                    - paragraph [ref=e1610]: Today
+                    - paragraph [ref=e1611]: "0"
+                    - paragraph [ref=e1612]: scrobbles
+                  - generic [ref=e1613]:
+                    - paragraph [ref=e1614]: Speed (3h)
+                    - paragraph [ref=e1615]: "0"
+                    - paragraph [ref=e1616]: scrobbles/hr
+                  - generic [ref=e1617]:
+                    - paragraph [ref=e1618]: Last scrobble
+                    - paragraph [ref=e1619]: —
+                  - generic [ref=e1620]:
+                    - paragraph [ref=e1621]: On pace for
+                    - paragraph [ref=e1622]: 0 today
+                - generic [ref=e1623]:
+                  - generic [ref=e1624]: vs yesterday (0)
+                  - generic [ref=e1625]: same as yesterday
+                - paragraph [ref=e1626]: Updated 13:59 · auto-refreshes every 60s
+            - generic [ref=e1629]:
+              - heading "Chart Rise & Fall" [level=2] [ref=e1630]
+              - paragraph [ref=e1631]: Not enough data to compare periods.
+            - generic [ref=e1634]:
+              - generic [ref=e1636]:
+                - img [ref=e1637]
+                - text: Night vs Day
+              - generic [ref=e1639]:
+                - paragraph [ref=e1640]: You are a 100% night listener
+                - generic [ref=e1643]:
+                  - generic [ref=e1644]:
+                    - img [ref=e1645]
+                    - generic [ref=e1651]: 0%
+                    - text: Day
+                    - generic [ref=e1652]: · Busiest at 6am
+                  - generic [ref=e1653]:
+                    - text: Night
+                    - generic [ref=e1654]: 100%
+                    - img [ref=e1655]
+                    - generic [ref=e1657]: · Busiest at 12am
+                - generic [ref=e1658]:
+                  - generic [ref=e1659]:
+                    - generic [ref=e1660]: 🌅
+                    - generic [ref=e1661]: 0%
+                    - generic [ref=e1662]: Morning
+                    - generic [ref=e1663]: 6am–12pm
+                  - generic [ref=e1664]:
+                    - generic [ref=e1665]: ☀️
+                    - generic [ref=e1666]: 0%
+                    - generic [ref=e1667]: Afternoon
+                    - generic [ref=e1668]: 12–6pm
+                  - generic [ref=e1669]:
+                    - generic [ref=e1670]: 🌆
+                    - generic [ref=e1671]: 0%
+                    - generic [ref=e1672]: Evening
+                    - generic [ref=e1673]: 6–10pm
+                  - generic [ref=e1674]:
+                    - generic [ref=e1675]: 🌙
+                    - generic [ref=e1676]: 0%
+                    - generic [ref=e1677]: Night
+                    - generic [ref=e1678]: 10pm–6am
+            - generic [ref=e1681]:
+              - generic [ref=e1683]:
+                - img [ref=e1684]
+                - text: Find Music Twins
+              - generic [ref=e1689]:
+                - generic [ref=e1690]:
+                  - paragraph [ref=e1691]: Enter a friend's Last.fm username to compare taste and find shared artists.
+                  - generic [ref=e1692]:
+                    - textbox "e.g. radiohead_fan99" [ref=e1693]
+                    - button "Compare" [disabled]:
+                      - text: Compare
+                      - img
+                - generic [ref=e1694]:
+                  - paragraph [ref=e1695]:
+                    - img [ref=e1696]
+                    - text: How it works
+                  - list [ref=e1699]:
+                    - listitem [ref=e1700]:
+                      - generic [ref=e1701]: "1."
+                      - text: Enter any Last.fm username above.
+                    - listitem [ref=e1702]:
+                      - generic [ref=e1703]: "2."
+                      - text: We compare your top artists and tags to find overlap.
+                    - listitem [ref=e1704]:
+                      - generic [ref=e1705]: "3."
+                      - text: Get a compatibility score and shared artist highlights.
+                - generic [ref=e1706]:
+                  - paragraph [ref=e1707]:
+                    - img [ref=e1708]
+                    - text: People with similar taste also listen to
+                  - generic [ref=e1711]:
+                    - link "Against Me!" [ref=e1713] [cursor=pointer]:
+                      - /url: /artist/Against%20Me!?username=testuser
+                    - link "Air" [ref=e1715] [cursor=pointer]:
+                      - /url: /artist/Air?username=testuser
+                    - link "Alanis Morissette" [ref=e1717] [cursor=pointer]:
+                      - /url: /artist/Alanis%20Morissette?username=testuser
+                  - paragraph [ref=e1718]: Based on your top artists — real overlap appears after comparing with a friend.
+                - link "Browse all comparisons" [ref=e1720] [cursor=pointer]:
+                  - /url: /compare
+                  - text: Browse all comparisons
+                  - img [ref=e1721]
+            - generic [ref=e1725]:
+              - generic [ref=e1727]: Activity Feed
+              - paragraph [ref=e1729]: No events to display yet.
+            - generic [ref=e1734]:
+              - img [ref=e1735]
+              - text: Underrated Tracks
+            - generic [ref=e1758]:
+              - generic [ref=e1760]:
+                - generic [ref=e1761]:
+                  - generic [ref=e1763]: M
+                  - generic [ref=e1764]: W
+                  - generic [ref=e1765]: F
+                - generic [ref=e1767]:
+                  - generic [ref=e1768]: Aug
+                  - generic [ref=e1769]: Sep
+                  - generic [ref=e1770]: Oct
+                  - generic [ref=e1771]: Nov
+                  - generic [ref=e1772]: Dec
+                  - generic [ref=e1773]: Jan
+                  - generic [ref=e1774]: Feb
+                  - generic [ref=e1775]: Mar
+                  - generic [ref=e1776]: Apr
+                  - generic [ref=e1777]: May
+                  - generic [ref=e1778]: Jun
+                  - generic [ref=e1779]: Jul
+              - generic [ref=e2152]:
+                - generic [ref=e2153]: Less
+                - generic "0 scrobbles" [ref=e2154]
+                - generic "1–3 scrobbles" [ref=e2155]
+                - generic "4–9 scrobbles" [ref=e2156]
+                - generic "10–20 scrobbles" [ref=e2157]
+                - generic "20+ scrobbles" [ref=e2158]
+                - generic [ref=e2159]: More
+            - generic [ref=e2162]:
+              - heading "Top Collaborations" [level=2] [ref=e2163]
+              - paragraph [ref=e2164]: Not enough data to show artist pairs.
+            - generic [ref=e2167]:
+              - generic [ref=e2169]:
+                - generic [ref=e2170]: Listening Report
+                - generic [ref=e2171]: This week
+              - generic [ref=e2175]:
+                - generic [ref=e2176]:
+                  - paragraph [ref=e2177]: Total scrobbles
+                  - paragraph [ref=e2178]: "0"
+                  - text: —
+                  - paragraph [ref=e2179]: vs last week
+                - generic [ref=e2180]:
+                  - paragraph [ref=e2181]: Unique artists
+                  - paragraph [ref=e2182]: "0"
+                - generic [ref=e2183]:
+                  - paragraph [ref=e2184]: Top artist
+                  - paragraph [ref=e2185]: —
+                - generic [ref=e2186]:
+                  - paragraph [ref=e2187]: Top track
+                  - paragraph [ref=e2188]: —
+                - generic [ref=e2189]:
+                  - paragraph [ref=e2190]: Active days
+                  - paragraph [ref=e2191]:
+                    - text: "0"
+                    - generic [ref=e2192]: / 7
+                - generic [ref=e2193]:
+                  - paragraph [ref=e2194]: Avg / day
+                  - paragraph [ref=e2195]: "0.0"
+          - complementary [ref=e2200]:
+            - generic [ref=e2201]:
+              - generic [ref=e2203]:
+                - img [ref=e2204]
+                - text: Profile Stats
+              - generic [ref=e2208]:
+                - generic [ref=e2209]:
+                  - term [ref=e2210]:
+                    - img [ref=e2212]
+                    - text: Member since
+                  - definition [ref=e2214]: May 1, 2004
+                - generic [ref=e2215]:
+                  - term [ref=e2216]:
+                    - img [ref=e2218]
+                    - text: Unique artists
+                  - definition [ref=e2222]: "380"
+                - generic [ref=e2223]:
+                  - term [ref=e2224]:
+                    - img [ref=e2226]
+                    - text: Unique tracks
+                  - definition [ref=e2230]: 1,411
+                - generic [ref=e2231]:
+                  - term [ref=e2232]:
+                    - img [ref=e2234]
+                    - text: Unique albums
+                  - definition [ref=e2237]: "10"
+                - generic [ref=e2238]:
+                  - term [ref=e2239]:
+                    - img [ref=e2241]
+                    - text: Scrobbles / day
+                  - definition [ref=e2244]: "0.2"
+  - button "Open Next.js Dev Tools" [ref=e2250] [cursor=pointer]:
+    - img [ref=e2251]
+  - alert [ref=e2254]

@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { createHash } from 'crypto'
 
 const BASE = 'https://ws.audioscrobbler.com/2.0/'
@@ -173,22 +174,7 @@ export const lastfmClient = {
   },
 
   async getUserInfo(username: string): Promise<LastFmUserInfo> {
-    type R = {
-      user: {
-        name: string
-        playcount: string
-        registered: { unixtime: string }
-        image: Array<{ '#text': string; size: string }>
-      }
-    }
-    const data = await call<R>({ method: 'user.getinfo', user: username })
-    const img = data.user.image.find((i) => i.size === 'large')
-    return {
-      name: data.user.name,
-      playcount: Number(data.user.playcount),
-      registered: new Date(Number(data.user.registered.unixtime) * 1000),
-      imageUrl: img?.['#text'] ?? '',
-    }
+    return getUserInfoCached(username)
   },
 
   async getSession(token: string): Promise<{ name: string; key: string }> {
@@ -298,3 +284,22 @@ export const lastfmClient = {
     }))
   },
 }
+
+const getUserInfoCached = cache(async (username: string): Promise<LastFmUserInfo> => {
+  type R = {
+    user: {
+      name: string
+      playcount: string
+      registered: { unixtime: string }
+      image: Array<{ '#text': string; size: string }>
+    }
+  }
+  const data = await call<R>({ method: 'user.getinfo', user: username })
+  const img = data.user.image.find((i) => i.size === 'large')
+  return {
+    name: data.user.name,
+    playcount: Number(data.user.playcount),
+    registered: new Date(Number(data.user.registered.unixtime) * 1000),
+    imageUrl: img?.['#text'] ?? '',
+  }
+})
