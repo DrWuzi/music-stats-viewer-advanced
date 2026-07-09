@@ -7,7 +7,8 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Refere
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
-import { Download } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
+import { Download, BarChart2 } from 'lucide-react'
 import { downloadChartAsPng } from '@/lib/export-chart'
 import { artistHref, trackHref } from '@/lib/urls'
 
@@ -325,7 +326,7 @@ export function StatsChart({
       <Card>
         <CardHeader><CardTitle>Scrobbles</CardTitle></CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={BarChart2} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )
@@ -531,7 +532,7 @@ export function StatsChart({
           {loading ? (
             <p className="text-sm text-muted-foreground mt-4">Loading…</p>
           ) : dayTracks.length === 0 ? (
-            <p className="text-sm text-muted-foreground mt-4">No scrobbles on this day.</p>
+            <EmptyState icon={BarChart2} title="No scrobbles on this day." size="compact" />
           ) : (
             <div className="mt-4 space-y-1">
               <p className="text-xs text-muted-foreground mb-3">

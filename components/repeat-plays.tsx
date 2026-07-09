@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { Repeat } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface RepeatTrack {
@@ -64,9 +66,7 @@ export function RepeatPlays({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : tracks.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            No tracks played {threshold}+ times.
-          </p>
+          <EmptyState icon={Repeat} title={`No tracks played ${threshold}+ times.`} size="compact" />
         ) : (
           <ol className="space-y-2">
             {tracks.map((t, i) => (

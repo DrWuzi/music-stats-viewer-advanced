@@ -2,7 +2,9 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { Heart } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface ArtistLoyaltyProps {
@@ -32,7 +34,7 @@ export function ArtistLoyalty({ topArtists, totalScrobbles, username }: ArtistLo
           <CardTitle>Artist Loyalty</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No artist data yet.</p>
+          <EmptyState icon={Heart} title="No artist data yet." size="compact" />
         </CardContent>
       </Card>
     )

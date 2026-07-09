@@ -11,7 +11,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { CalendarRange } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface Props {
   scrobbles: { scrobbledAt: Date | string }[]
@@ -79,7 +81,7 @@ export function YoYChart({ scrobbles }: Props) {
     return (
       <Card>
         <CardHeader><CardTitle>Year-over-Year</CardTitle></CardHeader>
-        <CardContent><p className="text-sm text-muted-foreground">No scrobble data yet.</p></CardContent>
+        <CardContent><EmptyState icon={CalendarRange} title="No scrobble data yet." size="compact" /></CardContent>
       </Card>
     )
   }

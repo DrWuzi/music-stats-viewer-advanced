@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
+import { ListMusic } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { SortMenu } from '@/components/sort-menu'
 import { albumHref, artistHref, trackHref } from '@/lib/urls'
@@ -40,7 +42,7 @@ function List({
   selectedIndex: number
   itemRefs: React.MutableRefObject<(HTMLLIElement | null)[]>
 }) {
-  if (!items.length) return <p className="text-sm text-muted-foreground py-4">No data for this period.</p>
+  if (!items.length) return <EmptyState icon={ListMusic} title="No data for this period." size="compact" />
   return (
     <ul className="divide-y">
       {items.map((item, i) => (
@@ -100,7 +102,7 @@ function ArtistList({
     ? [...artists].sort((a, b) => a.name.localeCompare(b.name))
     : artists
 
-  if (!artists.length) return <p className="text-sm text-muted-foreground py-4">No data for this period.</p>
+  if (!artists.length) return <EmptyState icon={ListMusic} title="No data for this period." size="compact" />
 
   return (
     <div>

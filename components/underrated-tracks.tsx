@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { Mic2 } from 'lucide-react'
 import { artistHref, trackHref } from '@/lib/urls'
 
@@ -115,13 +116,12 @@ export function UnderratedTracks({ username, topArtists }: UnderratedTracksProps
         )}
 
         {!loading && !error && tracks.length === 0 && (
-          <div className="flex flex-col items-center gap-2 py-8" style={{ color: 'var(--muted-foreground)' }}>
-            <Mic2 className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No underrated tracks found.</p>
-            <p className="text-xs opacity-70">
-              Deep cuts appear when your favorite artists have tracks under 100k plays.
-            </p>
-          </div>
+          <EmptyState
+            icon={Mic2}
+            title="No underrated tracks found."
+            description="Deep cuts appear when your favorite artists have tracks under 100k plays."
+            size="compact"
+          />
         )}
 
         {!loading && !error && tracks.length > 0 && (

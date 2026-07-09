@@ -2,6 +2,8 @@
 
 import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
+import { CalendarX } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface Props {
@@ -356,9 +358,7 @@ export function StreakCalendar({ scrobbles, username }: Props) {
             </span>
           </div>
           {selectedTracks.length === 0 ? (
-            <p style={{ fontSize: 13, color: 'var(--muted-foreground)', margin: 0 }}>
-              No tracks played on this day.
-            </p>
+            <EmptyState icon={CalendarX} title="No tracks played on this day." size="compact" />
           ) : (
             <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
               {selectedTracks.slice(0, 10).map((t, i) => (

@@ -10,7 +10,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { CalendarDays } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface WeeklyPatternProps {
   scrobbles: { scrobbledAt: Date | string }[]
@@ -81,7 +83,7 @@ export function WeeklyPattern({ scrobbles }: WeeklyPatternProps) {
           <CardTitle>Weekday vs Weekend</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={CalendarDays} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

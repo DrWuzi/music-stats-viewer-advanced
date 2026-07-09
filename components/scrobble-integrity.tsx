@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { TrendingUp, Clock, Trophy, Repeat, CheckCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface ScrobbleIntegrityProps {
@@ -170,7 +171,7 @@ export function ScrobbleIntegrity({ scrobbles, username }: ScrobbleIntegrityProp
           <CardTitle>Data Health</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No data</p>
+          <EmptyState icon={CheckCircle} title="No data available." size="compact" />
         </CardContent>
       </Card>
     )

@@ -10,7 +10,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { ScatterChart as ScatterChartIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface Props {
   topArtists: { name: string; playcount: number; rank: number }[]
@@ -48,7 +50,7 @@ export function ScatterPlot({ topArtists, topTracks }: Props) {
     return (
       <Card>
         <CardHeader><CardTitle>Track vs Artist Plays</CardTitle></CardHeader>
-        <CardContent><p className="text-sm text-muted-foreground">No data available yet.</p></CardContent>
+        <CardContent><EmptyState icon={ScatterChartIcon} title="No data available yet." size="compact" /></CardContent>
       </Card>
     )
   }

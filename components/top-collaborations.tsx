@@ -2,7 +2,9 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { Users } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -91,7 +93,7 @@ export function TopCollaborations({ scrobbles, username }: TopCollaborationsProp
     return (
       <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-6">
         <h2 className="text-lg font-semibold mb-4">Top Collaborations</h2>
-        <p className="text-sm text-[var(--muted-foreground)]">Not enough data to show artist pairs.</p>
+        <EmptyState icon={Users} title="Not enough data to show artist pairs." size="compact" />
       </div>
     )
   }

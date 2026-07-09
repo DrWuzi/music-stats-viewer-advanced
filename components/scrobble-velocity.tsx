@@ -10,7 +10,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { Gauge } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { TrendDelta } from '@/components/trend-delta'
 
 interface ScrobbleVelocityProps {
@@ -126,7 +128,7 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
           <CardTitle>Scrobble Velocity</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Gauge} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

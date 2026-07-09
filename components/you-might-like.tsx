@@ -6,6 +6,7 @@ import { AlertCircle, Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { EmptyState } from '@/components/ui/empty-state'
 import { ArtistImage } from '@/components/artist-image'
 import { artistHref } from '@/lib/urls'
 
@@ -82,13 +83,12 @@ export function YouMightLike({ username }: { username: string }) {
         )}
 
         {!loading && !error && recommendations.length === 0 && (
-          <div className="flex flex-col items-center gap-2 py-8 text-muted-foreground">
-            <Sparkles className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No recommendations found.</p>
-            <p className="text-xs opacity-70">
-              Listen to more music so we can find artists you haven&apos;t heard yet.
-            </p>
-          </div>
+          <EmptyState
+            icon={Sparkles}
+            title="No recommendations found."
+            description="Listen to more music so we can find artists you haven't heard yet."
+            size="compact"
+          />
         )}
 
         {!loading && !error && recommendations.length > 0 && (

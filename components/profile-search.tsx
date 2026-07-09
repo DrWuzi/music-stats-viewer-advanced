@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Search, X } from 'lucide-react'
+import { Search, X, SearchX } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface TopArtist {
@@ -187,7 +188,7 @@ export function ProfileSearch({ topArtists, topTracks, username }: ProfileSearch
             color: 'var(--muted-foreground)',
           }}
         >
-          No results for &ldquo;{query}&rdquo;
+          <EmptyState icon={SearchX} title={`No results for "${query}"`} size="compact" />
         </div>
       )}
     </div>
