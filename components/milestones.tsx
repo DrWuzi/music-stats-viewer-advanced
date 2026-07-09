@@ -1,7 +1,8 @@
 'use client'
 
-import { Check } from 'lucide-react'
+import { Check, Trophy } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 const MILESTONES = [1000, 5000, 10000, 25000, 50000, 100000, 250000, 500000, 1000000]
 
@@ -36,7 +37,7 @@ export function Milestones({ totalScrobbles }: MilestonesProps) {
       </CardHeader>
       <CardContent className="space-y-4">
         {reached.length === 0 && next === null ? (
-          <p className="text-sm text-muted-foreground">No milestones yet.</p>
+          <EmptyState icon={Trophy} title="No milestones yet." size="compact" />
         ) : (
           <>
             {reached.length > 0 && (

@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { AlertCircle } from 'lucide-react'
+import { AlertCircle, Tag as TagIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { Button } from '@/components/ui/button'
 
 interface Tag {
@@ -96,9 +97,7 @@ export function TagCloud({ username }: TagCloudProps) {
         )}
 
         {!loading && !error && tags.length === 0 && (
-          <p style={{ color: 'var(--muted-foreground)' }} className="text-sm">
-            No tags found.
-          </p>
+          <EmptyState icon={TagIcon} title="No tags found." size="compact" />
         )}
 
         {!loading && !error && tags.length > 0 && (

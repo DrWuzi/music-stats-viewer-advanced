@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Users } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { ArtistImage } from '@/components/artist-image'
 import { artistHref } from '@/lib/urls'
 
@@ -116,7 +118,7 @@ export function ArtistNetwork({ scrobbles, topArtists, username }: Props) {
           <CardTitle>Related Artists Network</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No artist data available.</p>
+          <EmptyState icon={Users} title="No artist data available." size="compact" />
         </CardContent>
       </Card>
     )

@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Tag as TagIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { Badge } from '@/components/ui/badge'
 
 interface Tag {
@@ -38,7 +40,7 @@ export function GenreBreakdown({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Analyzing taste…</p>
         ) : tags.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No genre data available.</p>
+          <EmptyState icon={TagIcon} title="No genre data available." size="compact" />
         ) : (
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, i) => (

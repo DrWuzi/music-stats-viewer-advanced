@@ -9,7 +9,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts'
+import { Tag } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface TagEntry {
   name: string
@@ -130,9 +132,7 @@ export function DecadeBreakdown({ username }: DecadeBreakdownProps) {
 
         {!loading && !error && tags.length === 0 && (
           <div className="flex items-center justify-center h-64">
-            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-              No tag data found for this user.
-            </p>
+            <EmptyState icon={Tag} title="No tag data found for this user." size="compact" />
           </div>
         )}
 

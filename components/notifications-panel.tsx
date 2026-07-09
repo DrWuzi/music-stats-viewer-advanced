@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { Bell, Users, TrendingUp, Trophy, Music, X, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface Notification {
   id: string
@@ -119,9 +120,7 @@ export function NotificationsButton({ username }: { username: string }) {
                 <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
               </div>
             ) : notifications.length === 0 ? (
-              <p className="text-sm text-muted-foreground text-center py-8">
-                No notifications
-              </p>
+              <EmptyState icon={Bell} title="No notifications" size="compact" />
             ) : (
               <ul>
                 {notifications.slice(0, 15).map((n) => (

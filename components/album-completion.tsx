@@ -2,7 +2,9 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { Disc3 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { albumHref, artistHref } from '@/lib/urls'
 
 interface AlbumResult {
@@ -50,7 +52,7 @@ export function AlbumCompletion({ username }: Props) {
         ) : error ? (
           <p className="text-sm text-destructive">{error}</p>
         ) : albums.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No album data available.</p>
+          <EmptyState icon={Disc3} title="No album data available." size="compact" />
         ) : (
           <div className="space-y-4">
             {albums.map((a) => (

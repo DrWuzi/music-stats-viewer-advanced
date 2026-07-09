@@ -1,7 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Users } from 'lucide-react'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface CoArtist {
   name: string
@@ -70,7 +72,7 @@ export function AlsoListenedSidebar({ username, artist, open, onClose }: AlsoLis
           )}
 
           {!loading && !error && data.length === 0 && (
-            <p className="text-sm text-muted-foreground">No co-listening data found.</p>
+            <EmptyState icon={Users} title="No co-listening data found." size="compact" />
           )}
 
           {!loading && !error && data.map((item) => {

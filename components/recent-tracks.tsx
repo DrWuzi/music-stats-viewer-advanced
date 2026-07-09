@@ -4,7 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Heart } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
+import { Heart, Music } from 'lucide-react'
 import { formatRelative } from '@/lib/format-date'
 import { ArtistImage } from '@/components/artist-image'
 
@@ -42,7 +43,7 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
       </CardHeader>
       <CardContent>
         {tracks.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No tracks scrobbled yet.</p>
+          <EmptyState icon={Music} title="No tracks scrobbled yet." size="compact" />
         ) : (
           <ul className="divide-y">
             {tracks.slice(0, shown).map((t, i) => {

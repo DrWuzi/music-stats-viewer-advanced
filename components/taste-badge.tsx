@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Share2 } from 'lucide-react'
+import { Share2, Music2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface TasteBadgeProps {
@@ -47,7 +48,7 @@ export function TasteBadge({ username, topArtists }: TasteBadgeProps) {
             ))}
           </ul>
         ) : (
-          <p className="text-sm text-muted-foreground mt-1">No top artists yet.</p>
+          <EmptyState icon={Music2} title="No top artists yet." size="compact" />
         )}
       </div>
 

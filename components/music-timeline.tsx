@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface Discovery {
@@ -63,7 +64,7 @@ export function MusicTimeline({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading&hellip;</p>
         ) : grouped.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No listening history found.</p>
+          <EmptyState icon={Clock} title="No listening history found." size="compact" />
         ) : (
           <div className="space-y-6">
             {grouped.map(({ year, entries }) => (

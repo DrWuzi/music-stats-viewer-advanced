@@ -2,7 +2,9 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { RotateCcw } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { ArtistImage } from '@/components/artist-image'
 import { artistHref } from '@/lib/urls'
 
@@ -107,9 +109,7 @@ export function ComebackArtists({ scrobbles, username }: ComebackArtistsProps) {
           <CardTitle>Comeback Artists</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            No comeback artists found yet. Keep listening!
-          </p>
+          <EmptyState icon={RotateCcw} title="No comeback artists found yet. Keep listening!" size="compact" />
         </CardContent>
       </Card>
     )

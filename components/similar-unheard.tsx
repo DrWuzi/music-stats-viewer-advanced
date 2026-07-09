@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { Badge } from '@/components/ui/badge'
 
 interface Suggestion {
@@ -36,11 +37,12 @@ export function SimilarUnheard({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : suggestions.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 p-8 text-muted-foreground">
-            <Sparkles className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No suggestions found.</p>
-            <p className="text-xs opacity-70">Listen to more artists so we can find similar ones you haven&apos;t heard.</p>
-          </div>
+          <EmptyState
+            icon={Sparkles}
+            title="No suggestions found."
+            description="Listen to more artists so we can find similar ones you haven't heard."
+            size="compact"
+          />
         ) : (
           <ul className="space-y-3">
             {suggestions.map((s) => (

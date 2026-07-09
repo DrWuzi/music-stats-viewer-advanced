@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Compass } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { Badge } from '@/components/ui/badge'
 import { artistHref } from '@/lib/urls'
 
@@ -69,11 +70,12 @@ export function NewDiscoveries({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : discoveries.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 p-8 text-muted-foreground">
-            <Compass className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No new discoveries in this period.</p>
-            <p className="text-xs opacity-70">Try a longer window to surface more first-time artists.</p>
-          </div>
+          <EmptyState
+            icon={Compass}
+            title="No new discoveries in this period."
+            description="Try a longer window to surface more first-time artists."
+            size="compact"
+          />
         ) : (
           <div className="flex flex-wrap gap-2">
             {discoveries.map((d) => {

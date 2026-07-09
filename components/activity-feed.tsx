@@ -2,7 +2,9 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { Activity } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -193,9 +195,7 @@ export function ActivityFeed({ scrobbles, totalScrobbles, registeredAt, username
       </CardHeader>
       <CardContent>
         {events.length === 0 ? (
-          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            No events to display yet.
-          </p>
+          <EmptyState icon={Activity} title="No events to display yet." size="compact" />
         ) : (
           <ol className="relative flex flex-col gap-0">
             {events.map((event, i) => (

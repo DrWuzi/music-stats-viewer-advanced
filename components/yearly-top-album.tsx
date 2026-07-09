@@ -1,7 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import { Disc3 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { albumHref, artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -50,7 +52,7 @@ export function YearlyTopAlbum({ scrobbles, username }: { scrobbles: Scrobble[];
           <CardTitle>Top Album Each Year</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No album data available.</p>
+          <EmptyState icon={Disc3} title="No album data available." size="compact" />
         </CardContent>
       </Card>
     )
