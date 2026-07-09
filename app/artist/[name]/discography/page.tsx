@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { Disc3, PlayCircle, ArrowUpDown } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -216,10 +217,7 @@ export default async function DiscographyPage({ params, searchParams }: Props) {
 
       {/* Albums grid */}
       {albums.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground">
-          <Disc3 className="h-12 w-12 mx-auto mb-3 opacity-40" />
-          <p>No albums found for {artistName}</p>
-        </div>
+        <EmptyState icon={Disc3} title={`No albums found for ${artistName}`} />
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {sortedAlbums.map((album) => {

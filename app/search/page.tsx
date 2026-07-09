@@ -1,7 +1,9 @@
 import Link from 'next/link'
+import { SearchX } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { SearchClient } from './SearchClient'
 import { BackButton } from '@/components/back-button'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type Props = {
   searchParams?: Promise<{ q?: string; type?: string; username?: string }>
@@ -156,10 +158,10 @@ export default async function SearchPage({ searchParams }: Props) {
       )}
 
       {didSearch && !hasResults && (
-        <p className="text-muted-foreground text-sm mt-8">
-          No results for &quot;{q}&quot;
-          {type !== 'all' ? ` in ${type}` : ''}.
-        </p>
+        <EmptyState
+          icon={SearchX}
+          title={`No results for "${q}"${type !== 'all' ? ` in ${type}` : ''}.`}
+        />
       )}
 
       {didSearch && hasResults && (

@@ -5,8 +5,9 @@ import { prisma } from '@/lib/prisma'
 import { lastfmClient } from '@/lib/lastfm'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Users } from 'lucide-react'
+import { Users, Sparkles } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { EmptyState } from '@/components/ui/empty-state'
 
 export const metadata = { title: 'Discover — Last.fm Advanced' }
 
@@ -88,9 +89,11 @@ export default async function DiscoverPage() {
 
         {recommendations.length === 0 ? (
           <div className="rounded-xl border p-8 text-center text-muted-foreground">
-            <p className="text-sm">
-              No recommendations yet. Keep scrobbling and sync your data to get personalized picks.
-            </p>
+            <EmptyState
+              icon={Sparkles}
+              title="No recommendations yet."
+              description="Keep scrobbling and sync your data to get personalized picks."
+            />
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

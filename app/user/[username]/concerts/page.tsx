@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { MapPin, ExternalLink, Calendar } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { SortControl } from '@/components/sort-control'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type Props = {
   params: Promise<{ username: string }>
@@ -183,7 +184,7 @@ export default async function ConcertsPage({ params, searchParams }: Props) {
               </CardHeader>
               <CardContent className="pt-0">
                 {events.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No upcoming events found</p>
+                  <EmptyState icon={Calendar} title="No upcoming events found" />
                 ) : (
                   <ul className="space-y-3">
                     {events.map((event, idx) => (

@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { ArtistImage } from '@/components/artist-image'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { Music2, Disc3, BarChart2, Tag, PlayCircle, Users } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -387,9 +388,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
         {username && !validUser && (
           <Card>
             <CardContent className="py-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                User <strong>{username}</strong> not found. Visit their profile first to sync data.
-              </p>
+              <EmptyState icon={Users} title={`User ${username} not found. Visit their profile first to sync data.`} />
             </CardContent>
           </Card>
         )}
@@ -571,8 +570,10 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
         {tagArtists.length === 0 && tagTracks.length === 0 && (
           <Card>
             <CardContent className="py-10 text-center text-sm text-muted-foreground">
-              No data found for tag <strong>&ldquo;{tagName}&rdquo;</strong>. The tag may not exist
-              on Last.fm, or the API key may be missing.
+              <EmptyState
+                icon={Tag}
+                title={`No data found for tag "${tagName}". The tag may not exist on Last.fm, or the API key may be missing.`}
+              />
             </CardContent>
           </Card>
         )}

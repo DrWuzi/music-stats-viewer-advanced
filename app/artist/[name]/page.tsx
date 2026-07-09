@@ -5,10 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ArtistChart } from '@/components/artist-chart'
 import { ArtistBio } from '@/components/artist-bio'
-import { Users, Disc3, Music2, ExternalLink, PlayCircle, BarChart2 } from 'lucide-react'
+import { Users, Disc3, Music2, ExternalLink, PlayCircle, BarChart2, User } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ListenOn } from '@/components/listen-on'
+import { EmptyState } from '@/components/ui/empty-state'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -575,7 +576,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                   ))}
                 </ol>
               ) : (
-                <p className="text-sm text-muted-foreground text-center py-6">No tracks found</p>
+                <EmptyState icon={Music2} title="No tracks found" />
               )}
             </CardContent>
           </Card>
@@ -598,7 +599,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                   ))}
                 </ol>
               ) : (
-                <p className="text-sm text-muted-foreground text-center py-6">No tracks found</p>
+                <EmptyState icon={Music2} title="No tracks found" />
               )}
             </CardContent>
           </Card>
@@ -727,18 +728,14 @@ export default async function ArtistPage({ params, searchParams }: Props) {
         {!username && (
           <Card>
             <CardContent className="py-10 text-center text-sm text-muted-foreground">
-              <Link href="/login" className="underline">Sign in</Link> or add{' '}
-              <code className="bg-muted px-1 rounded text-xs">?username=yourname</code> to see your personal stats.
+              <EmptyState icon={User} title="Sign in or add ?username=yourname to see your personal stats." />
             </CardContent>
           </Card>
         )}
         {username && totalPlays === 0 && (
           <Card>
             <CardContent className="py-10 text-center text-sm text-muted-foreground">
-              You haven&apos;t scrobbled <strong>{artistName}</strong> yet, or the data hasn&apos;t synced.{' '}
-              <Link href={`/user/${encodeURIComponent(username)}`} className="underline">
-                Back to profile
-              </Link>
+              <EmptyState icon={Music2} title={`You haven't scrobbled ${artistName} yet, or the data hasn't synced.`} />
             </CardContent>
           </Card>
         )}

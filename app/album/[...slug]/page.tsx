@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
+import { User, Users, Disc3, Music2 } from 'lucide-react'
 
 type Props = {
   params: Promise<{ slug: string[] }>
@@ -30,9 +32,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
   if (!username) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-12 text-center">
-        <p className="text-muted-foreground">
-          Sign in or pass <code>?username=X</code> to view album data.
-        </p>
+        <EmptyState icon={User} title="Sign in or pass ?username=X to view album data." />
       </main>
     )
   }
@@ -42,9 +42,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
   if (!user) {
     return (
       <main className="max-w-3xl mx-auto px-4 py-12 text-center">
-        <p className="text-muted-foreground">
-          User <strong>{username}</strong> not found. Visit their profile first to sync data.
-        </p>
+        <EmptyState icon={Users} title={`User ${username} not found. Visit their profile first to sync data.`} />
       </main>
     )
   }
@@ -68,9 +66,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
         >
           ← {artistName}
         </Link>
-        <p className="text-muted-foreground mt-4">
-          No scrobbles found for <strong>{albumName}</strong> by <strong>{artistName}</strong>.
-        </p>
+        <EmptyState icon={Disc3} title={`No scrobbles found for ${albumName} by ${artistName}.`} />
       </main>
     )
   }
@@ -137,7 +133,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
         </CardHeader>
         <CardContent>
           {tracks.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No track data.</p>
+            <EmptyState icon={Music2} title="No track data." />
           ) : (
             <ol className="space-y-2">
               {tracks.map(([track, count], i) => (

@@ -4,6 +4,8 @@ import { lastfmClient } from '@/lib/lastfm'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { BackButton } from '@/components/back-button'
+import { EmptyState } from '@/components/ui/empty-state'
+import { BarChart2, TrendingUp } from 'lucide-react'
 
 export const metadata = { title: 'Charts — Last.fm Advanced' }
 
@@ -34,7 +36,7 @@ export default async function ChartsPage() {
           </CardHeader>
           <CardContent className="pt-0">
             {globalArtists.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Could not load chart data</p>
+              <EmptyState icon={BarChart2} title="Could not load chart data" />
             ) : (
               <ol className="space-y-2.5">
                 {globalArtists.map((artist, i) => (
@@ -65,7 +67,7 @@ export default async function ChartsPage() {
           </CardHeader>
           <CardContent className="pt-0">
             {globalTracks.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Could not load chart data</p>
+              <EmptyState icon={BarChart2} title="Could not load chart data" />
             ) : (
               <ol className="space-y-2.5">
                 {globalTracks.map((track, i) => (
@@ -96,7 +98,7 @@ export default async function ChartsPage() {
             </CardHeader>
             <CardContent className="pt-0">
               {personalChart.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No personal chart data available yet</p>
+                <EmptyState icon={TrendingUp} title="No personal chart data available yet" />
               ) : (
                 <ol className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {personalChart.slice(0, 20).map((artist, i) => (
