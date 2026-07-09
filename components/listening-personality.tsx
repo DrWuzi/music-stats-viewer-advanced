@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { Moon, Flame, Calendar, Clock, Music2, TrendingUp } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface ListeningPersonalityProps {
   topArtists: { name: string; playcount: number }[]
@@ -185,9 +186,7 @@ export function ListeningPersonality({
           <CardTitle>Listening Personality</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            Not enough data to determine your listening personality yet.
-          </p>
+          <EmptyState icon={Music2} title="Not enough data to determine your listening personality yet." size="compact" />
         </CardContent>
       </Card>
     )

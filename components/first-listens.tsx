@@ -2,8 +2,10 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -82,9 +84,7 @@ export function FirstListens({ scrobbles, username }: FirstListensProps) {
           <CardTitle>First Listens</CardTitle>
         </CardHeader>
         <CardContent>
-          <p style={{ color: 'var(--muted-foreground)' }} className="text-sm">
-            No data available.
-          </p>
+          <EmptyState icon={Sparkles} title="No data available." size="compact" />
         </CardContent>
       </Card>
     )

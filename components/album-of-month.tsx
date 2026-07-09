@@ -2,8 +2,10 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { Disc3 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { albumHref, artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -100,9 +102,7 @@ export function AlbumOfMonth({ scrobbles, username }: AlbumOfMonthProps) {
           <CardTitle>Album of the Month</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            Not enough data to show monthly albums.
-          </p>
+          <EmptyState icon={Disc3} title="Not enough data to show monthly albums." size="compact" />
         </CardContent>
       </Card>
     )

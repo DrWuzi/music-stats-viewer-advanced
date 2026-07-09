@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import { PieChart } from 'lucide-react'
 import { AnimatedNumber } from '@/components/animated-number'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface DiversityScoreProps {
@@ -37,7 +39,7 @@ export function DiversityScore({ topArtists, totalScrobbles, username }: Diversi
           <CardTitle>Listening Diversity Score</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-[var(--muted-foreground)]">Not enough data to calculate diversity.</p>
+          <EmptyState icon={PieChart} title="Not enough data to calculate diversity." size="compact" />
         </CardContent>
       </Card>
     )

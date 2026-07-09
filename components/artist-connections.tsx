@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo } from 'react'
+import { Users } from 'lucide-react'
 import {
   BarChart,
   Bar,
@@ -11,6 +12,7 @@ import {
   CartesianGrid,
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface ArtistConnectionsProps {
   scrobbles: { scrobbledAt: Date | string; artist: string }[]
@@ -118,7 +120,7 @@ export function ArtistConnections({ scrobbles, topArtists }: ArtistConnectionsPr
           <CardTitle>Listening Companions</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No data</p>
+          <EmptyState icon={Users} title="No data available." size="compact" />
         </CardContent>
       </Card>
     )

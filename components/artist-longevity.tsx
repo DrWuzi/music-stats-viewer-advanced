@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import { useMemo } from 'react'
+import { CalendarClock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArtistImage } from '@/components/artist-image'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface ArtistLongevityProps {
@@ -59,9 +61,7 @@ export function ArtistLongevity({ scrobbles, username }: ArtistLongevityProps) {
           <CardTitle>Artist Longevity</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            No artists with 2+ years of consistent listening yet.
-          </p>
+          <EmptyState icon={CalendarClock} title="No artists with 2+ years of consistent listening yet." size="compact" />
         </CardContent>
       </Card>
     )

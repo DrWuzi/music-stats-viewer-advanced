@@ -1,7 +1,9 @@
 'use client'
 
+import { BarChart2 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface MonthDatum {
   month: string
@@ -17,7 +19,7 @@ export function ArtistChart({ data, title }: { data: MonthDatum[]; title: string
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No data available.</p>
+          <EmptyState icon={BarChart2} title="No data available." size="compact" />
         </CardContent>
       </Card>
     )

@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { AlertTriangle, Clock } from 'lucide-react'
 
 interface ListeningGapProps {
@@ -49,7 +50,7 @@ export function ListeningGap({ scrobbles }: ListeningGapProps) {
           <CardTitle>Listening Gaps</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Clock} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

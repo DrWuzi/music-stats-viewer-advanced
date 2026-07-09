@@ -2,8 +2,10 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { BookOpen } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface ListeningChaptersProps {
@@ -176,7 +178,7 @@ export function ListeningChapters({
           <CardTitle>Your Music Story</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">Not enough history yet.</p>
+          <EmptyState icon={BookOpen} title="Not enough history yet." size="compact" />
         </CardContent>
       </Card>
     )

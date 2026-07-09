@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Tag } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface GenreTag {
   tag: string
@@ -86,7 +88,7 @@ export function GenreBreakdownDetail({ username }: GenreBreakdownDetailProps) {
           <CardTitle>Your Genre Profile</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No data</p>
+          <EmptyState icon={Tag} title="No data available." size="compact" />
         </CardContent>
       </Card>
     )

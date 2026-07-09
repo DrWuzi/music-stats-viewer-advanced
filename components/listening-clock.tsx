@@ -1,5 +1,6 @@
 'use client'
 
+import { Clock } from 'lucide-react'
 import {
   RadialBarChart,
   RadialBar,
@@ -7,6 +8,7 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { getChartColor } from '@/lib/chart-colors'
 
 export function ListeningClock({
@@ -34,7 +36,7 @@ export function ListeningClock({
           <CardTitle>Listening Clock</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Clock} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

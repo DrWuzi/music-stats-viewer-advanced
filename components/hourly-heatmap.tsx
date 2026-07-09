@@ -1,7 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 const HOURS = Array.from({ length: 24 }, (_, i) => i)
@@ -61,7 +63,7 @@ export function HourlyHeatmap({
           <CardTitle>Listening Heatmap</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Clock} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

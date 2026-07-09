@@ -1,7 +1,9 @@
 'use client'
 
+import { CalendarDays } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { getChartColor } from '@/lib/chart-colors'
 
 const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -32,7 +34,7 @@ export function DayOfWeekChart({
           <CardTitle>By Day of Week</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={CalendarDays} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

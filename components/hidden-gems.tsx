@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { Gem } from 'lucide-react'
 import { artistHref, trackHref } from '@/lib/urls'
 
@@ -45,11 +46,12 @@ export function HiddenGems({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Finding your hidden gems…</p>
         ) : gems.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 py-8 text-muted-foreground">
-            <Gem className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No hidden gems found yet.</p>
-            <p className="text-xs opacity-70">Gems appear when you love tracks the world hasn&apos;t discovered.</p>
-          </div>
+          <EmptyState
+            icon={Gem}
+            title="No hidden gems found yet."
+            description="Gems appear when you love tracks the world hasn't discovered."
+            size="compact"
+          />
         ) : (
           <ul className="space-y-3">
             {gems.map((g) => (

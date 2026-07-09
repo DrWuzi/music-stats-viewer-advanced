@@ -1,8 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
+import { TrendingUp } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface ListeningForecastProps {
   scrobbles: { scrobbledAt: Date | string }[]
@@ -91,7 +93,7 @@ export function ListeningForecast({ scrobbles }: ListeningForecastProps) {
           <CardTitle>Listening Forecast</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No data</p>
+          <EmptyState icon={TrendingUp} title="No data available." size="compact" />
         </CardContent>
       </Card>
     )
@@ -104,7 +106,7 @@ export function ListeningForecast({ scrobbles }: ListeningForecastProps) {
           <CardTitle>Listening Forecast</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">Not enough data for a forecast</p>
+          <EmptyState icon={TrendingUp} title="Not enough data for a forecast" size="compact" />
         </CardContent>
       </Card>
     )
