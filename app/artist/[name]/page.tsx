@@ -728,14 +728,22 @@ export default async function ArtistPage({ params, searchParams }: Props) {
         {!username && (
           <Card>
             <CardContent className="py-10 text-center text-sm text-muted-foreground">
-              <EmptyState icon={User} title="Sign in or add ?username=yourname to see your personal stats." />
+              <EmptyState
+                icon={User}
+                title="Sign in or add ?username=yourname to see your personal stats."
+                action={{ label: 'Sign in', href: '/login' }}
+              />
             </CardContent>
           </Card>
         )}
         {username && totalPlays === 0 && (
           <Card>
             <CardContent className="py-10 text-center text-sm text-muted-foreground">
-              <EmptyState icon={Music2} title={`You haven't scrobbled ${artistName} yet, or the data hasn't synced.`} />
+              <EmptyState
+                icon={Music2}
+                title={`You haven't scrobbled ${artistName} yet, or the data hasn't synced.`}
+                action={{ label: 'Back to profile', href: `/user/${encodeURIComponent(username)}` }}
+              />
             </CardContent>
           </Card>
         )}
