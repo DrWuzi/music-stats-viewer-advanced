@@ -8,7 +8,8 @@ import { ArtistChart } from '@/components/artist-chart'
 import { ArtistBio } from '@/components/artist-bio'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ListenOn } from '@/components/listen-on'
-import { Disc3, Music2, ExternalLink, PlayCircle, Users, CheckCircle2 } from 'lucide-react'
+import { Disc3, Music2, ExternalLink, PlayCircle, Users, CheckCircle2, User } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -179,9 +180,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
         >
           &larr; {artistName}
         </Link>
-        <p className="text-muted-foreground">
-          Album <strong>{albumName}</strong> by <strong>{artistName}</strong> was not found on Last.fm.
-        </p>
+        <EmptyState icon={Disc3} title={`Album ${albumName} by ${artistName} was not found on Last.fm.`} />
       </main>
     )
   }
@@ -655,8 +654,11 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
         {!username && (
           <Card>
             <CardContent className="py-8 text-center text-sm text-muted-foreground">
-              <Link href="/login" className="underline">Sign in</Link> or add{' '}
-              <code className="bg-muted px-1 rounded text-xs">?username=yourname</code> to see your personal play counts and stats.
+              <EmptyState
+                icon={User}
+                title="Sign in or add ?username=yourname to see your personal play counts and stats."
+                action={{ label: 'Sign in', href: '/login' }}
+              />
             </CardContent>
           </Card>
         )}

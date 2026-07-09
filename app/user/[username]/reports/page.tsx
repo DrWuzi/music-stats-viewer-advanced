@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ShareReportButton } from '@/components/share-report-button'
 import { ArtistImage } from '@/components/artist-image'
+import { TrendingUp } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type Props = { params: Promise<{ username: string }> }
 
@@ -188,7 +190,7 @@ export default async function ReportsPage({ params }: Props) {
             </CardHeader>
             <CardContent>
               {thisWeekTopArtists.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No scrobbles this week</p>
+                <EmptyState icon={TrendingUp} title="No scrobbles this week" />
               ) : (
                 <ol className="space-y-2">
                   {thisWeekTopArtists.map((a, i) => (
@@ -209,7 +211,7 @@ export default async function ReportsPage({ params }: Props) {
             </CardHeader>
             <CardContent>
               {lastWeekTopArtists.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No scrobbles last week</p>
+                <EmptyState icon={TrendingUp} title="No scrobbles last week" />
               ) : (
                 <ol className="space-y-2">
                   {lastWeekTopArtists.map((a, i) => (
@@ -277,7 +279,7 @@ export default async function ReportsPage({ params }: Props) {
             </CardHeader>
             <CardContent>
               {thisMonthTopArtists.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No scrobbles this month</p>
+                <EmptyState icon={TrendingUp} title="No scrobbles this month" />
               ) : (
                 <ol className="space-y-2">
                   {thisMonthTopArtists.map((a, i) => (
@@ -298,7 +300,7 @@ export default async function ReportsPage({ params }: Props) {
             </CardHeader>
             <CardContent>
               {lastMonthTopArtists.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No scrobbles last month</p>
+                <EmptyState icon={TrendingUp} title="No scrobbles last month" />
               ) : (
                 <ol className="space-y-2">
                   {lastMonthTopArtists.map((a, i) => (

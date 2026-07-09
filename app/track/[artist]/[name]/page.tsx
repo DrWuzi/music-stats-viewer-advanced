@@ -15,8 +15,10 @@ import {
   BookOpen,
   Search,
   Trophy,
+  User,
 } from 'lucide-react'
 import { ListenOn } from '@/components/listen-on'
+import { EmptyState } from '@/components/ui/empty-state'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -475,9 +477,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
             </CardHeader>
             <CardContent className="space-y-3">
               {userPlays === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  You haven&apos;t scrobbled this track yet, or the data hasn&apos;t synced.
-                </p>
+                <EmptyState icon={Music2} title="You haven't scrobbled this track yet, or the data hasn't synced." />
               ) : (
                 <>
                   <div className="flex justify-between text-sm">
@@ -591,12 +591,11 @@ export default async function TrackPage({ params, searchParams }: Props) {
       {!username && (
         <Card>
           <CardContent className="py-10 text-center text-sm text-muted-foreground">
-            <Link href="/login" className="underline">
-              Sign in
-            </Link>{' '}
-            or add{' '}
-            <code className="bg-muted px-1 rounded text-xs">?username=yourname</code> to see your
-            personal stats.
+            <EmptyState
+              icon={User}
+              title="Sign in or add ?username=yourname to see your personal stats."
+              action={{ label: 'Sign in', href: '/login' }}
+            />
           </CardContent>
         </Card>
       )}

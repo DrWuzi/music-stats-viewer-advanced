@@ -5,6 +5,8 @@ import { buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { SortControl } from '@/components/sort-control'
+import { User, SearchX, Music } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type HistorySort = 'date_desc' | 'date_asc' | 'artist_az'
 
@@ -50,10 +52,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
     return (
       <main className="min-h-screen bg-background p-8">
         <div className="max-w-4xl mx-auto space-y-4">
-          <p className="text-destructive text-lg font-medium">User not found</p>
-          <p className="text-muted-foreground">
-            No data found for <strong>{username}</strong>.
-          </p>
+          <EmptyState icon={User} title="User not found" description={`No data found for ${username}.`} />
           <Link href="/" className={cn(buttonVariants({ variant: 'outline' }), 'mt-2')}>
             ← Back to home
           </Link>
@@ -228,9 +227,11 @@ export default async function HistoryPage({ params, searchParams }: Props) {
           </CardHeader>
           <CardContent className="p-0">
             {scrobbles.length === 0 ? (
-              <p className="text-muted-foreground p-6 text-center">
-                {isFiltered ? 'No scrobbles match your filters.' : 'No scrobbles found.'}
-              </p>
+              isFiltered ? (
+                <EmptyState icon={SearchX} title="No scrobbles match your filters." />
+              ) : (
+                <EmptyState icon={Music} title="No scrobbles found." />
+              )
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">

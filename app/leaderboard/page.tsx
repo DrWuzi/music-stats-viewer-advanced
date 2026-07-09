@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { AnimatedNumber } from '@/components/animated-number'
 import { Crown, Medal, Users, Music2, Clock } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { EmptyState } from '@/components/ui/empty-state'
 
 export const metadata = { title: 'Top Listeners — Last.fm Advanced' }
 
@@ -131,9 +132,7 @@ export default async function LeaderboardPage() {
         </CardHeader>
         <CardContent className="p-0">
           {ranked.length === 0 ? (
-            <p className="text-sm text-muted-foreground px-6 py-8">
-              No listeners yet. Be the first!
-            </p>
+            <EmptyState icon={Users} title="No listeners yet. Be the first!" />
           ) : (
             <div className="divide-y divide-border">
               {/* Header row */}

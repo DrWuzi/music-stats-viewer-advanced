@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { Card, CardContent } from '@/components/ui/card'
 import { WrappedYearSummary } from '@/components/wrapped-year-summary'
+import { Calendar } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type Props = {
   params: Promise<{ username: string }>
@@ -216,12 +218,11 @@ export default async function WrappedPage({ params, searchParams }: Props) {
         {totalScrobbles === 0 ? (
           <Card>
             <CardContent className="p-8 text-center">
-              <p className="text-lg" style={{ color: 'var(--muted-foreground)' }}>
-                No scrobbles found for {year}.
-              </p>
-              <p className="text-sm mt-2" style={{ color: 'var(--muted-foreground)' }}>
-                Try selecting a different year below.
-              </p>
+              <EmptyState
+                icon={Calendar}
+                title={`No scrobbles found for ${year}.`}
+                description="Try selecting a different year below."
+              />
               <div className="flex flex-wrap justify-center gap-2 mt-4">
                 {yearRange.map((y) => (
                   <Link key={y} href={`/user/${username}/wrapped?year=${y}`}>

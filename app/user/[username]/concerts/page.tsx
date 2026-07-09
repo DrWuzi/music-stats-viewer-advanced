@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { MapPin, ExternalLink, Calendar } from 'lucide-react'
+import { MapPin, ExternalLink, Calendar, Users } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { SortControl } from '@/components/sort-control'
 import { EmptyState } from '@/components/ui/empty-state'
@@ -256,7 +256,7 @@ export default async function ConcertsPage({ params, searchParams }: Props) {
 
       {topArtists.length === 0 && (
         <div className="rounded-xl border p-8 text-center text-muted-foreground">
-          <p className="text-sm">No top artists found. Sync your scrobbles first.</p>
+          <EmptyState icon={Users} title="No top artists found. Sync your scrobbles first." />
           <Link href={`/user/${username}`} className="text-xs mt-2 block hover:underline" style={{ color: 'var(--primary)' }}>
             Go to profile
           </Link>

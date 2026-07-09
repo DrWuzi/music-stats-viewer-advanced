@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArtistImage } from '@/components/artist-image'
 import { artistHref } from '@/lib/urls'
+import { Users } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type Props = { params: Promise<{ user1: string; user2: string }> }
 
@@ -114,10 +116,7 @@ export default async function ComparePage({ params }: Props) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-8">
         <div className="max-w-md text-center space-y-4">
-          <h1 className="text-2xl font-bold">User not found</h1>
-          <p className="text-muted-foreground">
-            Could not find Last.fm user <strong>{user1}</strong>.
-          </p>
+          <EmptyState icon={Users} title="User not found" description={`Could not find Last.fm user ${user1}.`} />
           <Link href="/compare" className="text-primary underline">
             Try another comparison
           </Link>
@@ -130,10 +129,7 @@ export default async function ComparePage({ params }: Props) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-8">
         <div className="max-w-md text-center space-y-4">
-          <h1 className="text-2xl font-bold">User not found</h1>
-          <p className="text-muted-foreground">
-            Could not find Last.fm user <strong>{user2}</strong>.
-          </p>
+          <EmptyState icon={Users} title="User not found" description={`Could not find Last.fm user ${user2}.`} />
           <Link href="/compare" className="text-primary underline">
             Try another comparison
           </Link>

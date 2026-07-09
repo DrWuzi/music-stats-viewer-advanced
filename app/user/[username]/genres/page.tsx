@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { Badge } from '@/components/ui/badge'
+import { Tag } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 type Props = { params: Promise<{ username: string }> }
 
@@ -49,7 +51,7 @@ export default async function GenresPage({ params }: Props) {
           </Link>
         </div>
         <h1 className="text-2xl font-bold mb-6">Genre Eras</h1>
-        <p className="text-muted-foreground">No scrobbles found.</p>
+        <EmptyState icon={Tag} title="No scrobbles found." />
       </div>
     )
   }
@@ -117,7 +119,7 @@ export default async function GenresPage({ params }: Props) {
       <h1 className="text-2xl font-bold mb-8">Genre Eras</h1>
 
       {eras.length === 0 ? (
-        <p className="text-muted-foreground">Not enough data to show genre eras.</p>
+        <EmptyState icon={Tag} title="Not enough data to show genre eras." />
       ) : (
         <div className="flex flex-col gap-6">
           {eras.map((era, idx) => {
