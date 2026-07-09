@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import Link from 'next/link'
 import { Clock, Trophy } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -107,7 +108,7 @@ export function MarathonSessions({ scrobbles, username }: { scrobbles: Scrobble[
       </CardHeader>
       <CardContent>
         {sessions.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No sessions found.</p>
+          <EmptyState icon={Clock} title="No sessions found." size="compact" />
         ) : (
           <ol className="space-y-3">
             {sessions.map((session, index) => {

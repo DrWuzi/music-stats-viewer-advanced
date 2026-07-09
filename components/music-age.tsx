@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { CalendarClock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { getChartColor } from '@/lib/chart-colors'
 
 interface MusicAgeProps {
@@ -163,9 +165,7 @@ export function MusicAge({ username }: MusicAgeProps) {
         )}
 
         {!loading && !error && musicYear === null && (
-          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-            Not enough decade tags to calculate music age.
-          </p>
+          <EmptyState icon={CalendarClock} title="Not enough decade tags to calculate music age." size="compact" />
         )}
 
         {!loading && !error && musicYear !== null && (

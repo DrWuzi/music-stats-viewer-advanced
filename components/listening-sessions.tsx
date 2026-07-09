@@ -1,7 +1,9 @@
 'use client'
 
 import { useMemo } from 'react'
+import { Radio } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 const SESSION_GAP_MS = 30 * 60 * 1000 // 30 minutes
 
@@ -85,7 +87,7 @@ export function ListeningSessions({ scrobbles }: ListeningSessionsProps) {
           <CardTitle>Listening Sessions</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Radio} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

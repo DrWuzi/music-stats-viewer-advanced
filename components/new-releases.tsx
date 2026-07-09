@@ -2,7 +2,9 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { Disc3 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { albumHref, artistHref } from '@/lib/urls'
 
 interface Release {
@@ -35,7 +37,7 @@ export function NewReleases({ username }: { username: string }) {
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : releases.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No unheard albums found.</p>
+          <EmptyState icon={Disc3} title="No unheard albums found." size="compact" />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {releases.map((r) => (

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Calendar } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -75,9 +76,7 @@ export function OnThisDay({ scrobbles, username }: OnThisDayProps) {
       </CardHeader>
       <CardContent>
         {!hasData ? (
-          <p className="text-sm text-muted-foreground">
-            No scrobbles found around this time last year
-          </p>
+          <EmptyState icon={Calendar} title="No scrobbles found around this time last year" size="compact" />
         ) : (
           <div className="flex flex-col gap-5">
             {topArtists.length > 0 && (

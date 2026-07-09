@@ -1,8 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
+import { Moon } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface NightOwlStatsProps {
   scrobbles: { scrobbledAt: Date | string }[]
@@ -58,7 +60,7 @@ export function NightOwlStats({ scrobbles }: NightOwlStatsProps) {
           <CardTitle>When You Listen</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Moon} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

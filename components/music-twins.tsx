@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { AlertCircle, Users } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface MusicTwinsProps {
   username: string
@@ -75,9 +76,11 @@ export function MusicTwins({ username, topArtists }: MusicTwinsProps) {
         )}
 
         {!loading && !error && twins !== null && twins.length === 0 && (
-          <p className="text-sm text-muted-foreground">
-            Not enough users in the database yet to find twins. Check back later!
-          </p>
+          <EmptyState
+            icon={Users}
+            title="Not enough users in the database yet to find twins. Check back later!"
+            size="compact"
+          />
         )}
 
         {!loading && !error && twins !== null && twins.length > 0 && (

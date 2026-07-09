@@ -3,6 +3,7 @@
 import { useMemo } from 'react'
 import { Music } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface ListeningTimeEstimateProps {
   totalScrobbles: number
@@ -40,7 +41,7 @@ export function ListeningTimeEstimate({ totalScrobbles }: ListeningTimeEstimateP
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Music} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

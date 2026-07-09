@@ -11,7 +11,9 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from 'recharts'
+import { TrendingUp } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface MusicEvolutionProps {
   scrobbles: { scrobbledAt: Date | string; artist: string }[]
@@ -88,7 +90,7 @@ export function MusicEvolution({ scrobbles }: MusicEvolutionProps) {
           <CardTitle>Your Taste Over Time</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">Not enough history yet.</p>
+          <EmptyState icon={TrendingUp} title="Not enough history yet." size="compact" />
         </CardContent>
       </Card>
     )

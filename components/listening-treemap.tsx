@@ -3,6 +3,7 @@
 import { Treemap, ResponsiveContainer, Tooltip } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TreePine } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface Props {
   topArtists: { name: string; playcount: number }[]
@@ -63,10 +64,7 @@ export function ListeningTreemap({ topArtists }: Props) {
       <Card>
         <CardHeader><CardTitle>Your Listening Universe</CardTitle></CardHeader>
         <CardContent>
-          <div className="flex flex-col items-center justify-center gap-2 py-8 text-muted-foreground">
-            <TreePine className="h-8 w-8" />
-            <p className="text-sm">Not enough data yet — keep scrobbling!</p>
-          </div>
+          <EmptyState icon={TreePine} title="Not enough data yet — keep scrobbling!" size="compact" />
         </CardContent>
       </Card>
     )

@@ -1,7 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import { Heart } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface LovedTrack {
@@ -57,7 +59,7 @@ export function LovedTracksTimeline({
       </CardHeader>
       <CardContent>
         {months.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No loved tracks yet.</p>
+          <EmptyState icon={Heart} title="No loved tracks yet." size="compact" />
         ) : (
           <div className="flex flex-col gap-5">
             {months.map((month) => {

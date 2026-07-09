@@ -3,6 +3,7 @@
 import { useMemo } from 'react'
 import { Flame } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface ListeningStreaksProps {
   scrobbles: { scrobbledAt: Date | string }[]
@@ -87,7 +88,7 @@ export function ListeningStreaks({ scrobbles }: ListeningStreaksProps) {
       </CardHeader>
       <CardContent>
         {scrobbles.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Flame} title="No scrobble data yet." size="compact" />
         ) : (
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col items-center gap-1">

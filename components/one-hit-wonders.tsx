@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ArtistImage } from '@/components/artist-image'
 import { Sparkles } from 'lucide-react'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -90,13 +91,12 @@ export function OneHitWonders({ scrobbles, username }: OneHitWondersProps) {
       </CardHeader>
       <CardContent>
         {wonders.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 py-8" style={{ color: 'var(--muted-foreground)' }}>
-            <Sparkles className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No one-hit wonders found.</p>
-            <p className="text-xs opacity-70">
-              Artists you&apos;ve only heard once or twice will appear here.
-            </p>
-          </div>
+          <EmptyState
+            icon={Sparkles}
+            title="No one-hit wonders found."
+            description="Artists you've only heard once or twice will appear here."
+            size="compact"
+          />
         ) : (
           <ul className="space-y-3">
             {wonders.map(({ artist, playCount, mostRecentDate, mostRecentTrack }) => (

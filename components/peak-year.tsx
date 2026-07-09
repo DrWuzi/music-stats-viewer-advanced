@@ -10,7 +10,9 @@ import {
   Cell,
   ResponsiveContainer,
 } from 'recharts'
+import { Calendar } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 
 interface Props {
   scrobbles: { scrobbledAt: Date }[]
@@ -51,7 +53,7 @@ export function PeakYear({ scrobbles }: Props) {
           <CardTitle>Peak Year</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Calendar} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

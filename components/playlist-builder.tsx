@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { useState, useMemo } from 'react'
+import { SearchX } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref } from '@/lib/urls'
 
 interface TrackEntry {
@@ -162,7 +164,7 @@ export function PlaylistBuilder({
             {/* Track list */}
             <div className="overflow-y-auto max-h-96 border rounded-md divide-y divide-border">
               {filteredIndices.length === 0 ? (
-                <p className="text-sm text-muted-foreground p-4">No tracks match your search.</p>
+                <EmptyState icon={SearchX} title="No tracks match your search." size="compact" />
               ) : (
                 filteredIndices.map((idx) => {
                   const t = tracks[idx]

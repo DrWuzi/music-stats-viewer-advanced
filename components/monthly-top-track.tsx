@@ -2,8 +2,10 @@
 
 import { useMemo } from 'react'
 import Link from 'next/link'
+import { Calendar } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface Scrobble {
@@ -88,7 +90,7 @@ export function MonthlyTopTrack({ scrobbles, username }: { scrobbles: Scrobble[]
           <CardTitle>Top Track of Every Month</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">No scrobble data yet.</p>
+          <EmptyState icon={Calendar} title="No scrobble data yet." size="compact" />
         </CardContent>
       </Card>
     )

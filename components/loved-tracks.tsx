@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Heart } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { EmptyState } from '@/components/ui/empty-state'
 import { artistHref, trackHref } from '@/lib/urls'
 
 interface LovedTrack {
@@ -17,11 +18,12 @@ export function LovedTracks({ tracks, username }: { tracks: LovedTrack[]; userna
       </CardHeader>
       <CardContent>
         {tracks.length === 0 ? (
-          <div className="flex flex-col items-center gap-2 p-8 text-muted-foreground">
-            <Heart className="h-8 w-8 opacity-40" />
-            <p className="text-sm">No loved tracks yet.</p>
-            <p className="text-xs opacity-70">Heart a track on Last.fm and it will show up here.</p>
-          </div>
+          <EmptyState
+            icon={Heart}
+            title="No loved tracks yet."
+            description="Heart a track on Last.fm and it will show up here."
+            size="compact"
+          />
         ) : (
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {tracks.map((t) => (
