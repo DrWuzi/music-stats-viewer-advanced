@@ -263,7 +263,12 @@ export function ProfileBannerLive({
           full-bleed strip, so it reads as part of the same floating-glass
           layout instead of breaking out of it. */}
       <PageContainer className="pt-3">
-      <div className="relative overflow-hidden rounded-3xl border border-foreground/10 shadow-xl shadow-black/10 dark:shadow-black/40">
+      <div className="relative rounded-3xl border border-foreground/10 shadow-xl shadow-black/10 dark:shadow-black/40">
+        {/* overflow-hidden lives on this background-only layer (not the outer
+            hero div) so it clips the backdrop art/effects to the rounded
+            corners without also clipping the edit popover panel below, which
+            needs to render outside the hero's bounds. */}
+        <div className="absolute inset-0 overflow-hidden rounded-3xl">
         {/* Hero backdrop art: now-playing artist takes priority over the top
             overall artist (see the useNowPlaying()-driven effect above); falls
             back to an accent-tinted gradient when no image resolves. Heavy
@@ -315,6 +320,7 @@ export function ProfileBannerLive({
 
         {/* User-selectable animated overlay (like Discord's profile effects) — above the art/scrim, below the text. */}
         <ProfileHeroEffectLayer effect={heroEffect} />
+        </div>
 
         <div className="relative flex items-end gap-4 flex-wrap sm:flex-nowrap p-5 sm:p-7">
         <div className="relative shrink-0 h-20 w-20">

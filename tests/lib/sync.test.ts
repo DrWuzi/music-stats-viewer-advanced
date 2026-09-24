@@ -44,6 +44,7 @@ describe('syncUser', () => {
       avatarDecoration: null,
       profileBackground: null,
       loadingAnimation: null,
+      heroEffect: null,
     })
     vi.mocked(prisma.scrobble.createMany).mockResolvedValue({ count: 1 })
     vi.mocked(prisma.lovedTrack.findMany).mockResolvedValue([])

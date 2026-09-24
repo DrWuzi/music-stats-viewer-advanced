@@ -1,0 +1,59 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e6]:
+    - generic [ref=e7]:
+      - link "Last.fm Advanced" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e9]:
+        - link "Charts" [ref=e10] [cursor=pointer]:
+          - /url: /charts
+        - link "Discover" [ref=e14] [cursor=pointer]:
+          - /url: /discover
+        - link "Search" [ref=e18] [cursor=pointer]:
+          - /url: /search
+        - textbox "Search artists" [ref=e23]:
+          - /placeholder: Search artists...
+        - button "More" [ref=e24] [cursor=pointer]
+        - link [ref=e25] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in" [ref=e26]
+        - 'button "Theme: Light. Next: Dark" [ref=e27] [cursor=pointer]'
+  - main [ref=e28]:
+    - generic [ref=e29]:
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - generic [aria-hidden]:
+            - generic:
+              - generic: ♪
+              - generic: ♫
+              - generic: ♬
+              - generic: ♪
+              - generic: ♫
+              - generic: ♬
+        - generic [ref=e36]:
+          - generic [ref=e37]: W
+          - generic [ref=e40]:
+            - heading "Wuzi001" [level=1] [ref=e41]
+            - paragraph [ref=e42]: 12,071 scrobbles · Member since April 2026
+          - generic [ref=e43]: Synced 5m ago
+      - navigation "Profile navigation" [ref=e47]:
+        - link "Overview" [ref=e48] [cursor=pointer]:
+          - /url: /user/Wuzi001
+        - link "History" [ref=e55] [cursor=pointer]:
+          - /url: /user/Wuzi001/history
+        - link "Achievements" [ref=e60] [cursor=pointer]:
+          - /url: /user/Wuzi001/achievements
+        - link "Wrapped" [ref=e68] [cursor=pointer]:
+          - /url: /user/Wuzi001/wrapped
+        - link "Reports" [ref=e73] [cursor=pointer]:
+          - /url: /user/Wuzi001/reports
+        - link "Concerts" [ref=e78] [cursor=pointer]:
+          - /url: /user/Wuzi001/concerts
+      - status [ref=e83]:
+        - paragraph [ref=e90]: Loading profile…
+  - button "Open Next.js Dev Tools" [ref=e96] [cursor=pointer]:
+    - generic [ref=e99]:
+      - text: Compiling
+      - generic [ref=e100]:
+        - generic [ref=e101]: .
+        - generic [ref=e102]: .
+        - generic [ref=e103]: .

@@ -1,0 +1,24 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e6]:
+    - generic [ref=f1e7]:
+      - link "Last.fm Advanced" [ref=f1e8] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f1e9]:
+        - link "Charts" [ref=f1e10] [cursor=pointer]:
+          - /url: /charts
+        - link "Discover" [ref=f1e14] [cursor=pointer]:
+          - /url: /discover
+        - link "Search" [ref=f1e18] [cursor=pointer]:
+          - /url: /search
+        - textbox "Search artists" [ref=f1e23]:
+          - /placeholder: Search artists...
+        - button "More" [ref=f1e24] [cursor=pointer]
+        - link [ref=f1e25] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in" [ref=f1e26]
+        - 'button "Theme: Light. Next: Dark" [ref=f1e27] [cursor=pointer]'
+  - main [ref=f1e28]:
+    - generic [ref=f1e30]:
+      - generic [ref=f1e31]: Last.fm Advanced
+      - generic [aria-hidden] [ref=f1e32]: ♫
+  - button "Open Next.js Dev Tools" [ref=f1e40] [cursor=pointer]

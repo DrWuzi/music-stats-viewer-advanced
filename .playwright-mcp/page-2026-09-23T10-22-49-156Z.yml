@@ -1,0 +1,2229 @@
+- generic [active] [ref=f9e1]:
+  - banner [ref=f9e2]:
+    - generic [ref=f9e3]:
+      - link "Last.fm Advanced" [ref=f9e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f9e5]:
+        - link "Charts" [ref=f9e6] [cursor=pointer]:
+          - /url: /charts
+        - link "Discover" [ref=f9e10] [cursor=pointer]:
+          - /url: /discover
+        - link "Search" [ref=f9e14] [cursor=pointer]:
+          - /url: /search
+        - textbox "Search artists" [ref=f9e19]:
+          - /placeholder: Search artists...
+        - button "More" [ref=f9e20] [cursor=pointer]
+        - link [ref=f9e21] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in" [ref=f9e22]
+        - 'button "Theme: Light. Next: Dark" [ref=f9e23] [cursor=pointer]'
+  - main [ref=f9e24]:
+    - generic [ref=f9e25]:
+      - generic [ref=f9e26]:
+        - generic [ref=f9e27]:
+          - generic [ref=f9e28]: W
+          - generic [ref=f9e31]:
+            - heading "Wuzi001" [level=1] [ref=f9e32]
+            - paragraph [ref=f9e33]: 12,022 scrobbles · Member since April 2026
+          - generic [ref=f9e34]: Synced 75d ago
+        - navigation "Profile navigation" [ref=f9e38]:
+          - link "Overview" [ref=f9e39] [cursor=pointer]:
+            - /url: /user/Wuzi001
+          - link "History" [ref=f9e46] [cursor=pointer]:
+            - /url: /user/Wuzi001/history
+          - link "Achievements" [ref=f9e51] [cursor=pointer]:
+            - /url: /user/Wuzi001/achievements
+          - link "Wrapped" [ref=f9e59] [cursor=pointer]:
+            - /url: /user/Wuzi001/wrapped
+          - link "Reports" [ref=f9e64] [cursor=pointer]:
+            - /url: /user/Wuzi001/reports
+          - link "Concerts" [ref=f9e69] [cursor=pointer]:
+            - /url: /user/Wuzi001/concerts
+      - generic [ref=f9e74]:
+        - generic [ref=f9e75]:
+          - button "Copy Stats" [ref=f9e76] [cursor=pointer]
+          - button "Copy Link" [ref=f9e77] [cursor=pointer]
+          - button "Share" [ref=f9e78] [cursor=pointer]
+          - button "Print" [ref=f9e79] [cursor=pointer]
+          - generic "Your top 5 artists account for 19.0% of your listening" [ref=f9e81]: The Explorer
+        - generic [ref=f9e83]:
+          - generic [ref=f9e84]:
+            - generic [ref=f9e85]: Total
+            - generic [ref=f9e89]: "0"
+          - generic [ref=f9e91]:
+            - generic [ref=f9e92]: Today
+            - generic [ref=f9e98]: "0"
+          - generic [ref=f9e99]:
+            - generic [ref=f9e100]: This Week
+            - generic [ref=f9e105]: "0"
+          - generic [ref=f9e107]:
+            - generic [ref=f9e108]: Avg/Day (30d)
+            - generic [ref=f9e113]: "0"
+          - generic [ref=f9e114]:
+            - generic [ref=f9e115]: Top Artist
+            - link "Linkin Park" [ref=f9e120] [cursor=pointer]:
+              - /url: /artist/Linkin%20Park?username=Wuzi001
+        - alert [ref=f9e121]:
+          - generic [ref=f9e124]: Wuzi001 hasn't scrobbled in 75 days. Where did the music go?
+        - generic [ref=f9e125]:
+          - generic [ref=f9e126]:
+            - generic [ref=f9e129]:
+              - generic [ref=f9e130]:
+                - heading "Scrobbles" [level=3] [ref=f9e131]
+                - generic [ref=f9e132]:
+                  - generic [ref=f9e133]:
+                    - button "Daily" [ref=f9e134] [cursor=pointer]
+                    - button "Weekly" [ref=f9e135] [cursor=pointer]
+                    - button "Monthly" [ref=f9e136] [cursor=pointer]
+                  - generic [ref=f9e137]:
+                    - button "30d" [ref=f9e138] [cursor=pointer]
+                    - button "180d" [ref=f9e139] [cursor=pointer]
+                    - button "360d" [ref=f9e140] [cursor=pointer]
+                  - button "Export chart as PNG" [ref=f9e141] [cursor=pointer]
+              - generic [ref=f9e142]:
+                - generic [ref=f9e143]:
+                  - generic [ref=f9e144]: "Zoom:"
+                  - generic [ref=f9e145]:
+                    - button "3M" [ref=f9e146] [cursor=pointer]
+                    - button "6M" [ref=f9e147] [cursor=pointer]
+                    - button "1Y" [ref=f9e148] [cursor=pointer]
+                    - button "All" [ref=f9e149] [cursor=pointer]
+                  - button "Reset zoom" [ref=f9e150] [cursor=pointer]
+                - img "Bar chart showing daily scrobble counts over the last 30 days" [ref=f9e151]
+            - generic [ref=f9e155]:
+              - heading "Scrobble Velocity" [level=3] [ref=f9e157]
+              - generic [ref=f9e158]:
+                - generic [ref=f9e159]:
+                  - generic [ref=f9e160]:
+                    - paragraph [ref=f9e161]: Peak day
+                    - paragraph [ref=f9e162]: 279 scrobbles
+                    - paragraph [ref=f9e163]: Apr 24, 2026
+                  - generic [ref=f9e164]:
+                    - paragraph [ref=f9e165]: Current pace
+                    - generic "Last 7 days vs all-time average" [ref=f9e167]: "-100%"
+                    - paragraph [ref=f9e172]: 0.0 vs 91.1 avg/day
+                - paragraph [ref=f9e173]: 30-day rolling average · scrobbles/day
+            - generic [ref=f9e177]:
+              - generic [ref=f9e178]:
+                - heading "Listening Time" [level=3] [ref=f9e180]
+                - generic [ref=f9e185]:
+                  - generic [ref=f9e186]:
+                    - generic [ref=f9e187]: ~701 hours
+                    - generic [ref=f9e188]: ~29 days of music
+                  - generic [ref=f9e190]:
+                    - generic [ref=f9e191]: "% of last year spent listening"
+                    - generic [ref=f9e192]: 8.00%
+                  - generic [ref=f9e196]:
+                    - generic [ref=f9e197]: "% of your life spent listening"
+                    - generic [ref=f9e198]: 0.111%
+                  - generic [ref=f9e201]:
+                    - paragraph [ref=f9e202]: Fun comparisons
+                    - list [ref=f9e203]:
+                      - listitem [ref=f9e204]: 351 movies watched (avg 2h each)
+                      - listitem [ref=f9e205]:
+                        - generic [ref=f9e206]: 17.5x
+                        - text: around the world by plane
+              - generic [ref=f9e207]:
+                - heading "When You Listen" [level=3] [ref=f9e209]
+                - generic [ref=f9e211]:
+                  - generic [ref=f9e212]:
+                    - generic [ref=f9e213]: ☀️
+                    - generic [ref=f9e214]: Morning
+                    - generic [ref=f9e215]: 6–11h
+                    - generic [ref=f9e216]: 2,583
+                    - generic [ref=f9e217]: 33% of total
+                  - generic [ref=f9e218]:
+                    - generic [ref=f9e219]: Top
+                    - generic [ref=f9e220]: 🌤️
+                    - generic [ref=f9e221]: Afternoon
+                    - generic [ref=f9e222]: 12–17h
+                    - generic [ref=f9e223]: 2,740
+                    - generic [ref=f9e224]: 35% of total
+                  - generic [ref=f9e225]:
+                    - generic [ref=f9e226]: 🌆
+                    - generic [ref=f9e227]: Evening
+                    - generic [ref=f9e228]: 18–22h
+                    - generic [ref=f9e229]: 1,804
+                    - generic [ref=f9e230]: 23% of total
+                  - generic [ref=f9e231]:
+                    - generic [ref=f9e232]: 🌙
+                    - generic [ref=f9e233]: Night
+                    - generic [ref=f9e234]: 23–5h
+                    - generic [ref=f9e235]: "708"
+                    - generic [ref=f9e236]: 9% of total
+              - generic [ref=f9e237]:
+                - heading "Weekday vs Weekend" [level=3] [ref=f9e239]
+                - paragraph [ref=f9e241]: You listen 24% more on weekdays
+              - generic [ref=f9e243]:
+                - heading "Artist Loyalty" [level=3] [ref=f9e245]
+                - generic [ref=f9e246]:
+                  - generic [ref=f9e247]:
+                    - 'generic "Linkin Park: 8.6%" [ref=f9e248]'
+                    - 'generic "Imagine Dragons: 4.6%" [ref=f9e249]'
+                    - 'generic "Ed Sheeran: 2.3%" [ref=f9e250]'
+                    - 'generic "BABYMONSTER: 1.9%" [ref=f9e251]'
+                    - 'generic "Twenty One Pilots: 1.6%" [ref=f9e252]'
+                    - 'generic "Other: 81.0%" [ref=f9e253]'
+                  - generic [ref=f9e254]:
+                    - generic [ref=f9e255]:
+                      - link "Linkin Park":
+                        - /url: /artist/Linkin%20Park?username=Wuzi001
+                      - generic [ref=f9e257]: 1,031 · 8.6%
+                    - generic [ref=f9e258]:
+                      - link "Imagine Dragons" [ref=f9e260] [cursor=pointer]:
+                        - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                      - generic [ref=f9e261]: 554 · 4.6%
+                    - generic [ref=f9e262]:
+                      - link "Ed Sheeran" [ref=f9e264] [cursor=pointer]:
+                        - /url: /artist/Ed%20Sheeran?username=Wuzi001
+                      - generic [ref=f9e265]: 272 · 2.3%
+                    - generic [ref=f9e266]:
+                      - link "BABYMONSTER" [ref=f9e268] [cursor=pointer]:
+                        - /url: /artist/BABYMONSTER?username=Wuzi001
+                      - generic [ref=f9e269]: 232 · 1.9%
+                    - generic [ref=f9e270]:
+                      - link "Twenty One Pilots" [ref=f9e272] [cursor=pointer]:
+                        - /url: /artist/Twenty%20One%20Pilots?username=Wuzi001
+                      - generic [ref=f9e273]: 190 · 1.6%
+                    - generic [ref=f9e274]:
+                      - generic [ref=f9e276]: Other
+                      - generic [ref=f9e277]: 81.0%
+            - generic [ref=f9e280]:
+              - heading "Sonic DNA" [level=3] [ref=f9e282]
+              - generic [ref=f9e283]:
+                - paragraph [ref=f9e284]: Your musical fingerprint — 8 dimensions, 0–100
+                - generic [ref=f9e286]:
+                  - paragraph [ref=f9e287]: Your listening personality
+                  - paragraph [ref=f9e288]: The Devoted Repeater
+            - generic [ref=f9e295]:
+              - generic [ref=f9e296]:
+                - generic [ref=f9e297]: Time Patterns
+                - button "Collapse section" [expanded] [ref=f9e298] [cursor=pointer]
+              - generic [ref=f9e300]:
+                - generic [ref=f9e301]:
+                  - heading "Listening Heatmap" [level=3] [ref=f9e303]
+                  - img "Heatmap showing listening activity by hour of day and day of week" [ref=f9e305]:
+                    - generic [ref=f9e306]:
+                      - generic [ref=f9e307]:
+                        - generic [ref=f9e308]: "0"
+                        - generic [ref=f9e314]: "6"
+                        - generic [ref=f9e320]: "12"
+                        - generic [ref=f9e326]: "18"
+                      - generic [ref=f9e332]: M
+                      - generic [ref=f9e382]: T
+                      - generic [ref=f9e432]: W
+                      - generic [ref=f9e482]: T
+                      - generic [ref=f9e532]: F
+                      - generic [ref=f9e582]: S
+                      - generic [ref=f9e632]: S
+                - generic [ref=f9e682]:
+                  - heading "By Day of Week" [level=3] [ref=f9e684]
+                  - img "Bar chart showing scrobble counts by day of week" [ref=f9e686]
+                - generic [ref=f9e688]:
+                  - heading "Listening Clock" [level=3] [ref=f9e690]
+                  - generic [ref=f9e691]:
+                    - img "Radial chart showing scrobble counts for each hour of the day" [ref=f9e692]
+                    - paragraph [ref=f9e694]: Each band represents one hour (0–23). 12 o'clock = midnight.
+            - generic [ref=f9e697]:
+              - generic [ref=f9e698]:
+                - heading "Listening Streaks" [level=3] [ref=f9e700]
+                - generic [ref=f9e702]:
+                  - generic [ref=f9e703]:
+                    - generic [ref=f9e704]: "0"
+                    - generic [ref=f9e706]: days
+                    - generic [ref=f9e707]: Current
+                  - generic [ref=f9e708]:
+                    - generic [ref=f9e709]: "86"
+                    - generic [ref=f9e710]: days
+                    - generic [ref=f9e711]: Longest
+              - generic [ref=f9e712]:
+                - heading "Listening Sessions" [level=3] [ref=f9e714]
+                - generic [ref=f9e715]:
+                  - generic [ref=f9e716]:
+                    - generic [ref=f9e717]:
+                      - paragraph [ref=f9e718]: "407"
+                      - paragraph [ref=f9e719]: Total Sessions
+                    - generic [ref=f9e720]:
+                      - paragraph [ref=f9e721]: 1h 12m
+                      - paragraph [ref=f9e722]: Avg Length
+                    - generic [ref=f9e723]:
+                      - paragraph [ref=f9e724]: 13h 52m
+                      - paragraph [ref=f9e725]: 226 tracks
+                  - generic [ref=f9e726]:
+                    - paragraph [ref=f9e727]: Last 5 sessions
+                    - generic [ref=f9e728]:
+                      - generic [ref=f9e729]: Jul 9, 10:53 AM
+                      - generic [ref=f9e730]: 4h 8m · 59 tracks
+                    - generic [ref=f9e731]:
+                      - generic [ref=f9e732]: Jul 9, 07:02 AM
+                      - generic [ref=f9e733]: 12 min · 6 tracks
+                    - generic [ref=f9e734]:
+                      - generic [ref=f9e735]: Jul 8, 11:24 PM
+                      - generic [ref=f9e736]: 0 min · 1 tracks
+                    - generic [ref=f9e737]:
+                      - generic [ref=f9e738]: Jul 8, 08:27 PM
+                      - generic [ref=f9e739]: 0 min · 1 tracks
+                    - generic [ref=f9e740]:
+                      - generic [ref=f9e741]: Jul 8, 03:28 PM
+                      - generic [ref=f9e742]: 50 min · 17 tracks
+              - generic [ref=f9e743]:
+                - heading "Milestones" [level=3] [ref=f9e745]
+                - generic [ref=f9e746]:
+                  - list [ref=f9e747]:
+                    - listitem [ref=f9e748]:
+                      - generic [ref=f9e751]: 1,000
+                    - listitem [ref=f9e752]:
+                      - generic [ref=f9e755]: 5,000
+                    - listitem [ref=f9e756]:
+                      - generic [ref=f9e759]: 10,000
+                  - generic [ref=f9e760]:
+                    - generic [ref=f9e761]:
+                      - generic [ref=f9e762]: 12,022 / 25,000
+                      - generic [ref=f9e763]: 13%
+                    - paragraph [ref=f9e766]: 12,978 scrobbles until 25,000
+            - heading "Year-over-Year" [level=3] [ref=f9e775]
+            - generic [ref=f9e788]:
+              - generic [ref=f9e789]:
+                - heading "Listening Forecast" [level=3] [ref=f9e791]
+                - generic [ref=f9e792]:
+                  - paragraph [ref=f9e793]: Predicted scrobbles · next 7 days · based on 90-day day-of-week averages
+                  - paragraph [ref=f9e795]: "Your busiest upcoming day: Wed (~22 expected)"
+              - generic [ref=f9e796]:
+                - heading "Data Health" [level=3] [ref=f9e798]
+                - list [ref=f9e800]:
+                  - listitem [ref=f9e801]:
+                    - generic [ref=f9e809]: "Record day: Apr 24, 2026 with 279 scrobbles"
+                    - generic [ref=f9e810]: Achievement
+                  - listitem [ref=f9e811]:
+                    - generic [ref=f9e818]:
+                      - text: "\""
+                      - link "Alone" [ref=f9e819] [cursor=pointer]:
+                        - /url: /track/Edgars%20Bukovskis/Alone?username=Wuzi001
+                      - text: "\" by"
+                      - link "Edgars Bukovskis" [ref=f9e820] [cursor=pointer]:
+                        - /url: /artist/Edgars%20Bukovskis?username=Wuzi001
+                      - text: played 32× on Jul 1, 2026
+                    - generic [ref=f9e821]: Info
+            - generic [ref=f9e824]:
+              - heading "Track vs Artist Plays" [level=3] [ref=f9e826]
+              - generic [ref=f9e827]: Each dot is a top track. Its horizontal position shows how many total plays its artist has; its vertical position shows how many plays that individual track has. Dots higher and to the right belong to both a popular artist and a frequently replayed song.
+            - generic [ref=f9e834]:
+              - generic [ref=f9e835]:
+                - heading "Top Charts" [level=3] [ref=f9e836]
+                - generic [ref=f9e837]:
+                  - button "Last 7 Days" [ref=f9e838] [cursor=pointer]
+                  - combobox [ref=f9e844]
+              - generic [ref=f9e847]:
+                - tablist [ref=f9e850]:
+                  - tab "Artists" [selected] [ref=f9e851] [cursor=pointer]
+                  - tab "Albums" [ref=f9e853] [cursor=pointer]
+                  - tab "Tracks" [ref=f9e854] [cursor=pointer]
+                - tabpanel "Artists" [ref=f9e855]:
+                  - generic [ref=f9e856]:
+                    - generic [ref=f9e858]:
+                      - button "# Rank" [ref=f9e859] [cursor=pointer]
+                      - combobox [ref=f9e865]
+                    - list [ref=f9e866]:
+                      - listitem [ref=f9e867]:
+                        - generic [ref=f9e868]: "1"
+                        - link "Loading image for Linkin Park Linkin Park" [ref=f9e869] [cursor=pointer]:
+                          - /url: /artist/Linkin%20Park?username=Wuzi001
+                          - generic "Loading image for Linkin Park" [ref=f9e870]
+                          - generic [ref=f9e871]: Linkin Park
+                        - generic [ref=f9e872]: 63 plays
+                      - listitem [ref=f9e873]:
+                        - generic [ref=f9e874]: "2"
+                        - link "Loading image for Imagine Dragons Imagine Dragons" [ref=f9e875] [cursor=pointer]:
+                          - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                          - generic "Loading image for Imagine Dragons" [ref=f9e876]
+                          - generic [ref=f9e877]: Imagine Dragons
+                        - generic [ref=f9e878]: 32 plays
+                      - listitem [ref=f9e879]:
+                        - generic [ref=f9e880]: "3"
+                        - link "Loading image for BABYMONSTER BABYMONSTER" [ref=f9e881] [cursor=pointer]:
+                          - /url: /artist/BABYMONSTER?username=Wuzi001
+                          - generic "Loading image for BABYMONSTER" [ref=f9e882]
+                          - generic [ref=f9e883]: BABYMONSTER
+                        - generic [ref=f9e884]: 24 plays
+                      - listitem [ref=f9e885]:
+                        - generic [ref=f9e886]: "4"
+                        - link "Loading image for Kordhell Kordhell" [ref=f9e887] [cursor=pointer]:
+                          - /url: /artist/Kordhell?username=Wuzi001
+                          - generic "Loading image for Kordhell" [ref=f9e888]
+                          - generic [ref=f9e889]: Kordhell
+                        - generic [ref=f9e890]: 21 plays
+                      - listitem [ref=f9e891]:
+                        - generic [ref=f9e892]: "5"
+                        - link "Loading image for ITZY ITZY" [ref=f9e893] [cursor=pointer]:
+                          - /url: /artist/ITZY?username=Wuzi001
+                          - generic "Loading image for ITZY" [ref=f9e894]
+                          - generic [ref=f9e895]: ITZY
+                        - generic [ref=f9e896]: 14 plays
+                      - listitem [ref=f9e897]:
+                        - generic [ref=f9e898]: "6"
+                        - link "Loading image for BLACKPINK BLACKPINK" [ref=f9e899] [cursor=pointer]:
+                          - /url: /artist/BLACKPINK?username=Wuzi001
+                          - generic "Loading image for BLACKPINK" [ref=f9e900]
+                          - generic [ref=f9e901]: BLACKPINK
+                        - generic [ref=f9e902]: 13 plays
+                      - listitem [ref=f9e903]:
+                        - generic [ref=f9e904]: "7"
+                        - link "Loading image for Edgars Bukovskis Edgars Bukovskis" [ref=f9e905] [cursor=pointer]:
+                          - /url: /artist/Edgars%20Bukovskis?username=Wuzi001
+                          - generic "Loading image for Edgars Bukovskis" [ref=f9e906]
+                          - generic [ref=f9e907]: Edgars Bukovskis
+                        - generic [ref=f9e908]: 12 plays
+                      - listitem [ref=f9e909]:
+                        - generic [ref=f9e910]: "8"
+                        - link "Loading image for LUM!X LUM!X" [ref=f9e911] [cursor=pointer]:
+                          - /url: /artist/LUM!X?username=Wuzi001
+                          - generic "Loading image for LUM!X" [ref=f9e912]
+                          - generic [ref=f9e913]: LUM!X
+                        - generic [ref=f9e914]: 12 plays
+                      - listitem [ref=f9e915]:
+                        - generic [ref=f9e916]: "9"
+                        - link "Loading image for Ian Asher und D A N N Y Ian Asher und D A N N Y" [ref=f9e917] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20D%20A%20N%20N%20Y?username=Wuzi001
+                          - generic "Loading image for Ian Asher und D A N N Y" [ref=f9e918]
+                          - generic [ref=f9e919]: Ian Asher und D A N N Y
+                        - generic [ref=f9e920]: 11 plays
+                      - listitem [ref=f9e921]:
+                        - generic [ref=f9e922]: "10"
+                        - link "Loading image for Twenty One Pilots Twenty One Pilots" [ref=f9e923] [cursor=pointer]:
+                          - /url: /artist/Twenty%20One%20Pilots?username=Wuzi001
+                          - generic "Loading image for Twenty One Pilots" [ref=f9e924]
+                          - generic [ref=f9e925]: Twenty One Pilots
+                        - generic [ref=f9e926]: 10 plays
+                      - listitem [ref=f9e927]:
+                        - generic [ref=f9e928]: "11"
+                        - link "Loading image for Ian Asher und Arden Jones Ian Asher und Arden Jones" [ref=f9e929] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Arden%20Jones?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Arden Jones" [ref=f9e930]
+                          - generic [ref=f9e931]: Ian Asher und Arden Jones
+                        - generic [ref=f9e932]: 7 plays
+                      - listitem [ref=f9e933]:
+                        - generic [ref=f9e934]: "12"
+                        - link "Loading image for Ian Asher und Studio Killers Ian Asher und Studio Killers" [ref=f9e935] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Studio%20Killers?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Studio Killers" [ref=f9e936]
+                          - generic [ref=f9e937]: Ian Asher und Studio Killers
+                        - generic [ref=f9e938]: 7 plays
+                      - listitem [ref=f9e939]:
+                        - generic [ref=f9e940]: "13"
+                        - link "Loading image for Kenya Grace Kenya Grace" [ref=f9e941] [cursor=pointer]:
+                          - /url: /artist/Kenya%20Grace?username=Wuzi001
+                          - generic "Loading image for Kenya Grace" [ref=f9e942]
+                          - generic [ref=f9e943]: Kenya Grace
+                        - generic [ref=f9e944]: 7 plays
+                      - listitem [ref=f9e945]:
+                        - generic [ref=f9e946]: "14"
+                        - link "Loading image for Anyma und LISA Anyma und LISA" [ref=f9e947] [cursor=pointer]:
+                          - /url: /artist/Anyma%20und%20LISA?username=Wuzi001
+                          - generic "Loading image for Anyma und LISA" [ref=f9e948]
+                          - generic [ref=f9e949]: Anyma und LISA
+                        - generic [ref=f9e950]: 6 plays
+                      - listitem [ref=f9e951]:
+                        - generic [ref=f9e952]: "15"
+                        - link "Loading image for Elley Duhé und Whethan Elley Duhé und Whethan" [ref=f9e953] [cursor=pointer]:
+                          - /url: /artist/Elley%20Duh%C3%A9%20und%20Whethan?username=Wuzi001
+                          - generic "Loading image for Elley Duhé und Whethan" [ref=f9e954]
+                          - generic [ref=f9e955]: Elley Duhé und Whethan
+                        - generic [ref=f9e956]: 6 plays
+                      - listitem [ref=f9e957]:
+                        - generic [ref=f9e958]: "16"
+                        - link "Loading image for i-dle (아이들) i-dle (아이들)" [ref=f9e959] [cursor=pointer]:
+                          - /url: /artist/i-dle%20(%EC%95%84%EC%9D%B4%EB%93%A4)?username=Wuzi001
+                          - generic "Loading image for i-dle (아이들)" [ref=f9e960]
+                          - generic [ref=f9e961]: i-dle (아이들)
+                        - generic [ref=f9e962]: 6 plays
+                      - listitem [ref=f9e963]:
+                        - generic [ref=f9e964]: "17"
+                        - link "Loading image for Ian Asher Ian Asher" [ref=f9e965] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher?username=Wuzi001
+                          - generic "Loading image for Ian Asher" [ref=f9e966]
+                          - generic [ref=f9e967]: Ian Asher
+                        - generic [ref=f9e968]: 6 plays
+                      - listitem [ref=f9e969]:
+                        - generic [ref=f9e970]: "18"
+                        - link "Loading image for Ian Asher und Galantis Ian Asher und Galantis" [ref=f9e971] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Galantis?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Galantis" [ref=f9e972]
+                          - generic [ref=f9e973]: Ian Asher und Galantis
+                        - generic [ref=f9e974]: 6 plays
+                      - listitem [ref=f9e975]:
+                        - generic [ref=f9e976]: "19"
+                        - link "Loading image for Jennie Jennie" [ref=f9e977] [cursor=pointer]:
+                          - /url: /artist/Jennie?username=Wuzi001
+                          - generic "Loading image for Jennie" [ref=f9e978]
+                          - generic [ref=f9e979]: Jennie
+                        - generic [ref=f9e980]: 5 plays
+                      - listitem [ref=f9e981]:
+                        - generic [ref=f9e982]: "20"
+                        - link "Loading image for Lisa Lisa" [ref=f9e983] [cursor=pointer]:
+                          - /url: /artist/Lisa?username=Wuzi001
+                          - generic "Loading image for Lisa" [ref=f9e984]
+                          - generic [ref=f9e985]: Lisa
+                        - generic [ref=f9e986]: 5 plays
+                      - listitem [ref=f9e987]:
+                        - generic [ref=f9e988]: "21"
+                        - link "Loading image for Stray Kids Stray Kids" [ref=f9e989] [cursor=pointer]:
+                          - /url: /artist/Stray%20Kids?username=Wuzi001
+                          - generic "Loading image for Stray Kids" [ref=f9e990]
+                          - generic [ref=f9e991]: Stray Kids
+                        - generic [ref=f9e992]: 5 plays
+                      - listitem [ref=f9e993]:
+                        - generic [ref=f9e994]: "22"
+                        - link "Loading image for aespa aespa" [ref=f9e995] [cursor=pointer]:
+                          - /url: /artist/aespa?username=Wuzi001
+                          - generic "Loading image for aespa" [ref=f9e996]
+                          - generic [ref=f9e997]: aespa
+                        - generic [ref=f9e998]: 4 plays
+                      - listitem [ref=f9e999]:
+                        - generic [ref=f9e1000]: "23"
+                        - link "Loading image for Hoobastank Hoobastank" [ref=f9e1001] [cursor=pointer]:
+                          - /url: /artist/Hoobastank?username=Wuzi001
+                          - generic "Loading image for Hoobastank" [ref=f9e1002]
+                          - generic [ref=f9e1003]: Hoobastank
+                        - generic [ref=f9e1004]: 4 plays
+                      - listitem [ref=f9e1005]:
+                        - generic [ref=f9e1006]: "24"
+                        - link "Loading image for Ian Asher und Jade LeMac Ian Asher und Jade LeMac" [ref=f9e1007] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Jade%20LeMac?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Jade LeMac" [ref=f9e1008]
+                          - generic [ref=f9e1009]: Ian Asher und Jade LeMac
+                        - generic [ref=f9e1010]: 4 plays
+                      - listitem [ref=f9e1011]:
+                        - generic [ref=f9e1012]: "25"
+                        - link "Loading image for Ian Asher und Olly Alexander (Years & Years) Ian Asher und Olly Alexander (Years & Years)" [ref=f9e1013] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Olly%20Alexander%20(Years%20%26%20Years)?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Olly Alexander (Years & Years)" [ref=f9e1014]
+                          - generic [ref=f9e1015]: Ian Asher und Olly Alexander (Years & Years)
+                        - generic [ref=f9e1016]: 4 plays
+                      - listitem [ref=f9e1017]:
+                        - generic [ref=f9e1018]: "26"
+                        - link "Loading image for Josh Fawaz Josh Fawaz" [ref=f9e1019] [cursor=pointer]:
+                          - /url: /artist/Josh%20Fawaz?username=Wuzi001
+                          - generic "Loading image for Josh Fawaz" [ref=f9e1020]
+                          - generic [ref=f9e1021]: Josh Fawaz
+                        - generic [ref=f9e1022]: 4 plays
+                      - listitem [ref=f9e1023]:
+                        - generic [ref=f9e1024]: "27"
+                        - link "Loading image for Bennett Bennett" [ref=f9e1025] [cursor=pointer]:
+                          - /url: /artist/Bennett?username=Wuzi001
+                          - generic "Loading image for Bennett" [ref=f9e1026]
+                          - generic [ref=f9e1027]: Bennett
+                        - generic [ref=f9e1028]: 3 plays
+                      - listitem [ref=f9e1029]:
+                        - generic [ref=f9e1030]: "28"
+                        - link "Loading image for Coldplay Coldplay" [ref=f9e1031] [cursor=pointer]:
+                          - /url: /artist/Coldplay?username=Wuzi001
+                          - generic "Loading image for Coldplay" [ref=f9e1032]
+                          - generic [ref=f9e1033]: Coldplay
+                        - generic [ref=f9e1034]: 3 plays
+                      - listitem [ref=f9e1035]:
+                        - generic [ref=f9e1036]: "29"
+                        - link "Loading image for Eternxlkz Eternxlkz" [ref=f9e1037] [cursor=pointer]:
+                          - /url: /artist/Eternxlkz?username=Wuzi001
+                          - generic "Loading image for Eternxlkz" [ref=f9e1038]
+                          - generic [ref=f9e1039]: Eternxlkz
+                        - generic [ref=f9e1040]: 3 plays
+                      - listitem [ref=f9e1041]:
+                        - generic [ref=f9e1042]: "30"
+                        - link "Loading image for i-dle i-dle" [ref=f9e1043] [cursor=pointer]:
+                          - /url: /artist/i-dle?username=Wuzi001
+                          - generic "Loading image for i-dle" [ref=f9e1044]
+                          - generic [ref=f9e1045]: i-dle
+                        - generic [ref=f9e1046]: 3 plays
+                      - listitem [ref=f9e1047]:
+                        - generic [ref=f9e1048]: "31"
+                        - link "Loading image for Ian Asher und Giulia Be Ian Asher und Giulia Be" [ref=f9e1049] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Giulia%20Be?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Giulia Be" [ref=f9e1050]
+                          - generic [ref=f9e1051]: Ian Asher und Giulia Be
+                        - generic [ref=f9e1052]: 3 plays
+                      - listitem [ref=f9e1053]:
+                        - generic [ref=f9e1054]: "32"
+                        - link "Loading image for IVE IVE" [ref=f9e1055] [cursor=pointer]:
+                          - /url: /artist/IVE?username=Wuzi001
+                          - generic "Loading image for IVE" [ref=f9e1056]
+                          - generic [ref=f9e1057]: IVE
+                        - generic [ref=f9e1058]: 3 plays
+                      - listitem [ref=f9e1059]:
+                        - generic [ref=f9e1060]: "33"
+                        - link "Loading image for Jisoo und BLACKPINK Jisoo und BLACKPINK" [ref=f9e1061] [cursor=pointer]:
+                          - /url: /artist/Jisoo%20und%20BLACKPINK?username=Wuzi001
+                          - generic "Loading image for Jisoo und BLACKPINK" [ref=f9e1062]
+                          - generic [ref=f9e1063]: Jisoo und BLACKPINK
+                        - generic [ref=f9e1064]: 3 plays
+                      - listitem [ref=f9e1065]:
+                        - generic [ref=f9e1066]: "34"
+                        - link "Loading image for MEOVV MEOVV" [ref=f9e1067] [cursor=pointer]:
+                          - /url: /artist/MEOVV?username=Wuzi001
+                          - generic "Loading image for MEOVV" [ref=f9e1068]
+                          - generic [ref=f9e1069]: MEOVV
+                        - generic [ref=f9e1070]: 3 plays
+                      - listitem [ref=f9e1071]:
+                        - generic [ref=f9e1072]: "35"
+                        - link "Loading image for Rubikdice, Chilx und WAA Rubikdice, Chilx und WAA" [ref=f9e1073] [cursor=pointer]:
+                          - /url: /artist/Rubikdice%2C%20Chilx%20und%20WAA?username=Wuzi001
+                          - generic "Loading image for Rubikdice, Chilx und WAA" [ref=f9e1074]
+                          - generic [ref=f9e1075]: Rubikdice, Chilx und WAA
+                        - generic [ref=f9e1076]: 3 plays
+                      - listitem [ref=f9e1077]:
+                        - generic [ref=f9e1078]: "36"
+                        - link "Loading image for SawanoHiroyuki[nZk] SawanoHiroyuki[nZk]" [ref=f9e1079] [cursor=pointer]:
+                          - /url: /artist/SawanoHiroyuki%5BnZk%5D?username=Wuzi001
+                          - generic "Loading image for SawanoHiroyuki[nZk]" [ref=f9e1080]
+                          - generic [ref=f9e1081]: SawanoHiroyuki[nZk]
+                        - generic [ref=f9e1082]: 3 plays
+                      - listitem [ref=f9e1083]:
+                        - generic [ref=f9e1084]: "37"
+                        - link "Loading image for SMTOWN LIVE 2025 [THE CULTURE, THE FUTURE] in SEOUL Playlist SMTOWN LIVE 2025 [THE CULTURE, THE FUTURE] in SEOUL Playlist" [ref=f9e1085] [cursor=pointer]:
+                          - /url: /artist/SMTOWN%20LIVE%202025%20%5BTHE%20CULTURE%2C%20THE%20FUTURE%5D%20in%20SEOUL%20Playlist?username=Wuzi001
+                          - generic "Loading image for SMTOWN LIVE 2025 [THE CULTURE, THE FUTURE] in SEOUL Playlist" [ref=f9e1086]
+                          - generic [ref=f9e1087]: SMTOWN LIVE 2025 [THE CULTURE, THE FUTURE] in SEOUL Playlist
+                        - generic [ref=f9e1088]: 3 plays
+                      - listitem [ref=f9e1089]:
+                        - generic [ref=f9e1090]: "38"
+                        - link "Loading image for STRLGHT und ROONIN STRLGHT und ROONIN" [ref=f9e1091] [cursor=pointer]:
+                          - /url: /artist/STRLGHT%20und%20ROONIN?username=Wuzi001
+                          - generic "Loading image for STRLGHT und ROONIN" [ref=f9e1092]
+                          - generic [ref=f9e1093]: STRLGHT und ROONIN
+                        - generic [ref=f9e1094]: 3 plays
+                      - listitem [ref=f9e1095]:
+                        - generic [ref=f9e1096]: "39"
+                        - link "Loading image for UMBASA UMBASA" [ref=f9e1097] [cursor=pointer]:
+                          - /url: /artist/UMBASA?username=Wuzi001
+                          - generic "Loading image for UMBASA" [ref=f9e1098]
+                          - generic [ref=f9e1099]: UMBASA
+                        - generic [ref=f9e1100]: 3 plays
+                      - listitem [ref=f9e1101]:
+                        - generic [ref=f9e1102]: "40"
+                        - link "Loading image for Worakls Worakls" [ref=f9e1103] [cursor=pointer]:
+                          - /url: /artist/Worakls?username=Wuzi001
+                          - generic "Loading image for Worakls" [ref=f9e1104]
+                          - generic [ref=f9e1105]: Worakls
+                        - generic [ref=f9e1106]: 3 plays
+                      - listitem [ref=f9e1107]:
+                        - generic [ref=f9e1108]: "41"
+                        - link "Loading image for Alex Esseker Alex Esseker" [ref=f9e1109] [cursor=pointer]:
+                          - /url: /artist/Alex%20Esseker?username=Wuzi001
+                          - generic "Loading image for Alex Esseker" [ref=f9e1110]
+                          - generic [ref=f9e1111]: Alex Esseker
+                        - generic [ref=f9e1112]: 2 plays
+                      - listitem [ref=f9e1113]:
+                        - generic [ref=f9e1114]: "42"
+                        - link "Loading image for Alok und Alan Walker Alok und Alan Walker" [ref=f9e1115] [cursor=pointer]:
+                          - /url: /artist/Alok%20und%20Alan%20Walker?username=Wuzi001
+                          - generic "Loading image for Alok und Alan Walker" [ref=f9e1116]
+                          - generic [ref=f9e1117]: Alok und Alan Walker
+                        - generic [ref=f9e1118]: 2 plays
+                      - listitem [ref=f9e1119]:
+                        - generic [ref=f9e1120]: "43"
+                        - link "Loading image for ANT|QUE ANT|QUE" [ref=f9e1121] [cursor=pointer]:
+                          - /url: /artist/ANT%7CQUE?username=Wuzi001
+                          - generic "Loading image for ANT|QUE" [ref=f9e1122]
+                          - generic [ref=f9e1123]: ANT|QUE
+                        - generic [ref=f9e1124]: 2 plays
+                      - listitem [ref=f9e1125]:
+                        - generic [ref=f9e1126]: "44"
+                        - link "Loading image for DJ Asul DJ Asul" [ref=f9e1127] [cursor=pointer]:
+                          - /url: /artist/DJ%20Asul?username=Wuzi001
+                          - generic "Loading image for DJ Asul" [ref=f9e1128]
+                          - generic [ref=f9e1129]: DJ Asul
+                        - generic [ref=f9e1130]: 2 plays
+                      - listitem [ref=f9e1131]:
+                        - generic [ref=f9e1132]: "45"
+                        - link "Loading image for Evanescence Evanescence" [ref=f9e1133] [cursor=pointer]:
+                          - /url: /artist/Evanescence?username=Wuzi001
+                          - generic "Loading image for Evanescence" [ref=f9e1134]
+                          - generic [ref=f9e1135]: Evanescence
+                        - generic [ref=f9e1136]: 2 plays
+                      - listitem [ref=f9e1137]:
+                        - generic [ref=f9e1138]: "46"
+                        - link "Loading image for Ghostbells Ghostbells" [ref=f9e1139] [cursor=pointer]:
+                          - /url: /artist/Ghostbells?username=Wuzi001
+                          - generic "Loading image for Ghostbells" [ref=f9e1140]
+                          - generic [ref=f9e1141]: Ghostbells
+                        - generic [ref=f9e1142]: 2 plays
+                      - listitem [ref=f9e1143]:
+                        - generic [ref=f9e1144]: "47"
+                        - link "Loading image for Ian Asher und Jain Ian Asher und Jain" [ref=f9e1145] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%20und%20Jain?username=Wuzi001
+                          - generic "Loading image for Ian Asher und Jain" [ref=f9e1146]
+                          - generic [ref=f9e1147]: Ian Asher und Jain
+                        - generic [ref=f9e1148]: 2 plays
+                      - listitem [ref=f9e1149]:
+                        - generic [ref=f9e1150]: "48"
+                        - link "Loading image for Ian Asher, SB19 und Terry Zhong Ian Asher, SB19 und Terry Zhong" [ref=f9e1151] [cursor=pointer]:
+                          - /url: /artist/Ian%20Asher%2C%20SB19%20und%20Terry%20Zhong?username=Wuzi001
+                          - generic "Loading image for Ian Asher, SB19 und Terry Zhong" [ref=f9e1152]
+                          - generic [ref=f9e1153]: Ian Asher, SB19 und Terry Zhong
+                        - generic [ref=f9e1154]: 2 plays
+                      - listitem [ref=f9e1155]:
+                        - generic [ref=f9e1156]: "49"
+                        - link "Loading image for ILLIT ILLIT" [ref=f9e1157] [cursor=pointer]:
+                          - /url: /artist/ILLIT?username=Wuzi001
+                          - generic "Loading image for ILLIT" [ref=f9e1158]
+                          - generic [ref=f9e1159]: ILLIT
+                        - generic [ref=f9e1160]: 2 plays
+                      - listitem [ref=f9e1161]:
+                        - generic [ref=f9e1162]: "50"
+                        - link "Loading image for InterWorld InterWorld" [ref=f9e1163] [cursor=pointer]:
+                          - /url: /artist/InterWorld?username=Wuzi001
+                          - generic "Loading image for InterWorld" [ref=f9e1164]
+                          - generic [ref=f9e1165]: InterWorld
+                        - generic [ref=f9e1166]: 2 plays
+            - generic [ref=f9e1169]:
+              - generic [ref=f9e1170]:
+                - generic [ref=f9e1171]: Discovery & Recommendations
+                - button "Collapse section" [expanded] [ref=f9e1172] [cursor=pointer]
+              - generic [ref=f9e1174]:
+                - generic [ref=f9e1175]:
+                  - heading "You Might Like" [level=3] [ref=f9e1177]
+                  - paragraph [ref=f9e1179]: Loading…
+                - generic [ref=f9e1180]:
+                  - heading "Hidden Gems" [level=3] [ref=f9e1182]
+                  - paragraph [ref=f9e1187]: Finding your hidden gems…
+                - generic [ref=f9e1188]:
+                  - heading "Unheard From Your Artists" [level=3] [ref=f9e1190]
+                  - paragraph [ref=f9e1192]: Loading…
+                - generic [ref=f9e1193]:
+                  - heading "Rediscovered" [level=3] [ref=f9e1195]
+                  - paragraph [ref=f9e1197]: Loading…
+            - generic [ref=f9e1200]:
+              - generic [ref=f9e1201]:
+                - heading "Artist Match" [level=3] [ref=f9e1203]
+                - generic [ref=f9e1205]:
+                  - textbox "Enter an artist name…" [ref=f9e1206]
+                  - button "Check Match" [disabled]
+              - heading "Your Genre Profile" [level=3] [ref=f9e1209]
+              - generic [ref=f9e1236]:
+                - generic [ref=f9e1238]:
+                  - heading "New Discoveries" [level=3] [ref=f9e1239]
+                  - generic [ref=f9e1240]:
+                    - button "30d" [ref=f9e1241]
+                    - button "90d" [ref=f9e1242]
+                    - button "180d" [ref=f9e1243]
+                - paragraph [ref=f9e1245]: Loading…
+              - generic [ref=f9e1246]:
+                - heading "Taste Profile" [level=3] [ref=f9e1248]
+                - paragraph [ref=f9e1250]: Analyzing taste…
+            - generic [ref=f9e1253]:
+              - generic [ref=f9e1254]:
+                - generic [ref=f9e1256]:
+                  - heading "Obsessions" [level=3] [ref=f9e1257]
+                  - generic [ref=f9e1258]:
+                    - button "10×" [ref=f9e1259]
+                    - button "25×" [ref=f9e1260]
+                    - button "50×" [ref=f9e1261]
+                    - button "100×" [ref=f9e1262]
+                - paragraph [ref=f9e1264]: Loading…
+              - generic [ref=f9e1265]:
+                - heading "Listening Gaps" [level=3] [ref=f9e1267]
+                - generic [ref=f9e1268]:
+                  - generic [ref=f9e1272]:
+                    - paragraph [ref=f9e1273]: "Longest break: 0 days"
+                    - paragraph [ref=f9e1274]: July 2026 – July 2026
+                  - paragraph [ref=f9e1280]: "Last scrobble: 75 days ago"
+              - generic [ref=f9e1281]:
+                - generic [ref=f9e1282]:
+                  - heading "Music Timeline" [level=3] [ref=f9e1284]
+                  - paragraph [ref=f9e1289]: Loading…
+                - generic [ref=f9e1290]:
+                  - generic [ref=f9e1291]: Share profile
+                  - generic [ref=f9e1298]:
+                    - generic [ref=f9e1299]: Wuzi001
+                    - list [ref=f9e1300]:
+                      - listitem [ref=f9e1301]:
+                        - generic [ref=f9e1302]: "1."
+                        - link "Linkin Park" [ref=f9e1303] [cursor=pointer]:
+                          - /url: /artist/Linkin%20Park?username=Wuzi001
+                      - listitem [ref=f9e1304]:
+                        - generic [ref=f9e1305]: "2."
+                        - link "Imagine Dragons" [ref=f9e1306] [cursor=pointer]:
+                          - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                      - listitem [ref=f9e1307]:
+                        - generic [ref=f9e1308]: "3."
+                        - link "Ed Sheeran" [ref=f9e1309] [cursor=pointer]:
+                          - /url: /artist/Ed%20Sheeran?username=Wuzi001
+                  - button "Copy link" [ref=f9e1310] [cursor=pointer]
+              - generic [ref=f9e1311]:
+                - heading "Album Completion" [level=3] [ref=f9e1313]
+                - paragraph [ref=f9e1315]: Loading album data…
+            - generic [ref=f9e1318]:
+              - generic [ref=f9e1319]:
+                - generic [ref=f9e1320]:
+                  - heading "Recent Tracks" [level=3] [ref=f9e1322]
+                  - generic [ref=f9e1323]:
+                    - list [ref=f9e1324]:
+                      - listitem [ref=f9e1325]:
+                        - generic:
+                          - link "Loading image for Linkin Park" [ref=f9e1326] [cursor=pointer]:
+                            - /url: /artist/Linkin%20Park?username=Wuzi001
+                          - generic:
+                            - link "Burn It Down":
+                              - /url: /track/Linkin%20Park/Burn%20It%20Down
+                            - generic:
+                              - link "Linkin Park" [ref=f9e1328] [cursor=pointer]:
+                                - /url: /artist/Linkin%20Park?username=Wuzi001
+                              - text: — Living Things
+                        - generic [ref=f9e1329]: 2 months ago
+                      - listitem [ref=f9e1331]:
+                        - generic:
+                          - link "Loading image for Linkin Park" [ref=f9e1332] [cursor=pointer]:
+                            - /url: /artist/Linkin%20Park?username=Wuzi001
+                          - generic:
+                            - link "Breaking the Habit":
+                              - /url: /track/Linkin%20Park/Breaking%20the%20Habit
+                            - generic:
+                              - link "Linkin Park" [ref=f9e1334] [cursor=pointer]:
+                                - /url: /artist/Linkin%20Park?username=Wuzi001
+                              - text: — Meteora
+                        - generic [ref=f9e1335]: 2 months ago
+                      - listitem [ref=f9e1337]:
+                        - generic:
+                          - link "Loading image for Linkin Park" [ref=f9e1338] [cursor=pointer]:
+                            - /url: /artist/Linkin%20Park?username=Wuzi001
+                          - generic:
+                            - link "Pushing Me Away":
+                              - /url: /track/Linkin%20Park/Pushing%20Me%20Away
+                            - generic:
+                              - link "Linkin Park" [ref=f9e1340] [cursor=pointer]:
+                                - /url: /artist/Linkin%20Park?username=Wuzi001
+                              - text: — Hybrid Theory (Bonus Track Version)
+                        - generic [ref=f9e1341]: 2 months ago
+                      - listitem [ref=f9e1343]:
+                        - generic:
+                          - link "Loading image for Linkin Park" [ref=f9e1344] [cursor=pointer]:
+                            - /url: /artist/Linkin%20Park?username=Wuzi001
+                          - generic:
+                            - link "Lying from You":
+                              - /url: /track/Linkin%20Park/Lying%20from%20You
+                            - generic:
+                              - link "Linkin Park" [ref=f9e1346] [cursor=pointer]:
+                                - /url: /artist/Linkin%20Park?username=Wuzi001
+                              - text: — Meteora
+                        - generic [ref=f9e1347]: 2 months ago
+                      - listitem [ref=f9e1349]:
+                        - generic:
+                          - link "Loading image for haven." [ref=f9e1350] [cursor=pointer]:
+                            - /url: /artist/haven.?username=Wuzi001
+                          - generic:
+                            - link "I Run":
+                              - /url: /track/haven./I%20Run
+                            - link "haven." [ref=f9e1352] [cursor=pointer]:
+                              - /url: /artist/haven.?username=Wuzi001
+                        - generic [ref=f9e1353]: 2 months ago
+                      - listitem [ref=f9e1355]:
+                        - generic:
+                          - link "Loading image for Imagine Dragons" [ref=f9e1356] [cursor=pointer]:
+                            - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                          - generic:
+                            - link "Fire in These Hills":
+                              - /url: /track/Imagine%20Dragons/Fire%20in%20These%20Hills
+                            - generic:
+                              - link "Imagine Dragons" [ref=f9e1358] [cursor=pointer]:
+                                - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                              - text: — LOOM
+                        - generic [ref=f9e1359]: 2 months ago
+                      - listitem [ref=f9e1361]:
+                        - generic:
+                          - link "Loading image for Ian Asher und D A N N Y" [ref=f9e1362] [cursor=pointer]:
+                            - /url: /artist/Ian%20Asher%20und%20D%20A%20N%20N%20Y?username=Wuzi001
+                          - generic:
+                            - link "Take Me (To The Moon)":
+                              - /url: /track/Ian%20Asher%20und%20D%20A%20N%20N%20Y/Take%20Me%20(To%20The%20Moon)
+                            - link "Ian Asher und D A N N Y" [ref=f9e1364] [cursor=pointer]:
+                              - /url: /artist/Ian%20Asher%20und%20D%20A%20N%20N%20Y?username=Wuzi001
+                        - generic [ref=f9e1365]: 2 months ago
+                      - listitem [ref=f9e1367]:
+                        - generic:
+                          - link "Loading image for i-dle" [ref=f9e1368] [cursor=pointer]:
+                            - /url: /artist/i-dle?username=Wuzi001
+                          - generic:
+                            - link "Change":
+                              - /url: /track/i-dle/Change
+                            - generic:
+                              - link "i-dle" [ref=f9e1370] [cursor=pointer]:
+                                - /url: /artist/i-dle?username=Wuzi001
+                              - text: — I Love
+                        - generic [ref=f9e1371]: 2 months ago
+                      - listitem [ref=f9e1373]:
+                        - generic:
+                          - link "Loading image for IVE" [ref=f9e1374] [cursor=pointer]:
+                            - /url: /artist/IVE?username=Wuzi001
+                          - generic:
+                            - link "ATTITUDE":
+                              - /url: /track/IVE/ATTITUDE
+                            - generic:
+                              - link "IVE" [ref=f9e1376] [cursor=pointer]:
+                                - /url: /artist/IVE?username=Wuzi001
+                              - text: — IVE EMPATHY
+                        - generic [ref=f9e1377]: 2 months ago
+                      - listitem [ref=f9e1379]:
+                        - generic:
+                          - link "Loading image for BABYMONSTER" [ref=f9e1380] [cursor=pointer]:
+                            - /url: /artist/BABYMONSTER?username=Wuzi001
+                          - generic:
+                            - link "SHEESH":
+                              - /url: /track/BABYMONSTER/SHEESH
+                            - generic:
+                              - link "BABYMONSTER" [ref=f9e1382] [cursor=pointer]:
+                                - /url: /artist/BABYMONSTER?username=Wuzi001
+                              - text: — BABYMONS7ER
+                        - generic [ref=f9e1383]: 2 months ago
+                      - listitem [ref=f9e1385]:
+                        - generic:
+                          - link "Loading image for K/DA, (G)I-DLE und Wolftyla" [ref=f9e1386] [cursor=pointer]:
+                            - /url: /artist/K%2FDA%2C%20(G)I-DLE%20und%20Wolftyla?username=Wuzi001
+                          - generic:
+                            - link "THE BADDEST":
+                              - /url: /track/K%2FDA%2C%20(G)I-DLE%20und%20Wolftyla/THE%20BADDEST
+                            - generic:
+                              - link "K/DA, (G)I-DLE und Wolftyla" [ref=f9e1388] [cursor=pointer]:
+                                - /url: /artist/K%2FDA%2C%20(G)I-DLE%20und%20Wolftyla?username=Wuzi001
+                              - text: — ALL OUT
+                        - generic [ref=f9e1389]: 2 months ago
+                      - listitem [ref=f9e1391]:
+                        - generic:
+                          - link "Loading image for IVE" [ref=f9e1392] [cursor=pointer]:
+                            - /url: /artist/IVE?username=Wuzi001
+                          - generic:
+                            - link "XOXZ":
+                              - /url: /track/IVE/XOXZ
+                            - generic:
+                              - link "IVE" [ref=f9e1394] [cursor=pointer]:
+                                - /url: /artist/IVE?username=Wuzi001
+                              - text: — IVE SECRET
+                        - generic [ref=f9e1395]: 2 months ago
+                      - listitem [ref=f9e1397]:
+                        - generic:
+                          - link "Loading image for Yeji" [ref=f9e1398] [cursor=pointer]:
+                            - /url: /artist/Yeji?username=Wuzi001
+                          - generic:
+                            - link "Air (English Ver.)":
+                              - /url: /track/Yeji/Air%20(English%20Ver.)
+                            - generic:
+                              - link "Yeji" [ref=f9e1400] [cursor=pointer]:
+                                - /url: /artist/Yeji?username=Wuzi001
+                              - text: — Air (English Ver.)
+                        - generic [ref=f9e1401]: 2 months ago
+                      - listitem [ref=f9e1403]:
+                        - generic:
+                          - link "Loading image for BABYMONSTER" [ref=f9e1404] [cursor=pointer]:
+                            - /url: /artist/BABYMONSTER?username=Wuzi001
+                          - generic:
+                            - link "PSYCHO":
+                              - /url: /track/BABYMONSTER/PSYCHO
+                            - generic:
+                              - link "BABYMONSTER" [ref=f9e1406] [cursor=pointer]:
+                                - /url: /artist/BABYMONSTER?username=Wuzi001
+                              - text: — WE GO UP
+                        - generic [ref=f9e1407]: 2 months ago
+                      - listitem [ref=f9e1409]:
+                        - generic:
+                          - link "Loading image for i-dle" [ref=f9e1410] [cursor=pointer]:
+                            - /url: /artist/i-dle?username=Wuzi001
+                          - generic:
+                            - link "ARISE":
+                              - /url: /track/i-dle/ARISE
+                            - generic:
+                              - link "i-dle" [ref=f9e1412] [cursor=pointer]:
+                                - /url: /artist/i-dle?username=Wuzi001
+                              - text: — 'Solo Leveling:ARISE' (Original Soundtrack)
+                        - generic [ref=f9e1413]: 2 months ago
+                      - listitem [ref=f9e1415]:
+                        - generic:
+                          - link "Loading image for LE SSERAFIM" [ref=f9e1416] [cursor=pointer]:
+                            - /url: /artist/LE%20SSERAFIM?username=Wuzi001
+                          - generic:
+                            - link "BOOMPALA":
+                              - /url: /track/LE%20SSERAFIM/BOOMPALA
+                            - generic:
+                              - link "LE SSERAFIM" [ref=f9e1418] [cursor=pointer]:
+                                - /url: /artist/LE%20SSERAFIM?username=Wuzi001
+                              - text: — 'PUREFLOW' Pt.1
+                        - generic [ref=f9e1419]: 2 months ago
+                      - listitem [ref=f9e1421]:
+                        - generic:
+                          - link "Loading image for Suprafive und Nesco" [ref=f9e1422] [cursor=pointer]:
+                            - /url: /artist/Suprafive%20und%20Nesco?username=Wuzi001
+                          - generic:
+                            - link "Stranger":
+                              - /url: /track/Suprafive%20und%20Nesco/Stranger
+                            - link "Suprafive und Nesco" [ref=f9e1424] [cursor=pointer]:
+                              - /url: /artist/Suprafive%20und%20Nesco?username=Wuzi001
+                        - generic [ref=f9e1425]: 2 months ago
+                      - listitem [ref=f9e1427]:
+                        - generic:
+                          - link "Loading image for Elley Duhé und Whethan" [ref=f9e1428] [cursor=pointer]:
+                            - /url: /artist/Elley%20Duh%C3%A9%20und%20Whethan?username=Wuzi001
+                          - generic:
+                            - link "MONEY ON THE DASH":
+                              - /url: /track/Elley%20Duh%C3%A9%20und%20Whethan/MONEY%20ON%20THE%20DASH
+                            - link "Elley Duhé und Whethan" [ref=f9e1430] [cursor=pointer]:
+                              - /url: /artist/Elley%20Duh%C3%A9%20und%20Whethan?username=Wuzi001
+                        - generic [ref=f9e1431]: 2 months ago
+                      - listitem [ref=f9e1433]:
+                        - generic:
+                          - link "Loading image for Imagine Dragons" [ref=f9e1434] [cursor=pointer]:
+                            - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                          - generic:
+                            - link "Sharks":
+                              - /url: /track/Imagine%20Dragons/Sharks
+                            - generic:
+                              - link "Imagine Dragons" [ref=f9e1436] [cursor=pointer]:
+                                - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                              - text: — Mercury - Acts 1 & 2
+                        - generic [ref=f9e1437]: 2 months ago
+                      - listitem [ref=f9e1439]:
+                        - generic:
+                          - link "Loading image for DAEGHO" [ref=f9e1440] [cursor=pointer]:
+                            - /url: /artist/DAEGHO?username=Wuzi001
+                          - generic:
+                            - link "Enter The Fuego":
+                              - /url: /track/DAEGHO/Enter%20The%20Fuego
+                            - generic:
+                              - link "DAEGHO" [ref=f9e1442] [cursor=pointer]:
+                                - /url: /artist/DAEGHO?username=Wuzi001
+                              - text: — Enter The Fuego
+                        - generic [ref=f9e1443]: 2 months ago
+                    - button "Load 20 more (30 remaining)" [ref=f9e1446] [cursor=pointer]
+                - generic [ref=f9e1447]:
+                  - heading "Loved Tracks" [level=3] [ref=f9e1449]
+                  - list [ref=f9e1451]:
+                    - listitem [ref=f9e1452]:
+                      - link "Strangers" [ref=f9e1453] [cursor=pointer]:
+                        - /url: /track/Kenya%20Grace/Strangers?username=Wuzi001
+                      - link "Kenya Grace" [ref=f9e1454] [cursor=pointer]:
+                        - /url: /artist/Kenya%20Grace?username=Wuzi001
+                    - listitem [ref=f9e1455]:
+                      - link "Chlorine" [ref=f9e1456] [cursor=pointer]:
+                        - /url: /track/Twenty%20One%20Pilots/Chlorine?username=Wuzi001
+                      - link "Twenty One Pilots" [ref=f9e1457] [cursor=pointer]:
+                        - /url: /artist/Twenty%20One%20Pilots?username=Wuzi001
+                    - listitem [ref=f9e1458]:
+                      - link "Alone" [ref=f9e1459] [cursor=pointer]:
+                        - /url: /track/Edgars%20Bukovskis/Alone?username=Wuzi001
+                      - link "Edgars Bukovskis" [ref=f9e1460] [cursor=pointer]:
+                        - /url: /artist/Edgars%20Bukovskis?username=Wuzi001
+                    - listitem [ref=f9e1461]:
+                      - link "HEAVENLY JUMPSTYLE" [ref=f9e1462] [cursor=pointer]:
+                        - /url: /track/TWXNY%2C%20Sxilwix%20und%20Innxcence/HEAVENLY%20JUMPSTYLE?username=Wuzi001
+                      - link "TWXNY, Sxilwix und Innxcence" [ref=f9e1463] [cursor=pointer]:
+                        - /url: /artist/TWXNY%2C%20Sxilwix%20und%20Innxcence?username=Wuzi001
+              - generic [ref=f9e1464]:
+                - heading "Loved Timeline" [level=3] [ref=f9e1466]
+                - generic [ref=f9e1468]:
+                  - generic [ref=f9e1469]:
+                    - heading "July 2026" [level=3] [ref=f9e1470]
+                    - list [ref=f9e1471]:
+                      - listitem [ref=f9e1472]:
+                        - link "Strangers" [ref=f9e1473] [cursor=pointer]:
+                          - /url: /track/Kenya%20Grace/Strangers?username=Wuzi001
+                        - text: —
+                        - link "Kenya Grace" [ref=f9e1474] [cursor=pointer]:
+                          - /url: /artist/Kenya%20Grace?username=Wuzi001
+                      - listitem [ref=f9e1475]:
+                        - link "Chlorine" [ref=f9e1476] [cursor=pointer]:
+                          - /url: /track/Twenty%20One%20Pilots/Chlorine?username=Wuzi001
+                        - text: —
+                        - link "Twenty One Pilots" [ref=f9e1477] [cursor=pointer]:
+                          - /url: /artist/Twenty%20One%20Pilots?username=Wuzi001
+                  - generic [ref=f9e1478]:
+                    - heading "June 2026" [level=3] [ref=f9e1479]
+                    - list [ref=f9e1480]:
+                      - listitem [ref=f9e1481]:
+                        - link "Alone" [ref=f9e1482] [cursor=pointer]:
+                          - /url: /track/Edgars%20Bukovskis/Alone?username=Wuzi001
+                        - text: —
+                        - link "Edgars Bukovskis" [ref=f9e1483] [cursor=pointer]:
+                          - /url: /artist/Edgars%20Bukovskis?username=Wuzi001
+                      - listitem [ref=f9e1484]:
+                        - link "HEAVENLY JUMPSTYLE" [ref=f9e1485] [cursor=pointer]:
+                          - /url: /track/TWXNY%2C%20Sxilwix%20und%20Innxcence/HEAVENLY%20JUMPSTYLE?username=Wuzi001
+                        - text: —
+                        - link "TWXNY, Sxilwix und Innxcence" [ref=f9e1486] [cursor=pointer]:
+                          - /url: /artist/TWXNY%2C%20Sxilwix%20und%20Innxcence?username=Wuzi001
+            - generic [ref=f9e1489]:
+              - heading "Listening Personality" [level=3] [ref=f9e1491]
+              - generic [ref=f9e1492]:
+                - generic [ref=f9e1498]:
+                  - generic [ref=f9e1499]: Daily Devotee
+                  - paragraph [ref=f9e1500]: Consistent and committed — music is part of your routine.
+                - generic [ref=f9e1501]:
+                  - generic [ref=f9e1506]:
+                    - paragraph [ref=f9e1507]: Peak hour
+                    - paragraph [ref=f9e1508]: 2 PM
+                  - generic [ref=f9e1512]:
+                    - paragraph [ref=f9e1513]: Most active day
+                    - paragraph [ref=f9e1514]: Friday
+                  - generic [ref=f9e1519]:
+                    - paragraph [ref=f9e1520]: Avg per day
+                    - paragraph [ref=f9e1521]: 140 tracks
+                  - generic [ref=f9e1526]:
+                    - paragraph [ref=f9e1527]: Top artist
+                    - paragraph [ref=f9e1528]: Linkin Park
+            - generic [ref=f9e1531]:
+              - heading "Top Track of Every Month" [level=3] [ref=f9e1533]
+              - generic [ref=f9e1535]:
+                - generic [ref=f9e1540]:
+                  - generic [ref=f9e1541]:
+                    - generic [ref=f9e1542]: Apr 26
+                    - generic [ref=f9e1543]: 25 plays
+                  - paragraph [ref=f9e1544]:
+                    - link "Bad Angel" [ref=f9e1545] [cursor=pointer]:
+                      - /url: /track/Anyma%20%26%20LISA/Bad%20Angel?username=Wuzi001
+                  - paragraph [ref=f9e1546]:
+                    - link "Anyma & LISA" [ref=f9e1547] [cursor=pointer]:
+                      - /url: /artist/Anyma%20%26%20LISA?username=Wuzi001
+                - generic [ref=f9e1554]:
+                  - generic [ref=f9e1555]:
+                    - generic [ref=f9e1556]: May 26
+                    - generic [ref=f9e1557]: 55 plays
+                  - paragraph [ref=f9e1558]:
+                    - link "Take Me to the Beach" [ref=f9e1559] [cursor=pointer]:
+                      - /url: /track/Imagine%20Dragons/Take%20Me%20to%20the%20Beach?username=Wuzi001
+                  - paragraph [ref=f9e1560]:
+                    - link "Imagine Dragons" [ref=f9e1561] [cursor=pointer]:
+                      - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                - generic [ref=f9e1568]:
+                  - generic [ref=f9e1569]:
+                    - generic [ref=f9e1570]: Jun 26
+                    - generic [ref=f9e1571]: 60 plays
+                  - paragraph [ref=f9e1572]:
+                    - link "Good Things Go" [ref=f9e1573] [cursor=pointer]:
+                      - /url: /track/Linkin%20Park/Good%20Things%20Go?username=Wuzi001
+                  - paragraph [ref=f9e1574]:
+                    - link "Linkin Park" [ref=f9e1575] [cursor=pointer]:
+                      - /url: /artist/Linkin%20Park?username=Wuzi001
+                - generic [ref=f9e1581]:
+                  - generic [ref=f9e1582]:
+                    - generic [ref=f9e1583]: Jul 26
+                    - generic [ref=f9e1584]: 38 plays
+                  - paragraph [ref=f9e1585]:
+                    - link "Alone" [ref=f9e1586] [cursor=pointer]:
+                      - /url: /track/Edgars%20Bukovskis/Alone?username=Wuzi001
+                  - paragraph [ref=f9e1587]:
+                    - link "Edgars Bukovskis" [ref=f9e1588] [cursor=pointer]:
+                      - /url: /artist/Edgars%20Bukovskis?username=Wuzi001
+            - generic [ref=f9e1593]:
+              - generic [ref=f9e1595]:
+                - generic [ref=f9e1596]:
+                  - generic [ref=f9e1598]: Mon
+                  - generic [ref=f9e1599]: Wed
+                  - generic [ref=f9e1600]: Fri
+                - generic [ref=f9e1601]:
+                  - generic [ref=f9e1602]:
+                    - generic [ref=f9e1603]: Oct
+                    - generic [ref=f9e1604]: Nov
+                    - generic [ref=f9e1605]: Dec
+                    - generic [ref=f9e1606]: Jan
+                    - generic [ref=f9e1607]: Feb
+                    - generic [ref=f9e1608]: Mar
+                    - generic [ref=f9e1609]: Apr
+                    - generic [ref=f9e1610]: May
+                    - generic [ref=f9e1611]: Jun
+                    - generic [ref=f9e1612]: Jul
+                    - generic [ref=f9e1613]: Aug
+                    - generic [ref=f9e1614]: Sep
+                  - generic [ref=f9e1615]:
+                    - 'generic "Sun, Sep 28, 2025: 0 scrobbles" [ref=f9e1616] [cursor=pointer]'
+                    - 'generic "Mon, Sep 29, 2025: 0 scrobbles" [ref=f9e1617] [cursor=pointer]'
+                    - 'generic "Tue, Sep 30, 2025: 0 scrobbles" [ref=f9e1618] [cursor=pointer]'
+                    - 'generic "Wed, Oct 1, 2025: 0 scrobbles" [ref=f9e1619] [cursor=pointer]'
+                    - 'generic "Thu, Oct 2, 2025: 0 scrobbles" [ref=f9e1620] [cursor=pointer]'
+                    - 'generic "Fri, Oct 3, 2025: 0 scrobbles" [ref=f9e1621] [cursor=pointer]'
+                    - 'generic "Sat, Oct 4, 2025: 0 scrobbles" [ref=f9e1622] [cursor=pointer]'
+                    - 'generic "Sun, Oct 5, 2025: 0 scrobbles" [ref=f9e1623] [cursor=pointer]'
+                    - 'generic "Mon, Oct 6, 2025: 0 scrobbles" [ref=f9e1624] [cursor=pointer]'
+                    - 'generic "Tue, Oct 7, 2025: 0 scrobbles" [ref=f9e1625] [cursor=pointer]'
+                    - 'generic "Wed, Oct 8, 2025: 0 scrobbles" [ref=f9e1626] [cursor=pointer]'
+                    - 'generic "Thu, Oct 9, 2025: 0 scrobbles" [ref=f9e1627] [cursor=pointer]'
+                    - 'generic "Fri, Oct 10, 2025: 0 scrobbles" [ref=f9e1628] [cursor=pointer]'
+                    - 'generic "Sat, Oct 11, 2025: 0 scrobbles" [ref=f9e1629] [cursor=pointer]'
+                    - 'generic "Sun, Oct 12, 2025: 0 scrobbles" [ref=f9e1630] [cursor=pointer]'
+                    - 'generic "Mon, Oct 13, 2025: 0 scrobbles" [ref=f9e1631] [cursor=pointer]'
+                    - 'generic "Tue, Oct 14, 2025: 0 scrobbles" [ref=f9e1632] [cursor=pointer]'
+                    - 'generic "Wed, Oct 15, 2025: 0 scrobbles" [ref=f9e1633] [cursor=pointer]'
+                    - 'generic "Thu, Oct 16, 2025: 0 scrobbles" [ref=f9e1634] [cursor=pointer]'
+                    - 'generic "Fri, Oct 17, 2025: 0 scrobbles" [ref=f9e1635] [cursor=pointer]'
+                    - 'generic "Sat, Oct 18, 2025: 0 scrobbles" [ref=f9e1636] [cursor=pointer]'
+                    - 'generic "Sun, Oct 19, 2025: 0 scrobbles" [ref=f9e1637] [cursor=pointer]'
+                    - 'generic "Mon, Oct 20, 2025: 0 scrobbles" [ref=f9e1638] [cursor=pointer]'
+                    - 'generic "Tue, Oct 21, 2025: 0 scrobbles" [ref=f9e1639] [cursor=pointer]'
+                    - 'generic "Wed, Oct 22, 2025: 0 scrobbles" [ref=f9e1640] [cursor=pointer]'
+                    - 'generic "Thu, Oct 23, 2025: 0 scrobbles" [ref=f9e1641] [cursor=pointer]'
+                    - 'generic "Fri, Oct 24, 2025: 0 scrobbles" [ref=f9e1642] [cursor=pointer]'
+                    - 'generic "Sat, Oct 25, 2025: 0 scrobbles" [ref=f9e1643] [cursor=pointer]'
+                    - 'generic "Sun, Oct 26, 2025: 0 scrobbles" [ref=f9e1644] [cursor=pointer]'
+                    - 'generic "Mon, Oct 27, 2025: 0 scrobbles" [ref=f9e1645] [cursor=pointer]'
+                    - 'generic "Tue, Oct 28, 2025: 0 scrobbles" [ref=f9e1646] [cursor=pointer]'
+                    - 'generic "Wed, Oct 29, 2025: 0 scrobbles" [ref=f9e1647] [cursor=pointer]'
+                    - 'generic "Thu, Oct 30, 2025: 0 scrobbles" [ref=f9e1648] [cursor=pointer]'
+                    - 'generic "Fri, Oct 31, 2025: 0 scrobbles" [ref=f9e1649] [cursor=pointer]'
+                    - 'generic "Sat, Nov 1, 2025: 0 scrobbles" [ref=f9e1650] [cursor=pointer]'
+                    - 'generic "Sun, Nov 2, 2025: 0 scrobbles" [ref=f9e1651] [cursor=pointer]'
+                    - 'generic "Mon, Nov 3, 2025: 0 scrobbles" [ref=f9e1652] [cursor=pointer]'
+                    - 'generic "Tue, Nov 4, 2025: 0 scrobbles" [ref=f9e1653] [cursor=pointer]'
+                    - 'generic "Wed, Nov 5, 2025: 0 scrobbles" [ref=f9e1654] [cursor=pointer]'
+                    - 'generic "Thu, Nov 6, 2025: 0 scrobbles" [ref=f9e1655] [cursor=pointer]'
+                    - 'generic "Fri, Nov 7, 2025: 0 scrobbles" [ref=f9e1656] [cursor=pointer]'
+                    - 'generic "Sat, Nov 8, 2025: 0 scrobbles" [ref=f9e1657] [cursor=pointer]'
+                    - 'generic "Sun, Nov 9, 2025: 0 scrobbles" [ref=f9e1658] [cursor=pointer]'
+                    - 'generic "Mon, Nov 10, 2025: 0 scrobbles" [ref=f9e1659] [cursor=pointer]'
+                    - 'generic "Tue, Nov 11, 2025: 0 scrobbles" [ref=f9e1660] [cursor=pointer]'
+                    - 'generic "Wed, Nov 12, 2025: 0 scrobbles" [ref=f9e1661] [cursor=pointer]'
+                    - 'generic "Thu, Nov 13, 2025: 0 scrobbles" [ref=f9e1662] [cursor=pointer]'
+                    - 'generic "Fri, Nov 14, 2025: 0 scrobbles" [ref=f9e1663] [cursor=pointer]'
+                    - 'generic "Sat, Nov 15, 2025: 0 scrobbles" [ref=f9e1664] [cursor=pointer]'
+                    - 'generic "Sun, Nov 16, 2025: 0 scrobbles" [ref=f9e1665] [cursor=pointer]'
+                    - 'generic "Mon, Nov 17, 2025: 0 scrobbles" [ref=f9e1666] [cursor=pointer]'
+                    - 'generic "Tue, Nov 18, 2025: 0 scrobbles" [ref=f9e1667] [cursor=pointer]'
+                    - 'generic "Wed, Nov 19, 2025: 0 scrobbles" [ref=f9e1668] [cursor=pointer]'
+                    - 'generic "Thu, Nov 20, 2025: 0 scrobbles" [ref=f9e1669] [cursor=pointer]'
+                    - 'generic "Fri, Nov 21, 2025: 0 scrobbles" [ref=f9e1670] [cursor=pointer]'
+                    - 'generic "Sat, Nov 22, 2025: 0 scrobbles" [ref=f9e1671] [cursor=pointer]'
+                    - 'generic "Sun, Nov 23, 2025: 0 scrobbles" [ref=f9e1672] [cursor=pointer]'
+                    - 'generic "Mon, Nov 24, 2025: 0 scrobbles" [ref=f9e1673] [cursor=pointer]'
+                    - 'generic "Tue, Nov 25, 2025: 0 scrobbles" [ref=f9e1674] [cursor=pointer]'
+                    - 'generic "Wed, Nov 26, 2025: 0 scrobbles" [ref=f9e1675] [cursor=pointer]'
+                    - 'generic "Thu, Nov 27, 2025: 0 scrobbles" [ref=f9e1676] [cursor=pointer]'
+                    - 'generic "Fri, Nov 28, 2025: 0 scrobbles" [ref=f9e1677] [cursor=pointer]'
+                    - 'generic "Sat, Nov 29, 2025: 0 scrobbles" [ref=f9e1678] [cursor=pointer]'
+                    - 'generic "Sun, Nov 30, 2025: 0 scrobbles" [ref=f9e1679] [cursor=pointer]'
+                    - 'generic "Mon, Dec 1, 2025: 0 scrobbles" [ref=f9e1680] [cursor=pointer]'
+                    - 'generic "Tue, Dec 2, 2025: 0 scrobbles" [ref=f9e1681] [cursor=pointer]'
+                    - 'generic "Wed, Dec 3, 2025: 0 scrobbles" [ref=f9e1682] [cursor=pointer]'
+                    - 'generic "Thu, Dec 4, 2025: 0 scrobbles" [ref=f9e1683] [cursor=pointer]'
+                    - 'generic "Fri, Dec 5, 2025: 0 scrobbles" [ref=f9e1684] [cursor=pointer]'
+                    - 'generic "Sat, Dec 6, 2025: 0 scrobbles" [ref=f9e1685] [cursor=pointer]'
+                    - 'generic "Sun, Dec 7, 2025: 0 scrobbles" [ref=f9e1686] [cursor=pointer]'
+                    - 'generic "Mon, Dec 8, 2025: 0 scrobbles" [ref=f9e1687] [cursor=pointer]'
+                    - 'generic "Tue, Dec 9, 2025: 0 scrobbles" [ref=f9e1688] [cursor=pointer]'
+                    - 'generic "Wed, Dec 10, 2025: 0 scrobbles" [ref=f9e1689] [cursor=pointer]'
+                    - 'generic "Thu, Dec 11, 2025: 0 scrobbles" [ref=f9e1690] [cursor=pointer]'
+                    - 'generic "Fri, Dec 12, 2025: 0 scrobbles" [ref=f9e1691] [cursor=pointer]'
+                    - 'generic "Sat, Dec 13, 2025: 0 scrobbles" [ref=f9e1692] [cursor=pointer]'
+                    - 'generic "Sun, Dec 14, 2025: 0 scrobbles" [ref=f9e1693] [cursor=pointer]'
+                    - 'generic "Mon, Dec 15, 2025: 0 scrobbles" [ref=f9e1694] [cursor=pointer]'
+                    - 'generic "Tue, Dec 16, 2025: 0 scrobbles" [ref=f9e1695] [cursor=pointer]'
+                    - 'generic "Wed, Dec 17, 2025: 0 scrobbles" [ref=f9e1696] [cursor=pointer]'
+                    - 'generic "Thu, Dec 18, 2025: 0 scrobbles" [ref=f9e1697] [cursor=pointer]'
+                    - 'generic "Fri, Dec 19, 2025: 0 scrobbles" [ref=f9e1698] [cursor=pointer]'
+                    - 'generic "Sat, Dec 20, 2025: 0 scrobbles" [ref=f9e1699] [cursor=pointer]'
+                    - 'generic "Sun, Dec 21, 2025: 0 scrobbles" [ref=f9e1700] [cursor=pointer]'
+                    - 'generic "Mon, Dec 22, 2025: 0 scrobbles" [ref=f9e1701] [cursor=pointer]'
+                    - 'generic "Tue, Dec 23, 2025: 0 scrobbles" [ref=f9e1702] [cursor=pointer]'
+                    - 'generic "Wed, Dec 24, 2025: 0 scrobbles" [ref=f9e1703] [cursor=pointer]'
+                    - 'generic "Thu, Dec 25, 2025: 0 scrobbles" [ref=f9e1704] [cursor=pointer]'
+                    - 'generic "Fri, Dec 26, 2025: 0 scrobbles" [ref=f9e1705] [cursor=pointer]'
+                    - 'generic "Sat, Dec 27, 2025: 0 scrobbles" [ref=f9e1706] [cursor=pointer]'
+                    - 'generic "Sun, Dec 28, 2025: 0 scrobbles" [ref=f9e1707] [cursor=pointer]'
+                    - 'generic "Mon, Dec 29, 2025: 0 scrobbles" [ref=f9e1708] [cursor=pointer]'
+                    - 'generic "Tue, Dec 30, 2025: 0 scrobbles" [ref=f9e1709] [cursor=pointer]'
+                    - 'generic "Wed, Dec 31, 2025: 0 scrobbles" [ref=f9e1710] [cursor=pointer]'
+                    - 'generic "Thu, Jan 1, 2026: 0 scrobbles" [ref=f9e1711] [cursor=pointer]'
+                    - 'generic "Fri, Jan 2, 2026: 0 scrobbles" [ref=f9e1712] [cursor=pointer]'
+                    - 'generic "Sat, Jan 3, 2026: 0 scrobbles" [ref=f9e1713] [cursor=pointer]'
+                    - 'generic "Sun, Jan 4, 2026: 0 scrobbles" [ref=f9e1714] [cursor=pointer]'
+                    - 'generic "Mon, Jan 5, 2026: 0 scrobbles" [ref=f9e1715] [cursor=pointer]'
+                    - 'generic "Tue, Jan 6, 2026: 0 scrobbles" [ref=f9e1716] [cursor=pointer]'
+                    - 'generic "Wed, Jan 7, 2026: 0 scrobbles" [ref=f9e1717] [cursor=pointer]'
+                    - 'generic "Thu, Jan 8, 2026: 0 scrobbles" [ref=f9e1718] [cursor=pointer]'
+                    - 'generic "Fri, Jan 9, 2026: 0 scrobbles" [ref=f9e1719] [cursor=pointer]'
+                    - 'generic "Sat, Jan 10, 2026: 0 scrobbles" [ref=f9e1720] [cursor=pointer]'
+                    - 'generic "Sun, Jan 11, 2026: 0 scrobbles" [ref=f9e1721] [cursor=pointer]'
+                    - 'generic "Mon, Jan 12, 2026: 0 scrobbles" [ref=f9e1722] [cursor=pointer]'
+                    - 'generic "Tue, Jan 13, 2026: 0 scrobbles" [ref=f9e1723] [cursor=pointer]'
+                    - 'generic "Wed, Jan 14, 2026: 0 scrobbles" [ref=f9e1724] [cursor=pointer]'
+                    - 'generic "Thu, Jan 15, 2026: 0 scrobbles" [ref=f9e1725] [cursor=pointer]'
+                    - 'generic "Fri, Jan 16, 2026: 0 scrobbles" [ref=f9e1726] [cursor=pointer]'
+                    - 'generic "Sat, Jan 17, 2026: 0 scrobbles" [ref=f9e1727] [cursor=pointer]'
+                    - 'generic "Sun, Jan 18, 2026: 0 scrobbles" [ref=f9e1728] [cursor=pointer]'
+                    - 'generic "Mon, Jan 19, 2026: 0 scrobbles" [ref=f9e1729] [cursor=pointer]'
+                    - 'generic "Tue, Jan 20, 2026: 0 scrobbles" [ref=f9e1730] [cursor=pointer]'
+                    - 'generic "Wed, Jan 21, 2026: 0 scrobbles" [ref=f9e1731] [cursor=pointer]'
+                    - 'generic "Thu, Jan 22, 2026: 0 scrobbles" [ref=f9e1732] [cursor=pointer]'
+                    - 'generic "Fri, Jan 23, 2026: 0 scrobbles" [ref=f9e1733] [cursor=pointer]'
+                    - 'generic "Sat, Jan 24, 2026: 0 scrobbles" [ref=f9e1734] [cursor=pointer]'
+                    - 'generic "Sun, Jan 25, 2026: 0 scrobbles" [ref=f9e1735] [cursor=pointer]'
+                    - 'generic "Mon, Jan 26, 2026: 0 scrobbles" [ref=f9e1736] [cursor=pointer]'
+                    - 'generic "Tue, Jan 27, 2026: 0 scrobbles" [ref=f9e1737] [cursor=pointer]'
+                    - 'generic "Wed, Jan 28, 2026: 0 scrobbles" [ref=f9e1738] [cursor=pointer]'
+                    - 'generic "Thu, Jan 29, 2026: 0 scrobbles" [ref=f9e1739] [cursor=pointer]'
+                    - 'generic "Fri, Jan 30, 2026: 0 scrobbles" [ref=f9e1740] [cursor=pointer]'
+                    - 'generic "Sat, Jan 31, 2026: 0 scrobbles" [ref=f9e1741] [cursor=pointer]'
+                    - 'generic "Sun, Feb 1, 2026: 0 scrobbles" [ref=f9e1742] [cursor=pointer]'
+                    - 'generic "Mon, Feb 2, 2026: 0 scrobbles" [ref=f9e1743] [cursor=pointer]'
+                    - 'generic "Tue, Feb 3, 2026: 0 scrobbles" [ref=f9e1744] [cursor=pointer]'
+                    - 'generic "Wed, Feb 4, 2026: 0 scrobbles" [ref=f9e1745] [cursor=pointer]'
+                    - 'generic "Thu, Feb 5, 2026: 0 scrobbles" [ref=f9e1746] [cursor=pointer]'
+                    - 'generic "Fri, Feb 6, 2026: 0 scrobbles" [ref=f9e1747] [cursor=pointer]'
+                    - 'generic "Sat, Feb 7, 2026: 0 scrobbles" [ref=f9e1748] [cursor=pointer]'
+                    - 'generic "Sun, Feb 8, 2026: 0 scrobbles" [ref=f9e1749] [cursor=pointer]'
+                    - 'generic "Mon, Feb 9, 2026: 0 scrobbles" [ref=f9e1750] [cursor=pointer]'
+                    - 'generic "Tue, Feb 10, 2026: 0 scrobbles" [ref=f9e1751] [cursor=pointer]'
+                    - 'generic "Wed, Feb 11, 2026: 0 scrobbles" [ref=f9e1752] [cursor=pointer]'
+                    - 'generic "Thu, Feb 12, 2026: 0 scrobbles" [ref=f9e1753] [cursor=pointer]'
+                    - 'generic "Fri, Feb 13, 2026: 0 scrobbles" [ref=f9e1754] [cursor=pointer]'
+                    - 'generic "Sat, Feb 14, 2026: 0 scrobbles" [ref=f9e1755] [cursor=pointer]'
+                    - 'generic "Sun, Feb 15, 2026: 0 scrobbles" [ref=f9e1756] [cursor=pointer]'
+                    - 'generic "Mon, Feb 16, 2026: 0 scrobbles" [ref=f9e1757] [cursor=pointer]'
+                    - 'generic "Tue, Feb 17, 2026: 0 scrobbles" [ref=f9e1758] [cursor=pointer]'
+                    - 'generic "Wed, Feb 18, 2026: 0 scrobbles" [ref=f9e1759] [cursor=pointer]'
+                    - 'generic "Thu, Feb 19, 2026: 0 scrobbles" [ref=f9e1760] [cursor=pointer]'
+                    - 'generic "Fri, Feb 20, 2026: 0 scrobbles" [ref=f9e1761] [cursor=pointer]'
+                    - 'generic "Sat, Feb 21, 2026: 0 scrobbles" [ref=f9e1762] [cursor=pointer]'
+                    - 'generic "Sun, Feb 22, 2026: 0 scrobbles" [ref=f9e1763] [cursor=pointer]'
+                    - 'generic "Mon, Feb 23, 2026: 0 scrobbles" [ref=f9e1764] [cursor=pointer]'
+                    - 'generic "Tue, Feb 24, 2026: 0 scrobbles" [ref=f9e1765] [cursor=pointer]'
+                    - 'generic "Wed, Feb 25, 2026: 0 scrobbles" [ref=f9e1766] [cursor=pointer]'
+                    - 'generic "Thu, Feb 26, 2026: 0 scrobbles" [ref=f9e1767] [cursor=pointer]'
+                    - 'generic "Fri, Feb 27, 2026: 0 scrobbles" [ref=f9e1768] [cursor=pointer]'
+                    - 'generic "Sat, Feb 28, 2026: 0 scrobbles" [ref=f9e1769] [cursor=pointer]'
+                    - 'generic "Sun, Mar 1, 2026: 0 scrobbles" [ref=f9e1770] [cursor=pointer]'
+                    - 'generic "Mon, Mar 2, 2026: 0 scrobbles" [ref=f9e1771] [cursor=pointer]'
+                    - 'generic "Tue, Mar 3, 2026: 0 scrobbles" [ref=f9e1772] [cursor=pointer]'
+                    - 'generic "Wed, Mar 4, 2026: 0 scrobbles" [ref=f9e1773] [cursor=pointer]'
+                    - 'generic "Thu, Mar 5, 2026: 0 scrobbles" [ref=f9e1774] [cursor=pointer]'
+                    - 'generic "Fri, Mar 6, 2026: 0 scrobbles" [ref=f9e1775] [cursor=pointer]'
+                    - 'generic "Sat, Mar 7, 2026: 0 scrobbles" [ref=f9e1776] [cursor=pointer]'
+                    - 'generic "Sun, Mar 8, 2026: 0 scrobbles" [ref=f9e1777] [cursor=pointer]'
+                    - 'generic "Mon, Mar 9, 2026: 0 scrobbles" [ref=f9e1778] [cursor=pointer]'
+                    - 'generic "Tue, Mar 10, 2026: 0 scrobbles" [ref=f9e1779] [cursor=pointer]'
+                    - 'generic "Wed, Mar 11, 2026: 0 scrobbles" [ref=f9e1780] [cursor=pointer]'
+                    - 'generic "Thu, Mar 12, 2026: 0 scrobbles" [ref=f9e1781] [cursor=pointer]'
+                    - 'generic "Fri, Mar 13, 2026: 0 scrobbles" [ref=f9e1782] [cursor=pointer]'
+                    - 'generic "Sat, Mar 14, 2026: 0 scrobbles" [ref=f9e1783] [cursor=pointer]'
+                    - 'generic "Sun, Mar 15, 2026: 0 scrobbles" [ref=f9e1784] [cursor=pointer]'
+                    - 'generic "Mon, Mar 16, 2026: 0 scrobbles" [ref=f9e1785] [cursor=pointer]'
+                    - 'generic "Tue, Mar 17, 2026: 0 scrobbles" [ref=f9e1786] [cursor=pointer]'
+                    - 'generic "Wed, Mar 18, 2026: 0 scrobbles" [ref=f9e1787] [cursor=pointer]'
+                    - 'generic "Thu, Mar 19, 2026: 0 scrobbles" [ref=f9e1788] [cursor=pointer]'
+                    - 'generic "Fri, Mar 20, 2026: 0 scrobbles" [ref=f9e1789] [cursor=pointer]'
+                    - 'generic "Sat, Mar 21, 2026: 0 scrobbles" [ref=f9e1790] [cursor=pointer]'
+                    - 'generic "Sun, Mar 22, 2026: 0 scrobbles" [ref=f9e1791] [cursor=pointer]'
+                    - 'generic "Mon, Mar 23, 2026: 0 scrobbles" [ref=f9e1792] [cursor=pointer]'
+                    - 'generic "Tue, Mar 24, 2026: 0 scrobbles" [ref=f9e1793] [cursor=pointer]'
+                    - 'generic "Wed, Mar 25, 2026: 0 scrobbles" [ref=f9e1794] [cursor=pointer]'
+                    - 'generic "Thu, Mar 26, 2026: 0 scrobbles" [ref=f9e1795] [cursor=pointer]'
+                    - 'generic "Fri, Mar 27, 2026: 0 scrobbles" [ref=f9e1796] [cursor=pointer]'
+                    - 'generic "Sat, Mar 28, 2026: 0 scrobbles" [ref=f9e1797] [cursor=pointer]'
+                    - 'generic "Sun, Mar 29, 2026: 0 scrobbles" [ref=f9e1798] [cursor=pointer]'
+                    - 'generic "Mon, Mar 30, 2026: 0 scrobbles" [ref=f9e1799] [cursor=pointer]'
+                    - 'generic "Tue, Mar 31, 2026: 0 scrobbles" [ref=f9e1800] [cursor=pointer]'
+                    - 'generic "Wed, Apr 1, 2026: 0 scrobbles" [ref=f9e1801] [cursor=pointer]'
+                    - 'generic "Thu, Apr 2, 2026: 0 scrobbles" [ref=f9e1802] [cursor=pointer]'
+                    - 'generic "Fri, Apr 3, 2026: 0 scrobbles" [ref=f9e1803] [cursor=pointer]'
+                    - 'generic "Sat, Apr 4, 2026: 0 scrobbles" [ref=f9e1804] [cursor=pointer]'
+                    - 'generic "Sun, Apr 5, 2026: 0 scrobbles" [ref=f9e1805] [cursor=pointer]'
+                    - 'generic "Mon, Apr 6, 2026: 0 scrobbles" [ref=f9e1806] [cursor=pointer]'
+                    - 'generic "Tue, Apr 7, 2026: 0 scrobbles" [ref=f9e1807] [cursor=pointer]'
+                    - 'generic "Wed, Apr 8, 2026: 0 scrobbles" [ref=f9e1808] [cursor=pointer]'
+                    - 'generic "Thu, Apr 9, 2026: 0 scrobbles" [ref=f9e1809] [cursor=pointer]'
+                    - 'generic "Fri, Apr 10, 2026: 0 scrobbles" [ref=f9e1810] [cursor=pointer]'
+                    - 'generic "Sat, Apr 11, 2026: 0 scrobbles" [ref=f9e1811] [cursor=pointer]'
+                    - 'generic "Sun, Apr 12, 2026: 0 scrobbles" [ref=f9e1812] [cursor=pointer]'
+                    - 'generic "Mon, Apr 13, 2026: 0 scrobbles" [ref=f9e1813] [cursor=pointer]'
+                    - 'generic "Tue, Apr 14, 2026: 0 scrobbles" [ref=f9e1814] [cursor=pointer]'
+                    - 'generic "Wed, Apr 15, 2026: 0 scrobbles" [ref=f9e1815] [cursor=pointer]'
+                    - 'generic "Thu, Apr 16, 2026: 22 scrobbles" [ref=f9e1816] [cursor=pointer]'
+                    - 'generic "Fri, Apr 17, 2026: 68 scrobbles" [ref=f9e1817] [cursor=pointer]'
+                    - 'generic "Sat, Apr 18, 2026: 33 scrobbles" [ref=f9e1818] [cursor=pointer]'
+                    - 'generic "Sun, Apr 19, 2026: 18 scrobbles" [ref=f9e1819] [cursor=pointer]'
+                    - 'generic "Mon, Apr 20, 2026: 191 scrobbles" [ref=f9e1820] [cursor=pointer]'
+                    - 'generic "Tue, Apr 21, 2026: 66 scrobbles" [ref=f9e1821] [cursor=pointer]'
+                    - 'generic "Wed, Apr 22, 2026: 80 scrobbles" [ref=f9e1822] [cursor=pointer]'
+                    - 'generic "Thu, Apr 23, 2026: 101 scrobbles" [ref=f9e1823] [cursor=pointer]'
+                    - 'generic "Fri, Apr 24, 2026: 40 scrobbles" [ref=f9e1824] [cursor=pointer]'
+                    - 'generic "Sat, Apr 25, 2026: 279 scrobbles" [ref=f9e1825] [cursor=pointer]'
+                    - 'generic "Sun, Apr 26, 2026: 51 scrobbles" [ref=f9e1826] [cursor=pointer]'
+                    - 'generic "Mon, Apr 27, 2026: 29 scrobbles" [ref=f9e1827] [cursor=pointer]'
+                    - 'generic "Tue, Apr 28, 2026: 36 scrobbles" [ref=f9e1828] [cursor=pointer]'
+                    - 'generic "Wed, Apr 29, 2026: 34 scrobbles" [ref=f9e1829] [cursor=pointer]'
+                    - 'generic "Thu, Apr 30, 2026: 15 scrobbles" [ref=f9e1830] [cursor=pointer]'
+                    - 'generic "Fri, May 1, 2026: 17 scrobbles" [ref=f9e1831] [cursor=pointer]'
+                    - 'generic "Sat, May 2, 2026: 17 scrobbles" [ref=f9e1832] [cursor=pointer]'
+                    - 'generic "Sun, May 3, 2026: 28 scrobbles" [ref=f9e1833] [cursor=pointer]'
+                    - 'generic "Mon, May 4, 2026: 9 scrobbles" [ref=f9e1834] [cursor=pointer]'
+                    - 'generic "Tue, May 5, 2026: 16 scrobbles" [ref=f9e1835] [cursor=pointer]'
+                    - 'generic "Wed, May 6, 2026: 33 scrobbles" [ref=f9e1836] [cursor=pointer]'
+                    - 'generic "Thu, May 7, 2026: 20 scrobbles" [ref=f9e1837] [cursor=pointer]'
+                    - 'generic "Fri, May 8, 2026: 64 scrobbles" [ref=f9e1838] [cursor=pointer]'
+                    - 'generic "Sat, May 9, 2026: 140 scrobbles" [ref=f9e1839] [cursor=pointer]'
+                    - 'generic "Sun, May 10, 2026: 123 scrobbles" [ref=f9e1840] [cursor=pointer]'
+                    - 'generic "Mon, May 11, 2026: 88 scrobbles" [ref=f9e1841] [cursor=pointer]'
+                    - 'generic "Tue, May 12, 2026: 45 scrobbles" [ref=f9e1842] [cursor=pointer]'
+                    - 'generic "Wed, May 13, 2026: 81 scrobbles" [ref=f9e1843] [cursor=pointer]'
+                    - 'generic "Thu, May 14, 2026: 152 scrobbles" [ref=f9e1844] [cursor=pointer]'
+                    - 'generic "Fri, May 15, 2026: 130 scrobbles" [ref=f9e1845] [cursor=pointer]'
+                    - 'generic "Sat, May 16, 2026: 183 scrobbles" [ref=f9e1846] [cursor=pointer]'
+                    - 'generic "Sun, May 17, 2026: 93 scrobbles" [ref=f9e1847] [cursor=pointer]'
+                    - 'generic "Mon, May 18, 2026: 118 scrobbles" [ref=f9e1848] [cursor=pointer]'
+                    - 'generic "Tue, May 19, 2026: 71 scrobbles" [ref=f9e1849] [cursor=pointer]'
+                    - 'generic "Wed, May 20, 2026: 87 scrobbles" [ref=f9e1850] [cursor=pointer]'
+                    - 'generic "Thu, May 21, 2026: 91 scrobbles" [ref=f9e1851] [cursor=pointer]'
+                    - 'generic "Fri, May 22, 2026: 99 scrobbles" [ref=f9e1852] [cursor=pointer]'
+                    - 'generic "Sat, May 23, 2026: 159 scrobbles" [ref=f9e1853] [cursor=pointer]'
+                    - 'generic "Sun, May 24, 2026: 105 scrobbles" [ref=f9e1854] [cursor=pointer]'
+                    - 'generic "Mon, May 25, 2026: 187 scrobbles" [ref=f9e1855] [cursor=pointer]'
+                    - 'generic "Tue, May 26, 2026: 268 scrobbles" [ref=f9e1856] [cursor=pointer]'
+                    - 'generic "Wed, May 27, 2026: 104 scrobbles" [ref=f9e1857] [cursor=pointer]'
+                    - 'generic "Thu, May 28, 2026: 54 scrobbles" [ref=f9e1858] [cursor=pointer]'
+                    - 'generic "Fri, May 29, 2026: 77 scrobbles" [ref=f9e1859] [cursor=pointer]'
+                    - 'generic "Sat, May 30, 2026: 56 scrobbles" [ref=f9e1860] [cursor=pointer]'
+                    - 'generic "Sun, May 31, 2026: 102 scrobbles" [ref=f9e1861] [cursor=pointer]'
+                    - 'generic "Mon, Jun 1, 2026: 134 scrobbles" [ref=f9e1862] [cursor=pointer]'
+                    - 'generic "Tue, Jun 2, 2026: 45 scrobbles" [ref=f9e1863] [cursor=pointer]'
+                    - 'generic "Wed, Jun 3, 2026: 45 scrobbles" [ref=f9e1864] [cursor=pointer]'
+                    - 'generic "Thu, Jun 4, 2026: 117 scrobbles" [ref=f9e1865] [cursor=pointer]'
+                    - 'generic "Fri, Jun 5, 2026: 72 scrobbles" [ref=f9e1866] [cursor=pointer]'
+                    - 'generic "Sat, Jun 6, 2026: 106 scrobbles" [ref=f9e1867] [cursor=pointer]'
+                    - 'generic "Sun, Jun 7, 2026: 80 scrobbles" [ref=f9e1868] [cursor=pointer]'
+                    - 'generic "Mon, Jun 8, 2026: 100 scrobbles" [ref=f9e1869] [cursor=pointer]'
+                    - 'generic "Tue, Jun 9, 2026: 93 scrobbles" [ref=f9e1870] [cursor=pointer]'
+                    - 'generic "Wed, Jun 10, 2026: 139 scrobbles" [ref=f9e1871] [cursor=pointer]'
+                    - 'generic "Thu, Jun 11, 2026: 187 scrobbles" [ref=f9e1872] [cursor=pointer]'
+                    - 'generic "Fri, Jun 12, 2026: 133 scrobbles" [ref=f9e1873] [cursor=pointer]'
+                    - 'generic "Sat, Jun 13, 2026: 73 scrobbles" [ref=f9e1874] [cursor=pointer]'
+                    - 'generic "Sun, Jun 14, 2026: 21 scrobbles" [ref=f9e1875] [cursor=pointer]'
+                    - 'generic "Mon, Jun 15, 2026: 15 scrobbles" [ref=f9e1876] [cursor=pointer]'
+                    - 'generic "Tue, Jun 16, 2026: 94 scrobbles" [ref=f9e1877] [cursor=pointer]'
+                    - 'generic "Wed, Jun 17, 2026: 65 scrobbles" [ref=f9e1878] [cursor=pointer]'
+                    - 'generic "Thu, Jun 18, 2026: 141 scrobbles" [ref=f9e1879] [cursor=pointer]'
+                    - 'generic "Fri, Jun 19, 2026: 140 scrobbles" [ref=f9e1880] [cursor=pointer]'
+                    - 'generic "Sat, Jun 20, 2026: 173 scrobbles" [ref=f9e1881] [cursor=pointer]'
+                    - 'generic "Sun, Jun 21, 2026: 152 scrobbles" [ref=f9e1882] [cursor=pointer]'
+                    - 'generic "Mon, Jun 22, 2026: 87 scrobbles" [ref=f9e1883] [cursor=pointer]'
+                    - 'generic "Tue, Jun 23, 2026: 69 scrobbles" [ref=f9e1884] [cursor=pointer]'
+                    - 'generic "Wed, Jun 24, 2026: 113 scrobbles" [ref=f9e1885] [cursor=pointer]'
+                    - 'generic "Thu, Jun 25, 2026: 32 scrobbles" [ref=f9e1886] [cursor=pointer]'
+                    - 'generic "Fri, Jun 26, 2026: 103 scrobbles" [ref=f9e1887] [cursor=pointer]'
+                    - 'generic "Sat, Jun 27, 2026: 143 scrobbles" [ref=f9e1888] [cursor=pointer]'
+                    - 'generic "Sun, Jun 28, 2026: 125 scrobbles" [ref=f9e1889] [cursor=pointer]'
+                    - 'generic "Mon, Jun 29, 2026: 108 scrobbles" [ref=f9e1890] [cursor=pointer]'
+                    - 'generic "Tue, Jun 30, 2026: 90 scrobbles" [ref=f9e1891] [cursor=pointer]'
+                    - 'generic "Wed, Jul 1, 2026: 117 scrobbles" [ref=f9e1892] [cursor=pointer]'
+                    - 'generic "Thu, Jul 2, 2026: 165 scrobbles" [ref=f9e1893] [cursor=pointer]'
+                    - 'generic "Fri, Jul 3, 2026: 63 scrobbles" [ref=f9e1894] [cursor=pointer]'
+                    - 'generic "Sat, Jul 4, 2026: 149 scrobbles" [ref=f9e1895] [cursor=pointer]'
+                    - 'generic "Sun, Jul 5, 2026: 2 scrobbles" [ref=f9e1896] [cursor=pointer]'
+                    - 'generic "Mon, Jul 6, 2026: 94 scrobbles" [ref=f9e1897] [cursor=pointer]'
+                    - 'generic "Tue, Jul 7, 2026: 34 scrobbles" [ref=f9e1898] [cursor=pointer]'
+                    - 'generic "Wed, Jul 8, 2026: 144 scrobbles" [ref=f9e1899] [cursor=pointer]'
+                    - 'generic "Thu, Jul 9, 2026: 127 scrobbles" [ref=f9e1900] [cursor=pointer]'
+                    - 'generic "Fri, Jul 10, 2026: 65 scrobbles" [ref=f9e1901] [cursor=pointer]'
+                    - 'generic "Sat, Jul 11, 2026: 0 scrobbles" [ref=f9e1902] [cursor=pointer]'
+                    - 'generic "Sun, Jul 12, 2026: 0 scrobbles" [ref=f9e1903] [cursor=pointer]'
+                    - 'generic "Mon, Jul 13, 2026: 0 scrobbles" [ref=f9e1904] [cursor=pointer]'
+                    - 'generic "Tue, Jul 14, 2026: 0 scrobbles" [ref=f9e1905] [cursor=pointer]'
+                    - 'generic "Wed, Jul 15, 2026: 0 scrobbles" [ref=f9e1906] [cursor=pointer]'
+                    - 'generic "Thu, Jul 16, 2026: 0 scrobbles" [ref=f9e1907] [cursor=pointer]'
+                    - 'generic "Fri, Jul 17, 2026: 0 scrobbles" [ref=f9e1908] [cursor=pointer]'
+                    - 'generic "Sat, Jul 18, 2026: 0 scrobbles" [ref=f9e1909] [cursor=pointer]'
+                    - 'generic "Sun, Jul 19, 2026: 0 scrobbles" [ref=f9e1910] [cursor=pointer]'
+                    - 'generic "Mon, Jul 20, 2026: 0 scrobbles" [ref=f9e1911] [cursor=pointer]'
+                    - 'generic "Tue, Jul 21, 2026: 0 scrobbles" [ref=f9e1912] [cursor=pointer]'
+                    - 'generic "Wed, Jul 22, 2026: 0 scrobbles" [ref=f9e1913] [cursor=pointer]'
+                    - 'generic "Thu, Jul 23, 2026: 0 scrobbles" [ref=f9e1914] [cursor=pointer]'
+                    - 'generic "Fri, Jul 24, 2026: 0 scrobbles" [ref=f9e1915] [cursor=pointer]'
+                    - 'generic "Sat, Jul 25, 2026: 0 scrobbles" [ref=f9e1916] [cursor=pointer]'
+                    - 'generic "Sun, Jul 26, 2026: 0 scrobbles" [ref=f9e1917] [cursor=pointer]'
+                    - 'generic "Mon, Jul 27, 2026: 0 scrobbles" [ref=f9e1918] [cursor=pointer]'
+                    - 'generic "Tue, Jul 28, 2026: 0 scrobbles" [ref=f9e1919] [cursor=pointer]'
+                    - 'generic "Wed, Jul 29, 2026: 0 scrobbles" [ref=f9e1920] [cursor=pointer]'
+                    - 'generic "Thu, Jul 30, 2026: 0 scrobbles" [ref=f9e1921] [cursor=pointer]'
+                    - 'generic "Fri, Jul 31, 2026: 0 scrobbles" [ref=f9e1922] [cursor=pointer]'
+                    - 'generic "Sat, Aug 1, 2026: 0 scrobbles" [ref=f9e1923] [cursor=pointer]'
+                    - 'generic "Sun, Aug 2, 2026: 0 scrobbles" [ref=f9e1924] [cursor=pointer]'
+                    - 'generic "Mon, Aug 3, 2026: 0 scrobbles" [ref=f9e1925] [cursor=pointer]'
+                    - 'generic "Tue, Aug 4, 2026: 0 scrobbles" [ref=f9e1926] [cursor=pointer]'
+                    - 'generic "Wed, Aug 5, 2026: 0 scrobbles" [ref=f9e1927] [cursor=pointer]'
+                    - 'generic "Thu, Aug 6, 2026: 0 scrobbles" [ref=f9e1928] [cursor=pointer]'
+                    - 'generic "Fri, Aug 7, 2026: 0 scrobbles" [ref=f9e1929] [cursor=pointer]'
+                    - 'generic "Sat, Aug 8, 2026: 0 scrobbles" [ref=f9e1930] [cursor=pointer]'
+                    - 'generic "Sun, Aug 9, 2026: 0 scrobbles" [ref=f9e1931] [cursor=pointer]'
+                    - 'generic "Mon, Aug 10, 2026: 0 scrobbles" [ref=f9e1932] [cursor=pointer]'
+                    - 'generic "Tue, Aug 11, 2026: 0 scrobbles" [ref=f9e1933] [cursor=pointer]'
+                    - 'generic "Wed, Aug 12, 2026: 0 scrobbles" [ref=f9e1934] [cursor=pointer]'
+                    - 'generic "Thu, Aug 13, 2026: 0 scrobbles" [ref=f9e1935] [cursor=pointer]'
+                    - 'generic "Fri, Aug 14, 2026: 0 scrobbles" [ref=f9e1936] [cursor=pointer]'
+                    - 'generic "Sat, Aug 15, 2026: 0 scrobbles" [ref=f9e1937] [cursor=pointer]'
+                    - 'generic "Sun, Aug 16, 2026: 0 scrobbles" [ref=f9e1938] [cursor=pointer]'
+                    - 'generic "Mon, Aug 17, 2026: 0 scrobbles" [ref=f9e1939] [cursor=pointer]'
+                    - 'generic "Tue, Aug 18, 2026: 0 scrobbles" [ref=f9e1940] [cursor=pointer]'
+                    - 'generic "Wed, Aug 19, 2026: 0 scrobbles" [ref=f9e1941] [cursor=pointer]'
+                    - 'generic "Thu, Aug 20, 2026: 0 scrobbles" [ref=f9e1942] [cursor=pointer]'
+                    - 'generic "Fri, Aug 21, 2026: 0 scrobbles" [ref=f9e1943] [cursor=pointer]'
+                    - 'generic "Sat, Aug 22, 2026: 0 scrobbles" [ref=f9e1944] [cursor=pointer]'
+                    - 'generic "Sun, Aug 23, 2026: 0 scrobbles" [ref=f9e1945] [cursor=pointer]'
+                    - 'generic "Mon, Aug 24, 2026: 0 scrobbles" [ref=f9e1946] [cursor=pointer]'
+                    - 'generic "Tue, Aug 25, 2026: 0 scrobbles" [ref=f9e1947] [cursor=pointer]'
+                    - 'generic "Wed, Aug 26, 2026: 0 scrobbles" [ref=f9e1948] [cursor=pointer]'
+                    - 'generic "Thu, Aug 27, 2026: 0 scrobbles" [ref=f9e1949] [cursor=pointer]'
+                    - 'generic "Fri, Aug 28, 2026: 0 scrobbles" [ref=f9e1950] [cursor=pointer]'
+                    - 'generic "Sat, Aug 29, 2026: 0 scrobbles" [ref=f9e1951] [cursor=pointer]'
+                    - 'generic "Sun, Aug 30, 2026: 0 scrobbles" [ref=f9e1952] [cursor=pointer]'
+                    - 'generic "Mon, Aug 31, 2026: 0 scrobbles" [ref=f9e1953] [cursor=pointer]'
+                    - 'generic "Tue, Sep 1, 2026: 0 scrobbles" [ref=f9e1954] [cursor=pointer]'
+                    - 'generic "Wed, Sep 2, 2026: 0 scrobbles" [ref=f9e1955] [cursor=pointer]'
+                    - 'generic "Thu, Sep 3, 2026: 0 scrobbles" [ref=f9e1956] [cursor=pointer]'
+                    - 'generic "Fri, Sep 4, 2026: 0 scrobbles" [ref=f9e1957] [cursor=pointer]'
+                    - 'generic "Sat, Sep 5, 2026: 0 scrobbles" [ref=f9e1958] [cursor=pointer]'
+                    - 'generic "Sun, Sep 6, 2026: 0 scrobbles" [ref=f9e1959] [cursor=pointer]'
+                    - 'generic "Mon, Sep 7, 2026: 0 scrobbles" [ref=f9e1960] [cursor=pointer]'
+                    - 'generic "Tue, Sep 8, 2026: 0 scrobbles" [ref=f9e1961] [cursor=pointer]'
+                    - 'generic "Wed, Sep 9, 2026: 0 scrobbles" [ref=f9e1962] [cursor=pointer]'
+                    - 'generic "Thu, Sep 10, 2026: 0 scrobbles" [ref=f9e1963] [cursor=pointer]'
+                    - 'generic "Fri, Sep 11, 2026: 0 scrobbles" [ref=f9e1964] [cursor=pointer]'
+                    - 'generic "Sat, Sep 12, 2026: 0 scrobbles" [ref=f9e1965] [cursor=pointer]'
+                    - 'generic "Sun, Sep 13, 2026: 0 scrobbles" [ref=f9e1966] [cursor=pointer]'
+                    - 'generic "Mon, Sep 14, 2026: 0 scrobbles" [ref=f9e1967] [cursor=pointer]'
+                    - 'generic "Tue, Sep 15, 2026: 0 scrobbles" [ref=f9e1968] [cursor=pointer]'
+                    - 'generic "Wed, Sep 16, 2026: 0 scrobbles" [ref=f9e1969] [cursor=pointer]'
+                    - 'generic "Thu, Sep 17, 2026: 0 scrobbles" [ref=f9e1970] [cursor=pointer]'
+                    - 'generic "Fri, Sep 18, 2026: 0 scrobbles" [ref=f9e1971] [cursor=pointer]'
+                    - 'generic "Sat, Sep 19, 2026: 0 scrobbles" [ref=f9e1972] [cursor=pointer]'
+                    - 'generic "Sun, Sep 20, 2026: 0 scrobbles" [ref=f9e1973] [cursor=pointer]'
+                    - 'generic "Mon, Sep 21, 2026: 0 scrobbles" [ref=f9e1974] [cursor=pointer]'
+                    - 'generic "Tue, Sep 22, 2026: 0 scrobbles" [ref=f9e1975] [cursor=pointer]'
+                    - 'generic "Wed, Sep 23, 2026: 0 scrobbles" [ref=f9e1976] [cursor=pointer]'
+                    - 'generic "Thu, Sep 24, 2026: 0 scrobbles" [ref=f9e1977] [cursor=pointer]'
+                    - 'generic "Fri, Sep 25, 2026: 0 scrobbles" [ref=f9e1978] [cursor=pointer]'
+                    - 'generic "Sat, Sep 26, 2026: 0 scrobbles" [ref=f9e1979] [cursor=pointer]'
+              - generic [ref=f9e1980]:
+                - generic [ref=f9e1981]: Less
+                - generic [ref=f9e1987]: More
+              - generic [ref=f9e1988]:
+                - generic [ref=f9e1989]: 0day current streak
+                - generic [ref=f9e1990]: 86day longest streak
+              - generic [ref=f9e1991]:
+                - generic [ref=f9e1992]: 0 scrobbles
+                - paragraph [ref=f9e1999]: No tracks played on this day.
+            - generic [ref=f9e2002]:
+              - heading "First Listens" [level=3] [ref=f9e2004]
+              - list [ref=f9e2006]:
+                - listitem [ref=f9e2007]:
+                  - link "haven." [ref=f9e2009] [cursor=pointer]:
+                    - /url: /artist/haven.?username=Wuzi001
+                  - generic [ref=f9e2010]:
+                    - generic [ref=f9e2011]: 2 months ago
+                    - generic [ref=f9e2012]: 1 play
+                - listitem [ref=f9e2013]:
+                  - link "Suprafive und Nesco" [ref=f9e2015] [cursor=pointer]:
+                    - /url: /artist/Suprafive%20und%20Nesco?username=Wuzi001
+                  - generic [ref=f9e2016]:
+                    - generic [ref=f9e2017]: 2 months ago
+                    - generic [ref=f9e2018]: 1 play
+                - listitem [ref=f9e2019]:
+                  - link "DAEGHO" [ref=f9e2021] [cursor=pointer]:
+                    - /url: /artist/DAEGHO?username=Wuzi001
+                  - generic [ref=f9e2022]:
+                    - generic [ref=f9e2023]: 2 months ago
+                    - generic [ref=f9e2024]: 1 play
+                - listitem [ref=f9e2025]:
+                  - link "grandson" [ref=f9e2027] [cursor=pointer]:
+                    - /url: /artist/grandson?username=Wuzi001
+                  - generic [ref=f9e2028]:
+                    - generic [ref=f9e2029]: 2 months ago
+                    - generic [ref=f9e2030]: 1 play
+                - listitem [ref=f9e2031]:
+                  - link "Isabel LaRosa" [ref=f9e2033] [cursor=pointer]:
+                    - /url: /artist/Isabel%20LaRosa?username=Wuzi001
+                  - generic [ref=f9e2034]:
+                    - generic [ref=f9e2035]: 2 months ago
+                    - generic [ref=f9e2036]: 1 play
+                - listitem [ref=f9e2037]:
+                  - link "The Chainsmokers, Ink und Zerb" [ref=f9e2039] [cursor=pointer]:
+                    - /url: /artist/The%20Chainsmokers%2C%20Ink%20und%20Zerb?username=Wuzi001
+                  - generic [ref=f9e2040]:
+                    - generic [ref=f9e2041]: 2 months ago
+                    - generic [ref=f9e2042]: 1 play
+                - listitem [ref=f9e2043]:
+                  - link "Ian Asher und Phantogram" [ref=f9e2045] [cursor=pointer]:
+                    - /url: /artist/Ian%20Asher%20und%20Phantogram?username=Wuzi001
+                  - generic [ref=f9e2046]:
+                    - generic [ref=f9e2047]: 2 months ago
+                    - generic [ref=f9e2048]: 1 play
+                - listitem [ref=f9e2049]:
+                  - link "Jhuzzy" [ref=f9e2051] [cursor=pointer]:
+                    - /url: /artist/Jhuzzy?username=Wuzi001
+                  - generic [ref=f9e2052]:
+                    - generic [ref=f9e2053]: 2 months ago
+                    - generic [ref=f9e2054]: 1 play
+                - listitem [ref=f9e2055]:
+                  - link "Cyrex" [ref=f9e2057] [cursor=pointer]:
+                    - /url: /artist/Cyrex?username=Wuzi001
+                  - generic [ref=f9e2058]:
+                    - generic [ref=f9e2059]: 2 months ago
+                    - generic [ref=f9e2060]: 1 play
+                - listitem [ref=f9e2061]:
+                  - link "Phonk Killer" [ref=f9e2063] [cursor=pointer]:
+                    - /url: /artist/Phonk%20Killer?username=Wuzi001
+                  - generic [ref=f9e2064]:
+                    - generic [ref=f9e2065]: 2 months ago
+                    - generic [ref=f9e2066]: 1 play
+            - generic [ref=f9e2069]:
+              - generic [ref=f9e2070]:
+                - generic [ref=f9e2071]: Morning (6–12)
+                - generic [ref=f9e2080]:
+                  - generic [ref=f9e2081]: Energized
+                  - generic [ref=f9e2082]: 33%
+                - generic [ref=f9e2083]: 2,583 scrobbles
+              - generic [ref=f9e2086]:
+                - generic [ref=f9e2087]: Afternoon (12–18)
+                - generic [ref=f9e2095]:
+                  - generic [ref=f9e2096]: Focused
+                  - generic [ref=f9e2097]: 35%
+                - generic [ref=f9e2098]: 2,740 scrobbles
+              - generic [ref=f9e2101]:
+                - generic [ref=f9e2102]: Evening (18–23)
+                - generic [ref=f9e2107]:
+                  - generic [ref=f9e2108]: Relaxed
+                  - generic [ref=f9e2109]: 23%
+                - generic [ref=f9e2110]: 1,804 scrobbles
+              - generic [ref=f9e2113]:
+                - generic [ref=f9e2114]: Night (23–6)
+                - generic [ref=f9e2119]:
+                  - generic [ref=f9e2120]: Nocturnal
+                  - generic [ref=f9e2121]: 9%
+                - generic [ref=f9e2122]: 708 scrobbles
+            - generic [ref=f9e2127]:
+              - heading "Season Listening" [level=3] [ref=f9e2129]
+              - generic [ref=f9e2131]:
+                - generic [ref=f9e2132]:
+                  - generic:
+                    - generic: 7,835
+                    - generic: seasonal scrobbles
+                - generic [ref=f9e2135]:
+                  - generic [ref=f9e2136]:
+                    - generic [ref=f9e2137]: 🌸
+                    - generic [ref=f9e2138]:
+                      - generic [ref=f9e2139]:
+                        - generic [ref=f9e2140]: Spring
+                        - generic [ref=f9e2141]: 51%
+                      - generic [ref=f9e2142]:
+                        - generic [ref=f9e2143]: 4,014 scrobbles
+                        - generic [ref=f9e2144]: Peak season
+                  - generic [ref=f9e2145]:
+                    - generic [ref=f9e2146]: ☀️
+                    - generic [ref=f9e2147]:
+                      - generic [ref=f9e2148]:
+                        - generic [ref=f9e2149]: Summer
+                        - generic [ref=f9e2150]: 49%
+                      - generic [ref=f9e2151]: 3,821 scrobbles
+                  - generic [ref=f9e2153]:
+                    - generic [ref=f9e2154]: 🍂
+                    - generic [ref=f9e2155]:
+                      - generic [ref=f9e2156]:
+                        - generic [ref=f9e2157]: Fall
+                        - generic [ref=f9e2158]: 0%
+                      - generic [ref=f9e2159]: 0 scrobbles
+                  - generic [ref=f9e2161]:
+                    - generic [ref=f9e2162]: ❄️
+                    - generic [ref=f9e2163]:
+                      - generic [ref=f9e2164]:
+                        - generic [ref=f9e2165]: Winter
+                        - generic [ref=f9e2166]: 0%
+                      - generic [ref=f9e2167]: 0 scrobbles
+            - generic [ref=f9e2171]:
+              - generic [ref=f9e2173]:
+                - heading "Listening Bingo" [level=3] [ref=f9e2174]
+                - generic [ref=f9e2175]: 21 / 24 achieved
+              - generic [ref=f9e2176]:
+                - generic [ref=f9e2177]:
+                  - generic "Listened at midnight" [ref=f9e2178]
+                  - generic "100+ plays of one artist" [ref=f9e2182]
+                  - generic "Listened 7 days in a row" [ref=f9e2186]
+                  - generic "Discovered 5 new artists this month" [ref=f9e2190]
+                  - generic "Played same song 3x in a row" [ref=f9e2192]
+                  - generic "Weekend marathon (50+ songs)" [ref=f9e2196]
+                  - generic "Early bird (listened before 7am)" [ref=f9e2200]
+                  - generic "500+ total scrobbles" [ref=f9e2204]
+                  - generic "Late-night session (10+ songs after midnight)" [ref=f9e2208]
+                  - generic "Listened to 10+ artists in one day" [ref=f9e2212]
+                  - generic "30-day listening streak" [ref=f9e2216]
+                  - generic "Listened to 20+ different artists" [ref=f9e2220]
+                  - generic "Free Space" [ref=f9e2224]
+                  - generic "50+ songs in one day" [ref=f9e2228]
+                  - generic "1000+ total scrobbles" [ref=f9e2232]
+                  - generic "Returned to an old favorite" [ref=f9e2236]
+                  - generic "Played 5+ genres in one day" [ref=f9e2240]
+                  - generic "Listened on every day of the week" [ref=f9e2244]
+                  - generic "Replayed an album (same artist, 5+ tracks in a row)" [ref=f9e2248]
+                  - generic "Scrobbled on New Year's Day" [ref=f9e2252]
+                  - generic "20+ plays of one artist in a day" [ref=f9e2254]
+                  - generic "100+ unique tracks" [ref=f9e2258]
+                  - generic "Listened 5+ days before 8am" [ref=f9e2262]
+                  - generic "Party mode (100+ songs in one day)" [ref=f9e2266]
+                - paragraph [ref=f9e2270]: You have a bingo! Keep listening to unlock more.
+            - generic [ref=f9e2273]:
+              - heading "Longest Listening Sessions" [level=3] [ref=f9e2281]
+              - list [ref=f9e2283]:
+                - listitem [ref=f9e2284]:
+                  - generic [ref=f9e2285]: 1st
+                  - generic [ref=f9e2286]:
+                    - generic [ref=f9e2287]:
+                      - generic [ref=f9e2288]: 13h 52m
+                      - generic [ref=f9e2289]: 226 tracks
+                    - generic [ref=f9e2290]: May 25, 10:05 AM
+                    - generic [ref=f9e2295]:
+                      - text: "Top artist:"
+                      - link "Linkin Park" [ref=f9e2296] [cursor=pointer]:
+                        - /url: /artist/Linkin%20Park?username=Wuzi001
+                - listitem [ref=f9e2297]:
+                  - generic [ref=f9e2298]: 2nd
+                  - generic [ref=f9e2299]:
+                    - generic [ref=f9e2300]:
+                      - generic [ref=f9e2301]: 10h 25m
+                      - generic [ref=f9e2302]: 181 tracks
+                    - generic [ref=f9e2303]: May 15, 10:17 AM
+                    - generic [ref=f9e2308]:
+                      - text: "Top artist:"
+                      - link "Imagine Dragons" [ref=f9e2309] [cursor=pointer]:
+                        - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                - listitem [ref=f9e2310]:
+                  - generic [ref=f9e2311]: 3rd
+                  - generic [ref=f9e2312]:
+                    - generic [ref=f9e2313]:
+                      - generic [ref=f9e2314]: 9h 31m
+                      - generic [ref=f9e2315]: 173 tracks
+                    - generic [ref=f9e2316]: Apr 24, 04:36 PM
+                    - generic [ref=f9e2321]:
+                      - text: "Top artist:"
+                      - link "Ed Sheeran" [ref=f9e2322] [cursor=pointer]:
+                        - /url: /artist/Ed%20Sheeran?username=Wuzi001
+                - listitem [ref=f9e2323]:
+                  - generic [ref=f9e2324]: 4th
+                  - generic [ref=f9e2325]:
+                    - generic [ref=f9e2326]:
+                      - generic [ref=f9e2327]: 9h 4m
+                      - generic [ref=f9e2328]: 152 tracks
+                    - generic [ref=f9e2329]: Jun 20, 12:44 PM
+                    - generic [ref=f9e2334]:
+                      - text: "Top artist:"
+                      - link "Linkin Park" [ref=f9e2335] [cursor=pointer]:
+                        - /url: /artist/Linkin%20Park?username=Wuzi001
+                - listitem [ref=f9e2336]:
+                  - generic [ref=f9e2337]: 5th
+                  - generic [ref=f9e2338]:
+                    - generic [ref=f9e2339]:
+                      - generic [ref=f9e2340]: 7h 44m
+                      - generic [ref=f9e2341]: 123 tracks
+                    - generic [ref=f9e2342]: May 24, 08:50 PM
+                    - generic [ref=f9e2347]:
+                      - text: "Top artist:"
+                      - link "Linkin Park" [ref=f9e2348] [cursor=pointer]:
+                        - /url: /artist/Linkin%20Park?username=Wuzi001
+            - generic [ref=f9e2351]:
+              - heading "Top Album Each Year" [level=3] [ref=f9e2353]
+              - paragraph [ref=f9e2361]: No album data available.
+            - generic [ref=f9e2364]:
+              - generic [ref=f9e2365]:
+                - heading "On This Day" [level=3] [ref=f9e2366]
+                - paragraph [ref=f9e2369]: "1 year ago: September 23, 2025"
+              - paragraph [ref=f9e2374]: No scrobbles found around this time last year
+            - heading "Top Tags" [level=3] [ref=f9e2379]
+            - generic [ref=f9e2402]:
+              - heading "You Might Also Like" [level=3] [ref=f9e2404]
+              - list [ref=f9e2409]:
+                - listitem [ref=f9e2410]
+                - listitem [ref=f9e2415]
+                - listitem [ref=f9e2420]
+                - listitem [ref=f9e2425]
+                - listitem [ref=f9e2430]
+            - generic [ref=f9e2437]:
+              - button "Scroll left" [ref=f9e2438]
+              - generic [ref=f9e2441]:
+                - link "Loading image for Linkin Park Linkin Park" [ref=f9e2442] [cursor=pointer]:
+                  - /url: /artist/Linkin%20Park?username=Wuzi001
+                  - generic "Loading image for Linkin Park" [ref=f9e2443]
+                  - generic "Linkin Park" [ref=f9e2444]
+                - link "Loading image for haven. haven." [ref=f9e2445] [cursor=pointer]:
+                  - /url: /artist/haven.?username=Wuzi001
+                  - generic "Loading image for haven." [ref=f9e2446]
+                  - generic "haven." [ref=f9e2447]
+                - link "Loading image for Imagine Dragons Imagine Dragons" [ref=f9e2448] [cursor=pointer]:
+                  - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                  - generic "Loading image for Imagine Dragons" [ref=f9e2449]
+                  - generic "Imagine Dragons" [ref=f9e2450]
+                - link "Loading image for Ian Asher und D A N N Y Ian Asher und D A N N Y" [ref=f9e2451] [cursor=pointer]:
+                  - /url: /artist/Ian%20Asher%20und%20D%20A%20N%20N%20Y?username=Wuzi001
+                  - generic "Loading image for Ian Asher und D A N N Y" [ref=f9e2452]
+                  - generic "Ian Asher und D A N N Y" [ref=f9e2453]
+                - link "Loading image for i-dle i-dle" [ref=f9e2454] [cursor=pointer]:
+                  - /url: /artist/i-dle?username=Wuzi001
+                  - generic "Loading image for i-dle" [ref=f9e2455]
+                  - generic "i-dle" [ref=f9e2456]
+                - link "Loading image for IVE IVE" [ref=f9e2457] [cursor=pointer]:
+                  - /url: /artist/IVE?username=Wuzi001
+                  - generic "Loading image for IVE" [ref=f9e2458]
+                  - generic "IVE" [ref=f9e2459]
+                - link "Loading image for BABYMONSTER BABYMONSTER" [ref=f9e2460] [cursor=pointer]:
+                  - /url: /artist/BABYMONSTER?username=Wuzi001
+                  - generic "Loading image for BABYMONSTER" [ref=f9e2461]
+                  - generic "BABYMONSTER" [ref=f9e2462]
+                - link "Loading image for K/DA, (G)I-DLE und Wolftyla K/DA, (G)I-DLE und Wolftyla" [ref=f9e2463] [cursor=pointer]:
+                  - /url: /artist/K%2FDA%2C%20(G)I-DLE%20und%20Wolftyla?username=Wuzi001
+                  - generic "Loading image for K/DA, (G)I-DLE und Wolftyla" [ref=f9e2464]
+                  - generic "K/DA, (G)I-DLE und Wolftyla" [ref=f9e2465]
+                - link "Loading image for Yeji Yeji" [ref=f9e2466] [cursor=pointer]:
+                  - /url: /artist/Yeji?username=Wuzi001
+                  - generic "Loading image for Yeji" [ref=f9e2467]
+                  - generic "Yeji" [ref=f9e2468]
+                - link "Loading image for LE SSERAFIM LE SSERAFIM" [ref=f9e2469] [cursor=pointer]:
+                  - /url: /artist/LE%20SSERAFIM?username=Wuzi001
+                  - generic "Loading image for LE SSERAFIM" [ref=f9e2470]
+                  - generic "LE SSERAFIM" [ref=f9e2471]
+              - button "Scroll right" [ref=f9e2472]
+            - generic [ref=f9e2478]:
+              - heading "Top Genres" [level=3] [ref=f9e2480]
+              - paragraph [ref=f9e2483]: Loading genre data…
+            - generic [ref=f9e2494]:
+              - heading "Listening Diversity Score" [level=3] [ref=f9e2496]
+              - generic [ref=f9e2497]:
+                - generic [ref=f9e2498]:
+                  - generic [ref=f9e2499]: "0"
+                  - generic [ref=f9e2500]:
+                    - generic [ref=f9e2501]: Eclectic
+                    - generic [ref=f9e2502]: out of 100
+                - paragraph [ref=f9e2503]:
+                  - text: Your top 10 artists account for
+                  - generic [ref=f9e2504]: 24%
+                  - text: of all plays.
+                - generic [ref=f9e2505]:
+                  - paragraph [ref=f9e2506]: vs. Average Listener
+                  - generic [ref=f9e2510]:
+                    - generic [ref=f9e2511]: "You: 99"
+                    - generic [ref=f9e2512]: "Avg: 55"
+                - generic [ref=f9e2513]:
+                  - paragraph [ref=f9e2514]: Top 5 Artists Share
+                  - generic [ref=f9e2515]:
+                    - generic [ref=f9e2516]:
+                      - link "Linkin Park" [ref=f9e2517] [cursor=pointer]:
+                        - /url: /artist/Linkin%20Park?username=Wuzi001
+                      - generic [ref=f9e2520]: 8.6%
+                    - generic [ref=f9e2521]:
+                      - link "Imagine Dragons" [ref=f9e2522] [cursor=pointer]:
+                        - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                      - generic [ref=f9e2525]: 4.6%
+                    - generic [ref=f9e2526]:
+                      - link "Ed Sheeran" [ref=f9e2527] [cursor=pointer]:
+                        - /url: /artist/Ed%20Sheeran?username=Wuzi001
+                      - generic [ref=f9e2530]: 2.3%
+                    - generic [ref=f9e2531]:
+                      - link "BABYMONSTER" [ref=f9e2532] [cursor=pointer]:
+                        - /url: /artist/BABYMONSTER?username=Wuzi001
+                      - generic [ref=f9e2535]: 1.9%
+                    - generic [ref=f9e2536]:
+                      - link "Twenty One Pilots" [ref=f9e2537] [cursor=pointer]:
+                        - /url: /artist/Twenty%20One%20Pilots?username=Wuzi001
+                      - generic [ref=f9e2540]: 1.6%
+            - generic [ref=f9e2543]:
+              - heading "Peak Year" [level=3] [ref=f9e2545]
+              - paragraph [ref=f9e2547]: Your peak year was 2026 with 7,835 scrobbles.
+            - heading "Music Age" [level=3] [ref=f9e2553]
+            - generic [ref=f9e2561]:
+              - heading "Artist Longevity" [level=3] [ref=f9e2563]
+              - paragraph [ref=f9e2570]: No artists with 2+ years of consistent listening yet.
+            - generic [ref=f9e2573]:
+              - heading "One Hit Wonders" [level=3] [ref=f9e2575]
+              - list [ref=f9e2580]:
+                - listitem [ref=f9e2581]:
+                  - generic "Loading image for haven." [ref=f9e2582]
+                  - generic [ref=f9e2583]:
+                    - link "haven." [ref=f9e2584] [cursor=pointer]:
+                      - /url: /artist/haven.?username=Wuzi001
+                    - generic [ref=f9e2585]: I Run
+                  - generic [ref=f9e2586]:
+                    - generic [ref=f9e2587]: Heard once
+                    - generic [ref=f9e2588]: 2 months ago
+                - listitem [ref=f9e2589]:
+                  - generic "Loading image for Suprafive und Nesco" [ref=f9e2590]
+                  - generic [ref=f9e2591]:
+                    - link "Suprafive und Nesco" [ref=f9e2592] [cursor=pointer]:
+                      - /url: /artist/Suprafive%20und%20Nesco?username=Wuzi001
+                    - generic [ref=f9e2593]: Stranger
+                  - generic [ref=f9e2594]:
+                    - generic [ref=f9e2595]: Heard once
+                    - generic [ref=f9e2596]: 2 months ago
+                - listitem [ref=f9e2597]:
+                  - generic "Loading image for DAEGHO" [ref=f9e2598]
+                  - generic [ref=f9e2599]:
+                    - link "DAEGHO" [ref=f9e2600] [cursor=pointer]:
+                      - /url: /artist/DAEGHO?username=Wuzi001
+                    - generic [ref=f9e2601]: Enter The Fuego
+                  - generic [ref=f9e2602]:
+                    - generic [ref=f9e2603]: Heard once
+                    - generic [ref=f9e2604]: 2 months ago
+                - listitem [ref=f9e2605]:
+                  - generic "Loading image for grandson" [ref=f9e2606]
+                  - generic [ref=f9e2607]:
+                    - link "grandson" [ref=f9e2608] [cursor=pointer]:
+                      - /url: /artist/grandson?username=Wuzi001
+                    - generic [ref=f9e2609]: Enough
+                  - generic [ref=f9e2610]:
+                    - generic [ref=f9e2611]: Heard once
+                    - generic [ref=f9e2612]: 2 months ago
+                - listitem [ref=f9e2613]:
+                  - generic "Loading image for Isabel LaRosa" [ref=f9e2614]
+                  - generic [ref=f9e2615]:
+                    - link "Isabel LaRosa" [ref=f9e2616] [cursor=pointer]:
+                      - /url: /artist/Isabel%20LaRosa?username=Wuzi001
+                    - generic [ref=f9e2617]: eyes don't lie sped up
+                  - generic [ref=f9e2618]:
+                    - generic [ref=f9e2619]: Heard once
+                    - generic [ref=f9e2620]: 2 months ago
+                - listitem [ref=f9e2621]:
+                  - generic "Loading image for The Chainsmokers, Ink und Zerb" [ref=f9e2622]
+                  - generic [ref=f9e2623]:
+                    - link "The Chainsmokers, Ink und Zerb" [ref=f9e2624] [cursor=pointer]:
+                      - /url: /artist/The%20Chainsmokers%2C%20Ink%20und%20Zerb?username=Wuzi001
+                    - generic [ref=f9e2625]: Addicted
+                  - generic [ref=f9e2626]:
+                    - generic [ref=f9e2627]: Heard once
+                    - generic [ref=f9e2628]: 2 months ago
+                - listitem [ref=f9e2629]:
+                  - generic "Loading image for xxxcharacter" [ref=f9e2630]
+                  - generic [ref=f9e2631]:
+                    - link "xxxcharacter" [ref=f9e2632] [cursor=pointer]:
+                      - /url: /artist/xxxcharacter?username=Wuzi001
+                    - generic [ref=f9e2633]: MTG 2.0
+                  - generic [ref=f9e2634]:
+                    - generic [ref=f9e2635]: Heard twice
+                    - generic [ref=f9e2636]: 2 months ago
+                - listitem [ref=f9e2637]:
+                  - generic "Loading image for ONIMXRU und SMITHMANE" [ref=f9e2638]
+                  - generic [ref=f9e2639]:
+                    - link "ONIMXRU und SMITHMANE" [ref=f9e2640] [cursor=pointer]:
+                      - /url: /artist/ONIMXRU%20und%20SMITHMANE?username=Wuzi001
+                    - generic [ref=f9e2641]: SHADOW
+                  - generic [ref=f9e2642]:
+                    - generic [ref=f9e2643]: Heard twice
+                    - generic [ref=f9e2644]: 2 months ago
+                - listitem [ref=f9e2645]:
+                  - generic "Loading image for MUPP und Sadfriendd" [ref=f9e2646]
+                  - generic [ref=f9e2647]:
+                    - link "MUPP und Sadfriendd" [ref=f9e2648] [cursor=pointer]:
+                      - /url: /artist/MUPP%20und%20Sadfriendd?username=Wuzi001
+                    - generic [ref=f9e2649]: vendetta!
+                  - generic [ref=f9e2650]:
+                    - generic [ref=f9e2651]: Heard twice
+                    - generic [ref=f9e2652]: 2 months ago
+                - listitem [ref=f9e2653]:
+                  - generic "Loading image for Ian Asher und Phantogram" [ref=f9e2654]
+                  - generic [ref=f9e2655]:
+                    - link "Ian Asher und Phantogram" [ref=f9e2656] [cursor=pointer]:
+                      - /url: /artist/Ian%20Asher%20und%20Phantogram?username=Wuzi001
+                    - generic [ref=f9e2657]: Black Out Days (Stay Away)
+                  - generic [ref=f9e2658]:
+                    - generic [ref=f9e2659]: Heard once
+                    - generic [ref=f9e2660]: 2 months ago
+            - generic [ref=f9e2663]:
+              - heading "Album of the Month" [level=3] [ref=f9e2665]
+              - paragraph [ref=f9e2673]: Not enough data to show monthly albums.
+            - generic [ref=f9e2676]:
+              - generic [ref=f9e2678]:
+                - heading "Live Stats" [level=3] [ref=f9e2679]
+                - generic [ref=f9e2680]: LIVE
+              - generic [ref=f9e2687]:
+                - generic [ref=f9e2688]:
+                  - generic [ref=f9e2689]:
+                    - paragraph [ref=f9e2690]: Today
+                    - paragraph [ref=f9e2691]: "0"
+                    - paragraph [ref=f9e2692]: scrobbles
+                  - generic [ref=f9e2693]:
+                    - paragraph [ref=f9e2694]: Speed (3h)
+                    - paragraph [ref=f9e2695]: "0"
+                    - paragraph [ref=f9e2696]: scrobbles/hr
+                  - generic [ref=f9e2697]:
+                    - paragraph [ref=f9e2698]: Last scrobble
+                    - paragraph [ref=f9e2699]: 75d ago
+                  - generic [ref=f9e2700]:
+                    - paragraph [ref=f9e2701]: On pace for
+                    - paragraph [ref=f9e2702]: 0 today
+                - generic [ref=f9e2705]:
+                  - generic [ref=f9e2706]: vs yesterday (0)
+                  - generic [ref=f9e2707]: same as yesterday
+                - paragraph [ref=f9e2708]: auto-refreshes every 22.5s
+            - generic [ref=f9e2711]:
+              - generic [ref=f9e2712]:
+                - heading "Chart Rise & Fall" [level=2] [ref=f9e2713]
+                - paragraph [ref=f9e2714]: 1 month vs 3 month ranking
+              - generic [ref=f9e2715]:
+                - generic [ref=f9e2716]: Rising
+                - list [ref=f9e2721]:
+                  - listitem [ref=f9e2722]:
+                    - generic "Loading image for Kordhell" [ref=f9e2723]
+                    - link "Kordhell" [ref=f9e2724] [cursor=pointer]:
+                      - /url: /artist/Kordhell?username=Wuzi001
+                    - generic [ref=f9e2725]: "+29"
+                  - listitem [ref=f9e2726]:
+                    - generic "Loading image for Steve Aoki und Linkin Park" [ref=f9e2727]
+                    - link "Steve Aoki und Linkin Park" [ref=f9e2728] [cursor=pointer]:
+                      - /url: /artist/Steve%20Aoki%20und%20Linkin%20Park?username=Wuzi001
+                    - generic [ref=f9e2729]: "+23"
+                  - listitem [ref=f9e2730]:
+                    - generic "Loading image for ATLXS" [ref=f9e2731]
+                    - link "ATLXS" [ref=f9e2732] [cursor=pointer]:
+                      - /url: /artist/ATLXS?username=Wuzi001
+                    - generic [ref=f9e2733]: "+23"
+                  - listitem [ref=f9e2734]:
+                    - generic "Loading image for TWXNY, Sxilwix und Innxcence" [ref=f9e2735]
+                    - link "TWXNY, Sxilwix und Innxcence" [ref=f9e2736] [cursor=pointer]:
+                      - /url: /artist/TWXNY%2C%20Sxilwix%20und%20Innxcence?username=Wuzi001
+                    - generic [ref=f9e2737]: "+19"
+                  - listitem [ref=f9e2738]:
+                    - generic "Loading image for LUM!X" [ref=f9e2739]
+                    - link "LUM!X" [ref=f9e2740] [cursor=pointer]:
+                      - /url: /artist/LUM!X?username=Wuzi001
+                    - generic [ref=f9e2741]: "+18"
+                  - listitem [ref=f9e2742]:
+                    - generic "Loading image for Hoobastank" [ref=f9e2743]
+                    - link "Hoobastank" [ref=f9e2744] [cursor=pointer]:
+                      - /url: /artist/Hoobastank?username=Wuzi001
+                    - generic [ref=f9e2745]: "+17"
+                  - listitem [ref=f9e2746]:
+                    - generic "Loading image for gloomhush" [ref=f9e2747]
+                    - link "gloomhush" [ref=f9e2748] [cursor=pointer]:
+                      - /url: /artist/gloomhush?username=Wuzi001
+                    - generic [ref=f9e2749]: "+16"
+                  - listitem [ref=f9e2750]:
+                    - generic "Loading image for Bad Omens" [ref=f9e2751]
+                    - link "Bad Omens" [ref=f9e2752] [cursor=pointer]:
+                      - /url: /artist/Bad%20Omens?username=Wuzi001
+                    - generic [ref=f9e2753]: "+12"
+                  - listitem [ref=f9e2754]:
+                    - generic "Loading image for i-dle (아이들)" [ref=f9e2755]
+                    - link "i-dle (아이들)" [ref=f9e2756] [cursor=pointer]:
+                      - /url: /artist/i-dle%20(%EC%95%84%EC%9D%B4%EB%93%A4)?username=Wuzi001
+                    - generic [ref=f9e2757]: "+10"
+                  - listitem [ref=f9e2758]:
+                    - generic "Loading image for Edgars Bukovskis" [ref=f9e2759]
+                    - link "Edgars Bukovskis" [ref=f9e2760] [cursor=pointer]:
+                      - /url: /artist/Edgars%20Bukovskis?username=Wuzi001
+                    - generic [ref=f9e2761]: "+7"
+              - generic [ref=f9e2762]:
+                - generic [ref=f9e2763]: Falling
+                - list [ref=f9e2768]:
+                  - listitem [ref=f9e2769]:
+                    - generic "Loading image for Ed Sheeran" [ref=f9e2770]
+                    - link "Ed Sheeran" [ref=f9e2771] [cursor=pointer]:
+                      - /url: /artist/Ed%20Sheeran?username=Wuzi001
+                    - generic [ref=f9e2772]: "-42"
+                  - listitem [ref=f9e2773]:
+                    - generic "Loading image for MEOVV" [ref=f9e2774]
+                    - link "MEOVV" [ref=f9e2775] [cursor=pointer]:
+                      - /url: /artist/MEOVV?username=Wuzi001
+                    - generic [ref=f9e2776]: "-16"
+                  - listitem [ref=f9e2777]:
+                    - generic "Loading image for Skillet" [ref=f9e2778]
+                    - link "Skillet" [ref=f9e2779] [cursor=pointer]:
+                      - /url: /artist/Skillet?username=Wuzi001
+                    - generic [ref=f9e2780]: "-13"
+                  - listitem [ref=f9e2781]:
+                    - generic "Loading image for Maroon 5" [ref=f9e2782]
+                    - link "Maroon 5" [ref=f9e2783] [cursor=pointer]:
+                      - /url: /artist/Maroon%205?username=Wuzi001
+                    - generic [ref=f9e2784]: "-11"
+                  - listitem [ref=f9e2785]:
+                    - generic "Loading image for Lisa" [ref=f9e2786]
+                    - link "Lisa" [ref=f9e2787] [cursor=pointer]:
+                      - /url: /artist/Lisa?username=Wuzi001
+                    - generic [ref=f9e2788]: "-10"
+                  - listitem [ref=f9e2789]:
+                    - generic "Loading image for Cigarettes After Sex" [ref=f9e2790]
+                    - link "Cigarettes After Sex" [ref=f9e2791] [cursor=pointer]:
+                      - /url: /artist/Cigarettes%20After%20Sex?username=Wuzi001
+                    - generic [ref=f9e2792]: "-9"
+                  - listitem [ref=f9e2793]:
+                    - generic "Loading image for OneRepublic" [ref=f9e2794]
+                    - link "OneRepublic" [ref=f9e2795] [cursor=pointer]:
+                      - /url: /artist/OneRepublic?username=Wuzi001
+                    - generic [ref=f9e2796]: "-8"
+                  - listitem [ref=f9e2797]:
+                    - generic "Loading image for Coldplay" [ref=f9e2798]
+                    - link "Coldplay" [ref=f9e2799] [cursor=pointer]:
+                      - /url: /artist/Coldplay?username=Wuzi001
+                    - generic [ref=f9e2800]: "-8"
+                  - listitem [ref=f9e2801]:
+                    - generic "Loading image for Green Day" [ref=f9e2802]
+                    - link "Green Day" [ref=f9e2803] [cursor=pointer]:
+                      - /url: /artist/Green%20Day?username=Wuzi001
+                    - generic [ref=f9e2804]: "-8"
+                  - listitem [ref=f9e2805]:
+                    - generic "Loading image for TWICE" [ref=f9e2806]
+                    - link "TWICE" [ref=f9e2807] [cursor=pointer]:
+                      - /url: /artist/TWICE?username=Wuzi001
+                    - generic [ref=f9e2808]: "-7"
+                  - listitem [ref=f9e2809]:
+                    - generic "Loading image for IVE" [ref=f9e2810]
+                    - link "IVE" [ref=f9e2811] [cursor=pointer]:
+                      - /url: /artist/IVE?username=Wuzi001
+                    - generic [ref=f9e2812]: "-5"
+                  - listitem [ref=f9e2813]:
+                    - generic "Loading image for Jennie" [ref=f9e2814]
+                    - link "Jennie" [ref=f9e2815] [cursor=pointer]:
+                      - /url: /artist/Jennie?username=Wuzi001
+                    - generic [ref=f9e2816]: "-5"
+                  - listitem [ref=f9e2817]:
+                    - generic "Loading image for Nickelback" [ref=f9e2818]
+                    - link "Nickelback" [ref=f9e2819] [cursor=pointer]:
+                      - /url: /artist/Nickelback?username=Wuzi001
+                    - generic [ref=f9e2820]: "-5"
+              - generic [ref=f9e2821]:
+                - generic [ref=f9e2822]: New Obsessions
+                - list [ref=f9e2827]:
+                  - listitem [ref=f9e2828]:
+                    - generic "Loading image for gedam nesh" [ref=f9e2829]
+                    - link "gedam nesh" [ref=f9e2830] [cursor=pointer]:
+                      - /url: /artist/gedam%20nesh?username=Wuzi001
+                    - generic [ref=f9e2831]: NEW
+                  - listitem [ref=f9e2832]:
+                    - generic "Loading image for Josh Fawaz" [ref=f9e2833]
+                    - link "Josh Fawaz" [ref=f9e2834] [cursor=pointer]:
+                      - /url: /artist/Josh%20Fawaz?username=Wuzi001
+                    - generic [ref=f9e2835]: NEW
+                  - listitem [ref=f9e2836]:
+                    - generic "Loading image for MXZI" [ref=f9e2837]
+                    - link "MXZI" [ref=f9e2838] [cursor=pointer]:
+                      - /url: /artist/MXZI?username=Wuzi001
+                    - generic [ref=f9e2839]: NEW
+                  - listitem [ref=f9e2840]:
+                    - generic "Loading image for Yena" [ref=f9e2841]
+                    - link "Yena" [ref=f9e2842] [cursor=pointer]:
+                      - /url: /artist/Yena?username=Wuzi001
+                    - generic [ref=f9e2843]: NEW
+                  - listitem [ref=f9e2844]:
+                    - generic "Loading image for Ian Asher und D A N N Y" [ref=f9e2845]
+                    - link "Ian Asher und D A N N Y" [ref=f9e2846] [cursor=pointer]:
+                      - /url: /artist/Ian%20Asher%20und%20D%20A%20N%20N%20Y?username=Wuzi001
+                    - generic [ref=f9e2847]: NEW
+                  - listitem [ref=f9e2848]:
+                    - generic "Loading image for Dennis Lloyd" [ref=f9e2849]
+                    - link "Dennis Lloyd" [ref=f9e2850] [cursor=pointer]:
+                      - /url: /artist/Dennis%20Lloyd?username=Wuzi001
+                    - generic [ref=f9e2851]: NEW
+                  - listitem [ref=f9e2852]:
+                    - generic "Loading image for Eternxlkz" [ref=f9e2853]
+                    - link "Eternxlkz" [ref=f9e2854] [cursor=pointer]:
+                      - /url: /artist/Eternxlkz?username=Wuzi001
+                    - generic [ref=f9e2855]: NEW
+                  - listitem [ref=f9e2856]:
+                    - generic "Loading image for ariis" [ref=f9e2857]
+                    - link "ariis" [ref=f9e2858] [cursor=pointer]:
+                      - /url: /artist/ariis?username=Wuzi001
+                    - generic [ref=f9e2859]: NEW
+                  - listitem [ref=f9e2860]:
+                    - generic "Loading image for SMTOWN LIVE 2025 [THE CULTURE, THE FUTURE] in SEOUL Playlist" [ref=f9e2861]
+                    - link "SMTOWN LIVE 2025 [THE CULTURE, THE FUTURE] in SEOUL Playlist" [ref=f9e2862] [cursor=pointer]:
+                      - /url: /artist/SMTOWN%20LIVE%202025%20%5BTHE%20CULTURE%2C%20THE%20FUTURE%5D%20in%20SEOUL%20Playlist?username=Wuzi001
+                    - generic [ref=f9e2863]: NEW
+                  - listitem [ref=f9e2864]:
+                    - generic "Loading image for Steve Aoki & Linkin Park" [ref=f9e2865]
+                    - link "Steve Aoki & Linkin Park" [ref=f9e2866] [cursor=pointer]:
+                      - /url: /artist/Steve%20Aoki%20%26%20Linkin%20Park?username=Wuzi001
+                    - generic [ref=f9e2867]: NEW
+                  - listitem [ref=f9e2868]:
+                    - generic "Loading image for Ian Asher" [ref=f9e2869]
+                    - link "Ian Asher" [ref=f9e2870] [cursor=pointer]:
+                      - /url: /artist/Ian%20Asher?username=Wuzi001
+                    - generic [ref=f9e2871]: NEW
+                  - listitem [ref=f9e2872]:
+                    - generic "Loading image for Nakama, Mc Staff und ΣP" [ref=f9e2873]
+                    - link "Nakama, Mc Staff und ΣP" [ref=f9e2874] [cursor=pointer]:
+                      - /url: /artist/Nakama%2C%20Mc%20Staff%20und%20%CE%A3P?username=Wuzi001
+                    - generic [ref=f9e2875]: NEW
+            - generic [ref=f9e2878]:
+              - heading "Night vs Day" [level=3] [ref=f9e2880]
+              - generic [ref=f9e2887]:
+                - paragraph [ref=f9e2888]: You are a 85% day listener
+                - generic [ref=f9e2892]:
+                  - generic [ref=f9e2893]:
+                    - generic [ref=f9e2900]: 85%
+                    - text: Day
+                    - generic [ref=f9e2901]: · Busiest at 2pm
+                  - generic [ref=f9e2902]:
+                    - text: Night
+                    - generic [ref=f9e2903]: 15%
+                    - generic [ref=f9e2906]: · Busiest at 10pm
+                - generic [ref=f9e2907]:
+                  - generic [ref=f9e2908]:
+                    - generic [ref=f9e2909]: 🌅
+                    - generic [ref=f9e2910]: 33%
+                    - generic [ref=f9e2911]: Morning
+                    - generic [ref=f9e2912]: 6am–12pm
+                  - generic [ref=f9e2913]:
+                    - generic [ref=f9e2914]: ☀️
+                    - generic [ref=f9e2915]: 35%
+                    - generic [ref=f9e2916]: Afternoon
+                    - generic [ref=f9e2917]: 12–6pm
+                  - generic [ref=f9e2918]:
+                    - generic [ref=f9e2919]: 🌆
+                    - generic [ref=f9e2920]: 17%
+                    - generic [ref=f9e2921]: Evening
+                    - generic [ref=f9e2922]: 6–10pm
+                  - generic [ref=f9e2923]:
+                    - generic [ref=f9e2924]: 🌙
+                    - generic [ref=f9e2925]: 15%
+                    - generic [ref=f9e2926]: Night
+                    - generic [ref=f9e2927]: 10pm–6am
+            - generic [ref=f9e2930]:
+              - heading "Find Music Twins" [level=3] [ref=f9e2932]
+              - generic [ref=f9e2938]:
+                - generic [ref=f9e2939]:
+                  - paragraph [ref=f9e2940]: Enter a friend's Last.fm username to compare taste and find shared artists.
+                  - generic [ref=f9e2941]:
+                    - textbox "e.g. radiohead_fan99" [ref=f9e2942]
+                    - button "Compare" [disabled]
+                - generic [ref=f9e2943]:
+                  - paragraph [ref=f9e2944]: How it works
+                  - list [ref=f9e2948]:
+                    - listitem [ref=f9e2949]:
+                      - generic [ref=f9e2950]: "1."
+                      - text: Enter any Last.fm username above.
+                    - listitem [ref=f9e2951]:
+                      - generic [ref=f9e2952]: "2."
+                      - text: We compare your top artists and tags to find overlap.
+                    - listitem [ref=f9e2953]:
+                      - generic [ref=f9e2954]: "3."
+                      - text: Get a compatibility score and shared artist highlights.
+                - generic [ref=f9e2955]:
+                  - paragraph [ref=f9e2956]: People with similar taste also listen to
+                  - generic [ref=f9e2960]:
+                    - link "Linkin Park" [ref=f9e2962] [cursor=pointer]:
+                      - /url: /artist/Linkin%20Park?username=Wuzi001
+                    - link "Imagine Dragons" [ref=f9e2964] [cursor=pointer]:
+                      - /url: /artist/Imagine%20Dragons?username=Wuzi001
+                    - link "Ed Sheeran" [ref=f9e2966] [cursor=pointer]:
+                      - /url: /artist/Ed%20Sheeran?username=Wuzi001
+                  - paragraph [ref=f9e2967]: Based on your top artists — real overlap appears after comparing with a friend.
+                - link "Browse all comparisons" [ref=f9e2969] [cursor=pointer]:
+                  - /url: /compare
+            - heading "Underrated Tracks" [level=3] [ref=f9e2980]
+          - complementary [ref=f9e3018]:
+            - generic [ref=f9e3019]:
+              - heading "Profile Stats" [level=3] [ref=f9e3021]
+              - generic [ref=f9e3026]:
+                - generic [ref=f9e3027]:
+                  - term [ref=f9e3028]: Member since
+                  - definition [ref=f9e3032]: Apr 15, 2026
+                - generic [ref=f9e3033]:
+                  - term [ref=f9e3034]: Unique artists
+                  - definition [ref=f9e3040]: 1,771
+                - generic [ref=f9e3041]:
+                  - term [ref=f9e3042]: Unique tracks
+                  - definition [ref=f9e3048]: 3,166
+                - generic [ref=f9e3049]:
+                  - term [ref=f9e3050]: Unique albums
+                  - definition [ref=f9e3055]: 2,031
+                - generic [ref=f9e3056]:
+                  - term [ref=f9e3057]: Scrobbles / day
+                  - definition [ref=f9e3062]: "75.1"
+                - generic [ref=f9e3063]:
+                  - term [ref=f9e3064]: Longest streak
+                  - definition [ref=f9e3068]: 86 days
+  - button "Open Next.js Dev Tools" [ref=f9e3074] [cursor=pointer]
+  - alert [ref=f9e3078]

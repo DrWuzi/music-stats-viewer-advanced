@@ -326,7 +326,7 @@ function UserProfileContent({
             />
           ) : (
             <Tabs value={effectiveCategory ?? undefined} onValueChange={(v) => setActiveCategory(v as WidgetCategory)}>
-              <TabsList className="mb-5 flex-wrap gap-1 rounded-2xl border border-foreground/10 bg-background/40 p-1 backdrop-blur-md">
+              <TabsList className="mb-5 gap-1 overflow-x-auto rounded-2xl border border-foreground/10 bg-background/40 p-1 backdrop-blur-md">
                 {groupedSections.map(({ category, ids }) => {
                   const Icon = CATEGORY_ICONS[category]
                   const isActive = category === effectiveCategory
