@@ -3,6 +3,10 @@ import { render, screen } from '@testing-library/react'
 import { TopLists } from '@/components/top-lists'
 import type { Period } from '@/lib/lastfm'
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
+}))
+
 const artists = [{ name: 'Radiohead', playcount: 500, rank: 1 }]
 const albums = [{ name: 'OK Computer', artist: 'Radiohead', playcount: 200, rank: 1 }]
 const tracks = [{ name: 'Karma Police', artist: 'Radiohead', playcount: 50, rank: 1 }]
