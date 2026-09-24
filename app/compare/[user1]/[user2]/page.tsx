@@ -4,6 +4,7 @@ import { ArtistImage } from '@/components/artist-image'
 import { artistHref } from '@/lib/urls'
 import { Users } from 'lucide-react'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 type Props = { params: Promise<{ user1: string; user2: string }> }
 
@@ -164,7 +165,7 @@ export default async function ComparePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto p-4 md:p-8 space-y-8">
+      <PageContainer maxWidth="5xl" className="p-4 md:p-8 space-y-8">
         {/* Back link */}
         <div>
           <Link href="/compare" className="text-muted-foreground hover:text-foreground text-sm">
@@ -183,10 +184,10 @@ export default async function ComparePage({ params }: Props) {
                 alt={user1}
                 width={72}
                 height={72}
-                className="rounded-full h-18 w-18 object-cover border-2 border-border"
+                className="rounded-full h-18 w-18 object-cover border-2 border-foreground/10"
               />
             ) : (
-              <div className="h-18 w-18 rounded-full bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground border-2 border-border">
+              <div className="h-18 w-18 rounded-full bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground border-2 border-foreground/10">
                 {user1[0]?.toUpperCase()}
               </div>
             )}
@@ -195,7 +196,7 @@ export default async function ComparePage({ params }: Props) {
             </Link>
             {info1?.playcount && (
               <p className="text-xs text-muted-foreground">
-                {parseInt(info1.playcount, 10).toLocaleString()} scrobbles
+                {parseInt(info1.playcount, 10).toLocaleString('en-US')} scrobbles
               </p>
             )}
           </div>
@@ -214,10 +215,10 @@ export default async function ComparePage({ params }: Props) {
                 alt={user2}
                 width={72}
                 height={72}
-                className="rounded-full h-18 w-18 object-cover border-2 border-border"
+                className="rounded-full h-18 w-18 object-cover border-2 border-foreground/10"
               />
             ) : (
-              <div className="h-18 w-18 rounded-full bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground border-2 border-border">
+              <div className="h-18 w-18 rounded-full bg-muted flex items-center justify-center text-2xl font-bold text-muted-foreground border-2 border-foreground/10">
                 {user2[0]?.toUpperCase()}
               </div>
             )}
@@ -226,7 +227,7 @@ export default async function ComparePage({ params }: Props) {
             </Link>
             {info2?.playcount && (
               <p className="text-xs text-muted-foreground">
-                {parseInt(info2.playcount, 10).toLocaleString()} scrobbles
+                {parseInt(info2.playcount, 10).toLocaleString('en-US')} scrobbles
               </p>
             )}
           </div>
@@ -234,7 +235,7 @@ export default async function ComparePage({ params }: Props) {
 
         {/* Compatibility score */}
         <div
-          className="rounded-2xl border border-border bg-card p-6 flex flex-col items-center gap-3"
+          className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-xl shadow-black/5 dark:shadow-black/30 p-6 flex flex-col items-center gap-3"
         >
           <p className="text-sm uppercase tracking-widest text-muted-foreground font-medium">
             Compatibility Score
@@ -257,7 +258,9 @@ export default async function ComparePage({ params }: Props) {
               {jaccardScore}%
             </text>
           </svg>
-          <p className="text-2xl font-bold">{jaccardScore}% Compatible</p>
+          <p className="text-2xl font-bold bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
+            {jaccardScore}% Compatible
+          </p>
           <p className="text-base text-muted-foreground">{compatibilityLabel(jaccardScore)}</p>
           <p className="text-sm text-muted-foreground">
             {sharedArtists.length} shared artist{sharedArtists.length !== 1 ? 's' : ''} out of{' '}
@@ -273,15 +276,15 @@ export default async function ComparePage({ params }: Props) {
               {sharedArtists.map((a) => (
                 <div
                   key={a.name}
-                  className="rounded-xl border border-border bg-card p-3 flex flex-col items-center gap-2 text-center"
+                  className="rounded-xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-3 flex flex-col items-center gap-2 text-center"
                 >
                   <ArtistImage name={a.name} size="md" />
                   <Link href={artistHref(a.name, user1)} className="text-sm font-medium leading-tight line-clamp-2 hover:underline">
                     {a.name}
                   </Link>
                   <div className="w-full text-xs text-muted-foreground space-y-0.5">
-                    <p>{a.playcount1.toLocaleString()} plays by {user1}</p>
-                    <p>{a.playcount2.toLocaleString()} plays by {user2}</p>
+                    <p>{a.playcount1.toLocaleString('en-US')} plays by {user1}</p>
+                    <p>{a.playcount2.toLocaleString('en-US')} plays by {user2}</p>
                   </div>
                 </div>
               ))}
@@ -301,7 +304,7 @@ export default async function ComparePage({ params }: Props) {
                 {uniqueToUser1.slice(0, 15).map((a) => (
                   <div
                     key={a.name}
-                    className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
+                    className="flex items-center gap-3 rounded-xl border border-foreground/10 bg-card/60 backdrop-blur-md px-3 py-2"
                   >
                     <ArtistImage name={a.name} size="sm" />
                     <div className="min-w-0 flex-1">
@@ -309,7 +312,7 @@ export default async function ComparePage({ params }: Props) {
                         {a.name}
                       </Link>
                       <p className="text-xs text-muted-foreground">
-                        {parseInt(a.playcount, 10).toLocaleString()} plays
+                        {parseInt(a.playcount, 10).toLocaleString('en-US')} plays
                       </p>
                     </div>
                   </div>
@@ -333,7 +336,7 @@ export default async function ComparePage({ params }: Props) {
                 {uniqueToUser2.slice(0, 15).map((a) => (
                   <div
                     key={a.name}
-                    className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
+                    className="flex items-center gap-3 rounded-xl border border-foreground/10 bg-card/60 backdrop-blur-md px-3 py-2"
                   >
                     <ArtistImage name={a.name} size="sm" />
                     <div className="min-w-0 flex-1">
@@ -341,7 +344,7 @@ export default async function ComparePage({ params }: Props) {
                         {a.name}
                       </Link>
                       <p className="text-xs text-muted-foreground">
-                        {parseInt(a.playcount, 10).toLocaleString()} plays
+                        {parseInt(a.playcount, 10).toLocaleString('en-US')} plays
                       </p>
                     </div>
                   </div>
@@ -355,7 +358,7 @@ export default async function ComparePage({ params }: Props) {
             )}
           </section>
         </div>
-      </div>
+      </PageContainer>
     </div>
   )
 }

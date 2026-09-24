@@ -97,3 +97,82 @@ export function createDefaultSizes(overrides?: Partial<Record<WidgetId, WidgetSi
     ]),
   ) as Record<WidgetId, WidgetSize>
 }
+
+// ─── Overview sections ────────────────────────────────────────────────────────
+// Splits the single flat widget grid into thematic sections. Category is a
+// static property of the widget id (assigned below), independent of the
+// user's customizable `order` — dragging/hiding/resizing still works exactly
+// as before, it just reorders/hides within a widget's own section rather than
+// moving it into a different one.
+
+export type WidgetCategory = 'overview' | 'trends' | 'taste' | 'sessions' | 'highlights' | 'social'
+
+export const CATEGORY_ORDER: WidgetCategory[] = ['overview', 'trends', 'taste', 'sessions', 'highlights', 'social']
+
+export const CATEGORY_LABELS: Record<WidgetCategory, string> = {
+  overview: 'At a Glance',
+  trends: 'Trends & History',
+  taste: 'Taste & Discovery',
+  sessions: 'Sessions & Mood',
+  highlights: 'Highlights & Memories',
+  social: 'Social',
+}
+
+export const WIDGET_CATEGORIES: Record<WidgetId, WidgetCategory> = {
+  'stats-chart': 'overview',
+  'stats-grid': 'overview',
+  'top-lists': 'overview',
+  recent: 'overview',
+  'extra-stats': 'overview',
+  'now-playing-banner': 'overview',
+  'live-stats': 'overview',
+
+  velocity: 'trends',
+  'time-patterns': 'trends',
+  'yoy-chart': 'trends',
+  evolution: 'trends',
+  chapters: 'trends',
+  forecast: 'trends',
+  'streak-calendar': 'trends',
+  'decade-breakdown': 'trends',
+  'season-listening': 'trends',
+  'peak-year': 'trends',
+  'music-age': 'trends',
+  'chart-rise-fall': 'trends',
+  'night-vs-day': 'trends',
+  'scrobble-heatmap': 'trends',
+
+  'sonic-dna': 'taste',
+  'artist-connections': 'taste',
+  treemap: 'taste',
+  scatter: 'taste',
+  discovery: 'taste',
+  'taste-genre': 'taste',
+  'tag-cloud': 'taste',
+  'recent-carousel': 'taste',
+  'comeback-artists': 'taste',
+  'discovery-pace': 'taste',
+  'artist-longevity': 'taste',
+  'one-hit-wonders': 'taste',
+  'artist-network': 'taste',
+
+  'sessions-row': 'sessions',
+  'listening-personality': 'sessions',
+  'mood-ring': 'sessions',
+  'listening-bingo': 'sessions',
+  'marathon-sessions': 'sessions',
+  'diversity-score': 'sessions',
+
+  'monthly-top-track': 'highlights',
+  'first-listens': 'highlights',
+  'yearly-top-album': 'highlights',
+  'on-this-day': 'highlights',
+  'you-might-like': 'highlights',
+  'album-of-month': 'highlights',
+  'underrated-tracks': 'highlights',
+  'listening-report': 'highlights',
+
+  'listening-friends': 'social',
+  'activity-feed': 'social',
+  'top-collaborations': 'social',
+}

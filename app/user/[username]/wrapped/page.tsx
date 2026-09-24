@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { WrappedYearSummary } from '@/components/wrapped-year-summary'
 import { Calendar } from 'lucide-react'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 type Props = {
   params: Promise<{ username: string }>
@@ -31,12 +32,12 @@ export default async function WrappedPage({ params, searchParams }: Props) {
   if (!user) {
     return (
       <main className="min-h-screen p-8" style={{ background: 'var(--background)' }}>
-        <div className="max-w-4xl mx-auto">
+        <PageContainer maxWidth="4xl" padding={false}>
           <p className="text-lg" style={{ color: 'var(--destructive)' }}>User not found</p>
           <Link href="/" className="underline mt-4 inline-block" style={{ color: 'var(--primary)' }}>
             ← Back to home
           </Link>
-        </div>
+        </PageContainer>
       </main>
     )
   }
@@ -204,7 +205,7 @@ export default async function WrappedPage({ params, searchParams }: Props) {
 
   return (
     <main className="min-h-screen p-4 md:p-8" style={{ background: 'var(--background)' }}>
-      <div className="max-w-3xl mx-auto space-y-8">
+      <PageContainer maxWidth="3xl" padding={false} className="space-y-8">
         <div>
           <Link
             href={`/user/${username}`}
@@ -227,12 +228,11 @@ export default async function WrappedPage({ params, searchParams }: Props) {
                 {yearRange.map((y) => (
                   <Link key={y} href={`/user/${username}/wrapped?year=${y}`}>
                     <span
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border cursor-pointer transition-all hover:scale-105"
-                      style={{
-                        borderColor: 'var(--border)',
-                        color: 'var(--foreground)',
-                        background: y === year ? 'var(--primary)' : 'transparent',
-                      }}
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border cursor-pointer transition-all hover:scale-105 backdrop-blur-sm ${
+                        y === year
+                          ? 'border-transparent bg-gradient-to-r from-chart-1 to-chart-5 text-white shadow-lg shadow-chart-1/25'
+                          : 'border-foreground/10 bg-background/30 text-foreground hover:bg-background/50'
+                      }`}
                     >
                       {y}
                     </span>
@@ -263,7 +263,7 @@ export default async function WrappedPage({ params, searchParams }: Props) {
             yearRange={yearRange}
           />
         )}
-      </div>
+      </PageContainer>
     </main>
   )
 }

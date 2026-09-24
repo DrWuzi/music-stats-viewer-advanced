@@ -77,7 +77,7 @@ function List({
             )}
           </div>
           <span className="text-sm text-muted-foreground shrink-0">
-            {item.playcount.toLocaleString()} plays
+            {item.playcount.toLocaleString('en-US')} plays
           </span>
         </li>
       ))}
@@ -136,7 +136,7 @@ function ArtistList({
               <span className="font-medium truncate group-hover:underline">{artist.name}</span>
             </Link>
             <span className="text-sm text-muted-foreground shrink-0">
-              {artist.playcount.toLocaleString()} plays
+              {artist.playcount.toLocaleString('en-US')} plays
             </span>
           </li>
         ))}

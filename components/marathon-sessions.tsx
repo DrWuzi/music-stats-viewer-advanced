@@ -30,7 +30,7 @@ function formatDuration(ms: number): string {
 }
 
 function formatTime(date: Date): string {
-  return date.toLocaleString(undefined, {
+  return date.toLocaleString('en-US', {
     month: 'short',
     day: 'numeric',
     hour: '2-digit',

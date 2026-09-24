@@ -221,7 +221,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
   const googleLyricsUrl = `https://www.google.com/search?q=${lyricsQuery}+lyrics`
 
   return (
-    <main className="container mx-auto px-4 max-w-[1200px] py-8 space-y-8">
+    <main className="container mx-auto px-4 max-w-[1400px] py-8 space-y-8">
       {/* ── Breadcrumb + Header ─────────────────────────────────────── */}
       <div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4 flex-wrap">
@@ -249,7 +249,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Track</p>
-            <h1 className="text-4xl font-black tracking-tight leading-tight mb-1">{trackName}</h1>
+            <h1 className="text-4xl font-black tracking-tight leading-tight mb-1 bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">{trackName}</h1>
             <Link
               href={`/artist/${encodeURIComponent(artistName)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
               className="text-lg text-muted-foreground hover:text-foreground hover:underline transition-colors"
@@ -271,7 +271,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
 
           <div className="flex flex-wrap gap-3 sm:shrink-0">
             {duration && (
-              <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[100px]">
+              <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[100px]">
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                   <Clock className="h-3 w-3" /> Duration
                 </div>
@@ -279,7 +279,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
               </div>
             )}
             {Number(globalListeners) > 0 && (
-              <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[110px]">
+              <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                   <Users className="h-3 w-3" /> Listeners
                 </div>
@@ -287,7 +287,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
               </div>
             )}
             {Number(globalPlaycount) > 0 && (
-              <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[110px]">
+              <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                   <PlayCircle className="h-3 w-3" /> Global Plays
                 </div>
@@ -296,7 +296,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
             )}
             {username && (
               <div
-                className="rounded-xl border px-4 py-3 min-w-[110px]"
+                className="rounded-2xl border backdrop-blur-md px-4 py-3 min-w-[110px]"
                 style={{
                   borderColor: userPlays > 0
                     ? 'color-mix(in oklch, var(--primary) 40%, transparent)'
@@ -323,7 +323,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
         {/* User rank medal */}
         {userRankMedal && username && userPlays > 0 && (
           <div
-            className="mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium"
+            className="mt-3 inline-flex items-center gap-2 rounded-xl border border-primary/30 backdrop-blur-sm px-3 py-1.5 text-sm font-medium"
             style={{ background: 'color-mix(in oklch, var(--primary) 15%, transparent)' }}
           >
             <Trophy className="h-4 w-4" style={{ color: 'var(--primary)' }} />
@@ -387,7 +387,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
               href={geniusUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80 border border-border"
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80 border border-foreground/10"
               style={{ background: '#ffff64', color: '#1a1a1a' }}
             >
               <BookOpen className="h-4 w-4" />
@@ -397,7 +397,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
               href={googleLyricsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium border border-border transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium border border-foreground/10 backdrop-blur-sm transition-colors hover:bg-muted/60"
             >
               <Search className="h-4 w-4" />
               Google lyrics
@@ -568,7 +568,7 @@ export default async function TrackPage({ params, searchParams }: Props) {
                 <Link
                   key={`${track.artist}::${track.name}`}
                   href={`/track/${encodeURIComponent(track.artist)}/${encodeURIComponent(track.name)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-muted/60 transition-colors group border border-transparent hover:border-border/50"
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-muted/60 transition-colors group border border-transparent hover:border-foreground/10"
                 >
                   <ArtistImage name={track.artist} size="sm" />
                   <div className="flex-1 min-w-0">

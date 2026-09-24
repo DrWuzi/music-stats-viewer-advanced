@@ -51,7 +51,7 @@ function analyzeScrobbles(
       })
       findings.push({
         icon: <TrendingUp className="h-4 w-4" />,
-        message: `Burst day on ${formatted}: ${count.toLocaleString()} scrobbles (possible import or scrubber artifact)`,
+        message: `Burst day on ${formatted}: ${count.toLocaleString('en-US')} scrobbles (possible import or scrubber artifact)`,
         variant: 'warning',
       })
     }
@@ -109,7 +109,7 @@ function analyzeScrobbles(
     })
     findings.push({
       icon: <Trophy className="h-4 w-4" />,
-      message: `Record day: ${formatted} with ${recordCount.toLocaleString()} scrobbles`,
+      message: `Record day: ${formatted} with ${recordCount.toLocaleString('en-US')} scrobbles`,
       variant: 'success',
     })
   }

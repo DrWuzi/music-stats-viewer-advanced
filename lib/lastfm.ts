@@ -122,6 +122,60 @@ export const lastfmClient = {
       }))
   },
 
+  /** Single lightweight `user.getrecenttracks` call used for live polling: the
+   * current now-playing track (if any) plus the last `limit` completed scrobbles. */
+  async getRecentActivity(username: string, limit = 20): Promise<{
+    nowPlaying: { track: string; artist: string; album: string | null } | null
+    recent: { artist: string; track: string; album: string | null; scrobbledAt: string }[]
+  }> {
+    type R = {
+      recenttracks: {
+        track: Array<{
+          name: string
+          artist: { '#text': string }
+          album?: { '#text': string }
+          date?: { uts: string }
+          '@attr'?: { nowplaying: string }
+        }>
+      }
+    }
+    const data = await call<R>({ method: 'user.getrecenttracks', user: username, limit: String(limit) })
+    const tracks = data.recenttracks.track
+    if (!Array.isArray(tracks) || tracks.length === 0) return { nowPlaying: null, recent: [] }
+
+    const nowPlayingRaw = tracks.find((t) => t['@attr']?.nowplaying === 'true')
+    const nowPlaying = nowPlayingRaw
+      ? {
+          track: nowPlayingRaw.name,
+          artist: nowPlayingRaw.artist['#text'],
+          album: nowPlayingRaw.album?.['#text'] || null,
+        }
+      : null
+
+    const recent = tracks
+      .filter((t) => !t['@attr']?.nowplaying && t.date?.uts)
+      .map((t) => ({
+        artist: t.artist['#text'],
+        track: t.name,
+        album: t.album?.['#text'] || null,
+        scrobbledAt: new Date(Number(t.date!.uts) * 1000).toISOString(),
+      }))
+
+    return { nowPlaying, recent }
+  },
+
+  async getTopTags(username: string, limit = 50): Promise<{ name: string; count: number; url: string }[]> {
+    type R = { toptags: { tag: Array<{ name: string; count: string; url: string }> } }
+    const data = await call<R>({ method: 'user.gettoptags', user: username, limit: String(limit) })
+    return (data.toptags.tag ?? []).map((t) => ({ name: t.name, count: Number(t.count), url: t.url }))
+  },
+
+  async getArtistTopTracks(artist: string, limit = 50): Promise<{ name: string; playcount: number }[]> {
+    type R = { toptracks: { track: Array<{ name: string; playcount: string }> } }
+    const data = await call<R>({ method: 'artist.gettoptracks', artist, limit: String(limit) })
+    return (data.toptracks.track ?? []).map((t) => ({ name: t.name, playcount: Number(t.playcount) }))
+  },
+
   async getTopArtists(username: string, period: Period): Promise<LastFmArtist[]> {
     type R = { topartists: { artist: Array<{ name: string; playcount: string; '@attr': { rank: string } }> } }
     const data = await call<R>({ method: 'user.gettopartists', user: username, period, limit: '50' })

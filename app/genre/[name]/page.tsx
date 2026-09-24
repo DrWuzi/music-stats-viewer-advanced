@@ -251,7 +251,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">Genre / Tag</p>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none mb-4 capitalize">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none mb-4 capitalize bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
                 {tagName}
               </h1>
 
@@ -265,14 +265,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
             {/* Right: stat tiles */}
             <div className="flex flex-wrap gap-3 md:shrink-0">
               {totalScrobbles !== null && totalScrobbles > 0 && (
-                <div
-                  className="rounded-xl border px-4 py-3 min-w-[120px]"
-                  style={{
-                    background: 'color-mix(in oklch, var(--card) 80%, transparent)',
-                    borderColor: 'var(--border)',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
+                <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 px-4 py-3 min-w-[120px]">
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
                     <PlayCircle className="h-3 w-3" /> Total Scrobbles
                   </div>
@@ -280,14 +273,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
                 </div>
               )}
               {reach !== null && reach > 0 && (
-                <div
-                  className="rounded-xl border px-4 py-3 min-w-[120px]"
-                  style={{
-                    background: 'color-mix(in oklch, var(--card) 80%, transparent)',
-                    borderColor: 'var(--border)',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
+                <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 px-4 py-3 min-w-[120px]">
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
                     <Users className="h-3 w-3" /> Listeners
                   </div>
@@ -295,14 +281,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
                 </div>
               )}
               {tagArtists.length > 0 && (
-                <div
-                  className="rounded-xl border px-4 py-3 min-w-[120px]"
-                  style={{
-                    background: 'color-mix(in oklch, var(--card) 80%, transparent)',
-                    borderColor: 'var(--border)',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
+                <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 px-4 py-3 min-w-[120px]">
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
                     <Music2 className="h-3 w-3" /> Artists
                   </div>
@@ -365,7 +344,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
                         </Link>
                         <div className="flex items-center gap-3 text-xs text-muted-foreground">
                           <span>#{tagRank} in tag</span>
-                          <span className="tabular-nums">{playcount.toLocaleString()} plays</span>
+                          <span className="tabular-nums">{playcount.toLocaleString('en-US')} plays</span>
                         </div>
                       </div>
                       <div
@@ -415,7 +394,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
                 <Link
                   key={artist.name}
                   href={`/artist/${encodeURIComponent(artist.name)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
-                  className="group flex flex-col items-center text-center gap-2 p-3 rounded-xl border border-transparent hover:border-border hover:bg-card transition-all duration-200"
+                  className="group flex flex-col items-center text-center gap-2 p-3 rounded-xl border border-transparent hover:border-foreground/10 hover:bg-card/60 hover:backdrop-blur-xl transition-all duration-200"
                 >
                   <div className="relative">
                     <ArtistImage name={artist.name} size="lg" />
@@ -504,7 +483,7 @@ export default async function GenreDetailPage({ params, searchParams }: Props) {
                       href={`/album/${encodeURIComponent(album.artist.name)}/${encodeURIComponent(album.name)}`}
                       className="group"
                     >
-                      <div className="relative aspect-square rounded-lg overflow-hidden border border-border bg-muted mb-1.5 shadow-sm transition-all duration-200 group-hover:scale-105 group-hover:shadow-md">
+                      <div className="relative aspect-square rounded-xl overflow-hidden border border-foreground/10 bg-muted mb-1.5 shadow-lg shadow-black/5 dark:shadow-black/30 transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl">
                         {img ? (
                           <img src={img} alt={album.name} className="w-full h-full object-cover" />
                         ) : (

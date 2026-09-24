@@ -7,6 +7,7 @@ import { MapPin, ExternalLink, Calendar, Users } from 'lucide-react'
 import { ArtistImage } from '@/components/artist-image'
 import { SortControl } from '@/components/sort-control'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 type Props = {
   params: Promise<{ username: string }>
@@ -135,7 +136,7 @@ export default async function ConcertsPage({ params, searchParams }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <PageContainer maxWidth="4xl" className="py-8">
       <div className="mb-8 flex items-start justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
@@ -162,7 +163,7 @@ export default async function ConcertsPage({ params, searchParams }: Props) {
         >
           <p className="font-medium">Want live event dates?</p>
           <p className="text-muted-foreground mt-0.5">
-            Add <code className="text-xs bg-muted px-1 py-0.5 rounded">BANDSINTOWN_APP_ID</code> to
+            Add <code className="text-xs bg-muted/70 px-1 py-0.5 rounded-md">BANDSINTOWN_APP_ID</code> to
             your environment variables to see upcoming shows directly here.
           </p>
         </div>
@@ -190,7 +191,7 @@ export default async function ConcertsPage({ params, searchParams }: Props) {
                     {events.map((event, idx) => (
                       <li key={idx} className="flex items-start gap-3">
                         <div
-                          className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg"
+                          className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl"
                           style={{ background: 'color-mix(in oklch, var(--primary) 10%, transparent)' }}
                         >
                           <Calendar className="h-4 w-4" style={{ color: 'var(--primary)' }} />
@@ -255,13 +256,13 @@ export default async function ConcertsPage({ params, searchParams }: Props) {
       )}
 
       {topArtists.length === 0 && (
-        <div className="rounded-xl border p-8 text-center text-muted-foreground">
+        <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-8 text-center text-muted-foreground">
           <EmptyState icon={Users} title="No top artists found. Sync your scrobbles first." />
           <Link href={`/user/${username}`} className="text-xs mt-2 block hover:underline" style={{ color: 'var(--primary)' }}>
             Go to profile
           </Link>
         </div>
       )}
-    </div>
+    </PageContainer>
   )
 }

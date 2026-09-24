@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ClipboardPaste, ArrowRight, Clock } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { PageContainer } from '@/components/page-container'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 const RECENTLY_COMPARED_KEY = 'recentlyCompared'
 const MAX_STORED = 5
@@ -72,10 +75,12 @@ export default function ComparePage() {
 
   return (
     <main className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-lg mx-auto space-y-8">
+      <PageContainer maxWidth="lg" padding={false} className="space-y-8">
         <BackButton />
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Compare Users</h1>
+          <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
+            Compare Users
+          </h1>
           <p className="text-muted-foreground mt-1">
             Find out how compatible two Last.fm listeners are.
           </p>
@@ -99,7 +104,7 @@ export default function ComparePage() {
                 </button>
               )}
             </div>
-            <input
+            <Input
               id="a"
               name="a"
               type="text"
@@ -108,14 +113,14 @@ export default function ComparePage() {
               placeholder="e.g. radiohead_fan"
               required
               autoComplete="off"
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-shadow"
+              className="h-9"
             />
           </div>
 
           {/* Friend's username */}
           <div className="space-y-1.5">
             <label htmlFor="b" className="text-sm font-medium">Friend&apos;s username</label>
-            <input
+            <Input
               id="b"
               name="b"
               type="text"
@@ -124,18 +129,14 @@ export default function ComparePage() {
               placeholder="e.g. pinkfloyd_lover"
               required
               autoComplete="off"
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring transition-shadow"
+              className="h-9"
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={!inputA.trim() || !inputB.trim()}
-            className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-          >
+          <Button type="submit" disabled={!inputA.trim() || !inputB.trim()} className="w-full">
             Compare
             <ArrowRight className="h-4 w-4" />
-          </button>
+          </Button>
         </form>
 
         {/* Recently compared */}
@@ -152,7 +153,7 @@ export default function ComparePage() {
                   <button
                     key={pair}
                     onClick={() => handleRecentClick(pair)}
-                    className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted transition-colors text-left"
+                    className="flex items-center justify-between rounded-xl border border-foreground/10 bg-background/40 backdrop-blur-md px-3 py-2 text-sm hover:bg-background/60 transition-colors text-left"
                   >
                     <span className="font-medium">{u1}</span>
                     <span className="text-muted-foreground text-xs px-2">vs</span>
@@ -164,7 +165,7 @@ export default function ComparePage() {
             </div>
           </div>
         )}
-      </div>
+      </PageContainer>
     </main>
   )
 }

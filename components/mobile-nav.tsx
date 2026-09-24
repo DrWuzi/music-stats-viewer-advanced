@@ -35,15 +35,15 @@ export function MobileNav({ username }: MobileNavProps) {
   ]
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 flex bg-background/95 backdrop-blur border-t border-border md:hidden z-50">
+    <nav className="fixed bottom-3 left-3 right-3 z-50 flex items-center justify-around rounded-2xl border border-foreground/10 bg-background/70 p-1 shadow-lg shadow-black/10 backdrop-blur-xl md:hidden dark:shadow-black/30">
       {tabs.map(({ label, icon: Icon, href }) => {
         const isActive = pathname === href
         return (
           <Link
             key={label}
             href={href}
-            className={`flex-1 flex flex-col items-center py-2 gap-1 text-xs transition-colors ${
-              isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+            className={`flex flex-1 flex-col items-center gap-1 rounded-xl py-2 text-xs transition-colors ${
+              isActive ? 'bg-foreground/5 text-primary' : 'text-muted-foreground hover:text-primary'
             }`}
           >
             <Icon size={20} />

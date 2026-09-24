@@ -2,9 +2,10 @@
 
 interface LastActivityNudgeProps {
   lastSyncedAt: Date | string | null
+  className?: string
 }
 
-export function LastActivityNudge({ lastSyncedAt }: LastActivityNudgeProps) {
+export function LastActivityNudge({ lastSyncedAt, className = 'text-muted-foreground' }: LastActivityNudgeProps) {
   if (lastSyncedAt === null) return null
 
   const syncDate = new Date(lastSyncedAt)
@@ -21,7 +22,7 @@ export function LastActivityNudge({ lastSyncedAt }: LastActivityNudgeProps) {
   const daysAgo = Math.floor(diffDays)
 
   return (
-    <p className="text-xs text-muted-foreground">
+    <p className={`text-xs ${className}`}>
       Last synced: {daysAgo} day{daysAgo !== 1 ? 's' : ''} ago
     </p>
   )

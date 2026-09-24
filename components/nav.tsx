@@ -9,6 +9,7 @@ import {
   X,
   TrendingUp,
   Compass,
+  Keyboard,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -45,10 +46,10 @@ export function NavClient({ session }: NavClientProps) {
   }
 
   return (
-    <header className="relative border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="container mx-auto flex h-11 items-center justify-between gap-3 px-4">
+    <header className="sticky top-0 z-40 px-3 pt-3 print:hidden">
+      <div className="container mx-auto flex h-14 items-center justify-between gap-3 rounded-2xl border border-foreground/10 bg-background/60 px-4 shadow-lg shadow-black/5 backdrop-blur-xl dark:shadow-black/30">
         {/* Logo */}
-        <Link href="/" className="font-semibold text-base shrink-0">
+        <Link href="/" className="shrink-0 bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-base font-semibold text-transparent">
           Last.fm Advanced
         </Link>
 
@@ -96,7 +97,7 @@ export function NavClient({ session }: NavClientProps) {
 
       {/* Mobile dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 z-50 flex flex-col gap-1 bg-card border-b shadow-md p-4">
+        <div className="md:hidden absolute left-3 right-3 top-full z-50 mt-2 flex flex-col gap-1 rounded-2xl border border-foreground/10 bg-background/80 p-4 shadow-lg shadow-black/10 backdrop-blur-xl">
           <NavSearch username={session?.lastfmUsername} />
 
           {navLinks.map(({ href, label, icon: Icon }) => (

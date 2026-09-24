@@ -162,7 +162,7 @@ export function ScrobbleVelocity({ scrobbles }: ScrobbleVelocityProps) {
             <div className="rounded-lg border bg-muted/30 px-3 py-2">
               <p className="text-xs text-muted-foreground mb-0.5">Peak day</p>
               <p className="text-sm font-semibold leading-tight">
-                {stats.peakCount.toLocaleString()} scrobbles
+                {stats.peakCount.toLocaleString('en-US')} scrobbles
               </p>
               <p className="text-xs text-muted-foreground">{peakFormatted}</p>
             </div>

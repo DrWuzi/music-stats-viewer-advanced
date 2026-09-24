@@ -71,7 +71,7 @@ export function PeakYear({ scrobbles }: Props) {
           Your peak year was{' '}
           <span className="font-semibold text-foreground">{peak.year}</span> with{' '}
           <span className="font-semibold text-foreground">
-            {peak.count.toLocaleString()}
+            {peak.count.toLocaleString('en-US')}
           </span>{' '}
           scrobbles.
         </p>
@@ -85,7 +85,7 @@ export function PeakYear({ scrobbles }: Props) {
             <YAxis tick={{ fontSize: 11 }} />
             <Tooltip
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              formatter={(value: any) => [typeof value === 'number' ? value.toLocaleString() : (value ?? 0), 'Scrobbles']}
+              formatter={(value: any) => [typeof value === 'number' ? value.toLocaleString('en-US') : (value ?? 0), 'Scrobbles']}
               labelFormatter={(label) => String(label)}
               contentStyle={{
                 background: 'var(--card)',

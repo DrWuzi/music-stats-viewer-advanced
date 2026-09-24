@@ -38,7 +38,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ username
   ${barRects}
   <text x="60" y="180" font-size="90" font-weight="bold" fill="white" font-family="system-ui, sans-serif">${username}</text>
   <text x="60" y="250" font-size="36" fill="#94a3b8" font-family="system-ui, sans-serif">Last.fm Dashboard</text>
-  <text x="60" y="380" font-size="56" fill="#f8fafc" font-family="system-ui, sans-serif">${scrobbleCount.toLocaleString()} scrobbles</text>
+  <text x="60" y="380" font-size="56" fill="#f8fafc" font-family="system-ui, sans-serif">${scrobbleCount.toLocaleString('en-US')} scrobbles</text>
   <text x="60" y="450" font-size="30" fill="#64748b" font-family="system-ui, sans-serif">Top Artist: ${topArtist?.name ?? "Unknown"}</text>
   <text x="60" y="570" font-size="24" fill="#334155" font-family="system-ui, sans-serif">lastfm-advanced.vercel.app</text>
 </svg>`

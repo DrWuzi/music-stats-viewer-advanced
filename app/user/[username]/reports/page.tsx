@@ -5,6 +5,7 @@ import { ShareReportButton } from '@/components/share-report-button'
 import { ArtistImage } from '@/components/artist-image'
 import { TrendingUp } from 'lucide-react'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 type Props = { params: Promise<{ username: string }> }
 
@@ -127,10 +128,10 @@ export default async function ReportsPage({ params }: Props) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <PageContainer maxWidth="4xl" className="py-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold">Listening Reports</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">Listening Reports</h1>
           <p className="text-muted-foreground text-sm mt-1">Your weekly and monthly music stats</p>
         </div>
         <ShareReportButton
@@ -317,6 +318,6 @@ export default async function ReportsPage({ params }: Props) {
           </Card>
         </div>
       </section>
-    </div>
+    </PageContainer>
   )
 }

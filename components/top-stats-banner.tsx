@@ -61,7 +61,7 @@ export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username 
     <div className="grid gap-3 grid-cols-2 sm:grid-cols-4">
       {/* Total — most prominent tile: border-t-2 accent + larger number */}
       <div
-        className="rounded-lg border border-border/40 border-t-2 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
+        className="rounded-2xl border border-foreground/10 border-t-2 bg-card/50 backdrop-blur-xl shadow-lg shadow-black/5 p-3 flex flex-col gap-2 transition-all duration-200 hover:-translate-y-0.5 animate-fade-in-up dark:shadow-black/20"
         style={{ borderTopColor: 'var(--primary)', animationDelay: '100ms' }}
         onMouseEnter={tileHoverOn}
         onMouseLeave={tileHoverOff}
@@ -103,7 +103,7 @@ export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username 
 
       {/* Today */}
       <div
-        className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
+        className="rounded-2xl border border-foreground/10 bg-card/50 backdrop-blur-xl shadow-lg shadow-black/5 p-3 flex flex-col gap-2 transition-all duration-200 hover:-translate-y-0.5 animate-fade-in-up dark:shadow-black/20"
         style={{ animationDelay: '200ms' }}
         onMouseEnter={tileHoverOn}
         onMouseLeave={tileHoverOff}
@@ -119,7 +119,7 @@ export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username 
 
       {/* This Week */}
       <div
-        className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
+        className="rounded-2xl border border-foreground/10 bg-card/50 backdrop-blur-xl shadow-lg shadow-black/5 p-3 flex flex-col gap-2 transition-all duration-200 hover:-translate-y-0.5 animate-fade-in-up dark:shadow-black/20"
         style={{ animationDelay: '300ms' }}
         onMouseEnter={tileHoverOn}
         onMouseLeave={tileHoverOff}
@@ -139,7 +139,7 @@ export function TopStatsBanner({ totalScrobbles, scrobbles, topArtist, username 
 
       {/* Avg/Day (30d) */}
       <div
-        className="rounded-lg border border-border/40 bg-gradient-to-br from-card to-card/50 bg-background/60 backdrop-blur-sm shadow-sm p-3 flex flex-col gap-2 transition-colors duration-200 animate-fade-in-up"
+        className="rounded-2xl border border-foreground/10 bg-card/50 backdrop-blur-xl shadow-lg shadow-black/5 p-3 flex flex-col gap-2 transition-all duration-200 hover:-translate-y-0.5 animate-fade-in-up dark:shadow-black/20"
         style={{ animationDelay: '400ms' }}
         onMouseEnter={tileHoverOn}
         onMouseLeave={tileHoverOff}

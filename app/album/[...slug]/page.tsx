@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { EmptyState } from '@/components/ui/empty-state'
 import { User, Users, Disc3, Music2 } from 'lucide-react'
+import { PageContainer } from '@/components/page-container'
 
 type Props = {
   params: Promise<{ slug: string[] }>
@@ -31,9 +32,9 @@ export default async function AlbumPage({ params, searchParams }: Props) {
 
   if (!username) {
     return (
-      <main className="max-w-3xl mx-auto px-4 py-12 text-center">
+      <PageContainer as="main" maxWidth="3xl" className="py-12 text-center">
         <EmptyState icon={User} title="Sign in or pass ?username=X to view album data." />
-      </main>
+      </PageContainer>
     )
   }
 
@@ -41,9 +42,9 @@ export default async function AlbumPage({ params, searchParams }: Props) {
 
   if (!user) {
     return (
-      <main className="max-w-3xl mx-auto px-4 py-12 text-center">
+      <PageContainer as="main" maxWidth="3xl" className="py-12 text-center">
         <EmptyState icon={Users} title={`User ${username} not found. Visit their profile first to sync data.`} />
-      </main>
+      </PageContainer>
     )
   }
 
@@ -59,7 +60,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
 
   if (!scrobbles.length) {
     return (
-      <main className="max-w-3xl mx-auto px-4 py-8">
+      <PageContainer as="main" maxWidth="3xl" className="py-8">
         <Link
           href={`/artist/${encodeURIComponent(artistName)}?username=${encodeURIComponent(username)}`}
           className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block"
@@ -67,7 +68,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
           ← {artistName}
         </Link>
         <EmptyState icon={Disc3} title={`No scrobbles found for ${albumName} by ${artistName}.`} />
-      </main>
+      </PageContainer>
     )
   }
 
@@ -86,7 +87,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
     new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+    <PageContainer as="main" maxWidth="3xl" className="py-8 space-y-6">
       <div>
         <Link
           href={`/artist/${encodeURIComponent(artistName)}?username=${encodeURIComponent(username)}`}
@@ -99,13 +100,13 @@ export default async function AlbumPage({ params, searchParams }: Props) {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-1">
             <CardTitle className="text-sm font-medium text-muted-foreground">Total Plays</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{totalPlays.toLocaleString()}</p>
+            <p className="text-2xl font-bold">{totalPlays.toLocaleString('en-US')}</p>
           </CardContent>
         </Card>
         <Card>
@@ -151,6 +152,6 @@ export default async function AlbumPage({ params, searchParams }: Props) {
           )}
         </CardContent>
       </Card>
-    </main>
+    </PageContainer>
   )
 }

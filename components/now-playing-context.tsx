@@ -2,11 +2,19 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 
+export type RecentScrobble = {
+  artist: string
+  track: string
+  album: string | null
+  scrobbledAt: string
+}
+
 export type NowPlayingData = {
   nowPlaying: boolean
   track?: string
   artist?: string
   album?: string
+  recent: RecentScrobble[]
 }
 
 type NowPlayingContextValue = {
@@ -53,7 +61,7 @@ export function NowPlayingProvider({ username, children }: ProviderProps) {
     }
 
     fetchNowPlaying()
-    const interval = setInterval(fetchNowPlaying, 30_000)
+    const interval = setInterval(fetchNowPlaying, 22_500)
 
     return () => {
       cancelled = true

@@ -50,7 +50,7 @@ export function WrappedClient({
     },
     {
       title: 'Total Scrobbles',
-      stat: totalScrobbles.toLocaleString(),
+      stat: totalScrobbles.toLocaleString('en-US'),
       subtitle: 'tracks played',
     },
     {
@@ -65,7 +65,7 @@ export function WrappedClient({
       ) : (
         '—'
       ),
-      subtitle: topArtist ? `${topArtist.playcount.toLocaleString()} plays` : 'No data',
+      subtitle: topArtist ? `${topArtist.playcount.toLocaleString('en-US')} plays` : 'No data',
     },
     {
       title: 'Anthem',

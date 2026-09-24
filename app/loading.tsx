@@ -1,14 +1,10 @@
 export default function Loading() {
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center gap-6"
-      style={{ backgroundColor: "var(--background)" }}
+      className="fixed inset-0 flex flex-col items-center justify-center gap-6 bg-background/70 backdrop-blur-xl"
     >
       <div className="flex flex-col items-center gap-3">
-        <span
-          className="text-2xl font-bold tracking-tight"
-          style={{ color: "var(--foreground)" }}
-        >
+        <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
           Last.fm Advanced
         </span>
         <span
@@ -22,12 +18,12 @@ export default function Loading() {
 
       <div
         className="w-48 h-1 rounded-full overflow-hidden"
-        style={{ backgroundColor: "var(--muted)" }}
+        style={{ backgroundColor: "color-mix(in oklch, var(--muted) 60%, transparent)" }}
       >
         <div
           className="h-full rounded-full"
           style={{
-            backgroundColor: "var(--primary)",
+            background: "linear-gradient(90deg, var(--chart-1), var(--chart-5))",
             animation: "loading-bar 1.4s ease-in-out infinite",
           }}
         />

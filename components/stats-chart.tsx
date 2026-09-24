@@ -8,8 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { EmptyState } from '@/components/ui/empty-state'
-import { Download, BarChart2 } from 'lucide-react'
-import { downloadChartAsPng } from '@/lib/export-chart'
+import { BarChart2 } from 'lucide-react'
+import { ChartExportButton } from '@/components/chart-export-button'
 import { artistHref, trackHref } from '@/lib/urls'
 
 type DayRange = 30 | 180 | 360
@@ -367,18 +367,7 @@ export function StatsChart({
               ))}
             </div>
             {/* Export button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                if (!chartRef.current) return
-                void downloadChartAsPng(chartRef.current, `${username}-scrobbles-chart.svg`)
-              }}
-              title="Export chart"
-            >
-              <Download className="h-4 w-4 mr-1" />
-              Export
-            </Button>
+            <ChartExportButton containerRef={chartRef} filename={`${username}-scrobbles-chart`} />
           </div>
         </CardHeader>
         <CardContent>

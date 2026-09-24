@@ -131,7 +131,7 @@ export function ProfileSearch({ topArtists, topTracks, username }: ProfileSearch
                         {a.name}
                       </span>
                       <span className="text-xs shrink-0 tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
-                        {a.playcount.toLocaleString()} plays
+                        {a.playcount.toLocaleString('en-US')} plays
                       </span>
                     </Link>
                   </li>
@@ -168,7 +168,7 @@ export function ProfileSearch({ topArtists, topTracks, username }: ProfileSearch
                         </p>
                       </div>
                       <span className="text-xs shrink-0 tabular-nums" style={{ color: 'var(--muted-foreground)' }}>
-                        {t.playcount.toLocaleString()} plays
+                        {t.playcount.toLocaleString('en-US')} plays
                       </span>
                     </Link>
                   </li>

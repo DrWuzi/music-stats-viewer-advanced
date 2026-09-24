@@ -11,7 +11,7 @@ export async function GET(req: Request) {
   const tracks = searchParams.get('tracks') ?? ''
   const artists = searchParams.get('artists') ?? ''
 
-  const formattedScrobbles = Number(scrobbles).toLocaleString()
+  const formattedScrobbles = Number(scrobbles).toLocaleString('en-US')
 
   const periodLabel: Record<string, string> = {
     '7day': 'Last 7 Days',

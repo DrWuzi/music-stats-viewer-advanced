@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Users, Sparkles } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 export const metadata = { title: 'Discover — Last.fm Advanced' }
 
@@ -74,7 +75,7 @@ export default async function DiscoverPage() {
     .slice(0, 20)
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <PageContainer maxWidth="4xl" className="py-8">
       <BackButton />
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Discover</h1>
@@ -88,7 +89,7 @@ export default async function DiscoverPage() {
         <h2 className="text-base font-semibold mb-4">Based on your listening</h2>
 
         {recommendations.length === 0 ? (
-          <div className="rounded-xl border p-8 text-center text-muted-foreground">
+          <div className="rounded-2xl border border-foreground/10 bg-card/40 backdrop-blur-md p-8 text-center text-muted-foreground">
             <EmptyState
               icon={Sparkles}
               title="No recommendations yet."
@@ -135,7 +136,7 @@ export default async function DiscoverPage() {
       {/* Music Twins promo */}
       <section>
         <div
-          className="rounded-xl border p-6 flex items-center gap-4"
+          className="rounded-2xl border border-foreground/10 backdrop-blur-md p-6 flex items-center gap-4"
           style={{ background: 'color-mix(in oklch, var(--primary) 5%, transparent)' }}
         >
           <div
@@ -172,7 +173,7 @@ export default async function DiscoverPage() {
               <Link
                 key={a.name}
                 href={`/artist/${encodeURIComponent(a.name)}`}
-                className="px-3 py-1 rounded-full text-sm border hover:border-primary/50 transition-colors"
+                className="px-3 py-1 rounded-full text-sm border border-foreground/10 bg-background/30 backdrop-blur-sm hover:border-primary/50 transition-colors"
               >
                 {a.name}
               </Link>
@@ -180,6 +181,6 @@ export default async function DiscoverPage() {
           </div>
         </section>
       )}
-    </div>
+    </PageContainer>
   )
 }

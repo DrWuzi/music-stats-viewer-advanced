@@ -17,7 +17,7 @@ export function ArtistHoverCard({ name, playcount, username, children }: ArtistH
 
   const titleParts: string[] = [name]
   if (playcount !== undefined) {
-    titleParts.push(`${playcount.toLocaleString()} plays`)
+    titleParts.push(`${playcount.toLocaleString('en-US')} plays`)
   }
 
   return (

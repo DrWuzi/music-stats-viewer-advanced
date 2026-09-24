@@ -1,6 +1,7 @@
 'use client'
 
 import { Download } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 type Props = {
   username: string
@@ -17,20 +18,14 @@ export function ExportButton({ username }: Props) {
 
   return (
     <div className="flex gap-2">
-      <button
-        onClick={() => handleExport('csv')}
-        className="inline-flex items-center gap-2 border rounded px-3 py-2 text-sm font-medium hover:bg-accent transition-colors"
-      >
-        <Download className="w-4 h-4" />
+      <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
+        <Download className="h-4 w-4 mr-1" />
         Export CSV
-      </button>
-      <button
-        onClick={() => handleExport('json')}
-        className="inline-flex items-center gap-2 border rounded px-3 py-2 text-sm font-medium hover:bg-accent transition-colors"
-      >
-        <Download className="w-4 h-4" />
+      </Button>
+      <Button variant="outline" size="sm" onClick={() => handleExport('json')}>
+        <Download className="h-4 w-4 mr-1" />
         Export JSON
-      </button>
+      </Button>
     </div>
   )
 }

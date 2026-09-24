@@ -22,7 +22,7 @@ export function ProfileNavTabs({ username }: { username: string }) {
     // navigates between real routes/pages rather than switching client-rendered panels — styled to match
     // that component's visual language (indicator style, colors, spacing, transition timing) regardless.
     <nav
-      className="flex items-center gap-1 rounded-lg bg-muted p-[3px] mb-2 overflow-x-auto"
+      className="flex items-center gap-1 rounded-2xl border border-foreground/10 bg-background/40 p-1 mb-2 overflow-x-auto backdrop-blur-md"
       aria-label="Profile navigation"
     >
       {tabs.map((tab) => {

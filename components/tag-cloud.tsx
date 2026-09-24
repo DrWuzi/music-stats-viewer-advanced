@@ -43,13 +43,10 @@ export function TagCloud({ username }: TagCloudProps) {
     setLoading(true)
     setError(null)
     try {
-      const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY
-      const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&limit=30`
-      const res = await fetch(url)
+      const res = await fetch(`/api/top-tags?username=${encodeURIComponent(username)}&limit=30`)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
-      const rawTags: Tag[] = data?.toptags?.tag ?? []
-      setTags(rawTags.map(t => ({ ...t, count: Number(t.count) })))
+      setTags(data.tags ?? [])
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load tags')
     } finally {

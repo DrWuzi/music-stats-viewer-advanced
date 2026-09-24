@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { AlertCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function Error({
   error,
@@ -42,27 +43,7 @@ export default function Error({
         </p>
       </div>
 
-      <button
-        onClick={reset}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.625rem 1.25rem',
-          borderRadius: 'var(--radius)',
-          backgroundColor: 'var(--primary)',
-          color: 'var(--primary-foreground)',
-          fontWeight: 600,
-          fontSize: '0.9rem',
-          border: 'none',
-          cursor: 'pointer',
-          transition: 'opacity 0.15s',
-        }}
-        onMouseOver={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
-        onMouseOut={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
-      >
-        Try again
-      </button>
+      <Button onClick={reset}>Try again</Button>
     </div>
   )
 }

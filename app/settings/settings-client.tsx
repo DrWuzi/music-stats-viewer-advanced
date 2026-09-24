@@ -24,6 +24,7 @@ import { Button } from '@/components/ui/button'
 import { TimezoneSelector } from '@/components/timezone-selector'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { ResyncButton } from '@/components/resync-button'
+import { PageContainer } from '@/components/page-container'
 
 // ── localStorage keys (must match dashboard-provider.tsx) ────────────────────
 const ORDER_KEY = 'dashboardOrder_v1'
@@ -53,13 +54,10 @@ function ConfirmDialog({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
       style={{ backgroundColor: 'color-mix(in oklch, var(--background) 80%, transparent)' }}
     >
-      <div
-        className="w-full max-w-sm rounded-xl border p-6 shadow-lg space-y-4"
-        style={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }}
-      >
+      <div className="w-full max-w-sm rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl p-6 shadow-xl shadow-black/5 dark:shadow-black/30 space-y-4">
         <div className="flex items-start gap-3">
           <AlertTriangle
             className="h-5 w-5 mt-0.5 flex-shrink-0"
@@ -151,7 +149,7 @@ function LinkButton({
       download={download}
       target={target}
       rel={rel}
-      className="inline-flex shrink-0 items-center justify-center gap-1 rounded-[min(var(--radius-md),12px)] border border-border bg-background px-2.5 text-[0.8rem] font-medium h-7 transition-all hover:bg-muted hover:text-foreground"
+      className="inline-flex shrink-0 items-center justify-center gap-1 rounded-xl border border-foreground/15 bg-background/40 backdrop-blur-md px-2.5 text-[0.8rem] font-medium h-7 transition-all hover:bg-background/60 hover:text-foreground"
     >
       {children}
     </a>
@@ -285,7 +283,7 @@ export function SettingsClient({
         />
       )}
 
-      <div className="container mx-auto px-4 py-8 max-w-2xl space-y-8">
+      <PageContainer maxWidth="2xl" className="py-8 space-y-8">
         {/* Back nav */}
         <div>
           <Link
@@ -298,7 +296,7 @@ export function SettingsClient({
         </div>
 
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+          <h1 className="text-2xl font-semibold tracking-tight bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">Settings</h1>
           <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>
             Manage your account, display, and data preferences.
           </p>
@@ -308,8 +306,8 @@ export function SettingsClient({
         <Section icon={User} title="Account">
           <Row label="Username" description="Your Last.fm username — log in again to change it.">
             <span
-              className="text-sm font-mono px-2 py-1 rounded-md"
-              style={{ backgroundColor: 'var(--muted)', color: 'var(--foreground)' }}
+              className="text-sm font-mono px-2 py-1 rounded-xl backdrop-blur-sm"
+              style={{ backgroundColor: 'color-mix(in oklch, var(--muted) 70%, transparent)', color: 'var(--foreground)' }}
             >
               {username}
             </span>
@@ -320,7 +318,7 @@ export function SettingsClient({
             description="When your library was last synced from Last.fm."
           >
             <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
-              {lastSyncedAt ? new Date(lastSyncedAt).toLocaleString() : 'Never'}
+              {lastSyncedAt ? new Date(lastSyncedAt).toLocaleString('en-US') : 'Never'}
             </span>
           </Row>
 
@@ -373,20 +371,11 @@ export function SettingsClient({
                 <button
                   key={opt}
                   onClick={() => handleMaxWidthChange(opt)}
-                  className="text-xs px-3 py-1.5 rounded-md border transition-colors"
-                  style={
+                  className={`text-xs px-3 py-1.5 rounded-xl border backdrop-blur-md transition-all ${
                     maxWidth === opt
-                      ? {
-                          backgroundColor: 'var(--primary)',
-                          color: 'var(--primary-foreground)',
-                          borderColor: 'var(--primary)',
-                        }
-                      : {
-                          backgroundColor: 'var(--card)',
-                          color: 'var(--foreground)',
-                          borderColor: 'var(--border)',
-                        }
-                  }
+                      ? 'border-transparent bg-gradient-to-r from-chart-1 to-chart-5 text-white shadow-lg shadow-chart-1/25'
+                      : 'border-foreground/10 bg-background/40 text-foreground hover:bg-background/60'
+                  }`}
                 >
                   {MAX_WIDTH_LABELS[opt]}
                 </button>
@@ -403,7 +392,7 @@ export function SettingsClient({
         >
           {dashboardMsg && (
             <div
-              className="flex items-center gap-2 text-sm px-3 py-2 rounded-md"
+              className="flex items-center gap-2 text-sm px-3 py-2 rounded-xl border border-foreground/10 backdrop-blur-sm"
               style={{
                 backgroundColor: 'color-mix(in oklch, var(--primary) 12%, transparent)',
                 color: 'var(--foreground)',
@@ -483,13 +472,7 @@ export function SettingsClient({
             </LinkButton>
           </Row>
 
-          <div
-            className="rounded-lg border p-4 space-y-3"
-            style={{
-              borderColor: 'var(--destructive)',
-              backgroundColor: 'color-mix(in oklch, var(--destructive) 6%, transparent)',
-            }}
-          >
+          <div className="rounded-2xl border border-destructive/20 bg-destructive/10 backdrop-blur-sm p-4 space-y-3">
             <div>
               <p className="text-sm font-medium" style={{ color: 'var(--destructive)' }}>
                 Danger zone
@@ -526,8 +509,8 @@ export function SettingsClient({
         <Section icon={Info} title="About">
           <Row label="Version" description="Current app version.">
             <span
-              className="text-xs font-mono px-2 py-1 rounded-md"
-              style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}
+              className="text-xs font-mono px-2 py-1 rounded-xl backdrop-blur-sm"
+              style={{ backgroundColor: 'color-mix(in oklch, var(--muted) 70%, transparent)', color: 'var(--muted-foreground)' }}
             >
               v0.1.0
             </span>
@@ -555,7 +538,7 @@ export function SettingsClient({
             </LinkButton>
           </Row>
         </Section>
-      </div>
+      </PageContainer>
     </>
   )
 }

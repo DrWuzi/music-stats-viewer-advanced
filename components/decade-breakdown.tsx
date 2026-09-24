@@ -63,7 +63,7 @@ function CustomTooltip({
     >
       <p className="font-medium">{name}</p>
       <p style={{ color: 'var(--muted-foreground)' }}>
-        {value.toLocaleString()} · {formatPercent(value, total)}
+        {value.toLocaleString('en-US')} · {formatPercent(value, total)}
       </p>
     </div>
   )
@@ -81,15 +81,12 @@ export function DecadeBreakdown({ username }: DecadeBreakdownProps) {
       setLoading(true)
       setError(false)
       try {
-        const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY
-        const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json`
-        const res = await fetch(url)
+        const res = await fetch(`/api/top-tags?username=${encodeURIComponent(username)}`)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data = await res.json()
-        const raw: { name: string; count: string | number; url: string }[] =
-          data?.toptags?.tag ?? []
+        const raw: { name: string; count: number; url: string }[] = data?.tags ?? []
         const cleaned: TagEntry[] = raw
-          .map((t) => ({ name: t.name?.trim() ?? '', count: Number(t.count) }))
+          .map((t) => ({ name: t.name?.trim() ?? '', count: t.count }))
           .filter(
             (t) => t.name.length >= 2 && !/^\d+$/.test(t.name) && t.count > 0,
           )

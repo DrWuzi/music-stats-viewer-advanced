@@ -35,7 +35,7 @@ export function ShareProfileButton({
 
     const shareText = [
       `Check out ${username}'s listening stats on Last.fm Advanced`,
-      scrobbles !== undefined ? `${scrobbles.toLocaleString()} scrobbles` : null,
+      scrobbles !== undefined ? `${scrobbles.toLocaleString('en-US')} scrobbles` : null,
       topArtist ? `top artist: ${topArtist}` : null,
       topTrack ? `top track: ${topTrack}` : null,
     ]

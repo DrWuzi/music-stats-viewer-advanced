@@ -66,7 +66,7 @@ export function DayOfWeekChart({
                   <div className="bg-popover border border-border rounded-lg p-2 text-sm shadow-md">
                     <span className="font-medium">{fullDayNames[entry.name] ?? entry.name}</span>
                     <span className="text-muted-foreground">: </span>
-                    <span>{entry.count.toLocaleString()} scrobbles</span>
+                    <span>{entry.count.toLocaleString('en-US')} scrobbles</span>
                     <span className="text-muted-foreground"> ({pct}% of week)</span>
                   </div>
                 )

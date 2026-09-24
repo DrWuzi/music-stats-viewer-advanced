@@ -49,6 +49,61 @@ describe('lastfmClient', () => {
     expect(artists[0].rank).toBe(1)
   })
 
+  it('getRecentActivity separates the now-playing track from completed scrobbles', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        recenttracks: {
+          track: [
+            {
+              name: 'Live Track',
+              artist: { '#text': 'Live Artist' },
+              album: { '#text': 'Live Album' },
+              '@attr': { nowplaying: 'true' },
+            },
+            {
+              name: 'Past Track',
+              artist: { '#text': 'Past Artist' },
+              album: { '#text': 'Past Album' },
+              date: { uts: '1700000000' },
+            },
+          ],
+        },
+      }),
+    } as Response)
+
+    const { lastfmClient } = await import('@/lib/lastfm')
+    const { nowPlaying, recent } = await lastfmClient.getRecentActivity('testuser')
+
+    expect(nowPlaying).toEqual({ track: 'Live Track', artist: 'Live Artist', album: 'Live Album' })
+    expect(recent).toHaveLength(1)
+    expect(recent[0].track).toBe('Past Track')
+  })
+
+  it('getRecentActivity returns no now-playing when nothing is currently playing', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        recenttracks: {
+          track: [
+            {
+              name: 'Past Track',
+              artist: { '#text': 'Past Artist' },
+              album: { '#text': 'Past Album' },
+              date: { uts: '1700000000' },
+            },
+          ],
+        },
+      }),
+    } as Response)
+
+    const { lastfmClient } = await import('@/lib/lastfm')
+    const { nowPlaying, recent } = await lastfmClient.getRecentActivity('testuser')
+
+    expect(nowPlaying).toBeNull()
+    expect(recent).toHaveLength(1)
+  })
+
   it('throws on Last.fm error response', async () => {
     vi.mocked(fetch).mockResolvedValueOnce({
       ok: true,

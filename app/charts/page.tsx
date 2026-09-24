@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { BackButton } from '@/components/back-button'
 import { EmptyState } from '@/components/ui/empty-state'
 import { BarChart2, TrendingUp } from 'lucide-react'
+import { PageContainer } from '@/components/page-container'
 
 export const metadata = { title: 'Charts — Last.fm Advanced' }
 
@@ -21,7 +22,7 @@ export default async function ChartsPage() {
   ])
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-5xl">
+    <PageContainer maxWidth="5xl" className="py-8">
       <BackButton />
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Charts</h1>
@@ -123,6 +124,6 @@ export default async function ChartsPage() {
           </Card>
         )}
       </div>
-    </div>
+    </PageContainer>
   )
 }

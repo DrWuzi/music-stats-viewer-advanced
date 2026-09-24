@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { Badge } from '@/components/ui/badge'
 import { Tag } from 'lucide-react'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 type Props = { params: Promise<{ username: string }> }
 
@@ -44,7 +45,7 @@ export default async function GenresPage({ params }: Props) {
 
   if (scrobbles.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <PageContainer maxWidth="2xl" className="py-8">
         <div className="mb-6">
           <Link href={`/user/${username}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             &larr; {username}&apos;s profile
@@ -52,7 +53,7 @@ export default async function GenresPage({ params }: Props) {
         </div>
         <h1 className="text-2xl font-bold mb-6">Genre Eras</h1>
         <EmptyState icon={Tag} title="No scrobbles found." />
-      </div>
+      </PageContainer>
     )
   }
 
@@ -109,7 +110,7 @@ export default async function GenresPage({ params }: Props) {
   })
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
+    <PageContainer maxWidth="2xl" className="py-8">
       <div className="mb-6">
         <Link href={`/user/${username}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
           &larr; {username}&apos;s profile
@@ -145,6 +146,6 @@ export default async function GenresPage({ params }: Props) {
           })}
         </div>
       )}
-    </div>
+    </PageContainer>
   )
 }

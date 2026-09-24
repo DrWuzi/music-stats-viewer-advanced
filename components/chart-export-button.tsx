@@ -21,7 +21,7 @@ export function ChartExportButton({ containerRef, filename }: ChartExportButtonP
   }
 
   return (
-    <Button size="sm" variant="ghost" onClick={handleClick} disabled={downloading}>
+    <Button size="sm" variant="ghost" onClick={handleClick} disabled={downloading} aria-label="Export chart as PNG">
       {downloading ? (
         <Loader2 className="h-4 w-4 animate-spin" />
       ) : (

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { Disc3 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function NotFound() {
   return (
@@ -22,7 +23,7 @@ export default function NotFound() {
           fontSize: 'clamp(6rem, 20vw, 10rem)',
           fontWeight: 900,
           lineHeight: 1,
-          background: 'linear-gradient(135deg, var(--primary), var(--muted-foreground))',
+          background: 'linear-gradient(135deg, var(--chart-1), var(--chart-5))',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -52,25 +53,8 @@ export default function NotFound() {
         </p>
       </div>
 
-      <Link
-        href="/"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.625rem 1.25rem',
-          borderRadius: 'var(--radius)',
-          backgroundColor: 'var(--primary)',
-          color: 'var(--primary-foreground)',
-          fontWeight: 600,
-          fontSize: '0.9rem',
-          textDecoration: 'none',
-          transition: 'opacity 0.15s',
-        }}
-        onMouseOver={(e) => ((e.currentTarget as HTMLElement).style.opacity = '0.85')}
-        onMouseOut={(e) => ((e.currentTarget as HTMLElement).style.opacity = '1')}
-      >
-        Go home
+      <Link href="/">
+        <Button>Go home</Button>
       </Link>
     </div>
   )

@@ -116,7 +116,7 @@ export function AchievementBadge({ achievement, size = 'md' }: AchievementBadgeP
     achievement.label,
     achievement.description,
     achievement.earned && achievement.earnedAt
-      ? `Earned ${achievement.earnedAt.toLocaleDateString()}`
+      ? `Earned ${achievement.earnedAt.toLocaleDateString('en-US')}`
       : achievement.progress !== undefined
         ? `Progress: ${achievement.progress}%`
         : 'Not yet earned',
@@ -293,7 +293,7 @@ function AchievementCard({ achievement }: AchievementCardProps) {
 
         {achievement.earned && achievement.earnedAt ? (
           <span className="text-[10px] text-muted-foreground">
-            {achievement.earnedAt.toLocaleDateString()}
+            {achievement.earnedAt.toLocaleDateString('en-US')}
           </span>
         ) : achievement.progress !== undefined ? (
           <div className="flex items-center gap-1.5 flex-1 max-w-[8rem]">

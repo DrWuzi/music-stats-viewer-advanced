@@ -63,7 +63,7 @@ function buildEvents(
       events.push({
         date: toDate(sorted[localIndex].scrobbledAt),
         type: 'milestone',
-        label: `🎉 Hit ${milestone.toLocaleString()} scrobbles`,
+        label: `🎉 Hit ${milestone.toLocaleString('en-US')} scrobbles`,
       })
     }
   }

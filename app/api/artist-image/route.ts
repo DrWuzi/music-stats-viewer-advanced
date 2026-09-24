@@ -106,7 +106,7 @@ async function fromWikipediaExact(name: string): Promise<string | null> {
       action: 'query',
       titles: name,
       prop: 'pageimages',
-      pithumbsize: '600',
+      pithumbsize: '1200',
       pilimit: '1',
       redirects: '1',
       format: 'json',
@@ -138,7 +138,7 @@ async function fromWikipediaSearch(name: string): Promise<string | null> {
       gsrsearch: name,
       gsrlimit: '5',
       prop: 'pageimages|pageprops',
-      pithumbsize: '600',
+      pithumbsize: '1200',
       ppprop: 'disambiguation',
       redirects: '1',
       format: 'json',
@@ -213,7 +213,7 @@ async function fromWikidata(name: string): Promise<string | null> {
     for (const candidate of ranked) {
       const filename = entities[candidate.id]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value
       if (filename) {
-        return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=600`
+        return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=1200`
       }
     }
   } catch {}

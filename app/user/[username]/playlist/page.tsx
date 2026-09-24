@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { PlaylistBuilder } from '@/components/playlist-builder'
+import { PageContainer } from '@/components/page-container'
 
 type Props = { params: Promise<{ username: string }> }
 
@@ -49,7 +50,7 @@ export default async function PlaylistPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-3xl mx-auto space-y-6">
+      <PageContainer maxWidth="3xl" padding={false} className="space-y-6">
         <div>
           <Link
             href={`/user/${username}`}
@@ -57,7 +58,7 @@ export default async function PlaylistPage({ params }: Props) {
           >
             ← Back to profile
           </Link>
-          <h1 className="text-3xl font-bold">Playlist Builder</h1>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">Playlist Builder</h1>
           <p className="text-muted-foreground mt-1">
             Build and export a playlist from {username}&apos;s listening history.
           </p>
@@ -70,7 +71,7 @@ export default async function PlaylistPage({ params }: Props) {
           lovedTracks={loved}
           recentTracks={recent}
         />
-      </div>
+      </PageContainer>
     </main>
   )
 }

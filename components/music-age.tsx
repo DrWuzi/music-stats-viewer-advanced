@@ -78,15 +78,10 @@ export function MusicAge({ username }: MusicAgeProps) {
       setLoading(true)
       setError(null)
       try {
-        const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY
-        const url = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptags&user=${encodeURIComponent(username)}&api_key=${apiKey}&format=json&limit=50`
-        const res = await fetch(url)
+        const res = await fetch(`/api/top-tags?username=${encodeURIComponent(username)}&limit=50`)
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data = await res.json()
-        const rawTags: Tag[] = (data?.toptags?.tag ?? []).map((t: Tag) => ({
-          name: t.name,
-          count: Number(t.count),
-        }))
+        const rawTags: Tag[] = data?.tags ?? []
 
         // Accumulate weighted counts per decade year
         const decadeCounts: Record<number, number> = {}

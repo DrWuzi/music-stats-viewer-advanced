@@ -203,7 +203,7 @@ export function ListeningReport({ scrobbles, period = '7day', username }: Listen
           <div className="rounded-md border bg-muted/30 px-3 py-2">
             <p className="text-xs text-muted-foreground">Total scrobbles</p>
             <p className="font-semibold text-base leading-tight mt-0.5">
-              {report.totalCurrent.toLocaleString()}
+              {report.totalCurrent.toLocaleString('en-US')}
             </p>
             <ChangeIndicator pct={report.pctChange} />
             <p className="text-xs text-muted-foreground mt-0.5">{prevPeriodLabel}</p>
@@ -212,7 +212,7 @@ export function ListeningReport({ scrobbles, period = '7day', username }: Listen
           <div className="rounded-md border bg-muted/30 px-3 py-2">
             <p className="text-xs text-muted-foreground">Unique artists</p>
             <p className="font-semibold text-base leading-tight mt-0.5">
-              {report.uniqueArtistsCurrent.toLocaleString()}
+              {report.uniqueArtistsCurrent.toLocaleString('en-US')}
             </p>
           </div>
 
@@ -259,7 +259,7 @@ export function ListeningReport({ scrobbles, period = '7day', username }: Listen
             <p className="font-semibold text-base leading-tight mt-0.5">
               {report.avgPerDay < 1
                 ? report.avgPerDay.toFixed(1)
-                : Math.round(report.avgPerDay).toLocaleString()}
+                : Math.round(report.avgPerDay).toLocaleString('en-US')}
             </p>
           </div>
         </div>

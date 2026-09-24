@@ -4,6 +4,7 @@ import './globals.css'
 import { Nav } from '@/components/nav-server'
 import { NavProgress } from '@/components/nav-progress'
 import { MobileNav } from '@/components/mobile-nav'
+import { AppBackground } from '@/components/app-background'
 import { PwaInstallPrompt } from '@/components/pwa-install-prompt'
 import { NowPlayingMini } from '@/components/now-playing-mini'
 import { NowPlayingProvider } from '@/components/now-playing-context'
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         }} />
       </head>
       <body className={inter.className}>
+        <AppBackground />
         <NavProgress />
         <Nav />
         <MobileNav />
@@ -43,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             div had its own opaque background, it would completely hide that
             layer. Removing the redundant copy here has zero visual effect on
             any page that doesn't add such a layer. */}
-        <main className="min-h-screen pb-16 md:pb-0">{children}</main>
+        <main className="min-h-screen pb-20 md:pb-0">{children}</main>
         {session?.lastfmUsername && (
           <NowPlayingProvider username={session.lastfmUsername}>
             <NowPlayingMini />

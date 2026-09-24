@@ -247,7 +247,7 @@ export function ArtistNetwork({ scrobbles, topArtists, username }: Props) {
                   >
                     <span className="block font-semibold">{node.artist.name}</span>
                     <span style={{ color: 'var(--muted-foreground)' }}>
-                      {node.artist.playcount.toLocaleString()} plays
+                      {node.artist.playcount.toLocaleString('en-US')} plays
                     </span>
                   </div>
                 )}

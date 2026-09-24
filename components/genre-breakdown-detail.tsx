@@ -12,6 +12,11 @@ interface GenreTag {
   artistCount: number
 }
 
+// Fixed (not Math.random()) so the SSR pass and the client hydration pass
+// render identical widths — random values differ between the two, which
+// throws a hydration mismatch.
+const SKELETON_BAR_WIDTHS = [88, 72, 95, 65, 80, 70, 92, 61]
+
 interface GenreBreakdownDetailProps {
   username: string
 }
@@ -53,11 +58,11 @@ export function GenreBreakdownDetail({ username }: GenreBreakdownDetailProps) {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {Array.from({ length: 8 }).map((_, i) => (
+            {SKELETON_BAR_WIDTHS.map((width, i) => (
               <div key={i} className="space-y-1">
                 <div
                   className="h-3 rounded"
-                  style={{ width: `${60 + Math.random() * 40}%`, background: 'var(--muted)' }}
+                  style={{ width: `${width}%`, background: 'var(--muted)' }}
                 />
                 <div className="h-4 rounded" style={{ width: '70%', background: 'var(--muted)' }} />
               </div>

@@ -315,7 +315,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={`Play ${artistName} on Spotify`}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-border hover:bg-card/80 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-foreground/10 bg-card/60 backdrop-blur-sm px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-foreground/20 hover:bg-card/80 transition-colors"
                 >
                   <Music2 className="h-3.5 w-3.5 shrink-0" />
                   Spotify
@@ -325,7 +325,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={`Play ${artistName} on YouTube`}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-card/60 backdrop-blur-sm px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-border hover:bg-card/80 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-foreground/10 bg-card/60 backdrop-blur-sm px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-foreground/20 hover:bg-card/80 transition-colors"
                 >
                   <ExternalLink className="h-3.5 w-3.5 shrink-0" />
                   YouTube
@@ -358,7 +358,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
             {/* Right: stat tiles */}
             <div className="flex flex-wrap gap-3 md:shrink-0">
               {artistInfo && Number(artistInfo.stats.listeners) > 0 && (
-                <div className="rounded-xl border border-border/50 bg-card/70 backdrop-blur-sm px-4 py-3 min-w-[110px]">
+                <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
                   <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                     <Users className="h-3 w-3" /> Listeners
                   </div>
@@ -366,7 +366,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                 </div>
               )}
               {artistInfo && Number(artistInfo.stats.playcount) > 0 && (
-                <div className="rounded-xl border border-border/50 bg-card/70 backdrop-blur-sm px-4 py-3 min-w-[110px]">
+                <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
                   <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                     <PlayCircle className="h-3 w-3" /> Global Plays
                   </div>
@@ -374,7 +374,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                 </div>
               )}
               {username && totalPlays > 0 && (
-                <div className="rounded-xl border border-primary/40 bg-primary/15 backdrop-blur-sm px-4 py-3 min-w-[110px]">
+                <div className="rounded-2xl border border-primary/40 bg-primary/15 backdrop-blur-md px-4 py-3 min-w-[110px]">
                   <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                     <Music2 className="h-3 w-3" /> Your Plays
                   </div>
@@ -386,10 +386,10 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                   <Badge
                     className={
                       fanRank.tier === 'gold'
-                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 hover:bg-amber-500/30 text-xs px-3 py-1.5'
+                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40 backdrop-blur-sm hover:bg-amber-500/30 text-xs px-3 py-1.5'
                         : fanRank.tier === 'primary'
-                          ? 'bg-primary/20 text-primary border border-primary/40 hover:bg-primary/30 text-xs px-3 py-1.5'
-                          : 'bg-muted text-muted-foreground border border-border hover:bg-muted text-xs px-3 py-1.5'
+                          ? 'bg-primary/20 text-primary border border-primary/40 backdrop-blur-sm hover:bg-primary/30 text-xs px-3 py-1.5'
+                          : 'bg-muted/60 text-muted-foreground border border-foreground/10 backdrop-blur-sm hover:bg-muted/80 text-xs px-3 py-1.5'
                     }
                   >
                     {fanRank.label}
@@ -474,8 +474,8 @@ export default async function ArtistPage({ params, searchParams }: Props) {
         {/* ── Albums grid ───────────────────────────────────────────────── */}
         {topAlbums.length > 0 && (
           <section>
-            <h2 className="text-xl font-bold mb-5 flex items-center gap-2">
-              <Disc3 className="h-5 w-5" /> Discography
+            <h2 className="text-xl font-bold mb-5 flex items-center gap-2 bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
+              <Disc3 className="h-5 w-5 text-foreground" /> Discography
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {topAlbums.map((album, idx) => {
@@ -495,7 +495,7 @@ export default async function ArtistPage({ params, searchParams }: Props) {
                     href={`/album/${encodeURIComponent(artistInfo?.name ?? artistName)}/${encodeURIComponent(album.name)}`}
                     className={`group animate-fade-in-up ${delayClass} cursor-pointer`}
                   >
-                    <div className="relative aspect-square rounded-lg overflow-hidden bg-muted border border-border mb-2 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted border border-foreground/10 mb-2 shadow-lg shadow-black/5 dark:shadow-black/30 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
                       {albumImg ? (
                         <img
                           src={albumImg}

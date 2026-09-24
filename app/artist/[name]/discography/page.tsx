@@ -180,12 +180,12 @@ export default async function DiscographyPage({ params, searchParams }: Props) {
 
         {/* Stats row */}
         <div className="flex flex-wrap gap-3 shrink-0">
-          <div className="rounded-xl border border-border bg-card px-4 py-2 text-center">
+          <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-2 text-center">
             <p className="text-xs text-muted-foreground mb-0.5">Global Plays</p>
             <p className="text-lg font-bold tabular-nums">{fmtNum(totalGlobalPlays)}</p>
           </div>
           {username && totalUserPlays > 0 && (
-            <div className="rounded-xl border border-primary/40 bg-primary/10 px-4 py-2 text-center">
+            <div className="rounded-2xl border border-primary/40 bg-primary/10 backdrop-blur-md px-4 py-2 text-center">
               <p className="text-xs text-muted-foreground mb-0.5">Your Plays</p>
               <p className="text-lg font-bold text-primary tabular-nums">{fmtNum(totalUserPlays)}</p>
             </div>
@@ -232,7 +232,7 @@ export default async function DiscographyPage({ params, searchParams }: Props) {
                 className="group cursor-pointer"
               >
                 {/* Cover art */}
-                <div className="relative aspect-square rounded-lg overflow-hidden bg-muted border border-border mb-2 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted border border-foreground/10 mb-2 shadow-lg shadow-black/5 dark:shadow-black/30 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
                   {albumImg ? (
                     <img
                       src={albumImg}
@@ -290,7 +290,7 @@ export default async function DiscographyPage({ params, searchParams }: Props) {
       )}
 
       {/* Back link */}
-      <div className="pt-4 border-t border-border">
+      <div className="pt-4 border-t border-foreground/10">
         <Link
           href={artistLink()}
           className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"

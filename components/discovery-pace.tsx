@@ -81,7 +81,7 @@ export function DiscoveryPace({ scrobbles }: Props) {
       <CardContent className="space-y-4">
         <div className="grid grid-cols-3 gap-2 text-center text-sm">
           <div className="rounded-md bg-muted p-2">
-            <div className="text-lg font-semibold">{totalUnique.toLocaleString()}</div>
+            <div className="text-lg font-semibold">{totalUnique.toLocaleString('en-US')}</div>
             <div className="text-xs text-muted-foreground">Unique Artists</div>
           </div>
           <div className="rounded-md bg-muted p-2">

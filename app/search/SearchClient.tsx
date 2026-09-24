@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArtistImage } from '@/components/artist-image'
 import { artistHref } from '@/lib/urls'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 const RECENT_SEARCHES_KEY = 'lastfm_recent_searches'
 const MAX_RECENT = 8
@@ -148,7 +150,7 @@ export function SearchClient({ initialQ, initialType, username }: Props) {
         className="flex gap-2"
       >
         <div className="relative flex-1">
-          <input
+          <Input
             ref={inputRef}
             type="text"
             name="q"
@@ -158,14 +160,14 @@ export function SearchClient({ initialQ, initialType, username }: Props) {
             onBlur={() => setTimeout(() => setFocused(false), 150)}
             placeholder="Search artists, albums, tracks..."
             autoComplete="off"
-            className="border rounded px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-ring bg-background"
+            className="h-auto py-2"
           />
 
           {/* Dropdown: suggestions or recent searches */}
           {showDropdown && (
             <div
               ref={dropdownRef}
-              className="absolute left-0 right-0 top-full mt-1 z-50 border rounded-md bg-background shadow-lg max-h-72 overflow-auto"
+              className="absolute left-0 right-0 top-full mt-1 z-50 rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-xl shadow-black/5 dark:shadow-black/30 max-h-72 overflow-auto"
             >
               {/* Library type-ahead suggestions */}
               {filteredSuggestions.length > 0 && (
@@ -184,7 +186,7 @@ export function SearchClient({ initialQ, initialType, username }: Props) {
                       <span className="flex-1 truncate">{artist.name}</span>
                       {artist.playcount > 0 && (
                         <span className="text-xs text-muted-foreground shrink-0">
-                          {artist.playcount.toLocaleString()} plays
+                          {artist.playcount.toLocaleString('en-US')} plays
                         </span>
                       )}
                     </button>
@@ -236,22 +238,19 @@ export function SearchClient({ initialQ, initialType, username }: Props) {
           )}
         </div>
 
-        <button
-          type="submit"
-          className="bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:bg-primary/90 transition-colors shrink-0"
-        >
+        <Button type="submit" className="shrink-0">
           Search
-        </button>
+        </Button>
       </form>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b">
+      <div className="flex gap-1 border-b border-foreground/10 overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => handleTypeChange(tab.id)}
-            className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors -mb-px ${
+            className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors -mb-px whitespace-nowrap ${
               type === tab.id
                 ? 'border-primary text-foreground'
                 : 'border-transparent text-muted-foreground hover:text-foreground'

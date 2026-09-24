@@ -6,6 +6,7 @@ import { AnimatedNumber } from '@/components/animated-number'
 import { Crown, Medal, Users, Music2, Clock } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 export const metadata = { title: 'Top Listeners — Last.fm Advanced' }
 
@@ -71,7 +72,7 @@ export default async function LeaderboardPage() {
   const lastUpdated = new Date()
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
+    <PageContainer maxWidth="3xl" className="py-8">
       <BackButton />
 
       {/* Page header */}
@@ -134,7 +135,7 @@ export default async function LeaderboardPage() {
           {ranked.length === 0 ? (
             <EmptyState icon={Users} title="No listeners yet. Be the first!" />
           ) : (
-            <div className="divide-y divide-border">
+            <div className="divide-y divide-foreground/10">
               {/* Header row */}
               <div className="grid grid-cols-[3rem_1fr_auto_auto] gap-x-4 items-center px-6 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
                 <span>Rank</span>
@@ -207,6 +208,6 @@ export default async function LeaderboardPage() {
       <p className="text-xs text-muted-foreground text-center mt-6">
         Showing top {ranked.length} scrobblers &middot; Last updated {formatDate(lastUpdated)}
       </p>
-    </div>
+    </PageContainer>
   )
 }

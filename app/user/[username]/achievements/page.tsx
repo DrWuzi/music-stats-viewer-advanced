@@ -26,6 +26,7 @@ import {
   LibraryBig,
   TrendingUp,
 } from 'lucide-react'
+import { PageContainer } from '@/components/page-container'
 
 type Props = {
   params: Promise<{ username: string }>
@@ -132,7 +133,7 @@ function buildAchievements(data: {
       icon: <Star className={totalFromDB >= 100 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: totalFromDB >= 100,
       progress: scrobbleProgress(totalFromDB, 100),
-      progressLabel: `${totalFromDB.toLocaleString()} / 100`,
+      progressLabel: `${totalFromDB.toLocaleString('en-US')} / 100`,
     },
     {
       id: 'dedicated',
@@ -141,7 +142,7 @@ function buildAchievements(data: {
       icon: <Award className={totalFromDB >= 1000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: totalFromDB >= 1000,
       progress: scrobbleProgress(totalFromDB, 1000),
-      progressLabel: `${totalFromDB.toLocaleString()} / 1,000`,
+      progressLabel: `${totalFromDB.toLocaleString('en-US')} / 1,000`,
     },
     {
       id: 'enthusiast',
@@ -150,7 +151,7 @@ function buildAchievements(data: {
       icon: <Trophy className={totalFromDB >= 10000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: totalFromDB >= 10000,
       progress: scrobbleProgress(totalFromDB, 10000),
-      progressLabel: `${totalFromDB.toLocaleString()} / 10,000`,
+      progressLabel: `${totalFromDB.toLocaleString('en-US')} / 10,000`,
     },
     {
       id: 'hardcore',
@@ -159,7 +160,7 @@ function buildAchievements(data: {
       icon: <Crown className={totalFromDB >= 50000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: totalFromDB >= 50000,
       progress: scrobbleProgress(totalFromDB, 50000),
-      progressLabel: `${totalFromDB.toLocaleString()} / 50,000`,
+      progressLabel: `${totalFromDB.toLocaleString('en-US')} / 50,000`,
     },
     {
       id: 'legend',
@@ -168,7 +169,7 @@ function buildAchievements(data: {
       icon: <Sparkles className={totalFromDB >= 100000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: totalFromDB >= 100000,
       progress: scrobbleProgress(totalFromDB, 100000),
-      progressLabel: `${totalFromDB.toLocaleString()} / 100,000`,
+      progressLabel: `${totalFromDB.toLocaleString('en-US')} / 100,000`,
     },
     // --- Listening habits ---
     {
@@ -225,7 +226,7 @@ function buildAchievements(data: {
       icon: <Music2 className={topArtistCount >= 100 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: topArtistCount >= 100,
       progress: Math.min(100, Math.floor((topArtistCount / 100) * 100)),
-      progressLabel: `${topArtistCount.toLocaleString()} / 100 plays`,
+      progressLabel: `${topArtistCount.toLocaleString('en-US')} / 100 plays`,
     },
     {
       id: 'obsessed',
@@ -234,7 +235,7 @@ function buildAchievements(data: {
       icon: <Heart className={topArtistCount >= 1000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: topArtistCount >= 1000,
       progress: Math.min(100, Math.floor((topArtistCount / 1000) * 100)),
-      progressLabel: `${topArtistCount.toLocaleString()} / 1,000 plays`,
+      progressLabel: `${topArtistCount.toLocaleString('en-US')} / 1,000 plays`,
     },
     // --- Discovery & variety ---
     {
@@ -244,7 +245,7 @@ function buildAchievements(data: {
       icon: <Globe className={uniqueArtists >= 50 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: uniqueArtists >= 50,
       progress: Math.min(100, Math.floor((uniqueArtists / 50) * 100)),
-      progressLabel: `${uniqueArtists.toLocaleString()} / 50 artists`,
+      progressLabel: `${uniqueArtists.toLocaleString('en-US')} / 50 artists`,
     },
     {
       id: 'explorer',
@@ -253,7 +254,7 @@ function buildAchievements(data: {
       icon: <Headphones className={uniqueArtists >= 500 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: uniqueArtists >= 500,
       progress: Math.min(100, Math.floor((uniqueArtists / 500) * 100)),
-      progressLabel: `${uniqueArtists.toLocaleString()} / 500 artists`,
+      progressLabel: `${uniqueArtists.toLocaleString('en-US')} / 500 artists`,
     },
     {
       id: 'eclectic',
@@ -262,7 +263,7 @@ function buildAchievements(data: {
       icon: <Shuffle className={uniqueTracks >= 1000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: uniqueTracks >= 1000,
       progress: Math.min(100, Math.floor((uniqueTracks / 1000) * 100)),
-      progressLabel: `${uniqueTracks.toLocaleString()} / 1,000 tracks`,
+      progressLabel: `${uniqueTracks.toLocaleString('en-US')} / 1,000 tracks`,
     },
     {
       id: 'librarian',
@@ -271,7 +272,7 @@ function buildAchievements(data: {
       icon: <LibraryBig className={uniqueAlbums >= 200 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: uniqueAlbums >= 200,
       progress: Math.min(100, Math.floor((uniqueAlbums / 200) * 100)),
-      progressLabel: `${uniqueAlbums.toLocaleString()} / 200 albums`,
+      progressLabel: `${uniqueAlbums.toLocaleString('en-US')} / 200 albums`,
     },
     // --- Loved tracks ---
     {
@@ -281,7 +282,7 @@ function buildAchievements(data: {
       icon: <Radio className={lovedCount >= 50 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: lovedCount >= 50,
       progress: Math.min(100, Math.floor((lovedCount / 50) * 100)),
-      progressLabel: `${lovedCount.toLocaleString()} / 50 loved`,
+      progressLabel: `${lovedCount.toLocaleString('en-US')} / 50 loved`,
     },
     // --- Repeat listener ---
     {
@@ -291,7 +292,7 @@ function buildAchievements(data: {
       icon: <Repeat2 className={topTrackCount >= 50 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: topTrackCount >= 50,
       progress: Math.min(100, Math.floor((topTrackCount / 50) * 100)),
-      progressLabel: `${topTrackCount.toLocaleString()} / 50 plays`,
+      progressLabel: `${topTrackCount.toLocaleString('en-US')} / 50 plays`,
     },
     // --- Artist collector ---
     {
@@ -301,7 +302,7 @@ function buildAchievements(data: {
       icon: <Mic2 className={topArtistCount >= 500 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: topArtistCount >= 500,
       progress: Math.min(100, Math.floor((topArtistCount / 500) * 100)),
-      progressLabel: `${topArtistCount.toLocaleString()} / 500 plays`,
+      progressLabel: `${topArtistCount.toLocaleString('en-US')} / 500 plays`,
     },
     // --- Growth ---
     {
@@ -311,7 +312,7 @@ function buildAchievements(data: {
       icon: <TrendingUp className={totalFromDB >= 5000 ? ICON_CLASS_EARNED : ICON_CLASS_LOCKED} />,
       earned: totalFromDB >= 5000,
       progress: scrobbleProgress(totalFromDB, 5000),
-      progressLabel: `${totalFromDB.toLocaleString()} / 5,000`,
+      progressLabel: `${totalFromDB.toLocaleString('en-US')} / 5,000`,
     },
   ]
 
@@ -402,8 +403,8 @@ export default async function AchievementsPage({ params, searchParams }: Props) 
       : [...lockedBase].sort((a, b) => (b.progress ?? 0) - (a.progress ?? 0))
 
   return (
-    <main className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <main className="min-h-screen p-4 md:p-8">
+      <PageContainer maxWidth="4xl" padding={false} className="space-y-8">
         {/* Header */}
         <div>
           <Link
@@ -480,7 +481,7 @@ export default async function AchievementsPage({ params, searchParams }: Props) 
               {locked.map((a) => (
                 <Card key={a.id} className="border opacity-70">
                     <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-                      <div className="relative rounded-full p-3 bg-muted">
+                      <div className="relative rounded-full p-3 bg-muted/60">
                         <span className="grayscale">{a.icon}</span>
                         <Lock className="absolute -bottom-1 -right-1 w-4 h-4 text-muted-foreground" />
                       </div>
@@ -544,7 +545,7 @@ export default async function AchievementsPage({ params, searchParams }: Props) 
             </CardContent>
           </Card>
         )}
-      </div>
+      </PageContainer>
     </main>
   )
 }

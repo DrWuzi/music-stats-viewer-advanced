@@ -137,7 +137,7 @@ export function HourlyHeatmap({
             >
               <span className="font-medium">{tooltip.day}, {formatHourRange(tooltip.hour)}</span>
               <span className="text-muted-foreground">: </span>
-              <span>{tooltip.count.toLocaleString()} scrobbles</span>
+              <span>{tooltip.count.toLocaleString('en-US')} scrobbles</span>
             </div>
           )}
         </div>

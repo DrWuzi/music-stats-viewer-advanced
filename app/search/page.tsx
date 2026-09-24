@@ -4,6 +4,7 @@ import { ArtistImage } from '@/components/artist-image'
 import { SearchClient } from './SearchClient'
 import { BackButton } from '@/components/back-button'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 type Props = {
   searchParams?: Promise<{ q?: string; type?: string; username?: string }>
@@ -143,9 +144,11 @@ export default async function SearchPage({ searchParams }: Props) {
   ]
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-8">
+    <PageContainer as="main" maxWidth="2xl" className="py-8">
       <BackButton />
-      <h1 className="text-2xl font-bold mb-6">Search</h1>
+      <h1 className="text-2xl font-bold mb-6 bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
+        Search
+      </h1>
 
       {/* Client-side: type-ahead suggestions + recent searches + tab switcher */}
       <SearchClient initialQ={q} initialType={type} username={username} />
@@ -185,7 +188,7 @@ export default async function SearchPage({ searchParams }: Props) {
                   <li key={artist.name}>
                     <Link
                       href={`/artist/${encodeURIComponent(artist.name)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
-                      className="flex items-center gap-3 group rounded-md p-2 -mx-2 hover:bg-muted transition-colors"
+                      className="flex items-center gap-3 group rounded-xl p-2 -mx-2 hover:bg-muted transition-colors"
                     >
                       <ArtistImage name={artist.name} size="sm" />
                       <div className="flex-1 min-w-0">
@@ -194,7 +197,7 @@ export default async function SearchPage({ searchParams }: Props) {
                         </p>
                         {artist.listeners && Number(artist.listeners) > 0 && (
                           <p className="text-xs text-muted-foreground">
-                            {Number(artist.listeners).toLocaleString()} listeners
+                            {Number(artist.listeners).toLocaleString('en-US')} listeners
                           </p>
                         )}
                       </div>
@@ -228,16 +231,16 @@ export default async function SearchPage({ searchParams }: Props) {
                         href={album.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-3 group rounded-md p-2 -mx-2 hover:bg-muted transition-colors"
+                        className="flex items-center gap-3 group rounded-xl p-2 -mx-2 hover:bg-muted transition-colors"
                       >
                         {imgUrl ? (
                           <img
                             src={imgUrl}
                             alt={album.name}
-                            className="h-10 w-10 rounded object-cover shrink-0"
+                            className="h-10 w-10 rounded-lg object-cover shrink-0"
                           />
                         ) : (
-                          <div className="h-10 w-10 rounded bg-muted shrink-0 flex items-center justify-center">
+                          <div className="h-10 w-10 rounded-lg bg-muted shrink-0 flex items-center justify-center">
                             <svg
                               className="h-5 w-5 text-muted-foreground"
                               fill="none"
@@ -301,9 +304,9 @@ export default async function SearchPage({ searchParams }: Props) {
                       href={track.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 group rounded-md p-2 -mx-2 hover:bg-muted transition-colors"
+                      className="flex items-center gap-3 group rounded-xl p-2 -mx-2 hover:bg-muted transition-colors"
                     >
-                      <div className="h-8 w-8 rounded bg-muted shrink-0 flex items-center justify-center">
+                      <div className="h-8 w-8 rounded-lg bg-muted shrink-0 flex items-center justify-center">
                         <svg
                           className="h-4 w-4 text-muted-foreground"
                           fill="none"
@@ -326,7 +329,7 @@ export default async function SearchPage({ searchParams }: Props) {
                       </div>
                       {track.listeners && Number(track.listeners) > 0 && (
                         <span className="text-xs text-muted-foreground shrink-0">
-                          {Number(track.listeners).toLocaleString()} listeners
+                          {Number(track.listeners).toLocaleString('en-US')} listeners
                         </span>
                       )}
                     </a>
@@ -347,7 +350,7 @@ export default async function SearchPage({ searchParams }: Props) {
                     <li key={user.name}>
                       <Link
                         href={`/user/${encodeURIComponent(user.name)}`}
-                        className="flex items-center gap-3 group rounded-md p-2 -mx-2 hover:bg-muted transition-colors"
+                        className="flex items-center gap-3 group rounded-xl p-2 -mx-2 hover:bg-muted transition-colors"
                       >
                         <div className="h-10 w-10 rounded-full overflow-hidden bg-muted shrink-0">
                           {imgUrl ? (
@@ -371,7 +374,7 @@ export default async function SearchPage({ searchParams }: Props) {
                           )}
                           {user.playcount && Number(user.playcount) > 0 && (
                             <p className="text-xs text-muted-foreground">
-                              {Number(user.playcount).toLocaleString()} scrobbles
+                              {Number(user.playcount).toLocaleString('en-US')} scrobbles
                             </p>
                           )}
                         </div>
@@ -384,6 +387,6 @@ export default async function SearchPage({ searchParams }: Props) {
           )}
         </div>
       )}
-    </main>
+    </PageContainer>
   )
 }

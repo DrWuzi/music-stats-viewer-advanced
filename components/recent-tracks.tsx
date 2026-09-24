@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -8,6 +8,7 @@ import { EmptyState } from '@/components/ui/empty-state'
 import { Heart, Music } from 'lucide-react'
 import { formatRelative } from '@/lib/format-date'
 import { ArtistImage } from '@/components/artist-image'
+import { useNowPlaying } from '@/components/now-playing-context'
 
 interface Track {
   artist: string
@@ -16,9 +17,27 @@ interface Track {
   scrobbledAt: Date | string
 }
 
+function trackKey(t: Track): string {
+  return `${t.artist}::${t.track}::${new Date(t.scrobbledAt).getTime()}`
+}
+
 export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; isOwner?: boolean; username: string }) {
+  const { data } = useNowPlaying()
   const [lovedMap, setLovedMap] = useState<Record<string, boolean>>({})
   const [shown, setShown] = useState(20)
+
+  const { mergedTracks, liveKeys } = useMemo(() => {
+    const live = data?.recent ?? []
+    if (live.length === 0) return { mergedTracks: tracks, liveKeys: new Set<string>() }
+
+    const seen = new Set(tracks.map(trackKey))
+    const fresh = live
+      .map((t) => ({ artist: t.artist, track: t.track, album: t.album, scrobbledAt: t.scrobbledAt }))
+      .filter((t) => !seen.has(trackKey(t)))
+
+    if (fresh.length === 0) return { mergedTracks: tracks, liveKeys: new Set<string>() }
+    return { mergedTracks: [...fresh, ...tracks], liveKeys: new Set(fresh.map(trackKey)) }
+  }, [tracks, data?.recent])
 
   async function toggleLove(artist: string, track: string) {
     const key = artist + '::' + track
@@ -42,15 +61,19 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
         <CardTitle>Recent Tracks</CardTitle>
       </CardHeader>
       <CardContent>
-        {tracks.length === 0 ? (
+        {mergedTracks.length === 0 ? (
           <EmptyState icon={Music} title="No tracks scrobbled yet." size="compact" />
         ) : (
           <ul className="divide-y">
-            {tracks.slice(0, shown).map((t, i) => {
-              const key = t.artist + '::' + t.track
-              const loved = lovedMap[key] ?? false
+            {mergedTracks.slice(0, shown).map((t) => {
+              const lovedKey = t.artist + '::' + t.track
+              const loved = lovedMap[lovedKey] ?? false
+              const isLive = liveKeys.has(trackKey(t))
               return (
-                <li key={i} className="flex items-center justify-between py-2 px-2 rounded-lg transition-colors duration-150 hover:bg-muted/50">
+                <li
+                  key={trackKey(t)}
+                  className={`flex items-center justify-between py-2 px-2 rounded-lg transition-colors duration-150 hover:bg-muted/50 ${isLive ? 'bg-primary/5' : ''}`}
+                >
                   <div className="flex items-center gap-2 min-w-0 flex-1">
                     <Link href={`/artist/${encodeURIComponent(t.artist)}${username ? `?username=${username}` : ''}`} className="shrink-0">
                       <ArtistImage name={t.artist} size="xs" />
@@ -96,10 +119,10 @@ export function RecentTracks({ tracks, isOwner, username }: { tracks: Track[]; i
             })}
           </ul>
         )}
-        {tracks.length > shown && (
+        {mergedTracks.length > shown && (
           <div className="mt-4 flex justify-center">
             <Button variant="outline" onClick={() => setShown((prev) => prev + 20)}>
-              Load 20 more ({tracks.length - shown} remaining)
+              Load 20 more ({mergedTracks.length - shown} remaining)
             </Button>
           </div>
         )}

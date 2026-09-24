@@ -1,13 +1,15 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Pencil, X, RefreshCw } from 'lucide-react'
+import { Pencil, X, RefreshCw, Image as ImageIcon } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { PageContainer } from '@/components/page-container'
 import { LiveBadge } from '@/components/live-badge'
 import { LastActivityNudge } from '@/components/last-activity-nudge'
 import { ResyncButton } from '@/components/resync-button'
 import { SyncStatus } from '@/components/sync-status'
+import { useNowPlaying } from '@/components/now-playing-context'
 import {
   PROFILE_THEME_PRESETS,
   PROFILE_THEME_KEYS,
@@ -54,6 +56,20 @@ interface ProfileBannerLiveProps {
   initialAvatarDecoration: string | null
   initialBackground: string | null
   initialLoadingAnimation: string | null
+  /** Top overall artist (server-fetched) — fallback hero backdrop image when nothing is currently playing. */
+  topArtistName: string | null
+}
+
+// Module-level cache: the hero backdrop reuses the same artist-image lookup
+// as components/artist-image.tsx (and its `/api/artist-image` route, which
+// already caches server-side), this just avoids refetching within a session
+// when navigating between a profile's tabs re-mounts the banner.
+const backdropImageCache = new Map<string, string | null>()
+
+async function fetchBackdropImage(name: string): Promise<string | null> {
+  const res = await fetch(`/api/artist-image?name=${encodeURIComponent(name)}`)
+  const data = await res.json()
+  return data.url ?? null
 }
 
 export function ProfileBannerLive({
@@ -69,7 +85,34 @@ export function ProfileBannerLive({
   initialAvatarDecoration,
   initialBackground,
   initialLoadingAnimation,
+  topArtistName,
 }: ProfileBannerLiveProps) {
+  const { data: nowPlaying } = useNowPlaying()
+  const backdropArtistName = nowPlaying?.nowPlaying && nowPlaying.artist ? nowPlaying.artist : topArtistName
+  const [backdropImage, setBackdropImage] = useState<string | null>(
+    backdropArtistName ? backdropImageCache.get(backdropArtistName) ?? null : null,
+  )
+
+  useEffect(() => {
+    if (!backdropArtistName) {
+      setBackdropImage(null)
+      return
+    }
+    const cached = backdropImageCache.get(backdropArtistName)
+    if (cached !== undefined) {
+      setBackdropImage(cached)
+      return
+    }
+    let cancelled = false
+    fetchBackdropImage(backdropArtistName).then((url) => {
+      backdropImageCache.set(backdropArtistName, url)
+      if (!cancelled) setBackdropImage(url)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [backdropArtistName])
+
   const [theme, setTheme] = useState<ProfileThemeKey>(
     isValidProfileTheme(initialTheme) ? initialTheme : 'default',
   )
@@ -195,32 +238,64 @@ export function ProfileBannerLive({
         `}</style>
       )}
 
-      <div
-        className="rounded-2xl p-5 flex items-center gap-4 mt-4 relative border-t-[5px] transition-[background,border-color] duration-300"
-        style={{
-          borderTopColor: hasAccent ? 'var(--profile-accent)' : 'transparent',
-          background: hasAccent
-            ? 'linear-gradient(135deg, color-mix(in oklch, var(--profile-accent) 30%, var(--background)), var(--background) 78%)'
-            : 'radial-gradient(circle at 20% 50%, color-mix(in oklch, var(--primary) 15%, transparent), transparent 60%)',
-        }}
-      >
-        {/* overflow-hidden lives on this background-only layer (not the outer
-            banner div) so it clips the dot-grid pattern to the rounded corners
-            without also clipping the AvatarDecoration overlay or the edit
-            popover panel, both of which are siblings/descendants elsewhere in
-            this banner and need to render outside its bounds. */}
+      {/* Contained like every other surface in the app (nav, cards) — not a
+          full-bleed strip, so it reads as part of the same floating-glass
+          layout instead of breaking out of it. */}
+      <PageContainer className="pt-3">
+      <div className="relative overflow-hidden rounded-3xl border border-foreground/10 shadow-xl shadow-black/10 dark:shadow-black/40">
+        {/* Hero backdrop art: now-playing artist takes priority over the top
+            overall artist (see the useNowPlaying()-driven effect above); falls
+            back to an accent-tinted gradient when no image resolves. Heavy
+            blur for a frosted-glass look — scale bumped well past 100% so the
+            blur (which samples "beyond" the element as transparent) never
+            reveals a dim edge inside the rounded corners. */}
+        {backdropImage ? (
+          <div
+            aria-hidden
+            className="absolute inset-0 scale-125 bg-cover bg-center blur-2xl"
+            style={{ backgroundImage: `url(${backdropImage})` }}
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background: hasAccent
+                ? 'radial-gradient(circle at 20% 30%, color-mix(in oklch, var(--profile-accent) 35%, transparent), transparent 65%)'
+                : 'radial-gradient(circle at 20% 30%, var(--chart-1), transparent 65%)',
+            }}
+          />
+        )}
+
+        {/* Frost tint — a translucent card-colored layer over the blurred art,
+            reinforcing the glass-panel look instead of reading as a photo. */}
+        {backdropImage && <div aria-hidden className="absolute inset-0 bg-card/25 backdrop-saturate-150" />}
+
+        {/* Subtle dot-grid texture over whichever backdrop is active */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-[0.04] overflow-hidden"
+          className="pointer-events-none absolute inset-0 opacity-[0.05]"
           style={{
             backgroundImage: 'radial-gradient(var(--foreground) 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }}
         />
 
-        <div className="relative shrink-0 h-16 w-16">
+        {/* Even scrim for legibility, plus extra darkening toward the bottom
+            where the text/actions row sits. */}
+        <div aria-hidden className="absolute inset-0 bg-black/35" />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
+          }}
+        />
+
+        <div className="relative flex items-end gap-4 flex-wrap sm:flex-nowrap p-5 sm:p-7">
+        <div className="relative shrink-0 h-20 w-20">
           <Avatar
-            className="h-16 w-16 ring-[3px] ring-offset-2 relative"
+            className="h-20 w-20 ring-[3px] ring-offset-2 relative"
             style={
               {
                 '--tw-ring-color': hasAccent
@@ -228,7 +303,7 @@ export function ProfileBannerLive({
                   : 'color-mix(in oklch, var(--primary) 20%, transparent)',
                 boxShadow: hasAccent
                   ? '0 0 18px color-mix(in oklch, var(--profile-accent) 55%, transparent)'
-                  : undefined,
+                  : '0 4px 24px rgba(0,0,0,0.35)',
               } as React.CSSProperties
             }
           >
@@ -238,40 +313,52 @@ export function ProfileBannerLive({
           <AvatarDecoration decoration={decoration} className="-inset-2.5" />
         </div>
 
-        <div className="flex-1 min-w-0 relative">
+        <div className="flex-1 min-w-0 relative [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
           <h1
-            className="text-xl font-bold bg-clip-text text-transparent flex items-center flex-wrap gap-x-1"
+            className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent flex items-center flex-wrap gap-x-1"
             style={{
               backgroundImage: hasAccent
                 ? 'linear-gradient(90deg, var(--profile-accent), var(--foreground))'
-                : 'linear-gradient(90deg, var(--foreground), var(--muted-foreground))',
+                : 'linear-gradient(90deg, white, rgba(255,255,255,0.75))',
+              textShadow: '0 2px 16px rgba(0,0,0,0.5)',
             }}
           >
             {username}
-            <LiveBadge username={username} />
+            <LiveBadge />
           </h1>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-white/85 text-sm">
             {totalScrobbles.toLocaleString('en-US')} scrobbles · Member since{' '}
             {new Date(registeredAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
           </p>
-          {tagline && <p className="text-sm mt-0.5 truncate font-medium" style={{ color: 'var(--foreground)' }}>{tagline}</p>}
-          {years > 0 && (
-            <span
-              className="inline-flex items-center mt-1 px-2.5 py-0.5 rounded-full text-xs font-semibold"
-              style={
-                hasAccent
-                  ? { background: 'var(--profile-accent)', color: 'var(--profile-accent-foreground)' }
-                  : {
-                      background: 'color-mix(in oklch, var(--primary) 10%, transparent)',
-                      color: 'var(--primary)',
-                      border: '1px solid color-mix(in oklch, var(--primary) 25%, transparent)',
-                    }
-              }
-            >
-              {years} {years === 1 ? 'year' : 'years'} as a member
-            </span>
-          )}
-          <LastActivityNudge lastSyncedAt={lastSyncedAt} />
+          {tagline && <p className="text-sm mt-0.5 truncate font-medium text-white">{tagline}</p>}
+          <div className="flex items-center flex-wrap gap-2 mt-1.5">
+            {years > 0 && (
+              <span
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold backdrop-blur-sm"
+                style={
+                  hasAccent
+                    ? { background: 'var(--profile-accent)', color: 'var(--profile-accent-foreground)' }
+                    : {
+                        background: 'rgba(255,255,255,0.15)',
+                        color: 'white',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                      }
+                }
+              >
+                {years} {years === 1 ? 'year' : 'years'} as a member
+              </span>
+            )}
+            {backdropImage && backdropArtistName && (
+              <span
+                className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2.5 py-0.5 text-xs text-white/80 backdrop-blur-sm"
+                title={`Hero backdrop: ${backdropArtistName}`}
+              >
+                <ImageIcon className="h-3 w-3" />
+                {nowPlaying?.nowPlaying ? 'Now playing' : 'Top artist'}: {backdropArtistName}
+              </span>
+            )}
+          </div>
+          <LastActivityNudge lastSyncedAt={lastSyncedAt} className="text-white/70" />
         </div>
 
         <div className="flex items-center gap-2 shrink-0 relative print:hidden">
@@ -285,10 +372,10 @@ export function ProfileBannerLive({
                 onClick={() => setEditing((v) => !v)}
                 aria-label="Edit profile appearance"
                 title="Edit profile appearance"
-                className="h-8 w-8 rounded-full border flex items-center justify-center transition-colors hover:bg-muted"
+                className="h-8 w-8 rounded-full border border-white/20 bg-black/25 backdrop-blur-md flex items-center justify-center transition-colors hover:bg-black/40"
                 style={{
-                  borderColor: hasAccent ? 'var(--profile-accent)' : 'var(--border)',
-                  color: hasAccent ? 'var(--profile-accent)' : 'var(--muted-foreground)',
+                  borderColor: hasAccent ? 'var(--profile-accent)' : undefined,
+                  color: hasAccent ? 'var(--profile-accent)' : 'white',
                 }}
               >
                 <Pencil className="h-3.5 w-3.5" />
@@ -296,8 +383,7 @@ export function ProfileBannerLive({
 
               {editing && (
                 <div
-                  className="absolute right-0 top-full mt-2 z-50 w-80 rounded-xl border shadow-lg p-4 space-y-4 text-left"
-                  style={{ background: 'var(--card)', borderColor: 'var(--border)' }}
+                  className="absolute right-0 top-full mt-2 z-50 w-80 rounded-2xl border border-foreground/10 bg-popover/90 shadow-2xl backdrop-blur-xl p-4 space-y-4 text-left"
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-semibold">Customize your profile</p>
@@ -440,7 +526,9 @@ export function ProfileBannerLive({
             </div>
           )}
         </div>
+        </div>
       </div>
+      </PageContainer>
     </>
   )
 }

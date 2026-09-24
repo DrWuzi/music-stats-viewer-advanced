@@ -62,7 +62,7 @@ export function MilestoneToast({ totalScrobbles }: MilestoneToastProps) {
               <div>
                 <p className="font-semibold text-sm leading-tight">Milestone reached!</p>
                 <p className="text-muted-foreground text-sm">
-                  {milestone.toLocaleString()} scrobbles!
+                  {milestone.toLocaleString('en-US')} scrobbles!
                 </p>
               </div>
             </div>

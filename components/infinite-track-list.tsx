@@ -19,7 +19,7 @@ interface InfiniteTrackListProps {
 }
 
 function formatTime(date: Date): string {
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
 }
 
 function getDateLabel(date: Date): string {
@@ -31,7 +31,7 @@ function getDateLabel(date: Date): string {
   if (d === today.toDateString()) return 'Today'
   if (d === yesterday.toDateString()) return 'Yesterday'
 
-  return date.toLocaleDateString(undefined, {
+  return date.toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -152,10 +152,10 @@ export function InfiniteTrackList({ username, initialTracks, total }: InfiniteTr
           </span>
         )}
         {!loading && !hasMore && (
-          <span>All {total.toLocaleString()} scrobbles loaded</span>
+          <span>All {total.toLocaleString('en-US')} scrobbles loaded</span>
         )}
         {!loading && hasMore && (
-          <span>Showing {tracks.length.toLocaleString()} of {total.toLocaleString()}</span>
+          <span>Showing {tracks.length.toLocaleString('en-US')} of {total.toLocaleString('en-US')}</span>
         )}
       </div>
     </div>

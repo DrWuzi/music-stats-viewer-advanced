@@ -39,7 +39,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Toolti
       <p className="font-medium">{pt.name}</p>
       <p className="text-muted-foreground">{pt.artist}</p>
       <p className="text-xs text-muted-foreground mt-1">
-        Artist plays: {pt.x.toLocaleString()} · Track plays: {pt.y.toLocaleString()}
+        Artist plays: {pt.x.toLocaleString('en-US')} · Track plays: {pt.y.toLocaleString('en-US')}
       </p>
     </div>
   )

@@ -27,8 +27,8 @@ export default function ArtistLoading() {
               <div className="animate-shimmer h-14 w-80 max-w-full rounded-lg" />
               {/* Spotify / YouTube pill placeholders */}
               <div className="flex gap-2">
-                <div className="animate-shimmer h-7 w-20 rounded-md" />
-                <div className="animate-shimmer h-7 w-20 rounded-md" />
+                <div className="animate-shimmer h-7 w-20 rounded-xl" />
+                <div className="animate-shimmer h-7 w-20 rounded-xl" />
               </div>
               {/* Tag placeholders */}
               <div className="flex gap-2">
@@ -43,7 +43,7 @@ export default function ArtistLoading() {
               {[120, 130, 115].map((w, i) => (
                 <div
                   key={i}
-                  className="rounded-xl border border-border/50 bg-card/70 backdrop-blur-sm px-4 py-3"
+                  className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 px-4 py-3"
                   style={{ minWidth: w }}
                 >
                   <div className="animate-shimmer h-3 w-16 rounded mb-2" />
@@ -61,7 +61,7 @@ export default function ArtistLoading() {
         {/* Bio + sidebar row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Bio */}
-          <div className="md:col-span-2 rounded-xl border border-border bg-card p-5 space-y-2.5">
+          <div className="md:col-span-2 rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-5 space-y-2.5">
             <div className="animate-shimmer h-4 w-24 rounded mb-4" />
             {[100, 92, 96, 88, 94, 70].map((pct, i) => (
               <div key={i} className="animate-shimmer h-3 rounded" style={{ width: `${pct}%` }} />
@@ -71,7 +71,7 @@ export default function ArtistLoading() {
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Your Stats card */}
-            <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+            <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-4 space-y-3">
               <div className="animate-shimmer h-4 w-20 rounded" />
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="flex justify-between">
@@ -82,7 +82,7 @@ export default function ArtistLoading() {
             </div>
 
             {/* Similar Artists card */}
-            <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+            <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-4 space-y-3">
               <div className="animate-shimmer h-4 w-28 rounded" />
               {[1, 2, 3, 4, 5].map((i) => (
                 <div key={i} className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function ArtistLoading() {
         {/* Tracks: global + user */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[0, 1].map((col) => (
-            <div key={col} className="rounded-xl border border-border bg-card p-5 space-y-3">
+            <div key={col} className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-5 space-y-3">
               <div className="animate-shimmer h-4 w-36 rounded mb-2" />
               {Array.from({ length: 8 }, (_, i) => (
                 <div key={i} className="flex items-center gap-3">
@@ -125,14 +125,14 @@ export default function ArtistLoading() {
         </div>
 
         {/* Scrobble heatmap placeholder */}
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-5">
           <div className="animate-shimmer h-4 w-56 rounded mb-4" />
           <div className="animate-shimmer h-20 w-full rounded" />
           <div className="animate-shimmer h-3 w-40 rounded mt-2" />
         </div>
 
         {/* Play history chart placeholder */}
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30 p-5">
           <div className="animate-shimmer h-4 w-48 rounded mb-4" />
           <div className="animate-shimmer h-48 w-full rounded" />
         </div>

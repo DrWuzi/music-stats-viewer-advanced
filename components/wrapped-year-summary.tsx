@@ -76,7 +76,7 @@ function useAnimatedNumber(target: number, duration = 1200, delay = 0) {
 
 function AnimatedNumber({ value, delay = 0 }: { value: number; delay?: number }) {
   const animated = useAnimatedNumber(value, 1400, delay)
-  return <span>{animated.toLocaleString()}</span>
+  return <span>{animated.toLocaleString('en-US')}</span>
 }
 
 function formatHour(h: number): string {
@@ -174,7 +174,7 @@ export function WrappedYearSummary({
 
   async function handleShare() {
     const url = window.location.href
-    const text = `My ${year} in music: ${totalScrobbles.toLocaleString()} scrobbles, top artist ${topArtist?.name ?? '?'}. Check it out!`
+    const text = `My ${year} in music: ${totalScrobbles.toLocaleString('en-US')} scrobbles, top artist ${topArtist?.name ?? '?'}. Check it out!`
     if (navigator.share) {
       try {
         await navigator.share({ title: `${username}'s ${year} Wrapped`, text, url })
@@ -200,8 +200,8 @@ export function WrappedYearSummary({
       bg: 'oklch(0.15 0.22 250)',
       icon: <BarChart3 className="w-16 h-16" style={{ color: 'rgba(255,255,255,0.9)' }} />,
       label: 'Total Scrobbles',
-      stat: totalScrobbles.toLocaleString(),
-      sub: `${totalHours.toLocaleString()} hours of music`,
+      stat: totalScrobbles.toLocaleString('en-US'),
+      sub: `${totalHours.toLocaleString('en-US')} hours of music`,
     },
     {
       bg: 'oklch(0.15 0.2 160)',
@@ -217,7 +217,7 @@ export function WrappedYearSummary({
       ) : (
         '—'
       ),
-      sub: topArtist ? `${topArtist.playcount.toLocaleString()} plays` : 'No data',
+      sub: topArtist ? `${topArtist.playcount.toLocaleString('en-US')} plays` : 'No data',
     },
     {
       bg: 'oklch(0.15 0.2 340)',
@@ -253,7 +253,7 @@ export function WrappedYearSummary({
       bg: 'oklch(0.15 0.2 120)',
       icon: <Star className="w-16 h-16" style={{ color: 'rgba(255,255,255,0.9)' }} />,
       label: 'Peak Day',
-      stat: peakDay ? peakDay.count.toLocaleString() : '—',
+      stat: peakDay ? peakDay.count.toLocaleString('en-US') : '—',
       sub: peakDay ? `scrobbles on ${formatDate(peakDay.date)}` : 'No data',
     },
     {
@@ -268,14 +268,14 @@ export function WrappedYearSummary({
       icon: <TrendingUp className="w-16 h-16" style={{ color: 'rgba(255,255,255,0.9)' }} />,
       label: 'Best Month',
       stat: mostActiveMonth?.month ?? '—',
-      sub: mostActiveMonth ? `${mostActiveMonth.count.toLocaleString()} scrobbles` : 'No data',
+      sub: mostActiveMonth ? `${mostActiveMonth.count.toLocaleString('en-US')} scrobbles` : 'No data',
     },
     {
       bg: 'oklch(0.15 0.24 260)',
       icon: <Play className="w-16 h-16" style={{ color: 'rgba(255,255,255,0.9)' }} />,
       label: 'Your Year',
-      stat: `${uniqueArtists.toLocaleString()} artists`,
-      sub: `${uniqueTracks.toLocaleString()} unique tracks`,
+      stat: `${uniqueArtists.toLocaleString('en-US')} artists`,
+      sub: `${uniqueTracks.toLocaleString('en-US')} unique tracks`,
     },
   ]
 
@@ -404,7 +404,7 @@ export function WrappedYearSummary({
               '—'
             )
           }
-          sub={topArtist ? `${topArtist.playcount.toLocaleString()} plays` : undefined}
+          sub={topArtist ? `${topArtist.playcount.toLocaleString('en-US')} plays` : undefined}
           accent="oklch(0.15 0.2 160)"
         />
         <StatCard
@@ -422,7 +422,7 @@ export function WrappedYearSummary({
               '—'
             )
           }
-          sub={topTrack ? `by ${topTrack.artist} · ${topTrack.playcount.toLocaleString()} plays` : undefined}
+          sub={topTrack ? `by ${topTrack.artist} · ${topTrack.playcount.toLocaleString('en-US')} plays` : undefined}
           accent="oklch(0.15 0.2 340)"
         />
         <StatCard
@@ -460,7 +460,7 @@ export function WrappedYearSummary({
           icon={<Calendar className="w-5 h-5" />}
           label="Best Month"
           value={mostActiveMonth?.month ?? '—'}
-          sub={mostActiveMonth ? `${mostActiveMonth.count.toLocaleString()} scrobbles` : undefined}
+          sub={mostActiveMonth ? `${mostActiveMonth.count.toLocaleString('en-US')} scrobbles` : undefined}
         />
         <StatCard
           icon={<Clock className="w-5 h-5" />}

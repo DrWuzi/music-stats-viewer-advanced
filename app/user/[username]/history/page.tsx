@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils'
 import { SortControl } from '@/components/sort-control'
 import { User, SearchX, Music } from 'lucide-react'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
+import { Input } from '@/components/ui/input'
 
 type HistorySort = 'date_desc' | 'date_asc' | 'artist_az'
 
@@ -50,13 +52,13 @@ export default async function HistoryPage({ params, searchParams }: Props) {
 
   if (!user) {
     return (
-      <main className="min-h-screen bg-background p-8">
-        <div className="max-w-4xl mx-auto space-y-4">
+      <main className="min-h-screen p-8">
+        <PageContainer maxWidth="4xl" padding={false} className="space-y-4">
           <EmptyState icon={User} title="User not found" description={`No data found for ${username}.`} />
           <Link href="/" className={cn(buttonVariants({ variant: 'outline' }), 'mt-2')}>
             ← Back to home
           </Link>
-        </div>
+        </PageContainer>
       </main>
     )
   }
@@ -123,8 +125,8 @@ export default async function HistoryPage({ params, searchParams }: Props) {
   const isFiltered = Boolean(artistFilter || searchQuery)
 
   return (
-    <main className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-5xl mx-auto space-y-6">
+    <main className="min-h-screen p-4 md:p-8">
+      <PageContainer maxWidth="5xl" padding={false} className="space-y-6">
         {/* Header */}
         <div>
           <Link
@@ -136,7 +138,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
           <div className="flex items-center gap-3 flex-wrap">
             <h1 className="text-3xl font-bold">{username}&apos;s History</h1>
             <Badge variant="secondary" className="text-sm font-normal">
-              {totalScrobbles.toLocaleString()} scrobble{totalScrobbles !== 1 ? 's' : ''}
+              {totalScrobbles.toLocaleString('en-US')} scrobble{totalScrobbles !== 1 ? 's' : ''}
               {isFiltered ? ' (filtered)' : ''}
             </Badge>
           </div>
@@ -149,12 +151,12 @@ export default async function HistoryPage({ params, searchParams }: Props) {
 
           {/* Search input */}
           <div className="flex-1">
-            <input
+            <Input
               type="text"
               name="q"
               defaultValue={searchQuery}
               placeholder="Search tracks, artists, albums…"
-              className="w-full h-9 rounded-md border border-border bg-background px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+              className="h-9"
             />
           </div>
 
@@ -163,7 +165,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
             <select
               name="artist"
               defaultValue={artistFilter}
-              className="w-full h-9 rounded-md border border-border bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+              className="w-full h-9 rounded-xl border border-foreground/10 bg-background/40 backdrop-blur-md px-3 py-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
             >
               <option value="">All artists</option>
               {artistOptions.map((a) => (
@@ -179,7 +181,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
             <select
               name="per_page"
               defaultValue={String(perPage)}
-              className="w-full h-9 rounded-md border border-border bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+              className="w-full h-9 rounded-xl border border-foreground/10 bg-background/40 backdrop-blur-md px-3 py-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
             >
               {[25, 50, 100, 200].map((n) => (
                 <option key={n} value={String(n)}>
@@ -218,9 +220,9 @@ export default async function HistoryPage({ params, searchParams }: Props) {
               </span>
               {totalScrobbles > 0 && (
                 <span className="text-sm font-normal text-muted-foreground">
-                  {((currentPage - 1) * perPage + 1).toLocaleString()}–
-                  {Math.min(currentPage * perPage, totalScrobbles).toLocaleString()} of{' '}
-                  {totalScrobbles.toLocaleString()}
+                  {((currentPage - 1) * perPage + 1).toLocaleString('en-US')}–
+                  {Math.min(currentPage * perPage, totalScrobbles).toLocaleString('en-US')} of{' '}
+                  {totalScrobbles.toLocaleString('en-US')}
                 </span>
               )}
             </CardTitle>
@@ -311,10 +313,10 @@ export default async function HistoryPage({ params, searchParams }: Props) {
                   key={p}
                   href={pageUrl(p)}
                   className={cn(
-                    'inline-flex items-center justify-center rounded-md w-8 h-8 text-sm transition-colors',
+                    'inline-flex items-center justify-center rounded-xl w-8 h-8 text-sm transition-colors',
                     p === currentPage
-                      ? 'bg-primary text-primary-foreground font-medium'
-                      : 'hover:bg-muted',
+                      ? 'bg-gradient-to-r from-chart-1 to-chart-5 text-primary-foreground font-medium'
+                      : 'hover:bg-muted/50 backdrop-blur-sm',
                   )}
                 >
                   {p}
@@ -322,7 +324,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
               ))
             ) : (
               <span>
-                Page {currentPage} of {totalPages.toLocaleString()}
+                Page {currentPage} of {totalPages.toLocaleString('en-US')}
               </span>
             )}
           </div>
@@ -337,7 +339,7 @@ export default async function HistoryPage({ params, searchParams }: Props) {
             </span>
           )}
         </div>
-      </div>
+      </PageContainer>
     </main>
   )
 }

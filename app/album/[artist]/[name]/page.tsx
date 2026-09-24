@@ -10,6 +10,7 @@ import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ListenOn } from '@/components/listen-on'
 import { Disc3, Music2, ExternalLink, PlayCircle, Users, CheckCircle2, User } from 'lucide-react'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PageContainer } from '@/components/page-container'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -173,7 +174,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
 
   if (!albumInfo) {
     return (
-      <main className="max-w-3xl mx-auto px-4 py-12 space-y-4">
+      <PageContainer as="main" maxWidth="3xl" className="py-12 space-y-4">
         <Link
           href={`/artist/${encodeURIComponent(artistName)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
           className="text-sm text-muted-foreground hover:text-foreground inline-block"
@@ -181,7 +182,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
           &larr; {artistName}
         </Link>
         <EmptyState icon={Disc3} title={`Album ${albumName} by ${artistName} was not found on Last.fm.`} />
-      </main>
+      </PageContainer>
     )
   }
 
@@ -281,7 +282,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
 
   return (
     <main>
-      <div className="container mx-auto px-4 max-w-[1200px] pt-4">
+      <div className="container mx-auto px-4 max-w-[1400px] pt-4">
         <Breadcrumbs
           items={[
             { label: 'Home', href: '/' },
@@ -328,12 +329,12 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
 
         {/* Content */}
         <div
-          className="relative container mx-auto px-4 max-w-[1200px] pt-6 pb-10 flex flex-col justify-end"
+          className="relative container mx-auto px-4 max-w-[1400px] pt-6 pb-10 flex flex-col justify-end"
           style={{ minHeight: '420px' }}
         >
           <div className="flex flex-col sm:flex-row gap-6 items-end animate-fade-in-up">
             {/* Cover art thumbnail */}
-            <div className="shrink-0 w-44 h-44 sm:w-56 sm:h-56 rounded-xl overflow-hidden border border-border/50 shadow-2xl bg-muted">
+            <div className="shrink-0 w-44 h-44 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border border-foreground/10 shadow-2xl bg-muted">
               {coverUrl ? (
                 <img src={coverUrl} alt={albumName} className="w-full h-full object-cover" />
               ) : (
@@ -395,12 +396,12 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
       </div>
 
       {/* ══ CONTENT ═══════════════════════════════════════════════════════════ */}
-      <div className="container mx-auto px-4 max-w-[1200px] py-8 space-y-10">
+      <div className="container mx-auto px-4 max-w-[1400px] py-8 space-y-10">
 
         {/* ── Stats row ───────────────────────────────────────────────── */}
         <div className="flex flex-wrap gap-3">
           {Number(albumInfo.listeners) > 0 && (
-            <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[110px]">
+            <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                 <Users className="h-3 w-3" /> Listeners
               </div>
@@ -408,7 +409,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
             </div>
           )}
           {Number(albumInfo.playcount) > 0 && (
-            <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[110px]">
+            <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                 <PlayCircle className="h-3 w-3" /> Global Plays
               </div>
@@ -417,7 +418,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
           )}
           {username && userPlays > 0 && (
             <div
-              className="rounded-xl border border-primary/40 px-4 py-3 min-w-[110px]"
+              className="rounded-2xl border border-primary/40 backdrop-blur-md px-4 py-3 min-w-[110px]"
               style={{ background: 'color-mix(in oklch, var(--primary) 12%, var(--card))' }}
             >
               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
@@ -429,7 +430,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
             </div>
           )}
           {topAlbumEntry && (
-            <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[110px]">
+            <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[110px]">
               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                 <Disc3 className="h-3 w-3" /> Your Album Rank
               </div>
@@ -437,7 +438,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
             </div>
           )}
           {username && firstHeard && (
-            <div className="rounded-xl border border-border/50 bg-card px-4 py-3 min-w-[130px]">
+            <div className="rounded-2xl border border-foreground/10 bg-card/60 backdrop-blur-xl px-4 py-3 min-w-[130px]">
               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                 <CheckCircle2 className="h-3 w-3" /> First Listened
               </div>
@@ -450,8 +451,8 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
         {tracks.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-              <h2 className="text-xl font-bold flex items-center gap-2">
-                <Music2 className="h-5 w-5" /> Tracklist
+              <h2 className="text-xl font-bold flex items-center gap-2 bg-gradient-to-r from-chart-1 to-chart-5 bg-clip-text text-transparent">
+                <Music2 className="h-5 w-5 text-foreground" /> Tracklist
               </h2>
               {username && tracks.length > 0 && (
                 <div className="flex items-center gap-3">
@@ -614,7 +615,7 @@ export default async function AlbumDetailPage({ params, searchParams }: Props) {
                     href={`/album/${encodeURIComponent(artistName)}/${encodeURIComponent(album.name)}${username ? `?username=${encodeURIComponent(username)}` : ''}`}
                     className="group cursor-pointer"
                   >
-                    <div className="relative aspect-square rounded-lg overflow-hidden bg-muted border border-border mb-2 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-muted border border-foreground/10 mb-2 shadow-lg shadow-black/5 dark:shadow-black/30 transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
                       {img ? (
                         <img src={img} alt={album.name} className="w-full h-full object-cover" />
                       ) : (

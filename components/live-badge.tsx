@@ -1,36 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useNowPlaying } from '@/components/now-playing-context'
 
-type Props = {
-  username: string
-}
+export function LiveBadge() {
+  const { data } = useNowPlaying()
 
-export function LiveBadge({ username }: Props) {
-  const [live, setLive] = useState(false)
-
-  useEffect(() => {
-    const check = async () => {
-      try {
-        const res = await fetch(
-          `/api/now-playing?username=${encodeURIComponent(username)}`,
-          { cache: 'no-store' },
-        )
-        if (res.ok) {
-          const json = await res.json()
-          setLive(!!json.nowPlaying)
-        }
-      } catch {
-        // silently ignore
-      }
-    }
-
-    check()
-    const interval = setInterval(check, 30_000)
-    return () => clearInterval(interval)
-  }, [username])
-
-  if (!live) return null
+  if (!data?.nowPlaying) return null
 
   return (
     <span className="inline-flex items-center gap-1 ml-2 px-1.5 py-0.5 rounded-full text-xs font-semibold"

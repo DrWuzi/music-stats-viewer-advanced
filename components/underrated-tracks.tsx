@@ -41,21 +41,18 @@ export function UnderratedTracks({ username, topArtists }: UnderratedTracksProps
       setError(null)
 
       try {
-        const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY
         const artists = topArtists.slice(0, 3)
 
         const results = await Promise.all(
           artists.map(async ({ name }) => {
-            const url = `https://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=${encodeURIComponent(name)}&api_key=${apiKey}&format=json&limit=50`
-            const res = await fetch(url)
+            const res = await fetch(`/api/artist-top-tracks?artist=${encodeURIComponent(name)}&limit=50`)
             if (!res.ok) return []
             const data = await res.json()
-            const raw: { name: string; playcount: string }[] =
-              data?.toptracks?.track ?? []
+            const raw: { name: string; playcount: number }[] = data?.tracks ?? []
             return raw.map((t) => ({
               name: t.name,
               artist: name,
-              globalPlays: Number(t.playcount),
+              globalPlays: t.playcount,
             }))
           })
         )

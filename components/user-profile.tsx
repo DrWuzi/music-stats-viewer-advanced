@@ -1,44 +1,32 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { LayoutDashboard, RotateCcw, X, User, Music, Disc, Mic2, Calendar, TrendingUp, Flame } from 'lucide-react'
+import {
+  LayoutDashboard,
+  RotateCcw,
+  X,
+  User,
+  Music,
+  Disc,
+  Mic2,
+  Calendar,
+  TrendingUp,
+  Flame,
+  Gauge,
+  Compass,
+  Activity,
+  Star,
+  Users2,
+  type LucideIcon,
+} from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { RecentTracks } from '@/components/recent-tracks'
-import { TopLists } from '@/components/top-lists'
-import { LovedTracks } from '@/components/loved-tracks'
-import { StatsChart } from '@/components/stats-chart'
 import { NowPlaying } from '@/components/now-playing'
 import { NowPlayingBanner } from '@/components/now-playing-banner'
-import { NowPlayingProvider } from '@/components/now-playing-context'
-import { HourlyHeatmap } from '@/components/hourly-heatmap'
-import { DayOfWeekChart } from '@/components/day-of-week-chart'
-import { ListeningClock } from '@/components/listening-clock'
-import { ListeningStreaks } from '@/components/listening-streaks'
-import { ListeningSessions } from '@/components/listening-sessions'
-import { Milestones } from '@/components/milestones'
-import { NewDiscoveries } from '@/components/new-discoveries'
-import { GenreBreakdown } from '@/components/genre-breakdown'
-import { LovedTracksTimeline } from '@/components/loved-tracks-timeline'
+import { ScrobbleToast } from '@/components/scrobble-toast'
 import { ExportButton } from '@/components/export-button'
-import { ListeningTimeEstimate } from '@/components/listening-time-estimate'
-import { NightOwlStats } from '@/components/night-owl-stats'
-import { WeeklyPattern } from '@/components/weekly-pattern'
-import { ArtistLoyalty } from '@/components/artist-loyalty'
-import { ScrobbleVelocity } from '@/components/scrobble-velocity'
-import { RepeatPlays } from '@/components/repeat-plays'
-import { ListeningGap } from '@/components/listening-gap'
-import { Rediscovery } from '@/components/rediscovery'
-import { SimilarUnheard } from '@/components/similar-unheard'
-import { HiddenGems } from '@/components/hidden-gems'
-import { NewReleases } from '@/components/new-releases'
-import { ListeningTreemap } from '@/components/listening-treemap'
-import { YoYChart } from '@/components/yoy-chart'
-import { ScatterPlot } from '@/components/scatter-plot'
-import { AlbumCompletion } from '@/components/album-completion'
-import { MusicTimeline } from '@/components/music-timeline'
-import { TasteBadge } from '@/components/taste-badge'
 import { PrintButton } from '@/components/print-button'
 import { CopyStatsButton } from '@/components/copy-stats-button'
 import { CopyProfileUrl } from '@/components/copy-profile-url'
@@ -48,55 +36,26 @@ import { MilestoneToast } from '@/components/milestone-toast'
 import { KeyboardShortcuts } from '@/components/keyboard-shortcuts'
 import { KeyboardShortcutsModal } from '@/components/keyboard-shortcuts-modal'
 import { TopStatsBanner } from '@/components/top-stats-banner'
-import { SonicDna } from '@/components/sonic-dna'
-import { ArtistConnections } from '@/components/artist-connections'
-import { MusicEvolution } from '@/components/music-evolution'
-import { ListeningChapters } from '@/components/listening-chapters'
-import { ListeningForecast } from '@/components/listening-forecast'
-import { ScrobbleIntegrity } from '@/components/scrobble-integrity'
-import { TasteCompatibility } from '@/components/taste-compatibility'
-import { GenreBreakdownDetail } from '@/components/genre-breakdown-detail'
-import { SectionErrorBoundary } from '@/components/section-error-boundary'
-import { CollapsibleSection } from '@/components/collapsible-section'
 import { DashboardProvider, useDashboard } from '@/components/dashboard-provider'
 import { DashboardWidget } from '@/components/dashboard-widget'
-import { ListeningPersonality } from '@/components/listening-personality'
-import { MonthlyTopTrack } from '@/components/monthly-top-track'
-import { StreakCalendar } from '@/components/streak-calendar'
-import { FirstListens } from '@/components/first-listens'
-import { MoodRing } from '@/components/mood-ring'
-import { ListeningBingo } from '@/components/listening-bingo'
-import { YearlyTopAlbum } from '@/components/yearly-top-album'
-import { MarathonSessions } from '@/components/marathon-sessions'
-import { OnThisDay } from '@/components/on-this-day'
-import { TagCloud } from '@/components/tag-cloud'
-import { YouMightLike } from '@/components/you-might-like'
-import { RecentArtistsCarousel } from '@/components/recent-artists-carousel'
 import { DynamicTitle } from '@/components/dynamic-title'
-import { LazyWidget } from '@/components/lazy-widget'
 import { ListeningGapAlert } from '@/components/listening-gap-alert'
-import { DecadeBreakdown } from '@/components/decade-breakdown'
-import { SeasonListening } from '@/components/season-listening'
-import { ComebackArtists } from '@/components/comeback-artists'
-import { DiscoveryPace } from '@/components/discovery-pace'
-import { DiversityScore } from '@/components/diversity-score'
-import { PeakYear } from '@/components/peak-year'
-import { MusicAge } from '@/components/music-age'
-import { ArtistLongevity } from '@/components/artist-longevity'
-import { OneHitWonders } from '@/components/one-hit-wonders'
-import { AlbumOfMonth } from '@/components/album-of-month'
-import { LiveStats } from '@/components/live-stats'
-import { ChartRiseFall } from '@/components/chart-rise-fall'
-import { NightVsDay } from '@/components/night-vs-day'
-import { ListeningFriends } from '@/components/listening-friends'
-import { ActivityFeed } from '@/components/activity-feed'
-import { UnderratedTracks } from '@/components/underrated-tracks'
-import { ScrobbleHeatmap } from '@/components/scrobble-heatmap'
-import { TopCollaborations } from '@/components/top-collaborations'
-import { ListeningReport } from '@/components/listening-report'
-import { ArtistNetwork } from '@/components/artist-network'
+import { PageContainer } from '@/components/page-container'
+import { renderProfileWidget } from '@/components/profile-widget-registry'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { EmptyState } from '@/components/ui/empty-state'
+import { CATEGORY_ORDER, CATEGORY_LABELS, WIDGET_CATEGORIES, type WidgetCategory } from '@/lib/dashboard-widgets'
 import type { WidgetId, WidgetSize } from '@/lib/dashboard-widgets'
 import type { Period } from '@/lib/lastfm'
+
+const CATEGORY_ICONS: Record<WidgetCategory, LucideIcon> = {
+  overview: Gauge,
+  trends: TrendingUp,
+  taste: Compass,
+  sessions: Activity,
+  highlights: Star,
+  social: Users2,
+}
 
 interface ProfileStats {
   uniqueArtists: number
@@ -258,7 +217,7 @@ function UserProfileContent({
     router.replace(`?${params.toString()}`)
   }
 
-  const { order, sizes, isEditing, setEditing, reset } = useDashboard()
+  const { order, hidden, sizes, isEditing, setEditing, reset } = useDashboard()
 
   // Persist visited username so compare page can offer "Paste my username"
   useEffect(() => {
@@ -266,7 +225,20 @@ function UserProfileContent({
   }, [username])
 
   const topArtistsOverall = topArtists['overall'] ?? []
-  const topTracksOverall = topTracks['overall'] ?? []
+
+  // Group the flat, user-customizable `order` into thematic sections. Category
+  // is a fixed lookup per widget id, so drag/hide/resize still behaves exactly
+  // as before — this only changes how the result is rendered.
+  const groupedSections = useMemo(() => {
+    const idsToRender = order.filter((id) => isEditing || !hidden.has(id))
+    return CATEGORY_ORDER
+      .map((category) => ({ category, ids: idsToRender.filter((id) => WIDGET_CATEGORIES[id] === category) }))
+      .filter((group) => group.ids.length > 0)
+  }, [order, hidden, isEditing])
+
+  const [activeCategory, setActiveCategory] = useState<WidgetCategory | null>(null)
+  const effectiveCategory =
+    (activeCategory && groupedSections.some((g) => g.category === activeCategory) ? activeCategory : groupedSections[0]?.category) ?? null
 
   const todayCount = (() => {
     const now = new Date()
@@ -274,379 +246,12 @@ function UserProfileContent({
     return allScrobbles.filter((s) => new Date(s.scrobbledAt) >= startOfToday).length
   })()
 
-  // ─── Widget render map ──────────────────────────────────────────────────────
-  function renderWidget(id: WidgetId, widgetSize: WidgetSize) {
-    switch (id) {
-      case 'stats-chart':
-        return (
-          <SectionErrorBoundary name="Stats Chart">
-            <StatsChart username={username} scrobbles={allScrobbles} />
-          </SectionErrorBoundary>
-        )
-
-      case 'stats-grid':
-        return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <ListeningTimeEstimate totalScrobbles={totalScrobbles} />
-            <NightOwlStats scrobbles={allScrobbles} />
-            <WeeklyPattern scrobbles={allScrobbles} />
-            <ArtistLoyalty topArtists={topArtistsOverall} totalScrobbles={totalScrobbles} username={username} />
-          </div>
-        )
-
-      case 'velocity':
-        return <ScrobbleVelocity scrobbles={allScrobbles} />
-
-      case 'sonic-dna':
-        return (
-          <SectionErrorBoundary name="Sonic DNA">
-            <SonicDna
-              scrobbles={allScrobbles}
-              topArtists={topArtistsOverall}
-              topTracks={topTracksOverall}
-              totalScrobbles={totalScrobbles}
-            />
-          </SectionErrorBoundary>
-        )
-
-      case 'artist-connections':
-        return (
-          <SectionErrorBoundary name="Artist Connections">
-            <LazyWidget>
-              <ArtistConnections scrobbles={allScrobbles} topArtists={topArtistsOverall} />
-            </LazyWidget>
-          </SectionErrorBoundary>
-        )
-
-      case 'time-patterns':
-        return (
-          <CollapsibleSection id="time-patterns" title="Time Patterns">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <HourlyHeatmap scrobbles={allScrobbles} />
-              <DayOfWeekChart scrobbles={allScrobbles} />
-              <ListeningClock scrobbles={allScrobbles} />
-            </div>
-          </CollapsibleSection>
-        )
-
-      case 'sessions-row':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ListeningStreaks scrobbles={allScrobbles} />
-            <ListeningSessions scrobbles={allScrobbles} />
-            <Milestones totalScrobbles={totalScrobbles} />
-          </div>
-        )
-
-      case 'treemap':
-        return (
-          <SectionErrorBoundary name="Listening Universe">
-            <LazyWidget>
-              <ListeningTreemap topArtists={topArtistsOverall} />
-            </LazyWidget>
-          </SectionErrorBoundary>
-        )
-
-      case 'yoy-chart':
-        return (
-          <SectionErrorBoundary name="Year over Year">
-            <YoYChart scrobbles={allScrobbles} />
-          </SectionErrorBoundary>
-        )
-
-      case 'evolution':
-        return (
-          <SectionErrorBoundary name="Music Evolution">
-            <LazyWidget>
-              <MusicEvolution scrobbles={allScrobbles} />
-            </LazyWidget>
-          </SectionErrorBoundary>
-        )
-
-      case 'chapters':
-        return (
-          <LazyWidget>
-            <ListeningChapters
-              scrobbles={allScrobbles}
-              totalScrobbles={totalScrobbles}
-              registeredAt={registeredAt}
-              username={username}
-            />
-          </LazyWidget>
-        )
-
-      case 'forecast':
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ListeningForecast scrobbles={allScrobbles} />
-            <ScrobbleIntegrity scrobbles={allScrobbles} username={username} />
-          </div>
-        )
-
-      case 'scatter':
-        return (
-          <SectionErrorBoundary name="Scatter Plot">
-            <ScatterPlot topArtists={topArtistsOverall} topTracks={topTracksOverall} />
-          </SectionErrorBoundary>
-        )
-
-      case 'top-lists':
-        return (
-          <TopLists
-            username={username}
-            artists={topArtists[period]}
-            albums={topAlbums[period]}
-            tracks={topTracks[period]}
-            period={period}
-            onPeriodChange={setPeriod}
-          />
-        )
-
-      case 'discovery':
-        return (
-          <CollapsibleSection id="discovery" title="Discovery & Recommendations">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <SimilarUnheard username={username} />
-              <HiddenGems username={username} />
-              <NewReleases username={username} />
-              <Rediscovery username={username} />
-            </div>
-          </CollapsibleSection>
-        )
-
-      case 'taste-genre':
-        return (
-          <div className="grid gap-6">
-            <SectionErrorBoundary name="Taste Compatibility">
-              <TasteCompatibility username={username} />
-            </SectionErrorBoundary>
-            <GenreBreakdownDetail username={username} />
-            <NewDiscoveries username={username} />
-            <GenreBreakdown username={username} />
-          </div>
-        )
-
-      case 'extra-stats':
-        return (
-          <div className="grid gap-6">
-            <RepeatPlays username={username} />
-            <ListeningGap scrobbles={allScrobbles} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <MusicTimeline username={username} />
-              <TasteBadge username={username} topArtists={topArtistsOverall} />
-            </div>
-            <AlbumCompletion username={username} />
-          </div>
-        )
-
-      case 'recent':
-        return (
-          <div className="grid gap-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <RecentTracks tracks={recentTracks} isOwner={isOwner} username={username} />
-              <LovedTracks tracks={lovedTracks} username={username} />
-            </div>
-            <LovedTracksTimeline lovedTracks={lovedTracks} username={username} />
-          </div>
-        )
-
-      case 'listening-personality':
-        return (
-          <ListeningPersonality
-            topArtists={topArtistsOverall}
-            totalScrobbles={totalScrobbles}
-            scrobbles={allScrobbles}
-          />
-        )
-
-      case 'monthly-top-track':
-        return <MonthlyTopTrack scrobbles={allScrobbles} username={username} />
-
-      case 'streak-calendar':
-        return <StreakCalendar scrobbles={allScrobbles} username={username} />
-
-      case 'first-listens':
-        return (
-          <FirstListens
-            scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
-            username={username}
-          />
-        )
-
-      case 'mood-ring':
-        return <MoodRing scrobbles={allScrobbles} />
-
-      case 'listening-bingo':
-        return (
-          <ListeningBingo
-            scrobbles={allScrobbles}
-            totalScrobbles={totalScrobbles}
-          />
-        )
-
-      case 'yearly-top-album':
-        return (
-          <YearlyTopAlbum
-            scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
-            username={username}
-          />
-        )
-
-      case 'marathon-sessions':
-        return <MarathonSessions scrobbles={allScrobbles} username={username} />
-
-      case 'on-this-day':
-        return <OnThisDay scrobbles={allScrobbles} username={username} />
-
-      case 'tag-cloud':
-        return <TagCloud username={username} />
-
-      case 'you-might-like':
-        return <YouMightLike username={username} />
-
-      case 'recent-carousel':
-        return <RecentArtistsCarousel scrobbles={allScrobbles} username={username} />
-
-      case 'now-playing-banner':
-        return <NowPlayingBanner />
-
-      case 'decade-breakdown':
-        return (
-          <SectionErrorBoundary name="Genre Breakdown by Era">
-            <DecadeBreakdown username={username} topArtists={topArtistsOverall} />
-          </SectionErrorBoundary>
-        )
-
-      case 'season-listening':
-        return <SeasonListening scrobbles={allScrobbles} layoutSize={widgetSize} />
-
-      case 'comeback-artists':
-        return (
-          <LazyWidget>
-            <ComebackArtists scrobbles={allScrobbles} username={username} />
-          </LazyWidget>
-        )
-
-      case 'discovery-pace':
-        return (
-          <LazyWidget>
-            <DiscoveryPace scrobbles={allScrobbles} />
-          </LazyWidget>
-        )
-
-      case 'diversity-score':
-        return (
-          <DiversityScore
-            topArtists={topArtistsOverall}
-            totalScrobbles={totalScrobbles}
-            username={username}
-          />
-        )
-
-      case 'peak-year':
-        return <PeakYear scrobbles={allScrobbles} />
-
-      case 'music-age':
-        return (
-          <SectionErrorBoundary name="Music Age">
-            <MusicAge username={username} topArtists={topArtistsOverall} />
-          </SectionErrorBoundary>
-        )
-
-      case 'artist-longevity':
-        return <ArtistLongevity scrobbles={allScrobbles} username={username} />
-
-      case 'one-hit-wonders':
-        return <OneHitWonders scrobbles={allScrobbles} username={username} />
-
-      case 'album-of-month':
-        return (
-          <AlbumOfMonth
-            scrobbles={allScrobbles.map((s) => ({ ...s, album: null }))}
-            username={username}
-          />
-        )
-
-      case 'live-stats':
-        return <LiveStats scrobbles={allScrobbles} username={username} />
-
-      case 'chart-rise-fall':
-        return (
-          <SectionErrorBoundary name="Chart Rise & Fall">
-            <ChartRiseFall topArtists={topArtists} username={username} />
-          </SectionErrorBoundary>
-        )
-
-      case 'night-vs-day':
-        return <NightVsDay scrobbles={allScrobbles} />
-
-      case 'listening-friends':
-        return (
-          <ListeningFriends
-            username={username}
-            topArtists={topArtistsOverall}
-          />
-        )
-
-      case 'activity-feed':
-        return (
-          <LazyWidget>
-            <ActivityFeed
-              scrobbles={allScrobbles}
-              totalScrobbles={totalScrobbles}
-              registeredAt={registeredAt}
-              username={username}
-            />
-          </LazyWidget>
-        )
-
-      case 'underrated-tracks':
-        return (
-          <SectionErrorBoundary name="Underrated Tracks">
-            <UnderratedTracks username={username} topArtists={topArtistsOverall} />
-          </SectionErrorBoundary>
-        )
-
-      case 'scrobble-heatmap':
-        return (
-          <LazyWidget>
-            <ScrobbleHeatmap scrobbles={allScrobbles} />
-          </LazyWidget>
-        )
-
-      case 'top-collaborations':
-        return (
-          <LazyWidget>
-            <TopCollaborations scrobbles={allScrobbles} username={username} />
-          </LazyWidget>
-        )
-
-      case 'listening-report':
-        return (
-          <LazyWidget>
-            <ListeningReport scrobbles={allScrobbles} username={username} />
-          </LazyWidget>
-        )
-
-      case 'artist-network':
-        return (
-          <SectionErrorBoundary name="Artist Network">
-            <LazyWidget>
-              <ArtistNetwork scrobbles={allScrobbles} topArtists={topArtistsOverall} username={username} />
-            </LazyWidget>
-          </SectionErrorBoundary>
-        )
-
-      default:
-        return null
-    }
-  }
-
   return (
-    <div className="container mx-auto px-4 pb-8 pt-2 max-w-[var(--content-max-width)]">
+    <PageContainer className="pb-8 pt-2">
       {/* Invisible/overlay components */}
       <DynamicTitle username={username} todayCount={todayCount} />
       <MilestoneToast totalScrobbles={totalScrobbles} />
+      <ScrobbleToast username={username} />
       <KeyboardShortcuts isOwner={isOwner} />
       <KeyboardShortcutsModal />
 
@@ -707,28 +312,89 @@ function UserProfileContent({
       {/* Listening gap alert */}
       <ListeningGapAlert scrobbles={allScrobbles} username={username} />
 
-      {/* Main content + sidebar layout */}
-      <div className="flex gap-6 mt-6 items-start">
-        {/* Dashboard widgets in user-configured order */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-w-0 auto-rows-min grid-flow-row-dense">
-          {order.map((id) => (
-            <DashboardWidget key={id} id={id}>
-              {renderWidget(id, sizes[id] ?? 2)}
-            </DashboardWidget>
-          ))}
+      {/* Main content + sidebar layout. Stacked (sidebar below widgets) up to
+          the lg breakpoint so the profile stats card is never hidden on
+          tablets — only becomes a fixed-width sticky side column at lg+. */}
+      <div className="flex flex-col gap-6 mt-6 items-start lg:flex-row">
+        {/* Dashboard widgets, split into one tab per theme, in user-configured order within each */}
+        <div className="w-full lg:flex-1 lg:min-w-0">
+          {groupedSections.length === 0 ? (
+            <EmptyState
+              icon={LayoutDashboard}
+              title="All widgets are hidden"
+              description="Use Edit Layout to bring some back."
+            />
+          ) : (
+            <Tabs value={effectiveCategory ?? undefined} onValueChange={(v) => setActiveCategory(v as WidgetCategory)}>
+              <TabsList className="mb-5 flex-wrap gap-1 rounded-2xl border border-foreground/10 bg-background/40 p-1 backdrop-blur-md">
+                {groupedSections.map(({ category, ids }) => {
+                  const Icon = CATEGORY_ICONS[category]
+                  const isActive = category === effectiveCategory
+                  return (
+                    <TabsTrigger
+                      key={category}
+                      value={category}
+                      className={cn(
+                        "gap-1.5 rounded-md border border-transparent px-3 py-1.5 whitespace-nowrap transition-all duration-150",
+                        isActive
+                          ? "shadow-sm"
+                          : "text-foreground/60 hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground",
+                      )}
+                      style={
+                        isActive
+                          ? {
+                              background: 'color-mix(in oklch, var(--profile-accent, var(--primary)) 16%, var(--background))',
+                              color: 'var(--profile-accent, var(--foreground))',
+                              borderColor: 'color-mix(in oklch, var(--profile-accent, var(--primary)) 35%, transparent)',
+                            }
+                          : undefined
+                      }
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                      {CATEGORY_LABELS[category]}
+                      <span className={isActive ? "opacity-70" : "text-muted-foreground"}>{ids.length}</span>
+                    </TabsTrigger>
+                  )
+                })}
+              </TabsList>
+              {groupedSections.map(({ category, ids }) => (
+                <TabsContent key={category} value={category}>
+                  <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 auto-rows-min grid-flow-row-dense">
+                    {ids.map((id) => (
+                      <DashboardWidget key={id} id={id}>
+                        {renderProfileWidget(id, sizes[id] ?? 2, {
+                          username,
+                          totalScrobbles,
+                          registeredAt,
+                          isOwner,
+                          recentTracks,
+                          topArtists,
+                          topAlbums,
+                          topTracks,
+                          lovedTracks,
+                          allScrobbles,
+                          period,
+                          onPeriodChange: setPeriod,
+                        })}
+                      </DashboardWidget>
+                    ))}
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          )}
         </div>
 
         {/* Profile stats sidebar */}
-        <aside className="w-64 shrink-0 hidden lg:block sticky top-4">
+        <aside className="w-full lg:w-64 lg:shrink-0 lg:sticky lg:top-4">
           <ProfileStatsSidebar
             registeredAt={registeredAt}
-            totalScrobbles={totalScrobbles}
             profileStats={profileStats}
             allScrobbles={allScrobbles}
           />
         </aside>
       </div>
-    </div>
+    </PageContainer>
   )
 }
 
@@ -736,15 +402,13 @@ function UserProfileContent({
 
 export function UserProfile(props: UserProfileProps) {
   return (
-    <NowPlayingProvider username={props.username}>
-      <DashboardProvider
-        isOwner={props.isOwner}
-        initialOrder={props.initialDashboardOrder}
-        initialHidden={props.initialDashboardHidden}
-        initialSizes={props.initialDashboardSizes}
-      >
-        <UserProfileContent {...props} />
-      </DashboardProvider>
-    </NowPlayingProvider>
+    <DashboardProvider
+      isOwner={props.isOwner}
+      initialOrder={props.initialDashboardOrder}
+      initialHidden={props.initialDashboardHidden}
+      initialSizes={props.initialDashboardSizes}
+    >
+      <UserProfileContent {...props} />
+    </DashboardProvider>
   )
 }

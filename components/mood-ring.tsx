@@ -117,7 +117,7 @@ export function MoodRing({ scrobbles }: MoodRingProps) {
               <span className="text-2xl font-bold tabular-nums">{pct}%</span>
             </div>
             <div className="text-xs text-muted-foreground">
-              {mood.count.toLocaleString()} scrobble{mood.count !== 1 ? 's' : ''}
+              {mood.count.toLocaleString('en-US')} scrobble{mood.count !== 1 ? 's' : ''}
             </div>
             <div className="h-1.5 rounded-full bg-muted overflow-hidden">
               <div

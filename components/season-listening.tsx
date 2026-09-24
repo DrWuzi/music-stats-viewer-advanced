@@ -89,8 +89,8 @@ export function SeasonListening({ scrobbles, layoutSize = 2 }: Props) {
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value: number, _name, entry) => [
-                      `${value.toLocaleString()} scrobbles`,
+                    formatter={(value, _name, entry) => [
+                      `${Number(value).toLocaleString('en-US')} scrobbles`,
                       `${entry?.payload?.icon ?? ''} ${entry?.payload?.label ?? ''}`.trim(),
                     ]}
                     contentStyle={{
@@ -109,7 +109,7 @@ export function SeasonListening({ scrobbles, layoutSize = 2 }: Props) {
 
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
               <div className="text-3xl font-semibold tabular-nums text-foreground">
-                {total.toLocaleString()}
+                {total.toLocaleString('en-US')}
               </div>
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 seasonal scrobbles
@@ -142,7 +142,7 @@ export function SeasonListening({ scrobbles, layoutSize = 2 }: Props) {
                       </span>
                     </div>
                     <div className="mt-1 flex items-center justify-between gap-2 text-xs text-muted-foreground">
-                      <span>{season.count.toLocaleString()} scrobbles</span>
+                      <span>{season.count.toLocaleString('en-US')} scrobbles</span>
                       {isPeak && (
                         <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
                           Peak season

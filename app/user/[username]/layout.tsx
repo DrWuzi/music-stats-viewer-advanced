@@ -5,6 +5,8 @@ import { prisma } from '@/lib/prisma'
 import { lastfmClient } from '@/lib/lastfm'
 import { ProfileNavTabs } from '@/components/profile-nav-tabs'
 import { ProfileBannerLive } from '@/components/profile-banner-live'
+import { NowPlayingProvider } from '@/components/now-playing-context'
+import { PageContainer } from '@/components/page-container'
 
 type Props = { children: ReactNode; params: Promise<{ username: string }> }
 
@@ -28,6 +30,17 @@ export default async function UserLayout({ children, params }: Props) {
     }),
     lastfmClient.getUserInfo(username).catch(() => null),
   ])
+
+  // Top overall artist — used by ProfileBannerLive as a fallback hero backdrop
+  // image (client-side prefers "currently playing", if any) when the user
+  // hasn't picked a decorative background pattern.
+  const topArtist = user
+    ? await prisma.topArtist.findFirst({
+        where: { userId: user.id, period: 'overall' },
+        orderBy: { rank: 'asc' },
+        select: { name: true },
+      })
+    : null
 
   // If user doesn't exist in DB yet, the page.tsx handles first-time sync/creation.
   // Only 404 if the username doesn't exist on Last.fm at all.
@@ -57,8 +70,14 @@ export default async function UserLayout({ children, params }: Props) {
     // this element carries no padding/margin/border of its own), so we drop
     // `contents` and keep only the class needed for --profile-accent scoping.
     <div className="profile-theme-scope">
-      {/* Persistent profile banner — survives tab navigation */}
-      <div className="container mx-auto px-4 max-w-[var(--content-max-width)]">
+      {/* Single shared now-playing/recent-activity poll for this profile view —
+          covers both the persistent banner below and {children} (the page
+          content), instead of each maintaining its own independent poll. */}
+      <NowPlayingProvider username={username}>
+        {/* Persistent profile hero — a contained rounded glass card (like the
+            nav bar and every other surface), not full-bleed; survives tab
+            navigation. Its own internal scrim darkens toward the bottom so
+            the text/actions row stays legible over the backdrop art. */}
         <ProfileBannerLive
           username={username}
           imageUrl={imageUrl}
@@ -72,14 +91,15 @@ export default async function UserLayout({ children, params }: Props) {
           initialAvatarDecoration={user?.avatarDecoration ?? null}
           initialBackground={user?.profileBackground ?? null}
           initialLoadingAnimation={user?.loadingAnimation ?? null}
+          topArtistName={topArtist?.name ?? null}
         />
 
-        <div className="mt-3">
+        <PageContainer className="mt-2">
           <ProfileNavTabs username={username} />
-        </div>
-      </div>
+        </PageContainer>
 
-      {children}
+        {children}
+      </NowPlayingProvider>
     </div>
   )
 }
