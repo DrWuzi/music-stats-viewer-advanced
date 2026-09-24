@@ -21,6 +21,7 @@ model User {
   avatarDecoration  String?
   profileBackground String?
   loadingAnimation  String?
+  heroEffect        String?
 
   scrobbles   Scrobble[]
   topArtists  TopArtist[]

@@ -39,6 +39,14 @@ import {
   isValidLoadingAnimation,
   type LoadingAnimationKey,
 } from '@/components/profile-loading-animations'
+import {
+  ProfileHeroEffectLayer,
+  ProfileHeroEffectPreview,
+  PROFILE_HERO_EFFECT_KEYS,
+  PROFILE_HERO_EFFECT_LABELS,
+  isValidProfileHeroEffect,
+  type ProfileHeroEffectKey,
+} from '@/components/profile-hero-effects'
 
 const MAX_TAGLINE_LENGTH = 60
 const TAGLINE_DEBOUNCE_MS = 500
@@ -56,6 +64,7 @@ interface ProfileBannerLiveProps {
   initialAvatarDecoration: string | null
   initialBackground: string | null
   initialLoadingAnimation: string | null
+  initialHeroEffect: string | null
   /** Top overall artist (server-fetched) — fallback hero backdrop image when nothing is currently playing. */
   topArtistName: string | null
 }
@@ -85,6 +94,7 @@ export function ProfileBannerLive({
   initialAvatarDecoration,
   initialBackground,
   initialLoadingAnimation,
+  initialHeroEffect,
   topArtistName,
 }: ProfileBannerLiveProps) {
   const { data: nowPlaying } = useNowPlaying()
@@ -126,6 +136,9 @@ export function ProfileBannerLive({
   const [loadingAnimation, setLoadingAnimation] = useState<LoadingAnimationKey>(
     isValidLoadingAnimation(initialLoadingAnimation) ? initialLoadingAnimation : 'none',
   )
+  const [heroEffect, setHeroEffect] = useState<ProfileHeroEffectKey>(
+    isValidProfileHeroEffect(initialHeroEffect) ? initialHeroEffect : 'none',
+  )
   const [editing, setEditing] = useState(false)
   const [savedMsg, setSavedMsg] = useState<string | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -157,6 +170,7 @@ export function ProfileBannerLive({
     avatarDecoration?: string
     profileBackground?: string
     loadingAnimation?: string
+    heroEffect?: string
   }) {
     try {
       const res = await fetch('/api/profile-customization', {
@@ -191,6 +205,11 @@ export function ProfileBannerLive({
     persist({ loadingAnimation: key })
   }
 
+  function handleHeroEffectSelect(key: ProfileHeroEffectKey) {
+    setHeroEffect(key)
+    persist({ heroEffect: key })
+  }
+
   function handleTaglineChange(value: string) {
     const clamped = value.slice(0, MAX_TAGLINE_LENGTH)
     setTagline(clamped)
@@ -205,12 +224,14 @@ export function ProfileBannerLive({
     setDecoration('none')
     setBackground('none')
     setLoadingAnimation('none')
+    setHeroEffect('none')
     persist({
       profileTheme: 'default',
       profileTagline: '',
       avatarDecoration: 'none',
       profileBackground: 'none',
       loadingAnimation: 'none',
+      heroEffect: 'none',
     })
   }
 
@@ -291,6 +312,9 @@ export function ProfileBannerLive({
             background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
           }}
         />
+
+        {/* User-selectable animated overlay (like Discord's profile effects) — above the art/scrim, below the text. */}
+        <ProfileHeroEffectLayer effect={heroEffect} />
 
         <div className="relative flex items-end gap-4 flex-wrap sm:flex-nowrap p-5 sm:p-7">
         <div className="relative shrink-0 h-20 w-20">
@@ -495,6 +519,31 @@ export function ProfileBannerLive({
                             }}
                           >
                             <ProfileLoadingAnimationPreview preset={key} />
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <p className="text-xs font-medium">Profile animation</p>
+                    <div className="grid grid-cols-3 gap-2">
+                      {PROFILE_HERO_EFFECT_KEYS.map((key) => {
+                        const isSelected = heroEffect === key
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => handleHeroEffectSelect(key)}
+                            aria-pressed={isSelected}
+                            title={PROFILE_HERO_EFFECT_LABELS[key]}
+                            className="rounded-lg p-1 flex items-center justify-center transition-colors"
+                            style={{
+                              background: isSelected ? 'color-mix(in oklch, var(--profile-accent, var(--primary)) 15%, transparent)' : 'transparent',
+                              border: isSelected ? '1px solid var(--profile-accent, var(--primary))' : '1px solid transparent',
+                            }}
+                          >
+                            <ProfileHeroEffectPreview effect={key} />
                           </button>
                         )
                       })}

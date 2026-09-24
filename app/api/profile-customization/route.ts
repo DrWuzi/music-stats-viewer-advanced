@@ -5,6 +5,7 @@ import { isValidProfileTheme } from '@/lib/profile-themes'
 import { isValidAvatarDecoration } from '@/components/avatar-decorations'
 import { isValidProfileBackground } from '@/components/profile-backgrounds'
 import { isValidLoadingAnimation } from '@/components/profile-loading-animations'
+import { isValidProfileHeroEffect } from '@/components/profile-hero-effects'
 
 const MAX_TAGLINE_LENGTH = 60
 
@@ -24,12 +25,13 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null)
   if (!body) return NextResponse.json({ error: 'Bad request' }, { status: 400 })
 
-  const { profileTheme, profileTagline, avatarDecoration, profileBackground, loadingAnimation } = body as {
+  const { profileTheme, profileTagline, avatarDecoration, profileBackground, loadingAnimation, heroEffect } = body as {
     profileTheme?: string
     profileTagline?: string
     avatarDecoration?: string
     profileBackground?: string
     loadingAnimation?: string
+    heroEffect?: string
   }
 
   const validTheme = isValidProfileTheme(profileTheme) ? profileTheme : undefined
@@ -43,6 +45,8 @@ export async function POST(req: Request) {
 
   const validLoadingAnimation = isValidLoadingAnimation(loadingAnimation) ? loadingAnimation : undefined
 
+  const validHeroEffect = isValidProfileHeroEffect(heroEffect) ? heroEffect : undefined
+
   await prisma.user.update({
     where: { lastfmUsername: session.lastfmUsername },
     data: {
@@ -51,6 +55,7 @@ export async function POST(req: Request) {
       ...(validDecoration !== undefined ? { avatarDecoration: validDecoration } : {}),
       ...(validBackground !== undefined ? { profileBackground: validBackground } : {}),
       ...(validLoadingAnimation !== undefined ? { loadingAnimation: validLoadingAnimation } : {}),
+      ...(validHeroEffect !== undefined ? { heroEffect: validHeroEffect } : {}),
     },
   })
 
@@ -61,5 +66,6 @@ export async function POST(req: Request) {
     avatarDecoration: validDecoration,
     profileBackground: validBackground,
     loadingAnimation: validLoadingAnimation,
+    heroEffect: validHeroEffect,
   })
 }

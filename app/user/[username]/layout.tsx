@@ -26,6 +26,7 @@ export default async function UserLayout({ children, params }: Props) {
         avatarDecoration: true,
         profileBackground: true,
         loadingAnimation: true,
+        heroEffect: true,
       },
     }),
     lastfmClient.getUserInfo(username).catch(() => null),
@@ -91,6 +92,7 @@ export default async function UserLayout({ children, params }: Props) {
           initialAvatarDecoration={user?.avatarDecoration ?? null}
           initialBackground={user?.profileBackground ?? null}
           initialLoadingAnimation={user?.loadingAnimation ?? null}
+          initialHeroEffect={user?.heroEffect ?? null}
           topArtistName={topArtist?.name ?? null}
         />
 
